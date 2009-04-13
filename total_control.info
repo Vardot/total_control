@@ -1,0 +1,7 @@
+; $Id
+name = Total Control
+description = Total Control Administration Dashboard
+dependencies[] = panels
+dependencies[] = views
+package = SYPartners
+core = 6.x
