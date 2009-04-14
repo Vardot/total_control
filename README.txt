@@ -23,6 +23,9 @@ Views 2.
 
 * Install as usual, see http://drupal.org/node/70151 for further information.
 
+* TODO better documentation here: version 1.1beta requires that you import a panel page. 
+  Copy / paste the contents of total_control_panes at admin/build/pages
+
 
 -- CONFIGURATION --
 
