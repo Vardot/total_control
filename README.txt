@@ -2,9 +2,12 @@
 
 -- SUMMARY --
 
-The Total Control Administration Dashboard provides a default panel page with 
-useful administration view panes out of the box.  Each View pane
-is customizable via pane config.  
+The Total Control Admin Dashboard creates a default panel page with useful 
+administration panes right out of the box. Several overview panes are included 
+for site stats and quick reference. Administration view panes are provided with 
+'more' links to more comprehensive versions of the views. Each View pane is 
+customizable via pane config, or override the defaults provided to suit your 
+own needs.  
 
 For a full description of the module, visit the project page:
   http://drupal.org/project/total_control
@@ -23,8 +26,8 @@ Views 2.
 
 * Install as usual, see http://drupal.org/node/70151 for further information.
 
-* TODO better documentation here: version 1.1beta requires that you import a panel page. 
-  Copy / paste the contents of total_control_panes at admin/build/pages
+* TODO better documentation here: version 1.1-beta requires that you import a panel page. 
+  Copy / paste the contents of total_control_page.inc to import screen at admin/build/pages
 
 
 -- CONFIGURATION --
@@ -35,7 +38,7 @@ Views 2.
   - have total control
 
     Users in roles with the "have total control" permission will see
-    the administration dashboard and all associated view pages.
+    the administration dashboard and all included view pages.
     
 
 -- CUSTOMIZATION --

@@ -1,6 +1,10 @@
 <?php
 
+// default views for administration
 include_once('total_control_views.inc');
+
+// implement panel API
+include_once('total_control_panels.inc');
 
 /* 
  * Implementation of hook_perm
