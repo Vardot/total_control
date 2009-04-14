@@ -1,4 +1,7 @@
 <?php
+
+include_once('total_control_views.inc');
+
 /* 
  * Implementation of hook_perm
  * adds permissions for access to the total control dashboard
@@ -6,6 +9,33 @@
 function total_control_perm() {
  return array('have total control');
 }
+
+/* 
+ * Implementation of hook_requirements
+ * adds versions to module requirements
+ */
+function total_control_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break at install time
+  $t = get_t();
+
+  // Require Views 2 and Panels 3
+  if ($phase == 'install') {
+    $requirements['views'] = array(
+      'title' => $t('Views'),
+      'value' => 2,
+      'severity' => REQUIREMENT_INFO
+    );
+    $requirements['panels'] = array(
+      'title' => $t('Panels'),
+      'value' => 3,
+      'severity' => REQUIREMENT_INFO
+    );
+  }
+
+  return $requirements;
+}
+
 
 /* 
  * Implementation of hook_menu
