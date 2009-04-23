@@ -3,5 +3,5 @@ name = Total Control
 description = Total Control Administration Dashboard
 dependencies[] = panels
 dependencies[] = views
-package = SYPartners
+package = Administration
 core = 6.x
