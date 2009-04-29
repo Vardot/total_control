@@ -45,7 +45,7 @@ Views 2.
 
 * To override the default views on the dashboard, you have two options:
   
-  - edit the settings on page config:
+  - edit the settings on the panel pane:
   
     TODO: instructions
   

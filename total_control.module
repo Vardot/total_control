@@ -6,6 +6,9 @@ include_once('total_control_views.inc');
 // implement panel API
 include_once('total_control_panels.inc');
 
+// This is the name of the dashboard as the delegate module sees it via the page task.
+define('TOTAL_CONTROL_DASHBOARD_PANEL_NAME', 'dashboard');
+
 /* 
  * Implementation of hook_perm
  * adds permissions for access to the total control dashboard
@@ -13,33 +16,6 @@ include_once('total_control_panels.inc');
 function total_control_perm() {
  return array('have total control');
 }
-
-/* 
- * Implementation of hook_requirements
- * adds versions to module requirements
- */
-function total_control_requirements($phase) {
-  $requirements = array();
-  // Ensure translations don't break at install time
-  $t = get_t();
-
-  // Require Views 2 and Panels 3
-  if ($phase == 'install') {
-    $requirements['views'] = array(
-      'title' => $t('Views'),
-      'value' => 2,
-      'severity' => REQUIREMENT_INFO
-    );
-    $requirements['panels'] = array(
-      'title' => $t('Panels'),
-      'value' => 3,
-      'severity' => REQUIREMENT_INFO
-    );
-  }
-
-  return $requirements;
-}
-
 
 /* 
  * Implementation of hook_menu
@@ -58,6 +34,13 @@ function total_control_menu() {
   );
   
   */
+  
+  $items['admin/dashboard/install'] = array(
+    'title' => 'Total Control Dashboard Install',
+    'page callback' => 'total_control_dashboard_install',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
@@ -71,3 +54,81 @@ function total_control_dashboard(){
   return $output;
 }
  */
+ 
+/**
+ * Implementation of hook_init().
+ */
+function total_control_init() {
+  // We do this here since it should be after all required modules are enabled.
+  _total_control_attempt_install_dashboard(TRUE);
+}
+
+function total_control_dashboard_install() {
+  // Install the dashboard
+  _total_control_install_dashboard();
+  
+  // Set message saying what we did
+  drupal_set_message(t('The Total Control Dashboard was installed.'));
+  
+  // Redirect to status report
+  drupal_goto('admin/reports/status');
+}
+
+function _total_control_attempt_install_dashboard($silent = FALSE) {
+  // See if required modules are available so we can install the dashboard right away
+  if (function_exists('delegator_get_tasks')) {
+    _total_control_install_dashboard();
+  }
+  // Else, we need to give the user a message with a link to install the dashboard
+  else {
+    if (!$silent) {
+      drupal_set_message(
+        t(
+          'The Total Control module has been enabled, but was unable to verify if the dashboard was installed correctly. Please check the !status_report.',
+          array(
+            '!status_report' => l(t('Status Report'), 'admin/reports/status'),
+          ),
+          'error'
+        )
+      );
+    }
+  }
+}
+
+/**
+ * This is based on the delegator page import form:
+ * delegator/plugins/tasks/page.admin.inc: delegator_page_import_subtask()
+ */
+function _total_control_install_dashboard() {
+  // Make sure we haven't already imported the total control dashboard panel
+  delegator_get_tasks();
+  $cache = delegator_page_get_page_cache(TOTAL_CONTROL_DASHBOARD_PANEL_NAME);
+  if (isset($cache) && isset($cache->pid)) {
+    return FALSE;
+  }
+
+  // Load up the page
+  include(drupal_get_path('module', 'total_control') .'/total_control_page.inc');
+
+  // Make sure the page object is readable
+  if (!isset($page) || !is_object($page)) {
+    return FALSE;
+  }
+
+  // Set some needed flags (Are these needed if we skip the intermediate edit step import uses?)
+  ctools_include('export');
+  $page->export_type = EXPORT_IN_DATABASE;
+  $page->type = t('Normal');
+  $page->import = TRUE;
+
+  // Save the page
+  delegator_page_save($page);
+  
+  // Clear the cache
+  delegator_page_clear_page_cache(TOTAL_CONTROL_DASHBOARD_PANEL_NAME);
+
+  // Force a menu rebuild to recognize our new subtask
+  menu_rebuild();
+  
+  return TRUE;
+}
