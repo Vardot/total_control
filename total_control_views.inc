@@ -604,7 +604,7 @@ function total_control_views_default_views(){
   $handler->override_option('pane_title', 'New Content');
   $handler->override_option('pane_description', '');
   $handler->override_option('pane_category', array(
-    'name' => 'Dashboard panes',
+    'name' => 'Admin Dashboard',
     'weight' => '0',
   ));
   $handler->override_option('allow', array(
@@ -1094,7 +1094,7 @@ function total_control_views_default_views(){
   $handler->override_option('pane_title', 'New Users');
   $handler->override_option('pane_description', '');
   $handler->override_option('pane_category', array(
-    'name' => 'Dashboard panes',
+    'name' => 'Admin Dashboard',
     'weight' => '0',
   ));
   $handler->override_option('allow', array(
@@ -1439,7 +1439,7 @@ function total_control_views_default_views(){
   $handler->override_option('pane_title', 'Recent Comments');
   $handler->override_option('pane_description', '');
   $handler->override_option('pane_category', array(
-    'name' => 'Dashboard panes',
+    'name' => 'Admin Dashboard',
     'weight' => '0',
   ));
   $handler->override_option('allow', array(
@@ -1790,7 +1790,7 @@ function total_control_views_default_views(){
   $handler->override_option('pane_title', 'Tags');
   $handler->override_option('pane_description', '');
   $handler->override_option('pane_category', array(
-    'name' => 'Dashboard panes',
+    'name' => 'Admin Dashboard',
     'weight' => '0',
   ));
   $handler->override_option('allow', array(
@@ -2132,7 +2132,7 @@ function total_control_views_default_views(){
   $handler->override_option('pane_title', 'Recent Activity');
   $handler->override_option('pane_description', '');
   $handler->override_option('pane_category', array(
-    'name' => 'Dashboard panes',
+    'name' => 'Admin Dashboard',
     'weight' => '0',
   ));
   $handler->override_option('allow', array(
@@ -2584,7 +2584,7 @@ function total_control_views_default_views(){
   $handler->override_option('pane_title', 'New Files');
   $handler->override_option('pane_description', '');
   $handler->override_option('pane_category', array(
-    'name' => 'Dashboard panes',
+    'name' => 'Admin Dashboard',
     'weight' => '0',
   ));
   $handler->override_option('allow', array(
