@@ -14,20 +14,29 @@ function total_control_panels_content_types_data($machine = NULL){
  // Admin Blocks
  $items['admin_overview'] = array(
    'title' => 'Site Overview',
-   'category' => 'Dashboard panes',
+   'category' => 'Admin Dashboard',
+   'config' => TRUE,
+ );
+ $items['admin_users'] = array(
+   'title' => 'User Overview',
+   'category' => 'Admin Dashboard',
+   'config' => TRUE,
+ );
+ $items['admin_content'] = array(
+   'title' => 'Content Overview',
+   'category' => 'Admin Dashboard',
    'config' => TRUE,
  );
  $items['admin_create'] = array(
    'title' => 'Create New Content',
-   'category' => 'Dashboard panes',
+   'category' => 'Admin Dashboard',
    'config' => TRUE,
  );
  $items['admin_tags'] = array(
    'title' => 'Categories and Tags',
-   'category' => 'Dashboard panes',
+   'category' => 'Admin Dashboard',
    'config' => TRUE,
  );
- 
  
  return ($machine) ? $items[$machine] : $items; 
 }
@@ -37,6 +46,14 @@ function total_control_panels_content_types_data($machine = NULL){
  */
 function total_control_panels_title_admin_overview() {
   $item = total_control_panels_content_types_data('admin_overview');
+  return $item['title'];
+}
+function total_control_panels_title_admin_users() {
+  $item = total_control_panels_content_types_data('admin_users');
+  return $item['title'];
+}
+function total_control_panels_title_admin_content() {
+  $item = total_control_panels_content_types_data('admin_content');
   return $item['title'];
 }
 function total_control_panels_title_admin_create() {
@@ -53,6 +70,14 @@ function total_control_panels_title_admin_tags() {
  */
 function total_control_panels_ct_admin_overview() {
   $item = total_control_panels_content_types_data('admin_overview');
+  return total_control_panels_content_types_create($item['title'], $item['category']);
+}
+function total_control_panels_ct_admin_users() {
+  $item = total_control_panels_content_types_data('admin_users');
+  return total_control_panels_content_types_create($item['title'], $item['category']);
+}
+function total_control_panels_ct_admin_content() {
+  $item = total_control_panels_content_types_data('admin_content');
   return total_control_panels_content_types_create($item['title'], $item['category']);
 }
 function total_control_panels_ct_admin_create() {
