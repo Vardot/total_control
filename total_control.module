@@ -14,7 +14,7 @@ define('TOTAL_CONTROL_DASHBOARD_PANEL_NAME', 'dashboard');
  * adds permissions for access to the total control dashboard
  */
 function total_control_perm() {
- return array('have total control');
+ return array('have total control', 'administer total control');
 }
 
 /* 
@@ -24,36 +24,29 @@ function total_control_perm() {
 function total_control_menu() {
   $items = array();
   
-  /* TODO: this will eventually be a default panels page
-
-  $items['admin/dashboard'] = array(
-    'title' => 'Total Control Admin Dashboard',
-    'page callback' => 'total_control_dashboard',
-    'access arguments' => array('have total control'),
-    'type' => MENU_CALLBACK,
-  );
-  
-  */
-  
   $items['admin/dashboard/install'] = array(
     'title' => 'Total Control Dashboard Install',
     'page callback' => 'total_control_dashboard_install',
     'access arguments' => array('administer site configuration'),
     'type' => MENU_CALLBACK,
   );
+  $items['admin/settings/total_control'] = array(
+    'title' => 'Total Control',
+    'description' => 'Adjust administration menu settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('total_control_admin_settings'),
+    'access arguments' => array('administer total control'),
+  );
+  /*
+  $items['admin/dashboard'] = array(
+    'title' => 'Dashboard',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  */
 
   return $items;
 }
-
-/* 
- * Menu Callback
- * TODO panels page for total control dashboard
- 
-function total_control_dashboard(){
-  $output = 'hello?';
-  return $output;
-}
- */
  
 /**
  * Implementation of hook_init().
@@ -131,4 +124,14 @@ function _total_control_install_dashboard() {
   menu_rebuild();
   
   return TRUE;
+}
+
+function total_control_admin_settings(){
+  $form['total_control_configure_links'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show configure links on "Create Content" panel'),
+    '#default_value' => variable_get('total_control_configure_links', 1),
+    '#description' => t('Configure links go to the edit content type pages'),
+    );
+    return system_settings_form($form);
 }

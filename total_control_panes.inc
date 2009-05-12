@@ -141,7 +141,7 @@ function total_control_panels_render_admin_create($something, $conf) {
   foreach ($types as $type => $object){
     if ($conf['types'][$type]){  // compare against type option on pane config
       $row = l(t('Add New '.$object->name),'node/add/'.$object->type);
-      if (user_access('administer content types')){
+      if ((variable_get('total_control_configure_links', 1) == 1) && user_access('administer content types')){
         $row .= ' | ' . l(t('Configure'),'admin/content/node-type/'.$object->type);
       }
       $create[] = $row;
