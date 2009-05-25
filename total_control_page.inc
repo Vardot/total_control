@@ -5,10 +5,9 @@
 $page = new stdClass;
 $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
 $page->name = 'dashboard';
-$page->admin_title = 'Admin Dashboard';
-$page->path = 'admin/dashboard';
+$page->admin_title = 'Total Control Dashboard';
+$page->path = 'admin/dashboard/main';
 $page->access = array(
-  'logic' => 'and',
   'plugins' => array(
     '0' => array(
       'name' => 'perm',
@@ -18,16 +17,17 @@ $page->access = array(
       'context' => 'logged-in-user',
     ),
   ),
+  'logic' => 'and',
 );
 $page->multiple = FALSE;
 $page->menu = array(
-  'type' => 'normal',
-  'title' => 'Admin Dashboard',
+  'type' => 'default tab',
+  'title' => 'Dashboard',
   'name' => 'navigation',
-  'weight' => '0',
+  'weight' => '-50',
   'parent' => array(
-    'type' => 'none',
-    'title' => '',
+    'type' => 'normal',
+    'title' => 'Dashboard',
     'name' => 'navigation',
     'weight' => '0',
   ),

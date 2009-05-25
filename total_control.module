@@ -37,13 +37,6 @@ function total_control_menu() {
     'page arguments' => array('total_control_admin_settings'),
     'access arguments' => array('administer total control'),
   );
-  /*
-  $items['admin/dashboard'] = array(
-    'title' => 'Dashboard',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => -10,
-  );
-  */
 
   return $items;
 }

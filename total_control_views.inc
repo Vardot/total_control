@@ -680,7 +680,7 @@ function total_control_views_default_views(){
   $handler->override_option('pane_title', 'New Content');
   $handler->override_option('pane_description', '');
   $handler->override_option('pane_category', array(
-    'name' => 'Dashboard panes',
+    'name' => 'Admin Dashboard',
     'weight' => '0',
   ));
   $handler->override_option('allow', array(
@@ -980,12 +980,15 @@ function total_control_views_default_views(){
         'html' => 0,
       ),
       'date_format' => 'custom',
-      'custom_date_format' => 'm/d/Y',
+      'custom_date_format' => 'j/d g:ia',
       'exclude' => 0,
       'id' => 'login',
       'table' => 'users',
       'field' => 'login',
       'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
     ),
     'delete_node' => array(
       'label' => 'Delete',
@@ -2364,30 +2367,6 @@ function total_control_views_default_views(){
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
-    'fid' => array(
-      'label' => 'File ID',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-      ),
-      'link_to_file' => 0,
-      'exclude' => 0,
-      'id' => 'fid',
-      'table' => 'files',
-      'field' => 'fid',
-      'relationship' => 'none',
-    ),
     'timestamp' => array(
       'label' => 'Upload date',
       'alter' => array(
@@ -2508,29 +2487,6 @@ function total_control_views_default_views(){
       'field' => 'filesize',
       'relationship' => 'none',
     ),
-    'status' => array(
-      'label' => 'Status',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-      ),
-      'exclude' => 0,
-      'id' => 'status',
-      'table' => 'files',
-      'field' => 'status',
-      'relationship' => 'none',
-    ),
   ));
   $handler->override_option('sorts', array(
     'timestamp' => array(
@@ -2542,9 +2498,26 @@ function total_control_views_default_views(){
       'relationship' => 'none',
     ),
   ));
+  $handler->override_option('filters', array(
+    'status' => array(
+      'operator' => 'in',
+      'value' => array(
+        '1' => '1',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'status',
+      'table' => 'files',
+      'field' => 'status',
+      'relationship' => 'none',
+    ),
+  ));
   $handler->override_option('access', array(
-    'type' => 'perm',
-    'perm' => 'have total control',
+    'type' => 'none',
   ));
   $handler->override_option('title', 'Manage Files');
   $handler->override_option('items_per_page', 30);
@@ -2798,6 +2771,7 @@ function total_control_views_default_views(){
   $handler->override_option('argument_input', array());
   $handler->override_option('link_to_view', 0);
   $handler->override_option('inherit_panels_path', 0);
+  
   
   $views[$view->name] = $view;
   
