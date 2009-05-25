@@ -4,7 +4,9 @@
 
 $page = new stdClass;
 $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
+$page->api_version = 1;
 $page->name = 'dashboard';
+$page->task = 'page';
 $page->admin_title = 'Total Control Dashboard';
 $page->path = 'admin/dashboard/main';
 $page->access = array(
@@ -29,9 +31,11 @@ $page->menu = array(
     'type' => 'normal',
     'title' => 'Dashboard',
     'name' => 'navigation',
-    'weight' => '0',
+    'weight' => '50',
   ),
 );
 $page->arguments = array();
+$page->conf = FALSE;
+
 
 /* cut and paste above */

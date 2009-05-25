@@ -18,16 +18,20 @@ To submit bug reports and feature suggestions, or to track changes:
 
 -- REQUIREMENTS --
 
-Panels 3. 
-Views 2.
+Panels 3.x 
+Views 2.x
+Chaos Tools 1.x
+Search (core)
+Statistics (core)
 
 
 -- INSTALLATION --
 
 * Install as usual, see http://drupal.org/node/70151 for further information.
 
-* TODO better documentation here: version 1.1-beta requires that you import a panel page. 
-  Copy / paste the contents of total_control_page.inc to import screen at admin/build/pages
+  If for any reason the panel page is not installed for you automatically, you can import
+  the code provided in total_control_page.inc. Go to Admin > Site building > Pages
+  click the "Import page" tab, and copy / paste the code between the comments.
 
 
 -- CONFIGURATION --
@@ -39,6 +43,12 @@ Views 2.
 
     Users in roles with the "have total control" permission will see
     the administration dashboard and all included view pages.
+    
+  - administer total control
+  
+    Users in roles with the "administer total control" permission will be
+    able to visit the settings page where they can determine weather links
+    will appear on the panes to "configure" content types.
     
 
 -- CUSTOMIZATION --

@@ -2,7 +2,9 @@
 name = Total Control
 description = Total Control Administration Dashboard
 dependencies[] = panels
-dependencies[] = views
+dependencies[] = views_content
 dependencies[] = delegator
+dependencies[] = search
+dependencies[] = statistics
 package = Administration
 core = 6.x

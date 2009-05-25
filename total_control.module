@@ -1,10 +1,6 @@
 <?php
-
-// default views for administration
+// default views for Total Control
 include_once('total_control_views.inc');
-
-// implement panel API
-include_once('total_control_panels.inc');
 
 // This is the name of the dashboard as the delegate module sees it via the page task.
 define('TOTAL_CONTROL_DASHBOARD_PANEL_NAME', 'dashboard');
@@ -40,15 +36,8 @@ function total_control_menu() {
 
   return $items;
 }
- 
-/**
- * Implementation of hook_init().
- */
-function total_control_init() {
-  // We do this here since it should be after all required modules are enabled.
-  _total_control_attempt_install_dashboard(TRUE);
-}
 
+/* menu callback */
 function total_control_dashboard_install() {
   // Install the dashboard
   _total_control_install_dashboard();
@@ -59,6 +48,36 @@ function total_control_dashboard_install() {
   // Redirect to status report
   drupal_goto('admin/reports/status');
 }
+
+/* menu callback */
+function total_control_admin_settings(){
+  $form['total_control_configure_links'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show configure links on "Create Content" panel'),
+    '#default_value' => variable_get('total_control_configure_links', 1),
+    '#description' => t('Configure links go to the edit content type pages'),
+    );
+    return system_settings_form($form);
+}
+
+/**
+ * Implementation of hook_ctools_plugin_dierctory() to let the system know
+ * we implement task and task_handler plugins.
+ */
+function total_control_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implementation of hook_init().
+ */
+function total_control_init() {
+  // We do this here since it should be after all required modules are enabled.
+  _total_control_attempt_install_dashboard(TRUE);
+}
+
 
 function _total_control_attempt_install_dashboard($silent = FALSE) {
   // See if required modules are available so we can install the dashboard right away
@@ -119,12 +138,3 @@ function _total_control_install_dashboard() {
   return TRUE;
 }
 
-function total_control_admin_settings(){
-  $form['total_control_configure_links'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Show configure links on "Create Content" panel'),
-    '#default_value' => variable_get('total_control_configure_links', 1),
-    '#description' => t('Configure links go to the edit content type pages'),
-    );
-    return system_settings_form($form);
-}
