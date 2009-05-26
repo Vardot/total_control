@@ -1,0 +1,7 @@
+; $Id
+name = Total Control Workflow
+description = Adds Workflow support to the Total Control Admin Dashboard. Views and panes provided.
+dependencies[] = total_control
+dependencies[] = workflow
+package = Administration
+core = 6.x

@@ -1,0 +1,45 @@
+<?php
+// default views for Total Control
+//include_once('total_control_workflow_views.inc');
+
+/* 
+ * Implementation of hook_perm
+ * adds permissions for access to the total control dashboard
+ */
+function total_control_workflow_perm() {
+ return array('have total workflow control');
+}
+
+/**
+ * Implementation of hook_ctools_plugin_dierctory() to let the system know
+ * we implement task and task_handler plugins.
+ */
+function total_control_workflow_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'workflow_plugins/' . $plugin;
+  }
+}
+
+/* 
+ * Implementation of hook_form_alter
+ * adds views adjustment handling when workflows are added or removed
+ */
+function total_control_workflow_form_alter(&$form, $form_state, $form_id) {
+  if ('workflow_add_form' == $form_id) {
+    $form['#submit'][] = '_total_control_workflow_views_add_display';
+  }
+  if ('workflow_delete_form' == $form_id) {
+    $form['#submit'][] = '_total_control_workflow_views_delete_display';
+  }
+}
+
+function _total_control_workflow_views_add_display(){
+  // TODO 
+  return;
+}
+
+
+function _total_control_workflow_views_delete_display(){
+  // TODO 
+  return;
+}
