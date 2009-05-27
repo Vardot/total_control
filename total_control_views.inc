@@ -1638,7 +1638,7 @@ function total_control_views_default_views(){
   ));
   $handler = $view->new_display('panel_pane', 'Recent Comments pane', 'panel_pane_1');
   $handler->override_option('title', 'Recent Comments');
-  $handler->override_option('items_per_page', 10);
+  $handler->override_option('items_per_page', 5);
   $handler->override_option('pane_title', 'Recent Comments');
   $handler->override_option('pane_description', '');
   $handler->override_option('pane_category', array(
@@ -1988,7 +1988,7 @@ function total_control_views_default_views(){
   ));
   $handler->override_option('filters', array());
   $handler->override_option('title', 'Tags');
-  $handler->override_option('items_per_page', 10);
+  $handler->override_option('items_per_page', 5);
   $handler->override_option('use_more', 1);
   $handler->override_option('pane_title', 'Tags');
   $handler->override_option('pane_description', '');

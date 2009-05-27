@@ -4,18 +4,14 @@
  * Implementation of specially named hook_ctools_content_types()
  */
 function total_control_taxonomy_ctools_content_types() {
-  $vocabs = taxonomy_get_vocabularies();
-  if (!empty($vocabs)){
-    return array(
-      'single' => TRUE,
-      'icon' => 'icon_node_form.png',
-      'no title override' => TRUE,
-      'title' => t('Categories and Tags'),
-      'description' => t('Displays Categories, number of tags in each category, "view terms" link and "edit terms" link.'),
-      'category' => t('Admin Dashboard'),
-    ); 
-  }
-  return;
+  return array(
+    'single' => TRUE,
+    'icon' => 'icon_node_form.png',
+    'no title override' => TRUE,
+    'title' => t('Categories and Tags'),
+    'description' => t('Displays Categories, number of tags in each category, "view terms" link and "edit terms" link.'),
+    'category' => t('Admin Dashboard'),
+  ); 
 }
 
 function total_control_taxonomy_content_type_admin_title($subtype, $conf, $context) {
@@ -32,28 +28,43 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $block = new stdClass();
   $block->module = t('total_control');
   
+  $vids = ($conf['vids'])? $conf['vids']: array();
+  
   $vocabs = taxonomy_get_vocabularies();
   $tags = array();  
-    
-  foreach ($vocabs as $vocab){
-    if (in_array($vocab->vid, $conf['vids'])){  // compare against vocab option on pane config
-      $term_query = db_query("SELECT count(*) FROM {term_data} WHERE vid = %d", $vocab->vid);
-      $terms = format_plural(db_result($term_query), '1 tag', '@count tags');
-      $tags[$vocab->vid] = $vocab->name . ': ' . $terms;
-      if (user_access('administer taxonomy')){
-        $tags[$vocab->vid] .= ' | '. l('list tags', 'admin/content/taxonomy/'.$vocab->vid);
-        $tags[$vocab->vid] .= ' | '. l('add tag', 'admin/content/taxonomy/'.$vocab->vid.'/add/term');
-      } // if access
-    } // if vocab
-  } // foreach
+  
+  if (!empty($vocabs)){  
+    foreach ($vocabs as $vocab){
+      // compare against vocab option on pane config
+      if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids',$conf)){  
+        $term_query = db_query("SELECT count(*) FROM {term_data} WHERE vid = %d", $vocab->vid);
+        $terms = format_plural(db_result($term_query), '1 tag', '@count tags');
+        $tags[$vocab->vid] = $vocab->name . ': ' . $terms;
+        if (user_access('administer taxonomy')){
+          $tags[$vocab->vid] .= ' | '. l('list tags', 'admin/content/taxonomy/'.$vocab->vid);
+          $tags[$vocab->vid] .= ' | '. l('add tag', 'admin/content/taxonomy/'.$vocab->vid.'/add/term');
+        } // if access
+      } // if vocab
+    } // foreach
+  }
   
   $pane = total_control_taxonomy_ctools_content_types();
+  
+  if ($tags){
+    $output = theme('item_list', $tags);
+  }
+  else {
+    $output = t('You have no vocabularies yet. ');
+    if (user_access('administer taxonomy')){
+      $output .= '<div class="add-vocab">'.l(t('Add vocabulary'),'admin/content/taxonomy/add/vocabulary').'</div>';
+    }
+  }
   
   // assemble content
   $content =  '<div class="total-control-content-overview">';
   $content .= '  <h2 class="title">' . $pane['title'] . '</h2>';
   $content .= '  <div class="content">';
-  $content .=      theme('item_list', $tags);
+  $content .=      $output;
   $content .= '  </div>';
   $content .= '</div>';
 
@@ -65,20 +76,22 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
   $conf = $form_state['conf'];
  
   $vocabs = taxonomy_get_vocabularies();
-  $vocab_options = array();
-  $vocab_defaults = array();
-  foreach ($vocabs as $vid => $vocab){
-    $vocab_options[$vid] = $vocab->name;
-    $vocab_defaults[] = $vid;
-  }
+  if (!empty($vocabs)) {
+    $vocab_options = array();
+    $vocab_defaults = array();
+    foreach ($vocabs as $vid => $vocab){
+      $vocab_options[$vid] = $vocab->name;
+      $vocab_defaults[] = $vid;
+    }
   
-  $form['vids'] = array(
-    '#type' => 'checkboxes',
-    '#title' => t('Include Vocabularies'),
-    '#multiple' => true,
-    '#options' => $vocab_options,
-    '#default_value' => ($form_state['op'] == 'add')? $vocab_defaults : $conf['vids'],
-    );
+    $form['vids'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Include Vocabularies'),
+      '#multiple' => true,
+      '#options' => $vocab_options,
+      '#default_value' => ($form_state['op'] == 'add')? $vocab_defaults : $conf['vids'],
+      );
+  }
   
   return $form;
 }
