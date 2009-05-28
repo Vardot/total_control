@@ -8,14 +8,14 @@ function total_control_taxonomy_ctools_content_types() {
     'single' => TRUE,
     'icon' => 'icon_node_form.png',
     'no title override' => TRUE,
-    'title' => t('Categories and Tags'),
+    'title' => t('Category Control'),
     'description' => t('Displays Categories, number of tags in each category, "view terms" link and "edit terms" link.'),
     'category' => t('Admin Dashboard'),
   ); 
 }
 
 function total_control_taxonomy_content_type_admin_title($subtype, $conf, $context) {
-    return t('Categories and Tags');
+    return t('Category Control');
 }
 
 function total_control_taxonomy_content_type_admin_info($subtype, $conf, $context) {

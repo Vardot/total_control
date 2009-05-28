@@ -8,14 +8,14 @@ function total_control_create_ctools_content_types() {
     'single' => TRUE,
     'icon' => 'icon_node_form.png',
     'no title override' => TRUE,
-    'title' => t('Create New Content'),
+    'title' => t('Content Control'),
     'description' => t('Provides links to...'),
     'category' => t('Admin Dashboard'),
   );
 }
 
 function total_control_create_content_type_admin_title($subtype, $conf, $context) {
-    return t('Create New Content');
+    return t('Content Control');
 }
 
 function total_control_create_content_type_admin_info($subtype, $conf, $context) {
@@ -27,12 +27,12 @@ function total_control_create_content_type_admin_info($subtype, $conf, $context)
 function total_control_create_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
-  
+    
   $types = node_get_types('types');
   $create = array();  
   
   foreach ($types as $type => $object){
-    if ($conf['types'][$type]){  // compare against type option on pane config
+    if ($conf['types'][$type] || !array_key_exists('types',$conf)){  // compare against type option on pane config
       $row = l(t('Add New '.$object->name), 'node/add/'.$object->type);
       if ((variable_get('total_control_configure_links', 1) == 1) && user_access('administer content types')){
         $row .= ' | ' . l(t('Configure'), 'admin/content/node-type/'.$object->type);
