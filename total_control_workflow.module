@@ -1,6 +1,6 @@
 <?php
-// default views for Total Control
-//include_once('total_control_workflow_views.inc');
+// default views for Total Control Workflow
+include_once('includes/total_control_workflow.views.inc');
 
 /* 
  * Implementation of hook_perm
@@ -25,21 +25,96 @@ function total_control_workflow_ctools_plugin_directory($module, $plugin) {
  * adds views adjustment handling when workflows are added or removed
  */
 function total_control_workflow_form_alter(&$form, $form_state, $form_id) {
-  if ('workflow_add_form' == $form_id) {
+  if ('workflow_state_add_form' == $form_id) {
     $form['#submit'][] = '_total_control_workflow_views_add_display';
   }
-  if ('workflow_delete_form' == $form_id) {
+  if ('workflow_state_delete_form' == $form_id) {
     $form['#submit'][] = '_total_control_workflow_views_delete_display';
   }
 }
 
-function _total_control_workflow_views_add_display(){
-  // TODO 
+/* Helper function.  Adds view display. */
+function _total_control_workflow_views_add_display($form, &$form_state){  
+  // compose the state name
+  $state = $form_state['values']['state'];
+  $workflow = workflow_get_name($form_state['values']['wid']);
+  $state_name = $workflow.': '.$state;
+  
+  // get the view
+  $view = views_get_view('control_workflow');
+  
+  // get the pane number
+  $sid = $form_state['sid'];
+  
+  // create a new the panel pane display
+  $handler = $view->new_display('panel_pane', 'Pane: '.$state_name, 'panel_pane_tcw_sid_'.$sid);
+  $handler->override_option('filters', array(
+    'sid' => array(
+      'operator' => 'in',
+      'value' => array(
+        $sid => $sid,
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => 'sid_op',
+        'label' => 'Current State',
+        'use_operator' => 0,
+        'identifier' => 'sid',
+        'optional' => 1,
+        'single' => 1,
+        'remember' => 0,
+        'reduce' => 0,
+      ),
+      'id' => 'sid',
+      'table' => 'workflow_node',
+      'field' => 'sid',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+    ),
+  ));
+  $handler->override_option('title', $state_name.' Summary');
+  $handler->override_option('pane_title', 'State: '.$state_name);
+  $handler->override_option('pane_description', t('Items in state: ').$state_name);
+  $handler->override_option('pane_category', array(
+   'name' => 'Admin Dashboard',
+   'weight' => '0',
+  ));
+  $handler->override_option('allow', array(
+    'use_pager' => FALSE,
+    'items_per_page' => FALSE,
+    'offset' => FALSE,
+    'link_to_view' => FALSE,
+    'more_link' => FALSE,
+    'path_override' => FALSE,
+    'title_override' => FALSE,
+    'exposed_form' => FALSE,
+  ));
+  $handler->override_option('argument_input', array());
+  $handler->override_option('link_to_view', 0);
+  $handler->override_option('inherit_panels_path', 0);
+  
+  // save the view
+  $view->save();
+  
   return;
 }
 
-
-function _total_control_workflow_views_delete_display(){
-  // TODO 
+/* Helper function.  Removes view display. */
+function _total_control_workflow_views_delete_display($form, &$form_state){
+  $sid = $form_state['values']['sid'];
+  
+  // get the view
+  $view = views_get_view('control_workflow');
+  
+  // delete the corresponding display
+  unset($view->display['panel_pane_tcw_sid_'.$sid]);
+  
+  // save the view
+  $view->save();
+  
   return;
 }
+
