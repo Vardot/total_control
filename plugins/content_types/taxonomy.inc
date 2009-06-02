@@ -8,19 +8,19 @@ function total_control_taxonomy_ctools_content_types() {
     'single' => TRUE,
     'icon' => 'icon_node_form.png',
     'no title override' => TRUE,
-    'title' => t('Category Control'),
-    'description' => t('Displays Categories, number of tags in each category, "view terms" link and "edit terms" link.'),
+    'title' => t('Categories and Terms'),
+    'description' => t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.'),
     'category' => t('Admin Dashboard'),
   ); 
 }
 
 function total_control_taxonomy_content_type_admin_title($subtype, $conf, $context) {
-    return t('Category Control');
+    return t('Categories and Terms');
 }
 
 function total_control_taxonomy_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Displays Categories, number of tags in each category, "view terms" link and "edit terms" link.');
+  $block->title = t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.');
   return $block;
 }
 
@@ -31,18 +31,18 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $vids = ($conf['vids'])? $conf['vids']: array();
   
   $vocabs = taxonomy_get_vocabularies();
-  $tags = array();  
+  $rows = array();  
   
   if (!empty($vocabs)){  
     foreach ($vocabs as $vocab){
       // compare against vocab option on pane config
       if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids',$conf)){  
         $term_query = db_query("SELECT count(*) FROM {term_data} WHERE vid = %d", $vocab->vid);
-        $terms = format_plural(db_result($term_query), '1 tag', '@count tags');
-        $tags[$vocab->vid] = $vocab->name . ': ' . $terms;
+        $terms = format_plural(db_result($term_query), '1 term', '@count terms');
+        $rows[$vocab->vid] = $vocab->name . ': ' . $terms;
         if (user_access('administer taxonomy')){
-          $tags[$vocab->vid] .= ' | '. l('list tags', 'admin/content/taxonomy/'.$vocab->vid);
-          $tags[$vocab->vid] .= ' | '. l('add tag', 'admin/content/taxonomy/'.$vocab->vid.'/add/term');
+          $rows[$vocab->vid] .= ' | '. l('list terms', 'admin/content/taxonomy/'.$vocab->vid);
+          $rows[$vocab->vid] .= ' | '. l('add term', 'admin/content/taxonomy/'.$vocab->vid.'/add/term');
         } // if access
       } // if vocab
     } // foreach
@@ -50,8 +50,8 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   
   $pane = total_control_taxonomy_ctools_content_types();
   
-  if ($tags){
-    $output = theme('item_list', $tags);
+  if ($rows){
+    $output = theme('item_list', $rows);
   }
   else {
     $output = t('You have no vocabularies yet. ');
