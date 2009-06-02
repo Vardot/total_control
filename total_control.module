@@ -1,6 +1,6 @@
 <?php
 // default views for Total Control
-include_once('total_control_views.inc');
+include_once('includes/total_control.views.inc');
 
 // This is the name of the dashboard as the delegate module sees it via the page task.
 define('TOTAL_CONTROL_DASHBOARD_PANEL_NAME', 'dashboard');
@@ -78,7 +78,317 @@ function total_control_init() {
   _total_control_attempt_install_dashboard(TRUE);
 }
 
+/* 
+ * Implementation of hook_form_alter
+ * adds views adjustment handling when workflows are added or removed
+ */
+function total_control_form_alter(&$form, $form_state, $form_id) {
+  if ('node_type_form' == $form_id) {
+    $form['#submit'][] = '_total_control_views_add_display';
+    //$form['#submit'] = array('_total_control_views_delete_display');
+  }
+  if ('node_type_delete_confirm' == $form_id) {
+    $form['#submit'][] = '_total_control_views_delete_display';
+    //$form['#submit'] = array('_total_control_views_delete_display');
+  }
+}
+ 
+/* Helper function.  Adds view displays. */
+function _total_control_views_add_display($form, &$form_state){
+  // compose the state name
+  $type = '';
+  $machine = '';
+  $name = '';
+  $plural_type = _total_control_pluralize($name);
+  
+  // get the view
+  $view = views_get_view('control_content');
+  
+  // create a panel pane
+  
+  $handler = $view->new_display('panel_pane', 'New '.$plural_type.' pane', 'panel_pane_tc_'.$type);
+  $handler->override_option('fields', array(
+    'title' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+      ),
+      'link_to_node' => 1,
+      'exclude' => 0,
+      'id' => 'title',
+      'table' => 'node',
+      'field' => 'title',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+    ),
+    'type' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+      ),
+      'link_to_node' => 0,
+      'exclude' => 0,
+      'id' => 'type',
+      'table' => 'node',
+      'field' => 'type',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+    'created' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+      ),
+      'date_format' => 'time ago',
+      'custom_date_format' => 'm/d g:ia',
+      'exclude' => 0,
+      'id' => 'created',
+      'table' => 'node',
+      'field' => 'created',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('filters', array(
+    'type' => array(
+      'operator' => 'in',
+      'value' => array(
+        $type=> $type,
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'type',
+      'table' => 'node',
+      'field' => 'type',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('title', 'New '.$plural_type);
+  $handler->override_option('items_per_page', 5);
+  $handler->override_option('use_pager', '0');
+  $handler->override_option('use_more', 1);
+  $handler->override_option('style_plugin', 'list');
+  $handler->override_option('style_options', array());
+  $handler->override_option('row_options', array(
+    'inline' => array(
+      'title' => 'title',
+      'type' => 'type',
+      'edit_node' => 'edit_node',
+    ),
+    'separator' => '',
+  ));
+  $handler->override_option('pane_title', 'New Content');
+  $handler->override_option('pane_description', 'Total Control '.$name.' summary');
+  $handler->override_option('pane_category', array(
+    'name' => 'Admin Dashboard',
+    'weight' => '0',
+  ));
+  $handler->override_option('allow', array(
+    'use_pager' => 0,
+    'items_per_page' => 'items_per_page',
+    'offset' => 0,
+    'link_to_view' => 0,
+    'more_link' => 0,
+    'path_override' => 0,
+    'title_override' => FALSE,
+    'exposed_form' => FALSE,
+  ));
+  $handler->override_option('argument_input', array());
+  $handler->override_option('link_to_view', '0');
+  $handler->override_option('inherit_panels_path', 0);
+  
+  // create a page
+  
+  $handler = $view->new_display('page', 'New '.$plural_type.' Page', 'page_tc_'.$type);
+  $handler->override_option('filters', array(
+    'status' => array(
+      'operator' => '=',
+      'value' => '1',
+      'group' => '0',
+      'exposed' => TRUE,
+      'expose' => array(
+        'operator' => '',
+        'identifier' => 'status',
+        'label' => 'Published',
+        'optional' => 1,
+        'remember' => 0,
+      ),
+      'id' => 'status',
+      'table' => 'node',
+      'field' => 'status',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Override',
+      ),
+    ),
+    'type' => array(
+      'operator' => 'in',
+      'value' => array(),
+      'group' => '0',
+      'exposed' => TRUE,
+      'expose' => array(
+        'use_operator' => 0,
+        'operator' => 'type_op',
+        'identifier' => 'type',
+        'label' => 'Type',
+        'optional' => 1,
+        'single' => 1,
+        'remember' => 0,
+        'reduce' => 0,
+      ),
+      'id' => 'type',
+      'table' => 'node',
+      'field' => 'type',
+      'relationship' => 'none',
+    ),
+    'keys' => array(
+      'operator' => 'optional',
+      'value' => '',
+      'group' => '0',
+      'exposed' => TRUE,
+      'expose' => array(
+        'use_operator' => 0,
+        'operator' => 'keys_op',
+        'identifier' => 'keys',
+        'label' => 'Search:',
+        'optional' => 1,
+        'remember' => 0,
+      ),
+      'id' => 'keys',
+      'table' => 'search_index',
+      'field' => 'keys',
+      'relationship' => 'none',
+    ),
+    'uid' => array(
+      'operator' => 'in',
+      'value' => '',
+      'group' => '0',
+      'exposed' => TRUE,
+      'expose' => array(
+        'use_operator' => 0,
+        'operator' => 'uid_op',
+        'identifier' => 'uid',
+        'label' => 'Author',
+        'optional' => 1,
+        'remember' => 0,
+        'reduce' => 0,
+      ),
+      'id' => 'uid',
+      'table' => 'users',
+      'field' => 'uid',
+      'relationship' => 'none',
+    ),
+    'type_1' => array(
+      'operator' => 'in',
+      'value' => array(
+        $type => $type,
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'type_1',
+      'table' => 'node',
+      'field' => 'type',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('title', 'Manage '.$plural_type);
+  $handler->override_option('path', 'admin/dashboard/content/'.$machine);
+  $handler->override_option('menu', array(
+    'type' => 'tab',
+    'title' => 'Manage '.$plural_type,
+    'description' => '',
+    'weight' => '0',
+    'name' => 'navigation',
+  ));
+  $handler->override_option('tab_options', array(
+    'type' => 'none',
+    'title' => '',
+    'description' => '',
+    'weight' => 0,
+  ));
+  
+  // save the view
+  $view->save();
+  
+  return;
+}
 
+/* Helper function.  Removes view displays. */
+function _total_control_views_remove_display($form, &$form_state){
+  $sid = $form_state['values']['sid'];
+  
+  // get the view
+  $view = views_get_view('control_workflow');
+  
+  // delete the corresponding display
+  unset($view->display['panel_pane_tcw_sid_'.$sid]);
+  
+  // save the view
+  $view->save();
+  
+  return;
+}
+
+/**
+ * Helper function
+ * helps install the dashboard page, panel, and panes
+ */
 function _total_control_attempt_install_dashboard($silent = FALSE) {
   // See if required modules are available so we can install the dashboard right away
   if (function_exists('delegator_get_tasks')) {
@@ -101,7 +411,7 @@ function _total_control_attempt_install_dashboard($silent = FALSE) {
 }
 
 /**
- * This is based on the delegator page import form:
+ * Helper function based on the delegator page import form:
  * delegator/plugins/tasks/page.admin.inc: delegator_page_import_subtask()
  */
 function _total_control_install_dashboard() {
@@ -113,7 +423,7 @@ function _total_control_install_dashboard() {
   }
 
   // Load up the page
-  include(drupal_get_path('module', 'total_control') .'/total_control_page.inc');
+  include(drupal_get_path('module', 'total_control') .'/includes/total_control.page.inc');
 
   // Make sure the page object is readable
   if (!isset($page) || !is_object($page)) {
@@ -138,3 +448,35 @@ function _total_control_install_dashboard() {
   return TRUE;
 }
 
+function _total_control_pluralize($word){
+  $word = trim($word);
+  if (substr($word, 0, -1) == 'y'){
+    $removed = strlen($word) -1;
+    $plural = substr($word, 0, $removed) . 'ies';
+  }
+  else {
+    $plural = $word . 's';
+  }
+  return $plural;
+}
+
+/**
+ * Implementation of hook_views_pre_view.
+ * alters more links on panel panes: preset the filters
+
+function total_control_views_pre_view(&$view, &$display_id, &$args) {
+  if ($display_id == 'panel_pane_2') {
+    //print_r($view->display[$display_id]);exit;
+  }
+}
+
+/**
+ * Implementation of hook_views_pre_render.
+ * alters more links on panel panes: preset the filters
+
+function total_control_views_pre_render(&$view) {
+  if ($view->name == 'control_content') {
+    print_r($view->display);exit;
+  }
+}
+ */
