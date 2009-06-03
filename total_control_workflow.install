@@ -1,0 +1,5 @@
+<?php
+
+function total_control_workflow_install() {
+  db_query("UPDATE {system} SET weight = 11 WHERE name = 'total_control_workflow'");
+}
