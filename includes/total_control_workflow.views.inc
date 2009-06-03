@@ -8,17 +8,17 @@ function total_control_workflow_views_default_views(){
   /* 
    * default workflow view 
    */
- $view = new view;
- $view->name = 'control_workflow';
- $view->description = 'See which posts are in which workflow state.';
- $view->tag = 'total_control';
- $view->view_php = '';
- $view->base_table = 'node';
- $view->is_cacheable = FALSE;
- $view->api_version = 2;
- $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
- $handler = $view->new_display('default', 'Defaults', 'default');
- $handler->override_option('fields', array(
+   $view = new view;
+  $view->name = 'control_workflow';
+  $view->description = 'See which posts are in which workflow state.';
+  $view->tag = 'total_control';
+  $view->view_php = '';
+  $view->base_table = 'node';
+  $view->is_cacheable = FALSE;
+  $view->api_version = 2;
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+  $handler = $view->new_display('default', 'Defaults', 'default');
+  $handler->override_option('fields', array(
    'title' => array(
      'label' => '',
      'alter' => array(
@@ -121,8 +121,8 @@ function total_control_workflow_views_default_views(){
      'field' => 'stamp',
      'relationship' => 'none',
    ),
- ));
- $handler->override_option('sorts', array(
+  ));
+  $handler->override_option('sorts', array(
    'stamp' => array(
      'order' => 'DESC',
      'granularity' => 'second',
@@ -134,8 +134,8 @@ function total_control_workflow_views_default_views(){
      ),
      'relationship' => 'none',
    ),
- ));
- $handler->override_option('filters', array(
+  ));
+  $handler->override_option('filters', array(
    'sid' => array(
      'operator' => 'in',
      'value' => array(),
@@ -213,20 +213,20 @@ function total_control_workflow_views_default_views(){
      'field' => 'uid',
      'relationship' => 'none',
    ),
- ));
- $handler->override_option('access', array(
+  ));
+  $handler->override_option('access', array(
    'type' => 'perm',
    'perm' => 'have total workflow control',
- ));
- $handler->override_option('title', 'Workflow summary');
- $handler->override_option('items_per_page', 5);
- $handler->override_option('use_pager', '1');
- $handler->override_option('style_plugin', 'list');
- $handler->override_option('style_options', array(
+  ));
+  $handler->override_option('title', 'Workflow summary');
+  $handler->override_option('items_per_page', 5);
+  $handler->override_option('use_pager', '0');
+  $handler->override_option('style_plugin', 'list');
+  $handler->override_option('style_options', array(
    'grouping' => '',
    'type' => 'ul',
- ));
- $handler->override_option('row_options', array(
+  ));
+  $handler->override_option('row_options', array(
    'inline' => array(
      'title' => 'title',
      'sid_1' => 'sid_1',
@@ -234,9 +234,9 @@ function total_control_workflow_views_default_views(){
      'stamp' => 'stamp',
    ),
    'separator' => '',
- ));
- $handler = $view->new_display('page', 'Page', 'page_1');
- $handler->override_option('fields', array(
+  ));
+  $handler = $view->new_display('page', 'Page: All States', 'page_1');
+  $handler->override_option('fields', array(
    'title' => array(
      'label' => 'Title',
      'link_to_node' => 1,
@@ -371,11 +371,12 @@ function total_control_workflow_views_default_views(){
      'field' => 'edit_node',
      'relationship' => 'none',
    ),
- ));
- $handler->override_option('title', 'Manage Workflow States');
- $handler->override_option('items_per_page', 30);
- $handler->override_option('style_plugin', 'table');
- $handler->override_option('style_options', array(
+  ));
+  $handler->override_option('title', 'All Workflow States');
+  $handler->override_option('items_per_page', 30);
+  $handler->override_option('use_pager', '1');
+  $handler->override_option('style_plugin', 'table');
+  $handler->override_option('style_options', array(
    'grouping' => '',
    'override' => 1,
    'sticky' => 0,
@@ -395,34 +396,33 @@ function total_control_workflow_views_default_views(){
      ),
    ),
    'default' => 'state',
- ));
- $handler->override_option('row_options', array());
- $handler->override_option('path', 'admin/dashboard/workflow');
- $handler->override_option('menu', array(
+  ));
+  $handler->override_option('row_options', array());
+  $handler->override_option('path', 'admin/dashboard/workflow');
+  $handler->override_option('menu', array(
    'type' => 'tab',
    'title' => 'Workflow',
    'description' => '',
    'weight' => '0',
    'name' => 'navigation',
- ));
- $handler->override_option('tab_options', array(
+  ));
+  $handler->override_option('tab_options', array(
    'type' => 'normal',
    'title' => 'Workflow summary',
    'description' => '',
    'weight' => '0',
- ));
- $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
- $handler->override_option('filters', array());
- $handler->override_option('title', 'Recent Workflow State Changes');
- $handler->override_option('use_pager', '0');
- $handler->override_option('use_more', 1);
- $handler->override_option('pane_title', 'Workflow: recent state changes');
- $handler->override_option('pane_description', '');
- $handler->override_option('pane_category', array(
+  ));
+  $handler = $view->new_display('panel_pane', 'Pane: All States', 'panel_pane_1');
+  $handler->override_option('filters', array());
+  $handler->override_option('title', 'Workflow: recent state changes');
+  $handler->override_option('use_more', 1);
+  $handler->override_option('pane_title', 'Workflow: recent state changes');
+  $handler->override_option('pane_description', 'Workflow: recent state changes');
+  $handler->override_option('pane_category', array(
    'name' => 'Admin Dashboard',
    'weight' => '0',
- ));
- $handler->override_option('allow', array(
+  ));
+  $handler->override_option('allow', array(
    'use_pager' => 0,
    'items_per_page' => 'items_per_page',
    'offset' => 0,
@@ -431,23 +431,28 @@ function total_control_workflow_views_default_views(){
    'path_override' => 0,
    'title_override' => 0,
    'exposed_form' => FALSE,
- ));
- $handler->override_option('argument_input', array());
- $handler->override_option('link_to_view', 0);
- $handler->override_option('inherit_panels_path', 0);
+  ));
+  $handler->override_option('argument_input', array());
+  $handler->override_option('link_to_view', 0);
+  $handler->override_option('inherit_panels_path', 0);
  
- /* 
-  * this is where we work some real magic
-  * to read in the current workflow states
-  * and create a panel pane for each state
-  */
-  
+  /* 
+    * this is where we work some real magic
+    * to read in the current workflow states
+    * and create a panel pane for each state
+    */
+
   $states = workflow_get_states();
- 
-  foreach ($states as $sid => $state_name){
-    if (!strstr($state_name,'(creation)')){
-      // create the panel pane
-      $handler = $view->new_display('panel_pane', 'Pane: '.$state_name, 'panel_pane_tcw_sid_'.$sid);
+
+  foreach ($states as $sid => $wkfl_state){
+    if (!strstr($wkfl_state,'(creation)')){
+      
+      // gets the state info, including name w/ workflow
+      $state = workflow_get_state($sid);
+
+      // create a panel pane
+
+      $handler = $view->new_display('panel_pane', 'Pane: '.$state['state'], 'panel_pane_tcw_sid_'.$sid);
       $handler->override_option('filters', array(
         'sid' => array(
           'operator' => 'in',
@@ -475,9 +480,9 @@ function total_control_workflow_views_default_views(){
           ),
         ),
       ));
-      $handler->override_option('title', $state_name.' Summary');
-      $handler->override_option('pane_title', 'State: '.$state_name);
-      $handler->override_option('pane_description', t('Items in state: ').$state_name);
+      $handler->override_option('title', $state['state'].' Summary');
+      $handler->override_option('pane_title', 'State: '.$state['state']);
+      $handler->override_option('pane_description', t('Items in state: ').$state['state']);
       $handler->override_option('pane_category', array(
        'name' => 'Admin Dashboard',
        'weight' => '0',
@@ -495,8 +500,306 @@ function total_control_workflow_views_default_views(){
       $handler->override_option('argument_input', array());
       $handler->override_option('link_to_view', 0);
       $handler->override_option('inherit_panels_path', 0);
-    }
-  }
+
+      // create a page
+
+      $handler = $view->new_display('page', 'Page: '.$state['state'], 'page_tcw_sid_'.$sid);
+      $handler->override_option('fields', array(
+        'title' => array(
+          'label' => '',
+          'alter' => array(
+            'alter_text' => 0,
+            'text' => '',
+            'make_link' => 0,
+            'path' => '',
+            'alt' => '',
+            'prefix' => '',
+            'suffix' => '',
+            'help' => '',
+            'trim' => 0,
+            'max_length' => '',
+            'word_boundary' => 1,
+            'ellipsis' => 1,
+            'strip_tags' => 0,
+            'html' => 0,
+          ),
+          'link_to_node' => 1,
+          'exclude' => 0,
+          'id' => 'title',
+          'table' => 'node',
+          'field' => 'title',
+          'relationship' => 'none',
+          'override' => array(
+            'button' => 'Override',
+          ),
+        ),
+        'name' => array(
+          'label' => 'Author',
+          'alter' => array(
+            'alter_text' => 0,
+            'text' => '',
+            'make_link' => 0,
+            'path' => '',
+            'alt' => '',
+            'prefix' => '',
+            'suffix' => '',
+            'help' => '',
+            'trim' => 0,
+            'max_length' => '',
+            'word_boundary' => 1,
+            'ellipsis' => 1,
+            'strip_tags' => 0,
+            'html' => 0,
+          ),
+          'link_to_user' => 1,
+          'overwrite_anonymous' => 0,
+          'anonymous_text' => '',
+          'exclude' => 0,
+          'id' => 'name',
+          'table' => 'users',
+          'field' => 'name',
+          'override' => array(
+            'button' => 'Use default',
+          ),
+          'relationship' => 'none',
+        ),
+        'sid_1' => array(
+          'label' => '',
+          'alter' => array(
+            'alter_text' => 0,
+            'text' => '',
+            'make_link' => 0,
+            'path' => '',
+            'alt' => '',
+            'prefix' => '',
+            'suffix' => '',
+            'help' => '',
+            'trim' => 0,
+            'max_length' => '',
+            'word_boundary' => 1,
+            'ellipsis' => 1,
+            'strip_tags' => 0,
+            'html' => 0,
+          ),
+          'exclude' => 0,
+          'id' => 'sid_1',
+          'table' => 'workflow_node_history',
+          'field' => 'sid',
+          'relationship' => 'none',
+        ),
+        'sid' => array(
+          'label' => '',
+          'alter' => array(
+            'alter_text' => 1,
+            'text' => '-> [sid]',
+            'make_link' => 0,
+            'path' => '',
+            'alt' => '',
+            'prefix' => '',
+            'suffix' => '',
+            'help' => '',
+            'trim' => 0,
+            'max_length' => '',
+            'word_boundary' => 1,
+            'ellipsis' => 1,
+            'strip_tags' => 0,
+            'html' => 0,
+          ),
+          'exclude' => 0,
+          'id' => 'sid',
+          'table' => 'workflow_node',
+          'field' => 'sid',
+          'relationship' => 'none',
+        ),
+        'stamp' => array(
+          'label' => '',
+          'alter' => array(
+            'alter_text' => 1,
+            'text' => '@ [stamp]',
+            'make_link' => 0,
+            'path' => '',
+            'alt' => '',
+            'prefix' => '',
+            'suffix' => '',
+            'help' => '',
+            'trim' => 0,
+            'max_length' => '',
+            'word_boundary' => 1,
+            'ellipsis' => 1,
+            'strip_tags' => 0,
+            'html' => 0,
+          ),
+          'date_format' => 'small',
+          'custom_date_format' => '',
+          'exclude' => 0,
+          'id' => 'stamp',
+          'table' => 'workflow_node_history',
+          'field' => 'stamp',
+          'relationship' => 'none',
+        ),
+        'edit_node' => array(
+          'label' => 'Edit',
+          'alter' => array(
+            'alter_text' => 0,
+            'text' => '',
+            'make_link' => 0,
+            'path' => '',
+            'alt' => '',
+            'prefix' => '',
+            'suffix' => '',
+            'help' => '',
+            'trim' => 0,
+            'max_length' => '',
+            'word_boundary' => 1,
+            'ellipsis' => 1,
+            'strip_tags' => 0,
+            'html' => 0,
+          ),
+          'text' => 'edit',
+          'exclude' => 0,
+          'id' => 'edit_node',
+          'table' => 'node',
+          'field' => 'edit_node',
+          'override' => array(
+            'button' => 'Use default',
+          ),
+          'relationship' => 'none',
+        ),
+      ));
+      $handler->override_option('filters', array(
+        'sid' => array(
+          'operator' => 'in',
+          'value' => array(
+            $sid => $sid,
+          ),
+          'group' => '0',
+          'exposed' => FALSE,
+          'expose' => array(
+            'operator' => 'sid_op',
+            'label' => 'Current State',
+            'use_operator' => 0,
+            'identifier' => 'sid',
+            'optional' => 1,
+            'single' => 1,
+            'remember' => 0,
+            'reduce' => 0,
+          ),
+          'id' => 'sid',
+          'table' => 'workflow_node',
+          'field' => 'sid',
+          'relationship' => 'none',
+          'override' => array(
+            'button' => 'Use default',
+          ),
+        ),
+        'type' => array(
+          'operator' => 'in',
+          'value' => array(),
+          'group' => '0',
+          'exposed' => TRUE,
+          'expose' => array(
+            'use_operator' => 0,
+            'operator' => 'type_op',
+            'identifier' => 'type',
+            'label' => 'Content Type',
+            'optional' => 1,
+            'single' => 1,
+            'remember' => 0,
+            'reduce' => 0,
+          ),
+          'id' => 'type',
+          'table' => 'node',
+          'field' => 'type',
+          'relationship' => 'none',
+        ),
+        'keys' => array(
+          'operator' => 'optional',
+          'value' => '',
+          'group' => '0',
+          'exposed' => TRUE,
+          'expose' => array(
+            'use_operator' => 0,
+            'operator' => 'keys_op',
+            'identifier' => 'keys',
+            'label' => 'Search:',
+            'optional' => 1,
+            'remember' => 0,
+          ),
+          'id' => 'keys',
+          'table' => 'search_index',
+          'field' => 'keys',
+          'relationship' => 'none',
+        ),
+        'uid' => array(
+          'operator' => 'in',
+          'value' => '',
+          'group' => '0',
+          'exposed' => TRUE,
+          'expose' => array(
+            'use_operator' => 0,
+            'operator' => 'uid_op',
+            'identifier' => 'uid',
+            'label' => 'Author',
+            'optional' => 1,
+            'remember' => 0,
+            'reduce' => 0,
+          ),
+          'id' => 'uid',
+          'table' => 'users',
+          'field' => 'uid',
+          'relationship' => 'none',
+        ),
+      ));
+      $handler->override_option('title', 'state page');
+      $handler->override_option('items_per_page', 30);
+      $handler->override_option('style_plugin', 'table');
+      $handler->override_option('style_options', array(
+        'grouping' => '',
+        'override' => 1,
+        'sticky' => 0,
+        'order' => 'asc',
+        'columns' => array(
+          'title' => 'title',
+          'sid_1' => 'sid_1',
+          'sid' => 'sid',
+          'stamp' => 'stamp',
+        ),
+        'info' => array(
+          'title' => array(
+            'sortable' => 1,
+            'separator' => '',
+          ),
+          'sid_1' => array(
+            'sortable' => 1,
+            'separator' => '',
+          ),
+          'sid' => array(
+            'sortable' => 0,
+            'separator' => '',
+          ),
+          'stamp' => array(
+            'sortable' => 1,
+            'separator' => '',
+          ),
+        ),
+        'default' => '-1',
+      ));
+      $handler->override_option('path', 'admin/dashboard/workflow/'.$sid);
+      $handler->override_option('menu', array(
+        'type' => 'tab',
+        'title' => $state['state'],
+        'description' => '',
+        'weight' => '0',
+        'name' => 'navigation',
+      ));
+      $handler->override_option('tab_options', array(
+        'type' => 'none',
+        'title' => '',
+        'description' => '',
+        'weight' => 0,
+      ));      
+    } // if
+  } // foreach
   
   $views[$view->name] = $view;
 
