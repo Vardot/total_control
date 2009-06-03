@@ -85,7 +85,6 @@ function total_control_init() {
 function total_control_form_alter(&$form, $form_state, $form_id) {
   if ('node_type_form' == $form_id) {
     $form['#submit'][] = '_total_control_views_add_display';
-    //$form['#submit'] = array('_total_control_views_delete_display');
   }
   if ('node_type_delete_confirm' == $form_id) {
     $form['#submit'][] = '_total_control_views_delete_display';
@@ -95,10 +94,10 @@ function total_control_form_alter(&$form, $form_state, $form_id) {
  
 /* Helper function.  Adds view displays. */
 function _total_control_views_add_display($form, &$form_state){
-  // compose the state name
-  $type = '';
-  $machine = '';
-  $name = '';
+  
+  // compose the vars we ned for the view
+  $type = $form_state['values']['type'];
+  $name = $form_state['values']['name'];
   $plural_type = _total_control_pluralize($name);
   
   // get the view
@@ -270,26 +269,6 @@ function _total_control_views_add_display($form, &$form_state){
         'button' => 'Override',
       ),
     ),
-    'type' => array(
-      'operator' => 'in',
-      'value' => array(),
-      'group' => '0',
-      'exposed' => TRUE,
-      'expose' => array(
-        'use_operator' => 0,
-        'operator' => 'type_op',
-        'identifier' => 'type',
-        'label' => 'Type',
-        'optional' => 1,
-        'single' => 1,
-        'remember' => 0,
-        'reduce' => 0,
-      ),
-      'id' => 'type',
-      'table' => 'node',
-      'field' => 'type',
-      'relationship' => 'none',
-    ),
     'keys' => array(
       'operator' => 'optional',
       'value' => '',
@@ -347,11 +326,11 @@ function _total_control_views_add_display($form, &$form_state){
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('title', 'Manage '.$plural_type);
-  $handler->override_option('path', 'admin/dashboard/content/'.$machine);
+  $handler->override_option('title', $plural_type);
+  $handler->override_option('path', 'admin/dashboard/content/'.$type);
   $handler->override_option('menu', array(
     'type' => 'tab',
-    'title' => 'Manage '.$plural_type,
+    'title' => $plural_type,
     'description' => '',
     'weight' => '0',
     'name' => 'navigation',
@@ -370,14 +349,17 @@ function _total_control_views_add_display($form, &$form_state){
 }
 
 /* Helper function.  Removes view displays. */
-function _total_control_views_remove_display($form, &$form_state){
-  $sid = $form_state['values']['sid'];
+function _total_control_views_delete_display($form, &$form_state){
+
+  // get the type  
+  $type = $form_state['values']['type'];
   
   // get the view
-  $view = views_get_view('control_workflow');
+  $view = views_get_view('control_content');
   
   // delete the corresponding display
-  unset($view->display['panel_pane_tcw_sid_'.$sid]);
+  unset($view->display['panel_pane_tc_'.$type]);
+  unset($view->display['page_tc_'.$type]);
   
   // save the view
   $view->save();

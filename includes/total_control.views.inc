@@ -261,7 +261,7 @@ function total_control_views_default_views(){
     'type' => 'perm',
     'perm' => 'have total control',
   ));
-  $handler->override_option('title', 'Manage ');
+  $handler->override_option('title', 'All Content');
   $handler->override_option('items_per_page', 30);
   $handler->override_option('use_pager', '1');
   $handler->override_option('style_plugin', 'table');
@@ -513,7 +513,7 @@ function total_control_views_default_views(){
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('title', 'Manage Content');
+  $handler->override_option('title', 'All Content');
   $handler->override_option('style_options', array(
     'grouping' => '',
     'override' => 1,
@@ -573,7 +573,7 @@ function total_control_views_default_views(){
   ));
   $handler->override_option('tab_options', array(
     'type' => 'normal',
-    'title' => 'Manage Site Content',
+    'title' => 'All Content',
     'description' => '',
     'weight' => '0',
   ));
@@ -972,26 +972,6 @@ function total_control_views_default_views(){
           'button' => 'Override',
         ),
       ),
-      'type' => array(
-        'operator' => 'in',
-        'value' => array(),
-        'group' => '0',
-        'exposed' => TRUE,
-        'expose' => array(
-          'use_operator' => 0,
-          'operator' => 'type_op',
-          'identifier' => 'type',
-          'label' => 'Type',
-          'optional' => 1,
-          'single' => 1,
-          'remember' => 0,
-          'reduce' => 0,
-        ),
-        'id' => 'type',
-        'table' => 'node',
-        'field' => 'type',
-        'relationship' => 'none',
-      ),
       'keys' => array(
         'operator' => 'optional',
         'value' => '',
@@ -1049,11 +1029,11 @@ function total_control_views_default_views(){
         'relationship' => 'none',
       ),
     ));
-    $handler->override_option('title', 'Manage '.$plural_type);
+    $handler->override_option('title', $plural_type);
     $handler->override_option('path', 'admin/dashboard/content/'.$machine);
     $handler->override_option('menu', array(
       'type' => 'tab',
-      'title' => 'Manage '.$plural_type,
+      'title' => $plural_type,
       'description' => '',
       'weight' => '0',
       'name' => 'navigation',
@@ -1396,7 +1376,7 @@ function total_control_views_default_views(){
     'default' => '-1',
   ));
   $handler = $view->new_display('page', 'User Admin', 'page_1');
-  $handler->override_option('title', 'Manage Users');
+  $handler->override_option('title', 'Users');
   $handler->override_option('path', 'admin/dashboard/users');
   $handler->override_option('menu', array(
     'type' => 'tab',
@@ -1633,7 +1613,7 @@ function total_control_views_default_views(){
     'type' => 'perm',
     'perm' => 'have total control',
   ));
-  $handler->override_option('title', 'Manage Comments');
+  $handler->override_option('title', 'Comments');
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_more', 1);
   $handler->override_option('style_plugin', 'list');
@@ -2074,7 +2054,7 @@ function total_control_views_default_views(){
     'type' => 'perm',
     'perm' => 'have total control',
   ));
-  $handler->override_option('title', 'Manage Terms');
+  $handler->override_option('title', 'Terms');
   $handler->override_option('items_per_page', 0);
   $handler->override_option('style_plugin', 'table');
   $handler->override_option('style_options', array(
@@ -2766,7 +2746,7 @@ function total_control_views_default_views(){
   $handler->override_option('access', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Manage Files');
+  $handler->override_option('title', 'Files');
   $handler->override_option('items_per_page', 30);
   $handler->override_option('use_pager', '1');
   $handler = $view->new_display('page', 'Page', 'page_1');
