@@ -9,7 +9,7 @@ function total_control_create_ctools_content_types() {
     'icon' => 'icon_node_form.png',
     'no title override' => TRUE,
     'title' => t('Content Control'),
-    'description' => t('Provides links to...'),
+    'description' => t('Provides links to create new content.'),
     'category' => t('Admin Dashboard'),
     'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
     'defaults' => array('types' => NULL),
@@ -22,7 +22,7 @@ function total_control_create_content_type_admin_title($subtype, $conf, $context
 
 function total_control_create_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Provides links to...');
+  $block->title = t('Provides links to create new content.');
   return $block;
 }
 

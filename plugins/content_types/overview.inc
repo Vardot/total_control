@@ -38,7 +38,7 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
   foreach ($types as $type => $object){
     if ($conf['types'][$type]){  // compare against type option on pane config
       $type_query = db_query("SELECT count(*) FROM {node} WHERE type = '%s' and status = 1", $type);
-      $total[$type] = format_plural(db_result($type_query), '1 '.$type.' item', '@count '.$object->name.' items');
+      $total[$type] = format_plural(db_result($type_query), '1 '.$object->name.' item', '@count '.$object->name.' items');
           
       if ($conf['comments'][$type]){ // compare against comment option on pane config
         $comment_query = db_query("SELECT count(DISTINCT cid) FROM {comments} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = '%s' and c.status = 1 AND n.status = 1", $type);
