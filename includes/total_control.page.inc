@@ -7,8 +7,8 @@ $page->disabled = FALSE; /* Edit this to true to make a default page disabled in
 $page->api_version = 1;
 $page->name = 'dashboard';
 $page->task = 'panel_page';
-$page->admin_title = 'Total Control Dashboard';
-$page->path = 'admin/dashboard/main';
+$page->admin_title = 'Admin Dashboard';
+$page->path = 'admin/dashboard/overview';
 $page->access = array(
   'plugins' => array(
     '0' => array(
@@ -24,7 +24,7 @@ $page->access = array(
 $page->multiple = FALSE;
 $page->menu = array(
   'type' => 'default tab',
-  'title' => 'Dashboard',
+  'title' => 'Overview',
   'name' => 'navigation',
   'weight' => '-50',
   'parent' => array(
@@ -56,22 +56,7 @@ $display->panels = array();
   $pane->subtype = 'overview_content';
   $pane->shown = TRUE;
   $pane->access = array();
-  $pane->configuration = array(
-    'op' => 'Finish',
-    'return' => 'Finish',
-    'types' => array(
-      'page' => 'page',
-      'story' => 'story',
-    ),
-    'comments' => array(
-      'page' => 0,
-      'story' => 0,
-    ),
-    'spam' => 1,
-    'form_build_id' => 'form-5bb226a1fd1597365a69218de7de24ea',
-    'form_token' => 'a60f57a6f43735af56d0ae26511e9385',
-    'form_id' => 'total_control_overview_content_content_type_edit_form',
-  );
+  $pane->configuration = array();
   $pane->cache = array();
   $pane->style = array();
   $pane->css = array();
@@ -86,17 +71,7 @@ $display->panels = array();
   $pane->subtype = 'create';
   $pane->shown = TRUE;
   $pane->access = array();
-  $pane->configuration = array(
-    'op' => 'Finish',
-    'return' => 'Finish',
-    'types' => array(
-      'page' => 'page',
-      'story' => 'story',
-    ),
-    'form_build_id' => 'form-552ef1135296bc07546460d868fca156',
-    'form_token' => 'd9c54d1e870b06b3268c11a1f3191a81',
-    'form_id' => 'total_control_create_content_type_edit_form',
-  );
+  $pane->configuration = array();
   $pane->cache = array();
   $pane->style = array();
   $pane->css = array();
@@ -111,13 +86,7 @@ $display->panels = array();
   $pane->subtype = 'taxonomy';
   $pane->shown = TRUE;
   $pane->access = array();
-  $pane->configuration = array(
-    'op' => 'Finish',
-    'return' => 'Finish',
-    'form_build_id' => 'form-4774df4dfa948203b28a8f4ea42f390b',
-    'form_token' => 'b0b2398e34dd11e194d41a7d2c7ec8ac',
-    'form_id' => 'total_control_taxonomy_content_type_edit_form',
-  );
+  $pane->configuration = array();
   $pane->cache = array();
   $pane->style = array();
   $pane->css = array();
@@ -149,9 +118,7 @@ $display->panels = array();
   $pane->subtype = 'control_content-panel_pane_2';
   $pane->shown = TRUE;
   $pane->access = array();
-  $pane->configuration = array(
-    'items_per_page' => '5',
-  );
+  $pane->configuration = array();
   $pane->cache = array();
   $pane->style = array();
   $pane->css = array();
@@ -183,14 +150,7 @@ $display->panels = array();
   $pane->subtype = 'overview_user';
   $pane->shown = TRUE;
   $pane->access = array();
-  $pane->configuration = array(
-    'op' => 'Finish',
-    'return' => 'Finish',
-    'user' => 1,
-    'form_build_id' => 'form-ee14a2700830a04df70708b1ab02eaa5',
-    'form_token' => '8da5fd3b86f35ce682fff5c1663b5eaf',
-    'form_id' => 'total_control_overview_user_content_type_edit_form',
-  );
+  $pane->configuration = array();
   $pane->cache = array();
   $pane->style = array();
   $pane->css = array();
@@ -231,6 +191,5 @@ $display->panels = array();
   $display->content['new-9'] = $pane;
   $display->panels['top'][0] = 'new-9';
 $page->conf['display'] = $display;
-
 
 /* cut and paste above */
