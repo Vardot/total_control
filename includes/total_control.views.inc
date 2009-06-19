@@ -667,6 +667,7 @@ function total_control_views_default_views(){
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_pager', '0');
   $handler->override_option('use_more', 1);
+  $handler->override_option('use_more_text', 'more content');
   $handler->override_option('style_plugin', 'list');
   $handler->override_option('style_options', array(
     'grouping' => '',
@@ -775,6 +776,7 @@ function total_control_views_default_views(){
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_pager', '0');
   $handler->override_option('use_more', 1);
+  $handler->override_option('use_more_text', 'more updates');
   $handler->override_option('link_display', 'page_2');
   $handler->override_option('style_plugin', 'list');
   $handler->override_option('style_options', array(
@@ -1290,6 +1292,7 @@ function total_control_views_default_views(){
   $handler->override_option('title', 'New Users');
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_more', 1);
+  $handler->override_option('use_more_text', 'more users');
   $handler->override_option('pane_title', 'New Users');
   $handler->override_option('pane_description', 'Total Control user summary');
   $handler->override_option('pane_category', array(
@@ -1351,6 +1354,32 @@ function total_control_views_default_views(){
       'custom_date_format' => '',
       'relationship' => 'none',
     ),
+    'title' => array(
+      'label' => 'on ',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'strip_tags' => 0,
+        'html' => 0,
+      ),
+      'link_to_node' => 1,
+      'exclude' => 0,
+      'id' => 'title',
+      'table' => 'node',
+      'field' => 'title',
+      'relationship' => 'nid',
+    ),
   ));
   $handler->override_option('sorts', array(
     'timestamp' => array(
@@ -1382,9 +1411,13 @@ function total_control_views_default_views(){
     'type' => 'perm',
     'perm' => 'have total control',
   ));
+  $handler->override_option('cache', array(
+    'type' => 'none',
+  ));
   $handler->override_option('title', 'Comments');
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_more', 1);
+  $handler->override_option('use_more_text', 'more comments');
   $handler->override_option('style_plugin', 'list');
   $handler->override_option('style_options', array(
     'grouping' => '',
@@ -1635,7 +1668,6 @@ function total_control_views_default_views(){
   ));
   $handler = $view->new_display('panel_pane', 'Recent Comments pane', 'panel_pane_1');
   $handler->override_option('title', 'Recent Comments');
-  $handler->override_option('items_per_page', 5);
   $handler->override_option('pane_title', 'Recent Comments');
   $handler->override_option('pane_description', 'Total Control comment summary');
   $handler->override_option('pane_category', array(
@@ -1649,10 +1681,13 @@ function total_control_views_default_views(){
     'link_to_view' => 0,
     'more_link' => 0,
     'path_override' => 0,
+    'title_override' => FALSE,
+    'exposed_form' => FALSE,
   ));
   $handler->override_option('argument_input', array());
   $handler->override_option('link_to_view', 0);
   $handler->override_option('inherit_panels_path', 0);
+  
   
   $views[$view->name] = $view;
   
@@ -1987,6 +2022,7 @@ function total_control_views_default_views(){
   $handler->override_option('title', 'Terms');
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_more', 1);
+  $handler->override_option('use_more_text', 'more terms');
   $handler->override_option('pane_title', 'Terms');
   $handler->override_option('pane_description', 'Total Control term summary');
   $handler->override_option('pane_category', array(
@@ -2317,6 +2353,7 @@ function total_control_views_default_views(){
   $handler->override_option('title', 'Recent Activity');
   $handler->override_option('items_per_page', 10);
   $handler->override_option('use_more', 1);
+  $handler->override_option('use_more_text', 'more activity');
   $handler->override_option('style_plugin', 'list');
   $handler->override_option('style_options', array(
     'grouping' => '',
@@ -2742,6 +2779,7 @@ function total_control_views_default_views(){
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_pager', '0');
   $handler->override_option('use_more', 1);
+  $handler->override_option('use_more_text', 'more files');
   $handler->override_option('style_plugin', 'list');
   $handler->override_option('row_options', array(
     'inline' => array(
@@ -2897,6 +2935,7 @@ function total_control_add_views_pane_display(&$view, $content_type, $machine_ty
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_pager', '0');
   $handler->override_option('use_more', 1);
+  $handler->override_option('use_more_text', 'more '.$plural_type);
   $handler->override_option('style_plugin', 'list');
   $handler->override_option('style_options', array(
     'grouping' => '',
