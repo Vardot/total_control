@@ -11,6 +11,8 @@ function total_control_create_ctools_content_types() {
     'title' => t('Content Control'),
     'description' => t('Provides links to...'),
     'category' => t('Admin Dashboard'),
+    'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
+    'defaults' => array('types' => NULL),
   );
 }
 
@@ -79,7 +81,13 @@ function total_control_create_content_type_edit_form(&$form, &$form_state) {
  * The submit form stores the data in $conf.
  */
 function total_control_create_content_type_edit_form_submit(&$form, &$form_state) {
-  foreach ($form_state['values'] as $key => $data){
+  // For each part of the form defined in the 'defaults' array set when you
+  // defined the content type, copy the value from the form into the array
+  // of items to be saved. We don't ever want to use
+  // $form_state['conf'] = $form_state['values'] because values contains
+  // buttons, form id and other items we don't want stored. CTools will handle
+  // the actual form submission.
+  foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   } 
 }

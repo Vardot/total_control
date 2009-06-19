@@ -11,6 +11,8 @@ function total_control_overview_content_ctools_content_types() {
     'title' => t('Content Overview'),
     'description' => t('Displays a summary of content statistics including: number pieces of each type of content, number of comments, number of blocked comments (spam), and if ').l(t('allowed'), 'admin/settings/total_control').t(', content-type configuration links.'),
     'category' => t('Admin Dashboard'),
+    'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
+    'defaults' => array('type' => NULL, 'comments' => NULL, 'spam' => 1),
   );
 }
 
@@ -35,7 +37,7 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
   foreach ($types as $type => $object){
     if ($conf['types'][$type]){  // compare against type option on pane config
       $type_query = db_query("SELECT count(*) FROM {node} WHERE type = '%s' and status = 1", $type);
-      $total[$type] = format_plural(db_result($type_query), '1 '.$type.' item', '@count '.$type.' items');
+      $total[$type] = format_plural(db_result($type_query), '1 '.$type.' item', '@count '.$object->name.' items');
           
       if ($conf['comments'][$type]){ // compare against comment option on pane config
         $comment_query = db_query("SELECT count(DISTINCT cid) FROM {comments} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = '%s' and c.status = 1 AND n.status = 1", $type);
@@ -86,13 +88,13 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
     '#type' => 'checkboxes',
     '#title' => t('Include Stats on Content Types'),
     '#options' => $type_options,
-    '#default_value' => ($form_state['op'] == 'add')? $type_defaults : $conf['types'],
+    '#default_value' => $type_defaults,
     );
   $form['comments'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Include Comment Stats for Content Types'),
     '#options' => $type_options,
-    '#default_value' => ($form_state['op'] == 'add')? $comment_defaults : $conf['comments'],
+    '#default_value' => $comment_defaults,
     );
   $spam_options = array(
     0 => t('no'), 
@@ -103,16 +105,24 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
     '#options' => $spam_options,
     '#default_value' => ($form_state['op'] == 'add')? TRUE : $conf['spam'],
     );
+    
+  //print_r($form);exit;
 
   return $form;
 }
 
 
 /**
- * The submit form stores the data in $conf.
+ * The submit form stores the data in $form_state['conf'].
  */
 function total_control_overview_content_content_type_edit_form_submit(&$form, &$form_state) {
-  foreach ($form_state['values'] as $key => $data){
+  // For each part of the form defined in the 'defaults' array set when you
+  // defined the content type, copy the value from the form into the array
+  // of items to be saved. We don't ever want to use
+  // $form_state['conf'] = $form_state['values'] because values contains
+  // buttons, form id and other items we don't want stored. CTools will handle
+  // the actual form submission.
+  foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   } 
 }
