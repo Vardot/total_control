@@ -206,11 +206,11 @@ function _total_control_install_dashboard() {
 
 function _total_control_pluralize($word){
   $word = trim($word);
-  if (substr($word, -1, 1)) == 'y'){
+  if (substr($word, -1, 1) == 'y'){
     $removed = strlen($word) - 1;
     $plural = substr($word, 0, $removed) . 'ies';
   }
-  else if (substr($word, -1, 1)) == 's'){
+  else if (substr($word, -1, 1) == 's'){
     $plural = $word;
   }
   else {

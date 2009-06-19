@@ -568,7 +568,7 @@ function total_control_views_default_views(){
     'type' => 'tab',
     'title' => 'All Content',
     'description' => '',
-    'weight' => '-10',
+    'weight' => '-19',
     'name' => 'navigation',
   ));
   $handler->override_option('tab_options', array(
@@ -1153,7 +1153,7 @@ function total_control_views_default_views(){
     'type' => 'tab',
     'title' => 'Users',
     'description' => '',
-    'weight' => '10',
+    'weight' => '-14',
     'name' => 'navigation',
   ));
   $handler->override_option('tab_options', array(
@@ -1657,7 +1657,7 @@ function total_control_views_default_views(){
     'type' => 'tab',
     'title' => 'Comments',
     'description' => '',
-    'weight' => '0',
+    'weight' => '-17',
     'name' => 'navigation',
   ));
   $handler->override_option('tab_options', array(
@@ -1902,7 +1902,7 @@ function total_control_views_default_views(){
     'type' => 'tab',
     'title' => 'Terms',
     'description' => '',
-    'weight' => '9',
+    'weight' => '-15',
     'name' => 'navigation',
   ));
   $handler->override_option('tab_options', array(
@@ -2254,7 +2254,7 @@ function total_control_views_default_views(){
     'type' => 'tab',
     'title' => 'Activity',
     'description' => '',
-    'weight' => '0',
+    'weight' => '-18',
     'name' => 'navigation',
   ));
   $handler->override_option('tab_options', array(
@@ -2655,7 +2655,7 @@ function total_control_views_default_views(){
     'type' => 'tab',
     'title' => 'Files',
     'description' => '',
-    'weight' => '0',
+    'weight' => '-16',
     'name' => 'navigation',
   ));
   $handler->override_option('tab_options', array(
