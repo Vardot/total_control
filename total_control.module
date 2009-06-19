@@ -57,7 +57,15 @@ function total_control_admin_settings(){
     '#default_value' => variable_get('total_control_configure_links', 1),
     '#description' => t('Configure links go to the edit content type pages'),
     );
-    return system_settings_form($form);
+  /* TODO ??
+  $form['total_control_takeover'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Take over the /admin page'),
+    '#default_value' => variable_get('total_control_takeover', 1),
+    '#description' => t('If you want the admin dashboard to appear at /admin instead of /admin/dashboard'),
+    );
+  */
+  return system_settings_form($form);
 }
 
 /**
@@ -199,7 +207,7 @@ function _total_control_install_dashboard() {
 function _total_control_pluralize($word){
   $word = trim($word);
   if (substr($word, 0, -1) == 'y'){
-    $removed = strlen($word) -1;
+    $removed = strlen($word) - 1;
     $plural = substr($word, 0, $removed) . 'ies';
   }
   else if (substr($word, 0, -1) == 's'){
