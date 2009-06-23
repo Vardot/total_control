@@ -34,20 +34,28 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
   $create = array();  
   
   foreach ($types as $type => $object){
-    if ($conf['types'][$type] || !array_key_exists('types',$conf)){  // compare against type option on pane config
-      $row = l(t('Add New '.$object->name), 'node/add/'.$object->type);
-      if ((variable_get('total_control_configure_links', 1) == 1) && user_access('administer content types')){
+    $row = '';
+    // compare against type option on pane config
+    if ($conf['types'][$type] || !array_key_exists('types',$conf)){  
+      
+      // check access to create nodes of this type
+      if (user_access('create ' . $type . ' content')) {
+        $row = l(t('Add New '.$object->name), 'node/add/'.$object->type);
+      }
+      
+      // check access to administer content types
+      if ((variable_get('total_control_configure_links', 1) == 1) 
+        && user_access('administer content types')){
         $row .= ' | ' . l(t('Configure'), 'admin/content/node-type/'.$object->type);
       }
+      
       $create[] = $row;
     } // end if type
   }
-    
-  $pane = total_control_create_ctools_content_types();
-  
+      
   // assemble content
   $content =  '<div class="total-control-content-overview">';
-  $content .= '  <h2 class="title">' . $pane['title'] . '</h2>';
+  $content .= '  <h2 class="title">' . t('Content Control') . '</h2>';
   $content .= '  <div class="content">';
   $content .=      theme('item_list', $create);
   $content .= '  </div>';
