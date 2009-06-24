@@ -16,7 +16,7 @@ function total_control_workflow_perm() {
  */
 function total_control_workflow_ctools_plugin_directory($module, $plugin) {
   if ($module == 'ctools') {
-    return 'workflow_plugins/' . $plugin;
+    return 'plugins_workflow/' . $plugin;
   }
 }
 
