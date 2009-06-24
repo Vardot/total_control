@@ -1,0 +1,70 @@
+<?php
+// default views for Total Control Workflow
+//include_once('includes/total_control_og.views.inc');
+
+/* 
+ * Implementation of hook_perm
+ * adds permissions for access to the total control dashboard
+ */
+function total_control_og_perm() {
+ return array('have total og control');
+}
+
+/**
+ * Implementation of hook_ctools_plugin_dierctory() to let the system know
+ * we implement task and task_handler plugins.
+ */
+function total_control_og_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins_og/' . $plugin;
+  }
+}
+
+/* TODO when adding or removing groups...
+ * Implementation of hook_form_alter
+ * adds views adjustment handling when workflows are added or removed
+ */
+function total_control_og_form_alter(&$form, $form_state, $form_id) {
+  if (false) {
+    $form['#submit'][] = '_total_control_og_views_add_display';
+  }
+  if (false) {
+    $form['#submit'][] = '_total_control_og_views_delete_display';
+  }
+}
+
+/* Helper function.  Adds view display.  */
+function _total_control_og_views_add_display($form, &$form_state){  
+  
+  // gather the workflow info we'll need
+
+  
+  // get the view
+  $view = views_get_view('control_og_content');
+  
+  // add displays
+  
+  // save the view
+  $view->save();
+  
+  // update the menu tab weights
+  menu_rebuild();
+  
+  return;
+}
+
+/* Helper function.  Removes view display. */
+function _total_control_og_views_delete_display($form, &$form_state){
+  $sid = $form_state['values']['sid'];
+  
+  // get the view
+  $view = views_get_view('control_workflow');
+  
+  // delete the corresponding display
+  unset($view->display['panel_pane_tcog_sid_'.$sid]);
+  
+  // save the view
+  $view->save();
+  
+  return;
+}

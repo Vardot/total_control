@@ -1,0 +1,7 @@
+; $Id
+name = Total Organic Groups Control
+description = Adds OG support to the Total Control Admin Dashboard. Views and panes provided.
+dependencies[] = total_control
+dependencies[] = og
+package = Administration
+core = 6.x
