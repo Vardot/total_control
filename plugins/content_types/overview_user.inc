@@ -50,7 +50,7 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
   $roles = user_roles(TRUE);
   $total['users_roles'] = '';
   foreach ($roles as $rid => $role){
-    if (!$conf['roles'] || (($conf['roles'][$rid]) && $rid != 2)){  // compare against roles option on pane config
+    if ((!$conf['roles'] || ($conf['roles'][$rid])) && $rid != 2){  // compare against roles option on pane config
       $user_role_query = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = %d", $rid);
       $total['users_role_'.$rid] .= format_plural(db_result($user_role_query), '1 user', '@count users');
       $total['users_role_'.$rid] .= ' in role: '.$role;
