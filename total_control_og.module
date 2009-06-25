@@ -79,7 +79,6 @@ function _total_control_og_page($node){
 function _total_control_og_views_add_display($form, &$form_state){  
   
   // gather the workflow info we'll need
-
   
   // get the view
   $view = views_get_view('control_og_content');
@@ -103,7 +102,7 @@ function _total_control_og_views_delete_display($form, &$form_state){
   $view = views_get_view('control_og_content');
   
   // delete the corresponding display
-  unset($view->display['todo']);
+  //unset($view->display['TODO']);
   
   // save the view
   $view->save();
