@@ -27,8 +27,12 @@ function total_control_workflow_ctools_plugin_directory($module, $plugin) {
 function total_control_workflow_menu_alter(&$items) {
   $states = workflow_get_states(); // these are in the order we want
   $count = 1;
+  
   foreach ($states as $sid => $state_name){
+    $num = db_result(db_query("SELECT count(*) FROM {workflow_states} WHERE sid = %d", $sid));
     $items['admin/dashboard/workflow/'.$sid]['weight'] = $count;
+    $items['admin/dashboard/workflow/'.$sid]['title'] 
+      = $items['admin/dashboard/workflow/'.$sid]['title'] . ' (' .$num. ')'; 
     $count++;
   }
 }
