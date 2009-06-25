@@ -12,7 +12,7 @@ function total_control_overview_content_ctools_content_types() {
     'description' => t('Displays a summary of content statistics including: number pieces of each type of content, number of comments, number of blocked comments (spam), and if ').l(t('allowed'), 'admin/settings/total_control').t(', content-type configuration links.'),
     'category' => t('Admin Dashboard'),
     'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
-    'defaults' => array('type' => NULL, 'comments' => NULL, 'spam' => 1),
+    'defaults' => array('types' => NULL, 'comments' => NULL, 'spam' => 1),
   );
 }
 
