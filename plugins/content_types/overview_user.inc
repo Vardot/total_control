@@ -34,7 +34,7 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
   $overview = array();
   
   // User Overview
-  if ($conf['user'] == 1){  // compare against user option on pane config
+  if (!$conf['user'] || $conf['user'] == 1){  // compare against user option on pane config
     $user_query = db_query("SELECT count(*) FROM {users}");
     $total['users_all'] = format_plural(db_result($user_query), '1 total user', '@count total users');
     $user_active_query = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login != 0");
@@ -50,7 +50,7 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
   $roles = user_roles(TRUE);
   $total['users_roles'] = '';
   foreach ($roles as $rid => $role){
-    if (($conf['roles'][$rid]) && $rid != 2){  // compare against roles option on pane config
+    if (!$conf['roles'] || (($conf['roles'][$rid]) && $rid != 2)){  // compare against roles option on pane config
       $user_role_query = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = %d", $rid);
       $total['users_role_'.$rid] .= format_plural(db_result($user_role_query), '1 user', '@count users');
       $total['users_role_'.$rid] .= ' in role: '.$role;
@@ -75,14 +75,10 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
 function total_control_overview_user_content_type_edit_form(&$form, &$form_state) {
   $conf = $form_state['conf'];
   
-  $user_options = array(
-    0 => t('no'), 
-    1 => t('Show User Stats'));
   $form['user'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Include User Counts'),
-    '#options' => $user_options,
-    '#default_value' => ($form_state['op'] == 'add')? TRUE : $conf['user'],
+    '#title' => t('Include User Stats'),
+    '#default_value' => ($conf['user'])? $conf['user']: TRUE,
     );
   $roles = user_roles(TRUE);
   $roles_options = array();
@@ -96,9 +92,9 @@ function total_control_overview_user_content_type_edit_form(&$form, &$form_state
   if (!empty($roles_options)){
     $form['roles'] = array(
       '#type' => 'checkboxes',
-      '#title' => t('Include User counts in Roles'),
+      '#title' => t('Include User counts for Roles'),
       '#options' => $roles_options,
-      '#default_value' => ($form_state['op'] == 'add')? $roles_defaults : $conf['roles'],
+      '#default_value' => ($conf['roles'])? $conf['roles']: $roles_defaults,
       );
   }
 
