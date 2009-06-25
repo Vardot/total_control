@@ -403,7 +403,7 @@ function total_control_workflow_views_default_views(){
    'type' => 'tab',
    'title' => 'Workflow',
    'description' => '',
-   'weight' => '0',
+   'weight' => '-13',
    'name' => 'navigation',
   ));
   $handler->override_option('tab_options', array(
@@ -481,7 +481,7 @@ function total_control_workflow_views_default_views(){
         ),
       ));
       $handler->override_option('title', $state['state'].' Summary');
-      $handler->override_option('pane_title', 'State: '.$state['state']);
+      $handler->override_option('pane_title', 'Workflow State: '.$state['state']);
       $handler->override_option('pane_description', t('Items in state: ').$state['state']);
       $handler->override_option('pane_category', array(
        'name' => 'Admin Dashboard',
