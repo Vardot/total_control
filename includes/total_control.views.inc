@@ -261,7 +261,7 @@ function total_control_views_default_views(){
     'type' => 'perm',
     'perm' => 'have total control',
   ));
-  $handler->override_option('title', 'All Content');
+  $handler->override_option('title', 'All '.$plural_type);
   $handler->override_option('items_per_page', 30);
   $handler->override_option('use_pager', '1');
   $handler->override_option('style_plugin', 'table');
@@ -2949,7 +2949,7 @@ function total_control_add_views_pane_display(&$view, $content_type, $machine_ty
     ),
     'separator' => '',
   ));
-  $handler->override_option('pane_title', 'New Content');
+  $handler->override_option('pane_title', 'New '.$plural_type);
   $handler->override_option('pane_description', 'Total Control '.$content_type.' summary');
   $handler->override_option('pane_category', array(
     'name' => 'Admin Dashboard',
