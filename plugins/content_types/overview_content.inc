@@ -81,7 +81,8 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
   foreach ($types as $type => $object){
     $type_options[$type] = $object->name;
     $type_defaults[] = $type;
-    if ($type == 'blog' || $type == 'forum topic'){
+    $comment_setting = variable_get('comment_'. $type, 'comment');
+    if ($comment_setting){
       $comment_defaults[] = $type;
     }
   }
@@ -96,6 +97,9 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
     '#title' => t('Include Comment Stats for Content Types'),
     '#options' => $type_options,
     '#default_value' => $comment_defaults,
+    );
+  $form['spam_markup'] = array(
+    '#value' => '<div class="form-item"><label>' . t('Spam Counts') .'</label></div>',
     );
   $spam_options = array(
     0 => t('no'), 

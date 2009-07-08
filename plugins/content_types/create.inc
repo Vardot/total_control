@@ -79,7 +79,7 @@ function total_control_create_content_type_edit_form(&$form, &$form_state) {
     '#type' => 'checkboxes',
     '#title' => t('Include Create links for Content Types'),
     '#options' => $type_options,
-    '#default_value' => ($form_state['op'] == 'add')? $type_defaults : $conf['types'],
+    '#default_value' => ($conf['types'])? $conf['types'] : $type_defaults,
     );
   
   return $form;

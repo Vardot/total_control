@@ -2,14 +2,6 @@
 // default views for Total Control Workflow
 include_once('includes/total_control_og.views.inc');
 
-/* 
- * Implementation of hook_perm
- * adds permissions for access to the total control dashboard
- */
-function total_control_og_perm() {
- return array('have total og control');
-}
-
 /**
  * Implementation of hook_ctools_plugin_dierctory() to let the system know
  * we implement task and task_handler plugins.
@@ -55,7 +47,11 @@ function total_control_og_menu() {
 
 /* Helper function.  Checks access for node tab  */
 function _total_control_og_determine_access($node, $perm) {
-  return (og_is_group_type($node->type) && og_is_group_member($node->nid) && (user_access($perm) || user_access('administer organic groups')));
+  $return = FALSE;
+  if ((og_is_group_type($node->type) && og_is_group_member($node->nid) && og_is_group_admin($node)){
+    $return = TRUE;
+  }
+  return $return;
 }
 
 /* Helper function.  Builds view in tab  */
@@ -79,6 +75,7 @@ function _total_control_og_page($node){
 function _total_control_og_views_add_display($form, &$form_state){  
   
   // gather the workflow info we'll need
+
   
   // get the view
   $view = views_get_view('control_og_content');
@@ -102,7 +99,7 @@ function _total_control_og_views_delete_display($form, &$form_state){
   $view = views_get_view('control_og_content');
   
   // delete the corresponding display
-  //unset($view->display['TODO']);
+  unset($view->display['todo']);
   
   // save the view
   $view->save();
