@@ -48,7 +48,7 @@ function total_control_og_menu() {
 /* Helper function.  Checks access for node tab  */
 function _total_control_og_determine_access($node, $perm) {
   $return = FALSE;
-  if ((og_is_group_type($node->type) && og_is_group_member($node->nid) && og_is_group_admin($node)){
+  if (og_is_group_type($node->type) && og_is_group_member($node->nid) && og_is_group_admin($node)){
     $return = TRUE;
   }
   return $return;
