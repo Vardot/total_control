@@ -813,9 +813,9 @@ function total_control_views_default_views(){
 
   foreach ($types as $machine => $type){
     // create a panel pane for each type
-    total_control_add_views_pane_display(&$view, $type->name, $machine);
+    total_control_add_views_pane_display($view, $type->name, $machine);
     // create a page for each type
-    total_control_add_views_page_display(&$view, $type->name, $machine);
+    total_control_add_views_page_display($view, $type->name, $machine);
   }
   
   $views[$view->name] = $view;
