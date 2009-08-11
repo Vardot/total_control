@@ -29,18 +29,21 @@ function total_control_dashboard_page_manager_tasks() {
  */
 function total_control_dashboard_menu(&$items) {
   $items['admin/dashboard'] = array(
+    'title' => 'Dashboard',
+    'description' => 'Administrative Dashboard',
     'page callback' => 'total_control_dashboard',
     'file path' => drupal_get_path('module', 'total_control') . '/plugins/tasks',
     'file' => 'dashboard.inc',
-    'title' => 'Dashboard',
     'access arguments' => array('have total control'),
     'weight' => -50,
   );
   $items['admin/dashboard/all'] = array(
     'title' => 'Dashboard',
+    'description' => 'Administrative Dashboard',
     'weight' => -50,
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  
   return $items;
 }
 
