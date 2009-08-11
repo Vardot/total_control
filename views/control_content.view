@@ -567,8 +567,8 @@ $handler->override_option('menu', array(
   'name' => 'navigation',
 ));
 $handler->override_option('tab_options', array(
-  'type' => 'normal',
-  'title' => 'All Content',
+  'type' => 'none',
+  'title' => '',
   'description' => '',
   'weight' => '0',
 ));
