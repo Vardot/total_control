@@ -10,7 +10,7 @@ function total_control_overview_user_ctools_content_types() {
     'no title override' => TRUE,
     'title' => t('User Overview'),
     'description' => t('Displays a summary of user statistics including: number of total users, active users, blocked users, and users in each role.'),
-    'category' => t('Admin Dashboard'),
+    'category' => t('Total Control'),
     'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
     'defaults' => array('user' => NULL, 'roles' => NULL),
   );

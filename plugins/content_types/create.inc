@@ -8,16 +8,16 @@ function total_control_create_ctools_content_types() {
     'single' => TRUE,
     'icon' => 'icon_node_form.png',
     'no title override' => TRUE,
-    'title' => t('Content Control'),
+    'title' => t('Content Creation'),
     'description' => t('Provides links to create new content.'),
-    'category' => t('Admin Dashboard'),
+    'category' => t('Total Control'),
     'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
     'defaults' => array('types' => NULL),
   );
 }
 
 function total_control_create_content_type_admin_title($subtype, $conf, $context) {
-    return t('Content Control');
+    return t('Content Creation');
 }
 
 function total_control_create_content_type_admin_info($subtype, $conf, $context) {
@@ -36,7 +36,8 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
   foreach ($types as $type => $object){
     $row = '';
     // compare against type option on pane config
-    if ($conf['types'][$type] || !array_key_exists('types',$conf)){  
+        
+    if ((isset($conf['types']) && $conf['types'][$type]) || ($conf == array())){  
       
       // check access to create nodes of this type
       if (user_access('create ' . $type . ' content')) {
@@ -79,7 +80,7 @@ function total_control_create_content_type_edit_form(&$form, &$form_state) {
     '#type' => 'checkboxes',
     '#title' => t('Include Create links for Content Types'),
     '#options' => $type_options,
-    '#default_value' => ($conf['types'])? $conf['types'] : $type_defaults,
+    '#default_value' => ($form_state['op'] == 'add')? $type_defaults : $conf['types'],
     );
   
   return $form;

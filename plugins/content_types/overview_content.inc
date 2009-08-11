@@ -10,7 +10,7 @@ function total_control_overview_content_ctools_content_types() {
     'no title override' => TRUE,
     'title' => t('Content Overview'),
     'description' => t('Displays a summary of content statistics including: number pieces of each type of content, number of comments, number of blocked comments (spam), and if ').l(t('allowed'), 'admin/settings/total_control').t(', content-type configuration links.'),
-    'category' => t('Admin Dashboard'),
+    'category' => t('Total Control'),
     'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
     'defaults' => array('types' => NULL, 'comments' => NULL, 'spam' => 1),
   );
@@ -35,24 +35,24 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
     
   // Content Overview
   foreach ($types as $type => $object){
-    if (($conf['types']== NULL) || $conf['types'][$type]){  // compare against type option on pane config
+    if (empty($conf['types']) || (isset($conf['types']) && $conf['types'][$type])){  // compare against type option on pane config
       $type_query = db_query("SELECT count(*) FROM {node} WHERE type = '%s' and status = 1", $type);
       $total[$type] = format_plural(db_result($type_query), '1 '.$object->name.' item', '@count '.$object->name.' items');
       
       $comment_setting = variable_get('comment_'. $type, 'comment');
-      if (($comment_setting != 0) || $conf['comments'][$type]){ // compare against comment option on pane config
+      if (($comment_setting != 0) || (isset($conf['comments']) && $conf['comments'][$type])){ // compare against comment option on pane config
         $comment_query = db_query("SELECT count(DISTINCT cid) FROM {comments} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = '%s' and c.status = 1 AND n.status = 1", $type);
         $total[$type.'_comments'] =  format_plural(db_result($comment_query), '1 comment', '@count comments');
         
-        if ($conf['spam'] == 1){ // compare against comment option on pane config
+        if (isset($conf['spam']) && $conf['spam'] == 1){ // compare against comment option on pane config
           $spam_query = db_query("SELECT count(DISTINCT c.cid) FROM {comments} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = '%s' and c.status = 0 AND n.status = 1", $type);
           $total[$type.'_comments_spam'] = format_plural(db_result($spam_query), '1 spam', '@count spam');
         } // if spam
       } // if comment
       
       $line =  $total[$type];
-      $line .= ($total[$type.'_comments'])? ' with ' . $total[$type.'_comments'] : '' ;
-      $line .= ($total[$type.'_comments_spam'])? ' (' . $total[$type.'_comments_spam'].')' : '' ;
+      $line .= (isset($total[$type.'_comments']))? ' with ' . $total[$type.'_comments'] : '' ;
+      $line .= (isset($total[$type.'_comments_spam']))? ' (' . $total[$type.'_comments_spam'].')' : '' ;
       $overview[] = $line;
     } // if type
   } // foreach
@@ -81,8 +81,7 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
   foreach ($types as $type => $object){
     $type_options[$type] = $object->name;
     $type_defaults[] = $type;
-    $comment_setting = variable_get('comment_'. $type, 'comment');
-    if ($comment_setting){
+    if ($type == 'blog' || $type == 'forum topic'){
       $comment_defaults[] = $type;
     }
   }
@@ -97,9 +96,6 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
     '#title' => t('Include Comment Stats for Content Types'),
     '#options' => $type_options,
     '#default_value' => $comment_defaults,
-    );
-  $form['spam_markup'] = array(
-    '#value' => '<div class="form-item"><label>' . t('Spam Counts') .'</label></div>',
     );
   $spam_options = array(
     0 => t('no'), 

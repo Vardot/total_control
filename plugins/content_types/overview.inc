@@ -10,7 +10,7 @@ function total_control_overview_ctools_content_types() {
     'no title override' => TRUE,
     'title' => t('Site Overview'),
     'description' => t('An overview of both content and users in one pane'),
-    'category' => t('Admin Dashboard'),
+    'category' => t('Total Control'),
     'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
     'defaults' => array('type' => NULL, 'comments' => NULL, 'spam' => 1, 'user' => NULL, 'roles' => NULL),
   );

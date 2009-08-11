@@ -10,7 +10,7 @@ function total_control_taxonomy_ctools_content_types() {
     'no title override' => TRUE,
     'title' => t('Categories and Terms'),
     'description' => t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.'),
-    'category' => t('Admin Dashboard'),
+    'category' => t('Total Control'),
     'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
     'defaults' => array('vids' => NULL),
   ); 
@@ -30,7 +30,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $block = new stdClass();
   $block->module = t('total_control');
   
-  $vids = ($conf['vids'])? $conf['vids']: array();
+  $vids = (isset($conf['vids']))? $conf['vids']: array();
   
   $vocabs = taxonomy_get_vocabularies();
   $rows = array();  
