@@ -1,0 +1,375 @@
+<?php
+
+/*
+ * Default comment view
+ */
+$view = new view;
+$view->name = 'control_comments';
+$view->description = 'Total Control over comments: Contains a panel pane and a page to control comments.';
+$view->tag = 'total_control';
+$view->view_php = '';
+$view->base_table = 'comments';
+$view->is_cacheable = FALSE;
+$view->api_version = 2;
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+$handler = $view->new_display('default', 'Defaults', 'default');
+$handler->override_option('relationships', array(
+  'nid' => array(
+    'id' => 'nid',
+    'table' => 'comments',
+    'field' => 'nid',
+    'label' => 'Node',
+    'required' => FALSE,
+  ),
+));
+$handler->override_option('fields', array(
+  'subject' => array(
+    'id' => 'subject',
+    'table' => 'comments',
+    'field' => 'subject',
+    'label' => '',
+    'link_to_comment' => 1,
+    'relationship' => 'none',
+  ),
+  'timestamp' => array(
+    'id' => 'timestamp',
+    'table' => 'comments',
+    'field' => 'timestamp',
+    'label' => '',
+    'date_format' => 'time ago',
+    'custom_date_format' => '',
+    'relationship' => 'none',
+  ),
+  'title' => array(
+    'label' => 'on ',
+    'alter' => array(
+      'alter_text' => 0,
+      'text' => '',
+      'make_link' => 0,
+      'path' => '',
+      'link_class' => '',
+      'alt' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'help' => '',
+      'trim' => 0,
+      'max_length' => '',
+      'word_boundary' => 1,
+      'ellipsis' => 1,
+      'strip_tags' => 0,
+      'html' => 0,
+    ),
+    'link_to_node' => 1,
+    'exclude' => 0,
+    'id' => 'title',
+    'table' => 'node',
+    'field' => 'title',
+    'relationship' => 'nid',
+  ),
+));
+$handler->override_option('sorts', array(
+  'timestamp' => array(
+    'id' => 'timestamp',
+    'table' => 'comments',
+    'field' => 'timestamp',
+    'order' => 'DESC',
+    'granularity' => 'second',
+    'relationship' => 'none',
+  ),
+));
+$handler->override_option('filters', array(
+  'status_extra' => array(
+    'id' => 'status_extra',
+    'table' => 'node',
+    'field' => 'status_extra',
+    'operator' => '=',
+    'value' => '',
+    'group' => 0,
+    'exposed' => FALSE,
+    'expose' => array(
+      'operator' => FALSE,
+      'label' => '',
+    ),
+    'relationship' => 'nid',
+  ),
+));
+$handler->override_option('access', array(
+  'type' => 'perm',
+  'perm' => 'have total control',
+));
+$handler->override_option('cache', array(
+  'type' => 'none',
+));
+$handler->override_option('title', 'Comments');
+$handler->override_option('items_per_page', 5);
+$handler->override_option('use_more', 1);
+$handler->override_option('use_more_text', 'more comments');
+$handler->override_option('style_plugin', 'list');
+$handler->override_option('style_options', array(
+  'grouping' => '',
+  'type' => 'ul',
+));
+$handler = $view->new_display('page', 'Admin Comments Page', 'page');
+$handler->override_option('fields', array(
+  'subject' => array(
+    'label' => 'Comment',
+    'alter' => array(
+      'alter_text' => 0,
+      'text' => '',
+      'make_link' => 0,
+      'path' => '',
+      'alt' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'help' => '',
+      'trim' => 0,
+      'max_length' => '',
+      'word_boundary' => 1,
+      'ellipsis' => 1,
+      'html' => 0,
+    ),
+    'link_to_comment' => 1,
+    'exclude' => 0,
+    'id' => 'subject',
+    'table' => 'comments',
+    'field' => 'subject',
+    'relationship' => 'none',
+    'override' => array(
+      'button' => 'Use default',
+    ),
+  ),
+  'name' => array(
+    'label' => 'by',
+    'alter' => array(
+      'alter_text' => 0,
+      'text' => '',
+      'make_link' => 0,
+      'path' => '',
+      'alt' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'help' => '',
+      'trim' => 0,
+      'max_length' => '',
+      'word_boundary' => 1,
+      'ellipsis' => 1,
+      'html' => 0,
+    ),
+    'link_to_user' => 1,
+    'exclude' => 0,
+    'id' => 'name',
+    'table' => 'comments',
+    'field' => 'name',
+    'override' => array(
+      'button' => 'Use default',
+    ),
+    'relationship' => 'none',
+  ),
+  'timestamp' => array(
+    'label' => 'Posted',
+    'alter' => array(
+      'alter_text' => 0,
+      'text' => '',
+      'make_link' => 0,
+      'path' => '',
+      'alt' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'help' => '',
+      'trim' => 0,
+      'max_length' => '',
+      'word_boundary' => 1,
+      'ellipsis' => 1,
+      'html' => 0,
+    ),
+    'date_format' => 'custom',
+    'custom_date_format' => 'm/d g:ia',
+    'exclude' => 0,
+    'id' => 'timestamp',
+    'table' => 'comments',
+    'field' => 'timestamp',
+    'relationship' => 'none',
+    'override' => array(
+      'button' => 'Use default',
+    ),
+  ),
+  'title' => array(
+    'id' => 'title',
+    'table' => 'node',
+    'field' => 'title',
+    'label' => 'Reply to',
+    'relationship' => 'nid',
+    'link_to_node' => 1,
+  ),
+  'status' => array(
+    'label' => 'In moderation',
+    'alter' => array(
+      'alter_text' => 0,
+      'text' => '',
+      'make_link' => 0,
+      'path' => '',
+      'alt' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'help' => '',
+      'trim' => 0,
+      'max_length' => '',
+      'word_boundary' => 1,
+      'ellipsis' => 1,
+      'html' => 0,
+    ),
+    'type' => 'yes-no',
+    'not' => 0,
+    'exclude' => 0,
+    'id' => 'status',
+    'table' => 'comments',
+    'field' => 'status',
+    'override' => array(
+      'button' => 'Use default',
+    ),
+    'relationship' => 'none',
+  ),
+  'delete_comment' => array(
+    'label' => 'Delete ',
+    'alter' => array(
+      'alter_text' => 0,
+      'text' => '',
+      'make_link' => 0,
+      'path' => '',
+      'alt' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'help' => '',
+      'trim' => 0,
+      'max_length' => '',
+      'word_boundary' => 1,
+      'ellipsis' => 1,
+      'html' => 0,
+    ),
+    'text' => 'delete',
+    'exclude' => 0,
+    'id' => 'delete_comment',
+    'table' => 'comments',
+    'field' => 'delete_comment',
+    'override' => array(
+      'button' => 'Use default',
+    ),
+    'relationship' => 'none',
+  ),
+  'edit_comment' => array(
+    'label' => 'Edit',
+    'alter' => array(
+      'alter_text' => 0,
+      'text' => '',
+      'make_link' => 0,
+      'path' => '',
+      'alt' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'help' => '',
+      'trim' => 0,
+      'max_length' => '',
+      'word_boundary' => 1,
+      'ellipsis' => 1,
+      'html' => 0,
+    ),
+    'text' => 'edit',
+    'exclude' => 0,
+    'id' => 'edit_comment',
+    'table' => 'comments',
+    'field' => 'edit_comment',
+    'override' => array(
+      'button' => 'Use default',
+    ),
+    'relationship' => 'none',
+  ),
+));
+$handler->override_option('items_per_page', 30);
+$handler->override_option('use_pager', '1');
+$handler->override_option('style_plugin', 'table');
+$handler->override_option('style_options', array(
+  'grouping' => '',
+  'override' => 1,
+  'sticky' => 0,
+  'order' => 'asc',
+  'columns' => array(
+    'subject' => 'subject',
+    'name' => 'name',
+    'timestamp' => 'timestamp',
+    'title' => 'title',
+    'status' => 'status',
+    'delete_comment' => 'delete_comment',
+    'edit_comment' => 'edit_comment',
+  ),
+  'info' => array(
+    'subject' => array(
+      'sortable' => 0,
+      'separator' => '',
+    ),
+    'name' => array(
+      'sortable' => 0,
+      'separator' => '',
+    ),
+    'timestamp' => array(
+      'sortable' => 0,
+      'separator' => '',
+    ),
+    'title' => array(
+      'sortable' => 0,
+      'separator' => '',
+    ),
+    'status' => array(
+      'sortable' => 0,
+      'separator' => '',
+    ),
+    'delete_comment' => array(
+      'separator' => '',
+    ),
+    'edit_comment' => array(
+      'separator' => '',
+    ),
+  ),
+  'default' => '-1',
+));
+$handler->override_option('row_options', array(
+  'inline' => array(
+    'title' => 'title',
+    'timestamp' => 'timestamp',
+  ),
+  'separator' => '&nbsp;',
+));
+$handler->override_option('path', 'admin/dashboard/comments');
+$handler->override_option('menu', array(
+  'type' => 'tab',
+  'title' => 'Comments',
+  'description' => '',
+  'weight' => '-17',
+  'name' => 'navigation',
+));
+$handler->override_option('tab_options', array(
+  'type' => 'none',
+  'title' => '',
+  'description' => '',
+  'weight' => 0,
+));
+$handler = $view->new_display('panel_pane', 'Recent Comments pane', 'panel_pane_1');
+$handler->override_option('title', 'Recent Comments');
+$handler->override_option('pane_title', 'Recent Comments');
+$handler->override_option('pane_description', 'Total Control comment summary');
+$handler->override_option('pane_category', array(
+  'name' => 'Total Control',
+  'weight' => '0',
+));
+$handler->override_option('allow', array(
+  'use_pager' => 0,
+  'items_per_page' => 'items_per_page',
+  'offset' => 0,
+  'link_to_view' => 0,
+  'more_link' => 0,
+  'path_override' => 0,
+  'title_override' => FALSE,
+  'exposed_form' => FALSE,
+));
+$handler->override_option('argument_input', array());
+$handler->override_option('link_to_view', 0);
+$handler->override_option('inherit_panels_path', 0);
