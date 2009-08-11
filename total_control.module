@@ -2,15 +2,17 @@
 // default views for Total Control
 include_once('includes/total_control.views.inc');
 
-// This is the name of the dashboard as the delegate module sees it via the page task.
+// This is the name of the dashboard as the page manager module sees it via the page task.
 define('TOTAL_CONTROL_DASHBOARD_PANEL_NAME', 'dashboard');
+define('TOTAL_CONTROL_MINIMUM_VERSION', 1);
+define('TOTAL_CONTROL_VERSION', 1);
 
 /* 
  * Implementation of hook_perm
  * adds permissions for access to the total control dashboard
  */
 function total_control_perm() {
- return array('have total control', 'administer total control');
+  return array('have total control', 'administer total control');
 }
 
 /* 
@@ -19,13 +21,7 @@ function total_control_perm() {
  */
 function total_control_menu() {
   $items = array();
-  
-  $items['admin/dashboard/install'] = array(
-    'title' => 'Total Control Dashboard Install',
-    'page callback' => 'total_control_dashboard_install',
-    'access arguments' => array('administer site configuration'),
-    'type' => MENU_CALLBACK,
-  );
+
   $items['admin/settings/total_control'] = array(
     'title' => 'Total Control',
     'description' => 'Adjust administration menu settings.',
@@ -38,18 +34,6 @@ function total_control_menu() {
 }
 
 /* menu callback */
-function total_control_dashboard_install() {
-  // Install the dashboard
-  _total_control_install_dashboard();
-  
-  // Set message saying what we did
-  drupal_set_message(t('The Total Control Dashboard was installed.'));
-  
-  // Redirect to status report
-  drupal_goto('admin/reports/status');
-}
-
-/* menu callback */
 function total_control_admin_settings(){
   $form['total_control_configure_links'] = array(
     '#type' => 'checkbox',
@@ -57,33 +41,7 @@ function total_control_admin_settings(){
     '#default_value' => variable_get('total_control_configure_links', 1),
     '#description' => t('Configure links go to the edit content type pages'),
     );
-  /* TODO ??
-  $form['total_control_takeover'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Take over the /admin page'),
-    '#default_value' => variable_get('total_control_takeover', 1),
-    '#description' => t('If you want the admin dashboard to appear at /admin instead of /admin/dashboard'),
-    );
-  */
   return system_settings_form($form);
-}
-
-/**
- * Implementation of hook_ctools_plugin_dierctory() to let the system know
- * we implement task and task_handler plugins.
- */
-function total_control_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'ctools') {
-    return 'plugins/' . $plugin;
-  }
-}
-
-/**
- * Implementation of hook_init().
- */
-function total_control_init() {
-  // We do this here since it should be after all required modules are enabled.
-  _total_control_attempt_install_dashboard(TRUE);
 }
 
 /* 
@@ -96,8 +54,44 @@ function total_control_form_alter(&$form, $form_state, $form_id) {
   }
   if ('node_type_delete_confirm' == $form_id) {
     $form['#submit'][] = '_total_control_views_delete_display';
-    //$form['#submit'] = array('_total_control_views_delete_display');
   }
+}
+
+/**
+ * Implementation of hook_ctools_plugin_api()
+ * Needed so that next hooks are picked up.
+ */
+function total_control_ctools_plugin_api($module, $api) {
+  if ($module == 'page_manager' && $api == 'pages_default') {
+    return array('version' => 1);
+  }  
+}
+
+/**
+ * Implementation of hook_ctools_plugin_dierctory()
+ * to let the system know we implement task and task_handler plugins.
+ */
+function total_control_ctools_plugin_directory($module, $plugin) {
+  return 'plugins/' . $plugin;
+}
+
+/**
+ * Implementation of hook_default_page_manager_handlers()
+ */
+function total_control_default_page_manager_handlers() {
+  $handlers = array();
+  include_once('includes/total_control.default_page.inc');
+  return $handlers;
+}
+
+/**
+* Implementation of hook_views_api().
+* TODO
+**/
+function total_control_views_api() {
+  return array(
+    'api' => 2,
+  );
 }
  
 /* Helper function.  Adds view displays. */
@@ -111,10 +105,10 @@ function _total_control_views_add_display($form, &$form_state){
   $view = views_get_view('control_content');
   
   // create a panel pane - 'includes/total_control.views.inc'
-  total_control_add_views_pane_display($view, $content_type, $machine_type);
+  total_control_add_views_pane_display(&$view, $content_type, $machine_type);
   
   // create a page - 'includes/total_control.views.inc'
-  total_control_add_views_page_display($view, $content_type, $machine_type);
+  total_control_add_views_page_display(&$view, $content_type, $machine_type);
   
   // save the view
   $view->save();
@@ -141,69 +135,7 @@ function _total_control_views_delete_display($form, &$form_state){
   return;
 }
 
-/**
- * Helper function
- * helps install the dashboard page, panel, and panes
- */
-function _total_control_attempt_install_dashboard($silent = FALSE) {
-  // See if required modules are available so we can install the dashboard right away
-  if (function_exists('delegator_get_tasks')) {
-    _total_control_install_dashboard();
-  }
-  // Else, we need to give the user a message with a link to install the dashboard
-  else {
-    if (!$silent) {
-      drupal_set_message(
-        t(
-          'The Total Control module has been enabled, but was unable to verify if the dashboard was installed correctly. Please check the !status_report.',
-          array(
-            '!status_report' => l(t('Status Report'), 'admin/reports/status'),
-          ),
-          'error'
-        )
-      );
-    }
-  }
-}
-
-/**
- * Helper function based on the delegator page import form:
- * delegator/plugins/tasks/page.admin.inc: delegator_page_import_subtask()
- */
-function _total_control_install_dashboard() {
-  // Make sure we haven't already imported the total control dashboard panel
-  delegator_get_tasks();
-  $cache = delegator_page_get_page_cache(TOTAL_CONTROL_DASHBOARD_PANEL_NAME);
-  if (isset($cache) && isset($cache->pid)) {
-    return FALSE;
-  }
-
-  // Load up the page
-  include(drupal_get_path('module', 'total_control') .'/includes/total_control.page.inc');
-
-  // Make sure the page object is readable
-  if (!isset($page) || !is_object($page)) {
-    return FALSE;
-  }
-
-  // Set some needed flags (Are these needed if we skip the intermediate edit step import uses?)
-  ctools_include('export');
-  $page->export_type = EXPORT_IN_DATABASE;
-  $page->type = t('Normal');
-  $page->import = TRUE;
-
-  // Save the page
-  delegator_page_save($page);
-  
-  // Clear the cache
-  delegator_page_clear_page_cache(TOTAL_CONTROL_DASHBOARD_PANEL_NAME);
-
-  // Force a menu rebuild to recognize our new subtask
-  menu_rebuild();
-  
-  return TRUE;
-}
-
+/* Helper function.  Changes type names into plurals. */
 function _total_control_pluralize($word){
   $word = trim($word);
   if (substr($word, -1, 1) == 'y'){
@@ -218,24 +150,3 @@ function _total_control_pluralize($word){
   }
   return $plural;
 }
-
-/**
- * Implementation of hook_views_pre_view.
- * alters more links on panel panes: preset the filters
-
-function total_control_views_pre_view(&$view, &$display_id, &$args) {
-  if ($display_id == 'panel_pane_2') {
-    //print_r($view->display[$display_id]);exit;
-  }
-}
-
-/**
- * Implementation of hook_views_pre_render.
- * alters more links on panel panes: preset the filters
-
-function total_control_views_pre_render(&$view) {
-  if ($view->name == 'control_content') {
-    print_r($view->display);exit;
-  }
-}
- */

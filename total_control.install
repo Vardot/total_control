@@ -44,26 +44,5 @@ function total_control_requirements($phase) {
     }
   }
   
-  // Handle runtime
-  if ($phase == 'runtime') {
-    // Verify that the dashboard has been installed.
-    delegator_get_tasks();
-    $cache = delegator_page_get_page_cache(TOTAL_CONTROL_DASHBOARD_PANEL_NAME);
-    if (!isset($cache) || !isset($cache->pid)) {
-      if ($panels_major < 3) {
-        $requirements['dashboard'] = array(
-          'title' => $t('Total Control Dashboard'),
-          'description' => t(
-            'The Total Control dashboard has not been installed. Click !install to install.',
-            array(
-              '!install' => l('here', 'admin/dashboard/install'),
-            )
-          ),
-          'severity' => REQUIREMENT_ERROR
-        );
-      }
-    }
-  }
-
   return $requirements;
 }

@@ -18,9 +18,10 @@ To submit bug reports and feature suggestions, or to track changes:
 
 -- REQUIREMENTS --
 
+Chaos Tools 1.x
 Panels 3.x 
 Views 2.x
-Chaos Tools 1.x
+Views Bulk Operations
 Search (core)
 Statistics (core)
 
@@ -30,8 +31,9 @@ Statistics (core)
 * Install as usual, see http://drupal.org/node/70151 for further information.
 
   If for any reason the panel page is not installed for you automatically, you can import
-  the code provided in total_control_page.inc. Go to Admin > Site building > Pages
-  click the "Import page" tab, and copy / paste the code between the comments.
+  the code provided in total_control/includes/total_control.default_page.inc. Go to 
+  Admin > Site building > Pages click the "Import page" tab, and copy / paste the code 
+  between the comments.
 
 
 -- CONFIGURATION --

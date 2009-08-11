@@ -3,8 +3,14 @@ name = Total Control
 description = Total Control Administration Dashboard
 dependencies[] = panels
 dependencies[] = views_content
-dependencies[] = delegator
+dependencies[] = page_manager
 dependencies[] = search
 dependencies[] = statistics
 package = Administration
 core = 6.x
+; Information added by drupal.org packaging script on 2009-06-25
+version = "6.x-1.0-rc4"
+core = "6.x"
+project = "total_control"
+datestamp = "1245915665"
+
