@@ -286,7 +286,7 @@ $handler->override_option('fields', array(
 ));
 $handler->override_option('items_per_page', 30);
 $handler->override_option('use_pager', '1');
-$handler->override_option('style_plugin', 'table');
+$handler->override_option('style_plugin', 'bulk');
 $handler->override_option('style_options', array(
   'grouping' => '',
   'override' => 1,
@@ -330,6 +330,20 @@ $handler->override_option('style_options', array(
     ),
   ),
   'default' => '-1',
+  'execution_type' => '1',
+  'display_type' => '0',
+  'skip_confirmation' => 0,
+  'display_result' => 1,
+  'merge_single_action' => 1,
+  'selected_operations' => array(
+    '2a803d8560883cff011070ff5aae2908' => '2a803d8560883cff011070ff5aae2908',
+    '90e3275a4af1fdf68f7ce9621a3a7f14' => '90e3275a4af1fdf68f7ce9621a3a7f14',
+    '132fddcb3f367a243bee632db31985c1' => 0,
+    '334d20af1ae7ac4b770b7ec3210b2638' => 0,
+    '52aec7fee2070ce530da1304653ae1ec' => 0,
+    'daa75f478e3093ab107e657da6620a91' => 0,
+    'b1500c08f3b29d92a795c5e60736b613' => 0,
+  ),
 ));
 $handler->override_option('row_options', array(
   'inline' => array(

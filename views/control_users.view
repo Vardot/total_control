@@ -276,7 +276,7 @@ $handler->override_option('access', array(
   'perm' => 'have total control',
 ));
 $handler->override_option('items_per_page', 0);
-$handler->override_option('style_plugin', 'table');
+$handler->override_option('style_plugin', 'bulk');
 $handler->override_option('style_options', array(
   'grouping' => '',
   'override' => 1,
@@ -294,7 +294,7 @@ $handler->override_option('style_options', array(
   ),
   'info' => array(
     'name' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'separator' => '',
     ),
     'mail' => array(
@@ -305,15 +305,15 @@ $handler->override_option('style_options', array(
       'separator' => '',
     ),
     'status' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'separator' => '',
     ),
     'created' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'separator' => '',
     ),
     'login' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'separator' => '',
     ),
     'delete_node' => array(
@@ -324,6 +324,23 @@ $handler->override_option('style_options', array(
     ),
   ),
   'default' => '-1',
+  'execution_type' => '1',
+  'display_type' => '0',
+  'skip_confirmation' => 0,
+  'display_result' => 1,
+  'merge_single_action' => 1,
+  'selected_operations' => array(
+    '4d075a755ad70f936bf89570e66196f1' => '4d075a755ad70f936bf89570e66196f1',
+    'a011c04389ff75f79af39bb612089bca' => 'a011c04389ff75f79af39bb612089bca',
+    '73e0815d78610c8e7538ec8c5ad0be0c' => '73e0815d78610c8e7538ec8c5ad0be0c',
+    '4bd509ad947296ffe30e8092a438e096' => '4bd509ad947296ffe30e8092a438e096',
+    'dfdea479cc7ae8cb9d3e8749e57f86b4' => 0,
+    '4fff50383fdc48042390841723c0d719' => 0,
+    '132fddcb3f367a243bee632db31985c1' => 0,
+    '334d20af1ae7ac4b770b7ec3210b2638' => 0,
+    '52aec7fee2070ce530da1304653ae1ec' => 0,
+    'daa75f478e3093ab107e657da6620a91' => 0,
+  ),
 ));
 $handler = $view->new_display('page', 'User Admin', 'page_1');
 $handler->override_option('title', 'Users');

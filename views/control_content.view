@@ -259,7 +259,7 @@ $handler->override_option('access', array(
 $handler->override_option('title', 'All '.$plural_type);
 $handler->override_option('items_per_page', 30);
 $handler->override_option('use_pager', '1');
-$handler->override_option('style_plugin', 'table');
+$handler->override_option('style_plugin', 'bulk');
 $handler->override_option('style_options', array(
   'grouping' => '',
   'override' => 1,
@@ -268,26 +268,26 @@ $handler->override_option('style_options', array(
   'columns' => array(
     'title' => 'title',
     'name' => 'name',
-    'changed' => 'changed',
+    'created' => 'created',
     'status' => 'status',
     'delete_node' => 'delete_node',
     'edit_node' => 'edit_node',
   ),
   'info' => array(
     'title' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'separator' => '',
     ),
     'name' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'separator' => '',
     ),
-    'changed' => array(
-      'sortable' => 1,
+    'created' => array(
+      'sortable' => 0,
       'separator' => '',
     ),
     'status' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'separator' => '',
     ),
     'delete_node' => array(
@@ -298,6 +298,38 @@ $handler->override_option('style_options', array(
     ),
   ),
   'default' => '-1',
+  'execution_type' => '1',
+  'display_type' => '0',
+  'skip_confirmation' => 0,
+  'display_result' => 1,
+  'merge_single_action' => 1,
+  'selected_operations' => array(
+    '6a99179e9c90e9edfb34d075fa234d78' => '6a99179e9c90e9edfb34d075fa234d78',
+    '3ea33dae73a849deedd536991455be98' => '3ea33dae73a849deedd536991455be98',
+    '7a3d2d5b1bb6ecb0cb811c4130452d7d' => '7a3d2d5b1bb6ecb0cb811c4130452d7d',
+    '591b41a4f10db44fb0b09b1e25152cef' => '591b41a4f10db44fb0b09b1e25152cef',
+    'f033f40d92f0308ed6b2e3befb3a4c2a' => 'f033f40d92f0308ed6b2e3befb3a4c2a',
+    '10edeb21cdd1fd049751311229c5e736' => '10edeb21cdd1fd049751311229c5e736',
+    '3864faba61f46e2b68393b7fc88fa830' => '3864faba61f46e2b68393b7fc88fa830',
+    '1dcecde02b48fdfde9628fea88920225' => '1dcecde02b48fdfde9628fea88920225',
+    '6f7871c7725f0c91c07594602f07aa72' => '6f7871c7725f0c91c07594602f07aa72',
+    '5471472ae2eedc59c992b6859d26033b' => '5471472ae2eedc59c992b6859d26033b',
+    'd2856892e9560840d2fbbfc63336e221' => 0,
+    '063bfcd6b7c1fa6a81515afb705fdbb7' => 0,
+    '132fddcb3f367a243bee632db31985c1' => 0,
+    '334d20af1ae7ac4b770b7ec3210b2638' => 0,
+    '799e8527bbd3d99e4c8c25a8a674d264' => 0,
+    'fce859fcce0e81943c3e31c20ccd68ff' => 0,
+    '4df6cb87c9bbb08ebec8c757e9a0fcc7' => 0,
+    '0341fcc505281031474b68c72e03a997' => 0,
+    'c6d3850086dc3c1bca4bf0625ce78c56' => 0,
+    '52aec7fee2070ce530da1304653ae1ec' => 0,
+    '94a098afb1689f950d72ed4c44f8655d' => 0,
+    '15faf15d7f591f8ef8e80238dd7c8b8c' => 0,
+    'daa75f478e3093ab107e657da6620a91' => 0,
+    '548749a939aa6334157edff3d8f69351' => 0,
+    'c6db6d4ee28924020b504a5feb2bff9f' => 0,
+  ),
 ));
 $handler = $view->new_display('page', 'All Content', 'page_1');
 $handler->override_option('fields', array(
