@@ -6,6 +6,7 @@ dependencies[] = views_content
 dependencies[] = page_manager
 dependencies[] = search
 dependencies[] = statistics
+dependencies[] = views_bulk_operations
 package = Administration
 core = 6.x
 ; Information added by drupal.org packaging script on 2009-06-25
