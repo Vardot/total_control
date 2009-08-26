@@ -173,7 +173,7 @@ $handler->override_option('sorts', array(
 ));
 $handler->override_option('arguments', array(
   'group_nid' => array(
-    'default_action' => 'empty',
+    'default_action' => 'ignore',
     'style_plugin' => 'default_summary',
     'style_options' => array(),
     'wildcard' => 'all',
@@ -197,23 +197,8 @@ $handler->override_option('arguments', array(
     'default_argument_user' => 0,
     'default_argument_fixed' => '',
     'default_argument_php' => '',
-    'validate_argument_node_type' => array(
-      'webform' => 0,
-      'panel' => 0,
-      'discussion' => 0,
-      'event' => 0,
-      'gallery' => 0,
-      'group' => 0,
-      'news' => 0,
-      'page' => 0,
-      'profile' => 0,
-    ),
     'validate_argument_node_access' => 0,
     'validate_argument_nid_type' => 'nid',
-    'validate_argument_vocabulary' => array(
-      '2' => 0,
-      '1' => 0,
-    ),
     'validate_argument_type' => 'tid',
     'user_argument_type' => '',
     'restrict_user_roles' => 0,
@@ -309,6 +294,26 @@ $handler->override_option('filters', array(
     'table' => 'users',
     'field' => 'uid',
     'relationship' => 'none',
+  ),
+  'group_nid' => array(
+    'operator' => 'not empty',
+    'value' => array(
+      '2057' => '2057',
+    ),
+    'group' => '0',
+    'exposed' => FALSE,
+    'expose' => array(
+      'operator' => FALSE,
+      'label' => '',
+    ),
+    'id' => 'group_nid',
+    'table' => 'og_ancestry',
+    'field' => 'group_nid',
+    'override' => array(
+      'button' => 'Override',
+    ),
+    'relationship' => 'none',
+    'reduce_duplicates' => 0,
   ),
 ));
 $handler->override_option('access', array(
