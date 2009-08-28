@@ -1,0 +1,111 @@
+<?php
+// default views for Total Control Workflow
+include_once('includes/total_control_og.default_views.inc');
+
+/* 
+ * Implementation of hook_perm
+ * adds permissions for access to the total control dashboard
+ */
+function total_control_og_perm() {
+ return array('have total og control');
+}
+
+/**
+ * Implementation of hook_ctools_plugin_dierctory() to let the system know
+ * we implement task and task_handler plugins.
+ */
+function total_control_og_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins_og/' . $plugin;
+  }
+}
+
+/* TODO when adding or removing groups...
+ * Implementation of hook_form_alter
+ * adds views adjustment handling when workflows are added or removed
+ */
+function total_control_og_form_alter(&$form, $form_state, $form_id) {
+  if (false) {
+    $form['#submit'][] = '_total_control_og_views_add_display';
+  }
+  if (false) {
+    $form['#submit'][] = '_total_control_og_views_delete_display';
+  }
+}
+
+/**
+ * Implementation of hook_menu() 
+ * to create tabs on the og nodes for control
+ */
+function total_control_og_menu() {
+  $items = array();
+
+  $items['node/%node/control'] = array(
+    'title'            => 'Content',
+    'page callback'    => '_total_control_og_page',
+    'page arguments'   => array(1),
+    'access callback'  => '_total_control_og_determine_access',
+    'access arguments' => array(1, 'have total og control'),
+    'weight'           => 10,
+    'type'             => MENU_LOCAL_TASK,
+    );
+    
+  return $items;
+}
+
+/* Helper function.  Checks access for node tab  */
+function _total_control_og_determine_access($node, $perm) {
+  return (og_is_group_type($node->type) && og_is_group_member($node->nid) && (user_access($perm) || user_access('administer organic groups')));
+}
+
+/* Helper function.  Builds view in tab  */
+function _total_control_og_page($node){
+  if (og_is_group_type($node->type)) {
+    $output = '';
+    $view = views_get_view('control_og_content');
+    $display_id = 'page_1';
+    $view_args = array($node->nid);
+    if (!empty($view)) {
+      $output .= $view->execute_display($display_id, $view_args);
+    }
+    
+    return $output;
+  }  
+  return;
+}
+
+
+/* Helper function.  Adds view display. TODO */
+function _total_control_og_views_add_display($form, &$form_state){  
+  
+  // gather the workflow info we'll need
+  
+  // get the view
+  $view = views_get_view('control_og_content');
+  
+  // add displays
+  
+  // save the view
+  $view->save();
+  
+  // update the menu tab weights
+  menu_rebuild();
+  
+  return;
+}
+
+/* Helper function.  Removes view display. TODO */
+function _total_control_og_views_delete_display($form, &$form_state){
+  $sid = $form_state['values']['sid'];
+  
+  // get the view
+  $view = views_get_view('control_og_content');
+  
+  // delete the corresponding display
+  //unset($view->display['TODO']);
+  
+  // save the view
+  $view->save();
+  
+  return;
+}

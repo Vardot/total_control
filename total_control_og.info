@@ -1,0 +1,20 @@
+; $Id
+name = Total Organic Groups Control
+description = Adds OG support to the Total Control Admin Dashboard. Views and panes provided.
+dependencies[] = total_control
+dependencies[] = og
+package = Administration
+core = 6.x
+; Information added by drupal.org packaging script on 2009-06-25
+version = "6.x-1.0-rc4"
+core = "6.x"
+project = "total_control"
+datestamp = "1245915665"
+
+
+; Information added by drupal.org packaging script on 2009-08-27
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "total_control"
+datestamp = "1251332864"
+
