@@ -39,15 +39,17 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
         
     if ((isset($conf['types']) && $conf['types'][$type]) || ($conf == array())){  
       
+      $type_link = str_replace('_', '-', $object->type);
+
       // check access to create nodes of this type
       if (user_access('create ' . $type . ' content')) {
-        $row = l(t('Add New '.$object->name), 'node/add/'.$object->type);
+        $row = l(t('Add New '.$object->name), 'node/add/'. $type_link);
       }
       
       // check access to administer content types
       if ((variable_get('total_control_configure_links', 1) == 1) 
         && user_access('administer content types')){
-        $row .= ' | ' . l(t('Configure'), 'admin/content/node-type/'.$object->type);
+        $row .= ' | ' . l(t('Configure'), 'admin/content/node-type/'. $type_link);
       }
       
       $create[] = $row;
