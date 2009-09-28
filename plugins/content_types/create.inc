@@ -40,7 +40,7 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
     if ((isset($conf['types']) && $conf['types'][$type]) || ($conf == array())){  
       
       // check access to create nodes of this type
-      if (user_access('create ' . $type . ' content')) {
+      if (node_access('create', $type)) { 
         $row = l(t('Add New '.$object->name), 'node/add/'.$object->type);
       }
       
