@@ -103,15 +103,19 @@ function _total_control_views_add_display($form, &$form_state){
   
   // get the view
   $view = views_get_view('control_content');
-  
-  // create a panel pane - 'includes/total_control.views.inc'
-  total_control_add_views_pane_display(&$view, $content_type, $machine_type);
-  
-  // create a page - 'includes/total_control.views.inc'
-  total_control_add_views_page_display(&$view, $content_type, $machine_type);
-  
-  // save the view
-  $view->save();
+
+  // Add view displays if we are adding a node type and it doesn't have display
+  if (!$form['#node_type']->type && !$view->display['panel_pane_tc_'.$machine_type]) { 
+
+    // create a panel pane - 'includes/total_control.views.inc'
+    total_control_add_views_pane_display(&$view, $content_type, $machine_type);
+    
+    // create a page - 'includes/total_control.views.inc'
+    total_control_add_views_page_display(&$view, $content_type, $machine_type);
+    
+    // save the view
+    $view->save();
+  }
   
   return;
 }
