@@ -37,12 +37,6 @@ function total_control_dashboard_menu(&$items) {
     'access arguments' => array('have total control'),
     'weight' => -50,
   );
-  $items['admin/dashboard/all'] = array(
-    'title' => 'Dashboard',
-    'description' => 'Administrative Dashboard',
-    'weight' => -50,
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  );
   
   return $items;
 }
