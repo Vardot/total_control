@@ -59,21 +59,23 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
   } // foreach
   
   // User Overview
-  if ($conf['user'] == 1){  // compare against user option on pane config
+  if (!$conf['user'] || $conf['user'] == 1){  // compare against user option on pane config
     $user_query = db_query("SELECT count(*) FROM {users}");
     $total['users_all'] = format_plural(db_result($user_query), '1 total user', '@count total users');
     $user_active_query = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login != 0");
-    $total['users_active'] = format_plural(db_result($user_active_query), '1 active', '@count active');
+    $total['users_active'] = format_plural(db_result($user_active_query), '1 active user', '@count active users');
     $user_block_query = db_query("SELECT count(*) FROM {users} WHERE status = 0");
-    $total['users_block'] = format_plural(db_result($user_block_query), '1 blocked', '@count blocked');
-    $overview_usr[] = $total['users_all'] . ' | ' . $total['users_active'] . ' | ' . $total['users_block'];
+    $total['users_block'] = format_plural(db_result($user_block_query), '1 blocked user', '@count blocked users');
+    $overview_usr[] = $total['users_all'];
+    $overview_usr[] = $total['users_active'];
+    $overview_usr[] = $total['users_block'];
   }
   
   // Roles Overview
   $roles = user_roles(TRUE);
   $total['users_roles'] = '';
   foreach ($roles as $rid => $role){
-    if (($conf['roles'][$rid]) && $rid != 2){  // compare against roles option on pane config
+    if ((!$conf['roles'] || ($conf['roles'][$rid])) && $rid != 2){  // compare against roles option on pane config
       $user_role_query = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = %d", $rid);
       $total['users_role_'.$rid] .= format_plural(db_result($user_role_query), '1 user', '@count users');
       $total['users_role_'.$rid] .= ' in role: '.$role;
