@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/** 
  * Implementation of hook_requirements
  * adds versions to module requirements
  */
@@ -44,5 +44,36 @@ function total_control_requirements($phase) {
     }
   }
   
+  // after install
+  drupal_set_message($t('You can now <a href="!total_control_admin">configure the Total Control module</a> for your site.', array('!total_control_admin' => url('admin/settings/control'))), 'status');
+  
+  // todo - provide links to enable other modules
+  /* if (!module_exists('search')){
+    drupal_set_message($t('It is highly recommended that you enable the search module. <a href="enable_search">Enable now</a>', array('!enable_search' => url(''))), 'status');
+  }
+  if (!module_exists('statistics')){
+    drupal_set_message($t('Total Control also provides support for the statistics module. <a href="!enable_stats">Enable now</a>', array('!enable_stats' => url(''))), 'status');
+  } */
+  
   return $requirements;
+}
+
+
+/**
+ * Implementation of hook_uninstall
+ */
+function total_control_uninstall() {
+  $views = views_get_all_views();
+  
+  foreach ($views as $view_name => $view) {
+    // Remove any views that have been overridden
+    $views_types = array('Overridden', 'Normal');
+    $total_control_views = array('control_content', 'control_content_panes', 'control_comments', 
+      'control_files', 'control_revisions', 'control_terms', 'control_users');
+    if (in_array($view->type, $views_types) && in_array($view_name, $total_control_views)) {
+      drupal_set_message('Deleting view: ' . $view_name);
+      $view->delete();
+      views_object_cache_clear('view', $view_name);
+    }
+  }
 }
