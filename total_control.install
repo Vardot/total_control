@@ -76,4 +76,11 @@ function total_control_uninstall() {
       views_object_cache_clear('view', $view_name);
     }
   }
+  
+  variable_del('total_control_type_panels');
+  variable_del('total_control_type_pages');
+  variable_del('total_control_role_panels');
+  variable_del('total_control_role_pages');
+  variable_del('total_control_auto_panels');
+  variable_del('total_control_auto_pages');
 }
