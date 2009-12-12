@@ -27,13 +27,11 @@ function total_control_welcome_content_type_admin_info($subtype, $conf, $context
 function total_control_welcome_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
+  $block->title = t('Congratulations! You are now in Total Control.');
   
   // Building the content
   $content =  '<div class="total-control-site-overview">';
-  $content .= '  <h2 class="title">' . t('Congratulations, You are now in Total Control.') . '</h2>';
-  $content .= '  <div class="content">';
-  $content .= '    <p>'.t('Welcome to your Total Control admin dashboard.  Please start customizing to make this dashboard the perfect hub for all your administrative needs.').'</p>';
-  $content .= '  </div>';
+  $content .= '  <p>'.t('Welcome to your Total Control admin dashboard.  Please start customizing to make this dashboard the perfect hub for all your administrative needs.').'</p>';
   $content .= '</div>';
 
   $block->content = $content;

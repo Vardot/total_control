@@ -29,6 +29,8 @@ function total_control_overview_content_content_type_admin_info($subtype, $conf,
 function total_control_overview_content_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
+  $pane = total_control_overview_content_ctools_content_types();
+  $block->title = $pane['title'];
 
   $types = node_get_types('types');  
   $overview = array();
@@ -56,15 +58,10 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
       $overview[] = $line;
     } // if type
   } // foreach
-
-  $pane = total_control_overview_content_ctools_content_types();
   
   // assemble content
   $content =  '<div class="total-control-content-overview">';
-  $content .= '  <h2 class="title">' . $pane['title'] . '</h2>';
-  $content .= '  <div class="content">';
-  $content .=     theme('item_list', $overview);
-  $content .= '  </div>';
+  $content .= theme('item_list', $overview);
   $content .= '</div>';
 
   $block->content = $content;

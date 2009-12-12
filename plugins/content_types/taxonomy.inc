@@ -32,6 +32,8 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
   $block = new stdClass();
   $block->module = t('total_control');
+  $pane = total_control_taxonomy_ctools_content_types();
+  $block->title = $pane['title'];
   
   $vids = (isset($conf['vids']))? $conf['vids']: array();
   
@@ -53,8 +55,6 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
     } // foreach
   }
   
-  $pane = total_control_taxonomy_ctools_content_types();
-  
   if ($rows){
     $output = theme('item_list', $rows);
   }
@@ -67,10 +67,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   
   // assemble content
   $content =  '<div class="total-control-content-overview">';
-  $content .= '  <h2 class="title">' . $pane['title'] . '</h2>';
-  $content .= '  <div class="content">';
-  $content .=      $output;
-  $content .= '  </div>';
+  $content .= $output;
   $content .= '</div>';
 
   $block->content = $content;

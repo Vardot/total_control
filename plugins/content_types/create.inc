@@ -29,6 +29,7 @@ function total_control_create_content_type_admin_info($subtype, $conf, $context)
 function total_control_create_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
+  $block->title = t('Create Content');
     
   $types = node_get_types('types');
   $create = array();  
@@ -59,10 +60,7 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
       
   // assemble content
   $content =  '<div class="total-control-content-overview">';
-  $content .= '  <h2 class="title">' . t('Content Control') . '</h2>';
-  $content .= '  <div class="content">';
-  $content .=      theme('item_list', $create);
-  $content .= '  </div>';
+  $content .=     theme('item_list', $create);
   $content .= '</div>';
 
   $block->content = $content;

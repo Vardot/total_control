@@ -29,6 +29,8 @@ function total_control_overview_content_type_admin_info($subtype, $conf, $contex
 function total_control_overview_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
+  $pane = total_control_overview_ctools_content_types();
+  $block->title = $pane['title'];
   
   $types = node_get_types('types');  
   $overview_cnt = array();
@@ -81,17 +83,12 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
     } // if not auth
   } // foreach
   
-  $pane = total_control_overview_ctools_content_types();
-  
   // Building the content
   $content =  '<div class="total-control-site-overview">';
-  $content .= '  <h2 class="title">' . $pane['title'] . '</h2>';
-  $content .= '  <div class="content">';
-  $content .= '    <strong>'.t('Content').'</strong>';
-  $content .=      theme('item_list', $overview_cnt);
-  $content .= '    <strong>'.t('Users').'</strong>';
-  $content .=      theme('item_list', $overview_usr);
-  $content .= '  </div>';
+  $content .= '  <strong>'.t('Content').'</strong>';
+  $content .=    theme('item_list', $overview_cnt);
+  $content .= '  <strong>'.t('Users').'</strong>';
+  $content .=    theme('item_list', $overview_usr);
   $content .= '</div>';
 
   $block->content = $content;
