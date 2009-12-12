@@ -222,7 +222,7 @@ $handler->override_option('filters', array(
       'use_operator' => 0,
       'operator' => 'keys_op',
       'identifier' => 'keys',
-      'label' => 'Search:',
+      'label' => 'Contains',
       'optional' => 1,
       'remember' => 0,
     ),
