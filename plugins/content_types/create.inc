@@ -50,7 +50,10 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
         $row .= ' | ' . l(t('Configure'), 'admin/content/node-type/'.$object->type);
       }
       
-      $create[] = $row;
+      if ($row) { 
+        $create[] = $row;
+      }
+      
     } // end if type
   }
       
