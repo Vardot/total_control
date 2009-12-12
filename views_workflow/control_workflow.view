@@ -415,7 +415,7 @@ $handler->override_option('use_more_text', 'more state changes');
 $handler->override_option('pane_title', 'Workflow: recent state changes');
 $handler->override_option('pane_description', 'Workflow: recent state changes');
 $handler->override_option('pane_category', array(
- 'name' => 'Admin Dashboard',
+ 'name' => 'Total Control',
  'weight' => '0',
 ));
 $handler->override_option('allow', array(
@@ -482,7 +482,7 @@ if (is_array($states)){
       $handler->override_option('pane_title', 'Workflow State: '.$state['state']);
       $handler->override_option('pane_description', t('Items in state: ').$state['state']);
       $handler->override_option('pane_category', array(
-       'name' => 'Admin Dashboard',
+       'name' => 'Total Control',
        'weight' => '0',
       ));
       $handler->override_option('allow', array(
