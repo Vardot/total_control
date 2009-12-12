@@ -27,6 +27,9 @@ function total_control_taxonomy_content_type_admin_info($subtype, $conf, $contex
 }
 
 function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args, &$context) {
+  if (!module_exists('taxonomy')){
+    return;
+  }
   $block = new stdClass();
   $block->module = t('total_control');
   
