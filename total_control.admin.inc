@@ -167,8 +167,8 @@ function total_control_admin_settings_submit($form, &$form_state){
   $pageview = views_get_view('control_content');
   $types = node_get_types();
   foreach ($types as $machine => $type){
-    if (is_array($form_state['values']['total_control_type_panes'])){
-      if (array_key_exists($machine, $form_state['values']['total_control_type_panes'])) {
+    if (is_array($form_state['values']['total_control_type_panels'])){
+      if (array_key_exists($machine, $form_state['values']['total_control_type_panels'])) {
         total_control_add_views_pane_display($paneview, $type->name, $machine);
       }
       else {
