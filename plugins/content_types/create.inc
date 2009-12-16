@@ -42,13 +42,14 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
       
       // check access to create nodes of this type
       if (node_access('create', $type)) { 
-        $row = l(t('Add New '.$object->name), 'node/add/'.$object->type);
+        $object_path = str_replace('_', '-', $object->type);
+        $row = l(t('Add New '.$object->name), 'node/add/'.$object_path);
       }
       
       // check access to administer content types
       if ((variable_get('total_control_configure_links', 1) == 1) 
         && user_access('administer content types')){
-        $row .= ' | ' . l(t('Configure'), 'admin/content/node-type/'.$object->type);
+        $row .= ' | ' . l(t('Configure'), 'admin/content/node-type/'.$object_path);
       }
       
       if ($row) { 

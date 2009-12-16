@@ -237,8 +237,7 @@ function total_control_add_views_pane_display(&$view, $machine_type, $content_ty
   $handler->override_option('title', 'New '.$plural_type);
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_pager', '0');
-  $handler->override_option('use_more', 1);
-  $handler->override_option('use_more_text', 'more '.$plural_type);
+  $handler->override_option('use_more', 0);
   $handler->override_option('style_plugin', 'list');
   $handler->override_option('style_options', array(
     'grouping' => '',
@@ -299,11 +298,13 @@ function total_control_add_views_page_display(&$view, $content_type, $machine_ty
   $filters = total_control_add_filters($machine_type);
   $handler->override_option('filters', $filters);
   
+  $machine_path =  str_replace('_', '-', $object->type);
+  
   $handler->override_option('title', $plural_type);
-  $handler->override_option('header', '<a href="/node/add/'.$machine_type.'" title="Create a new '.$content_type.'">Add a New '.$content_type.'</a>');
+  $handler->override_option('header', '<a href="/node/add/'.$machine_path.'" title="Create a new '.$content_type.'">Add a New '.$content_type.'</a>');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 1);
-  $handler->override_option('path', 'admin/dashboard/content/'.$machine_type);
+  $handler->override_option('path', 'admin/dashboard/content/'.$machine_path);
   $handler->override_option('menu', array(
     'type' => 'tab',
     'title' => $plural_type,
