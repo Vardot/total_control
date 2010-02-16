@@ -251,6 +251,8 @@ $handler->override_option('style_options', array(
   'columns' => array(
     'title' => 'title',
     'name' => 'name',
+    'type' => 'type',
+    'changed' => 'changed',
     'created' => 'created',
     'status' => 'status',
     'delete_node' => 'delete_node',
@@ -258,19 +260,27 @@ $handler->override_option('style_options', array(
   ),
   'info' => array(
     'title' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'separator' => '',
     ),
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
+      'separator' => '',
+    ),
+    'type' => array(
+      'sortable' => 1,
+      'separator' => '',
+    ),
+    'changed' => array(
+      'sortable' => 1,
       'separator' => '',
     ),
     'created' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'separator' => '',
     ),
     'status' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'separator' => '',
     ),
     'delete_node' => array(
@@ -296,8 +306,11 @@ $handler->override_option('style_options', array(
     'node_mass_update:9c585624b9b3af0b4687d5f97f35e047' => 'node_mass_update:9c585624b9b3af0b4687d5f97f35e047',
     'node_mass_update:8ce21b08bb8e773d10018b484fe4815e' => 'node_mass_update:8ce21b08bb8e773d10018b484fe4815e',
     'node_mass_update:0ccad85c1ebe4c9ceada1aa64293b080' => 'node_mass_update:0ccad85c1ebe4c9ceada1aa64293b080',
+    'nodequeue_add_action' => 0,
     'node_assign_owner_action' => 0,
+    'nodewords_mass_delete_tags:e01bcb289dd404af7b21307f2aa06715' => 0,
     'system_message_action' => 0,
+    'views_bulk_operations_action' => 0,
     'views_bulk_operations_script_action' => 0,
     'node_make_sticky_action' => 0,
     'node_make_unsticky_action' => 0,
@@ -306,11 +319,17 @@ $handler->override_option('style_options', array(
     'node_promote_action' => 0,
     'node_publish_action' => 0,
     'system_goto_action' => 0,
+    'nodequeue_remove_action' => 0,
     'node_unpromote_action' => 0,
     'node_save_action' => 0,
     'system_send_email_action' => 0,
     'node_unpublish_action' => 0,
     'node_unpublish_by_keyword_action' => 0,
+    'pathauto_node_operations_update' => 0,
+  ),
+  'views_bulk_operations_fields_action' => array(
+    'php_code' => 0,
+    'display_fields' => array(),
   ),
 ));
 $handler = $view->new_display('page', 'All Content', 'page_1');

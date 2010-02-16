@@ -45,7 +45,7 @@ $handler->override_option('fields', array(
     'relationship' => 'none',
   ),
   'name' => array(
-    'label' => 'by ',
+    'label' => 'by',
     'alter' => array(
       'alter_text' => 0,
       'text' => '',
@@ -75,6 +75,9 @@ $handler->override_option('fields', array(
     'table' => 'users',
     'field' => 'name',
     'relationship' => 'none',
+    'override' => array(
+      'button' => 'Override',
+    ),
   ),
   'created' => array(
     'label' => 'on',
@@ -128,147 +131,11 @@ $handler->override_option('cache', array(
 $handler->override_option('title', 'All ');
 $handler->override_option('items_per_page', 5);
 $handler->override_option('use_pager', '0');
+$handler->override_option('style_plugin', 'list');
 $handler->override_option('style_options', array(
   'grouping' => '',
+  'type' => 'ul',
 ));
-$handler->override_option('row_options', array(
-  'inline' => array(
-    'name' => 'name',
-    'created' => 'created',
-  ),
-  'separator' => '',
-  'hide_empty' => 0,
-));
-$handler = $view->new_display('panel_pane', 'New Content', 'panel_pane_1');
-$handler->override_option('fields', array(
-  'title' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'link_class' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'target' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'strip_tags' => 0,
-      'html' => 0,
-    ),
-    'empty' => '',
-    'hide_empty' => 0,
-    'empty_zero' => 0,
-    'link_to_node' => 1,
-    'exclude' => 0,
-    'id' => 'title',
-    'table' => 'node',
-    'field' => 'title',
-    'relationship' => 'none',
-  ),
-  'type' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'link_class' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'target' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'strip_tags' => 0,
-      'html' => 0,
-    ),
-    'empty' => '',
-    'hide_empty' => 0,
-    'empty_zero' => 0,
-    'link_to_node' => 0,
-    'exclude' => 0,
-    'id' => 'type',
-    'table' => 'node',
-    'field' => 'type',
-    'override' => array(
-      'button' => 'Use default',
-    ),
-    'relationship' => 'none',
-  ),
-  'name' => array(
-    'label' => 'by ',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'link_class' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'target' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'strip_tags' => 0,
-      'html' => 0,
-    ),
-    'empty' => '',
-    'hide_empty' => 0,
-    'empty_zero' => 0,
-    'link_to_user' => 1,
-    'overwrite_anonymous' => 0,
-    'anonymous_text' => '',
-    'exclude' => 0,
-    'id' => 'name',
-    'table' => 'users',
-    'field' => 'name',
-    'relationship' => 'none',
-  ),
-  'created' => array(
-    'label' => 'on',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'link_class' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'target' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'strip_tags' => 0,
-      'html' => 0,
-    ),
-    'empty' => '',
-    'hide_empty' => 0,
-    'empty_zero' => 0,
-    'date_format' => 'custom',
-    'custom_date_format' => 'm/d g:ia',
-    'exclude' => 0,
-    'id' => 'created',
-    'table' => 'node',
-    'field' => 'created',
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('title', 'New Content');
 $handler->override_option('row_options', array(
   'inline' => array(
     'type' => 'type',
@@ -278,6 +145,8 @@ $handler->override_option('row_options', array(
   'separator' => '',
   'hide_empty' => 0,
 ));
+$handler = $view->new_display('panel_pane', 'New Content', 'panel_pane_1');
+$handler->override_option('title', 'New Content');
 $handler->override_option('pane_title', 'New Content');
 $handler->override_option('pane_description', '');
 $handler->override_option('pane_category', array(
@@ -440,15 +309,6 @@ $handler->override_option('sorts', array(
   ),
 ));
 $handler->override_option('title', 'Updated Content');
-$handler->override_option('row_options', array(
-  'inline' => array(
-    'type' => 'type',
-    'name' => 'name',
-    'created' => 'created',
-  ),
-  'separator' => '',
-  'hide_empty' => 0,
-));
 $handler->override_option('pane_title', 'Updated Content');
 $handler->override_option('pane_description', '');
 $handler->override_option('pane_category', array(
