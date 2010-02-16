@@ -129,95 +129,11 @@ function total_control_add_views_pane_display(&$view, $machine_type, $content_ty
   
   // build display
   $handler = $view->new_display('panel_pane', 'New '.$plural_type.' pane', 'panel_pane_tc_'.$machine_type);
-  $handler->override_option('fields', array(
-    'title' => array(
-      'label' => '',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-      ),
-      'link_to_node' => 1,
-      'exclude' => 0,
-      'id' => 'title',
-      'table' => 'node',
-      'field' => 'title',
-      'relationship' => 'none',
-      'override' => array(
-        'button' => 'Use default',
-      ),
-    ),
-    'type' => array(
-      'label' => '',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-      ),
-      'link_to_node' => 0,
-      'exclude' => 0,
-      'id' => 'type',
-      'table' => 'node',
-      'field' => 'type',
-      'override' => array(
-        'button' => 'Use default',
-      ),
-      'relationship' => 'none',
-    ),
-    'created' => array(
-      'label' => '',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-      ),
-      'date_format' => 'time ago',
-      'custom_date_format' => 'm/d g:ia',
-      'exclude' => 0,
-      'id' => 'created',
-      'table' => 'node',
-      'field' => 'created',
-      'override' => array(
-        'button' => 'Use default',
-      ),
-      'relationship' => 'none',
-    ),
-  ));
   $handler->override_option('filters', array(
     'type' => array(
       'operator' => 'in',
       'value' => array(
-        $machine_type=> $machine_type,
+        $machine_type => $machine_type,
       ),
       'group' => '0',
       'exposed' => FALSE,
@@ -235,40 +151,24 @@ function total_control_add_views_pane_display(&$view, $machine_type, $content_ty
     ),
   ));
   $handler->override_option('title', 'New '.$plural_type);
-  $handler->override_option('items_per_page', 5);
-  $handler->override_option('use_pager', '0');
-  $handler->override_option('use_more', 0);
-  $handler->override_option('style_plugin', 'list');
-  $handler->override_option('style_options', array(
-    'grouping' => '',
-    'type' => 'ul',
-  ));
-  $handler->override_option('row_options', array(
-    'inline' => array(
-      'title' => 'title',
-      'type' => 'type',
-      'edit_node' => 'edit_node',
-    ),
-    'separator' => '',
-  ));
   $handler->override_option('pane_title', 'New '.$plural_type);
-  $handler->override_option('pane_description', 'Total Control '.$content_type.' summary');
+  $handler->override_option('pane_description', 'Total Control '.$content_type.' summary');  
   $handler->override_option('pane_category', array(
     'name' => 'Total Control',
     'weight' => '0',
   ));
   $handler->override_option('allow', array(
-    'use_pager' => 0,
+    'use_pager' => FALSE,
     'items_per_page' => 'items_per_page',
-    'offset' => 0,
-    'link_to_view' => 0,
-    'more_link' => 0,
-    'path_override' => 0,
+    'offset' => FALSE,
+    'link_to_view' => FALSE,
+    'more_link' => FALSE,
+    'path_override' => FALSE,
     'title_override' => FALSE,
     'exposed_form' => FALSE,
   ));
   $handler->override_option('argument_input', array());
-  $handler->override_option('link_to_view', '0');
+  $handler->override_option('link_to_view', 0);
   $handler->override_option('inherit_panels_path', 0);
   
   // save the view and return
