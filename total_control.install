@@ -23,9 +23,9 @@ function total_control_requirements($phase) {
         drupal_set_message('checking panels version');
          $requirements['total_control_panels'] = array(
            'title' => $t('Panels API Version'),
-           'value' => PANELS_API_VERSION,
+           'value' => $panels_version[0],
            'severity' => REQUIREMENT_ERROR,
-           'description' => t('The Version of Panels is too old for Total Control. Total Control needs at least %version.', array('%version' => TOTAL_CONTROL_REQUIRED_PANELS_API))
+           'description' => t('The Version of Panels is too old. Total Control needs at least %version.0.', array('%version' => TOTAL_CONTROL_REQUIRED_PANELS_API))
          );
       } 
     }
@@ -38,13 +38,13 @@ function total_control_requirements($phase) {
     if (module_exists('views')){
       include_once drupal_get_path('module', 'views') . '/views.module';
       $views_version = module_invoke('views', 'api_version');
-      if ($views_version[0] < 2) {
+      if ($views_version < 2) {
         drupal_set_message('checking views version');
          $requirements['total_control_views'] = array(
            'title' => $t('Views API Version'),
-           'value' => VIEWS_API_VERSION,
+           'value' => $views_version,
            'severity' => REQUIREMENT_ERROR,
-           'description' => t('The Version of Views is too old for Total Control. Total Control needs at least %version.', array('%version' => TOTAL_CONTROL_REQUIRED_VIEWS_API))
+           'description' => t('The Version of Views is too old. Total Control needs at least %version.0.', array('%version' => TOTAL_CONTROL_REQUIRED_VIEWS_API))
          );
       } 
     }
