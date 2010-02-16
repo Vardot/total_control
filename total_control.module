@@ -21,7 +21,6 @@ function total_control_perm() {
  */
 function total_control_menu() {
   $items = array();
-
   $items['admin/settings/total_control'] = array(
     'title' => 'Total Control',
     'description' => 'Adjust administration menu settings.',
@@ -29,7 +28,6 @@ function total_control_menu() {
     'page arguments' => array('total_control_admin_settings'),
     'access arguments' => array('administer total control'),
   );
-
   return $items;
 }
 
