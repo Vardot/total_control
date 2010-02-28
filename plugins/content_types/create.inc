@@ -74,15 +74,21 @@ function total_control_create_content_type_edit_form(&$form, &$form_state) {
   $types = node_get_types('types');
   $type_options = array();
   $type_defaults = array();
+  
   foreach ($types as $type => $object){
     $type_options[$type] = $object->name;
     $type_defaults[] = $type;
   }
+  
+  if (isset($conf['types'])){
+    $type_defaults = $conf['types'];
+  }
+  
   $form['types'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Include Create links for Content Types'),
     '#options' => $type_options,
-    '#default_value' => ($form_state['op'] == 'add')? $type_defaults : $conf['types'],
+    '#default_value' => $type_defaults,
     );
   
   return $form;
