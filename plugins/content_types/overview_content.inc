@@ -42,7 +42,7 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
       $total[$type] = format_plural(db_result($type_query), '1 '.$object->name.' item', '@count '.$object->name.' items');
       
       $comment_setting = variable_get('comment_'. $type, 'comment');
-      if (($comment_setting != 0) || (isset($conf['comments']) && $conf['comments'][$type])){ // compare against comment option on pane config
+      if ((module_exists('comment')) && (($comment_setting != 0) || (isset($conf['comments']) && $conf['comments'][$type]))){ // compare against comment option on pane config
         $comment_query = db_query("SELECT count(DISTINCT cid) FROM {comments} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = '%s' and c.status = 1 AND n.status = 1", $type);
         $total[$type.'_comments'] =  format_plural(db_result($comment_query), '1 comment', '@count comments');
         
@@ -88,23 +88,23 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
     '#options' => $type_options,
     '#default_value' => $type_defaults,
     );
-  $form['comments'] = array(
-    '#type' => 'checkboxes',
-    '#title' => t('Include Comment Stats for Content Types'),
-    '#options' => $type_options,
-    '#default_value' => $comment_defaults,
-    );
-  $spam_options = array(
-    0 => t('no'), 
-    1 => t('Include Spam Comment count'));
-  $form['spam'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Include Spam Comment count'),
-    '#options' => $spam_options,
-    '#default_value' => ($form_state['op'] == 'add')? TRUE : $conf['spam'],
-    );
-    
-  //print_r($form);exit;
+  if (module_exists('comments')){
+    $form['comments'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Include Comment Stats for Content Types'),
+      '#options' => $type_options,
+      '#default_value' => $comment_defaults,
+      );
+    $spam_options = array(
+      0 => t('no'), 
+      1 => t('Include Spam Comment count'));
+    $form['spam'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Include Spam Comment count'),
+      '#options' => $spam_options,
+      '#default_value' => ($form_state['op'] == 'add')? TRUE : $conf['spam'],
+      );
+  }
 
   return $form;
 }
