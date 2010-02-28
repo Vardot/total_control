@@ -83,7 +83,11 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
     $vocab_defaults = array();
     foreach ($vocabs as $vid => $vocab){
       $vocab_options[$vid] = $vocab->name;
-      $vocab_defaults[] = $vid;
+      $vocab_defaults[$vid] = $vid;
+    }
+    
+    if (isset($conf['vids'])){
+      $vocab_defaults = $conf['vids'];
     }
   
     $form['vids'] = array(
@@ -91,7 +95,7 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
       '#title' => t('Include Vocabularies'),
       '#multiple' => true,
       '#options' => $vocab_options,
-      '#default_value' => ($form_state['op'] == 'add')? $vocab_defaults : $conf['vids'],
+      '#default_value' => $vocab_defaults,
       );
   }
   
