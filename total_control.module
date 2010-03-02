@@ -108,6 +108,17 @@ function total_control_views_api() {
     //'path' => drupal_get_path('module', 'total_control') . '/includes', 
   );
 }
+
+/**
+ * Implementation of hook_user().
+ *
+ * Redirects to the dashboard if configured.
+ */
+function total_control_user($op, &$edit, &$account, $category = NULL){
+  if (($op == 'login') && (variable_get('total_control_login_redirect', 0) == 1)){
+    drupal_goto('admin/dashboard');
+  }
+}
  
 /**
  * Implementation of hook_views_pre_render().

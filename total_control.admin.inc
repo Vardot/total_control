@@ -1,4 +1,6 @@
 <?php
+// $Id$
+
 /**
  * @file
  * This module enables a page to be used as an administrative dashboard
@@ -10,6 +12,14 @@
  * menu callback for settings page
  */
 function total_control_admin_settings(){
+  // Redirect on log in
+  $form['total_control_login_redirect'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Redirect administrators to Dashboard after log in'),
+    '#default_value' => variable_get('total_control_login_redirect', 0),
+    '#description' => t('Users with the !permission can be automatically redirected to the Dashboard when they log in.', array('!permission' => l(t('Have Total Control permission'), 'admin/user/permissions'))),
+    );
+  
   // Panel pane settings
   $form['total_control_configure_links'] = array(
     '#type' => 'checkbox',
