@@ -37,7 +37,7 @@ $plugin = array(
  * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
  *
  */
-function total_control_create_content_type_admin_title($subtype, $conf, $context) {
+function total_control_nodequeue_content_type_admin_title($subtype, $conf, $context) {
     return t('NodeQueues');
 }
 
@@ -47,7 +47,7 @@ function total_control_create_content_type_admin_title($subtype, $conf, $context
  * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
  *
  */
-function total_control_create_content_type_admin_info($subtype, $conf, $context) {
+function total_control_nodequeue_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Provides a list of all NodeQueues on the site.');
   return $block;

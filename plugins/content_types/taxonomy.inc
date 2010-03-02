@@ -37,7 +37,7 @@ $plugin = array(
  * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
  *
  */
-function total_control_taxonomy_content_type_admin_title($subtype, $conf, $context) {
+function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
     return t('Categories and Terms');
 }
 
@@ -72,8 +72,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
   $block = new stdClass();
   $block->module = t('total_control');
-  $pane = total_control_taxonomy_ctools_content_types();
-  $block->title = $pane['title'];
+  $block->title = total_control_taxonomy_content_type_admin_title();
   
   $vids = (isset($conf['vids']))? $conf['vids']: array();
   

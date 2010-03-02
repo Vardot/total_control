@@ -39,7 +39,7 @@ $plugin = array(
  * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
  *
  */
-function total_control_overview_content_content_type_admin_title($subtype, $conf, $context) {
+function total_control_overview_content_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
   return t('Content Overview');
 }
 
@@ -71,8 +71,7 @@ function total_control_overview_content_content_type_admin_info($subtype, $conf,
 function total_control_overview_content_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
-  $pane = total_control_overview_content_ctools_content_types();
-  $block->title = $pane['title'];
+  $block->title = total_control_overview_content_content_type_admin_title();
 
   $types = node_get_types('types');  
   $overview = array();
