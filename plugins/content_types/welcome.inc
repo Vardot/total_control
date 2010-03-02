@@ -27,11 +27,11 @@ function total_control_welcome_content_type_admin_info($subtype, $conf, $context
 function total_control_welcome_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Congratulations! You are now in Total Control.');
+  $block->title = t('Take Total Control.');
   
   // Building the content
   $content =  '<div class="total-control-site-overview">';
-  $content .= '  <p>'.t('Welcome to your Total Control admin dashboard.  Please start customizing to make this dashboard the perfect hub for all your administrative needs.').'</p>';
+  $content .= '  <p>'.t('Welcome to your administrative dashboard.  !panel to add more content panes here, or configure those provided by default. Views content panes can be created for you automatically according to your !settings.  Make this dashboard the perfect hub for all your administrative needs.', array('!panel' => l(t('Edit this panel'), 'admin/build/pages/edit/dashboard'), '!settings' => l(t('Total Control Settings'), 'admin/settings/control'))).'</p>';
   $content .= '</div>';
 
   $block->content = $content;
