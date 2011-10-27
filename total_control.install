@@ -21,13 +21,12 @@ function total_control_requirements($phase) {
       include_once drupal_get_path('module', 'panels') . '/panels.module';
       $panels_version = module_invoke('panels', 'api_version');
       if ($panels_version[0] < 3) {
-        drupal_set_message('checking panels version');
-         $requirements['total_control_panels'] = array(
-           'title' => $t('Panels API Version'),
-           'value' => $panels_version[0],
-           'severity' => REQUIREMENT_ERROR,
-           'description' => t('The Version of Panels is too old. Total Control needs at least %version.0.', array('%version' => TOTAL_CONTROL_REQUIRED_PANELS_API))
-         );
+        $requirements['total_control_panels'] = array(
+          'title' => $t('Panels API Version'),
+          'value' => $panels_version[0],
+          'severity' => REQUIREMENT_ERROR,
+          'description' => t('The Version of Panels is too old. Total Control needs at least %version.0.', array('%version' => TOTAL_CONTROL_REQUIRED_PANELS_API))
+        );
       } 
     }
     
@@ -41,18 +40,16 @@ function total_control_requirements($phase) {
       include_once drupal_get_path('module', 'views') . '/views.module';
       $views_version = module_invoke('views', 'api_version');
       if ($views_version < 2) {
-        drupal_set_message('checking views version');
-         $requirements['total_control_views'] = array(
-           'title' => $t('Views API Version'),
-           'value' => $views_version,
-           'severity' => REQUIREMENT_ERROR,
-           'description' => t('The Version of Views is too old. Total Control needs at least %version.0.', array('%version' => TOTAL_CONTROL_REQUIRED_VIEWS_API))
-         );
+        $requirements['total_control_views'] = array(
+          'title' => $t('Views API Version'),
+          'value' => $views_version,
+          'severity' => REQUIREMENT_ERROR,
+          'description' => t('The Version of Views is too old. Total Control needs at least %version.0.', array('%version' => TOTAL_CONTROL_REQUIRED_VIEWS_API))
+        );
       } 
     }
     
   }
-  
   if ($phase == 'runtime') {
     // Add a helpful message if more features exist.
     $modules = array();
@@ -65,7 +62,7 @@ function total_control_requirements($phase) {
       $statistics = FALSE;
       $modules[] = 'statistics';
     }
-    if (!module_exists('taxonomy') {
+    if (!module_exists('taxonomy')) {
       $taxonomy = FALSE;
       $modules[] = 'taxonomy';
     }
@@ -78,9 +75,10 @@ function total_control_requirements($phase) {
       );
     }
   }  
-  
+
   return $requirements;
 }
+
 
 /**
  * Implementation of hook_uninstall
