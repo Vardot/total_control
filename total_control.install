@@ -65,8 +65,12 @@ function total_control_requirements($phase) {
       $statistics = FALSE;
       $modules[] = 'statistics';
     }
+    if (!module_exists('taxonomy') {
+      $taxonomy = FALSE;
+      $modules[] = 'taxonomy';
+    }
 
-    if ($search === FALSE || $statistics === FALSE) {
+    if ($search === FALSE || $statistics === FALSE || $taxonomy === FALSE) {
       $requirements['total_control_features'] = array(
         'title' => $t('Total Control has hidden features.'),
         'description' => t('Try enabling the following modules for even more control: !modules', array('!modules' => implode(', ', $modules))),

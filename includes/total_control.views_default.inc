@@ -8,8 +8,17 @@ function total_control_views_default_views() {
   foreach ($files as $filepath => $file) {
     require $filepath;
     
-    if (isset($view)) {
-      $views[$view->name] = $view;
+    // Don't load the view if the module providing data is not enabled.
+    if ( ($file->name == 'control_activity' && !module_exists('statistics')) 
+      || ($file->name == 'control_comments' && !module_exists('comment'))
+      || ($file->name == 'control_terms' && !module_exists('taxonomy')) 
+      ){
+      continue;
+    }
+    else {
+      if (isset($view)) {
+        $views[$view->name] = $view;
+      }
     }
     
   }

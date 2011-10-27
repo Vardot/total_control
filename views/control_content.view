@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * default content page view 
+ * Default content page view.
  */
 $view = new view;
 $view->name = 'control_content';
@@ -240,6 +240,8 @@ $handler->override_option('cache', array(
   'type' => 'none',
 ));
 $handler->override_option('title', 'All ');
+$handler->override_option('empty', 'There is not any content on your site.');
+$handler->override_option('empty_format', '1');
 $handler->override_option('items_per_page', 30);
 $handler->override_option('use_pager', '1');
 $handler->override_option('style_plugin', 'bulk');
@@ -555,4 +557,5 @@ $handler->override_option('tab_options', array(
   'title' => '',
   'description' => '',
   'weight' => '0',
+  'name' => 'navigation',
 ));

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Default comment view
+ * Default comment page view.
  */
 $view = new view;
 $view->name = 'control_comments';
@@ -101,6 +101,8 @@ $handler->override_option('cache', array(
   'type' => 'none',
 ));
 $handler->override_option('title', 'Comments');
+$handler->override_option('empty', 'There aren\'t any comments on your site.');
+$handler->override_option('empty_format', '1');
 $handler->override_option('items_per_page', 5);
 $handler->override_option('use_more', 1);
 $handler->override_option('use_more_text', 'more comments');
@@ -365,6 +367,7 @@ $handler->override_option('tab_options', array(
   'title' => '',
   'description' => '',
   'weight' => 0,
+  'name' => 'navigation',
 ));
 $handler = $view->new_display('panel_pane', 'Recent Comments pane', 'panel_pane_1');
 $handler->override_option('title', 'Recent Comments');
@@ -383,6 +386,7 @@ $handler->override_option('allow', array(
   'path_override' => 0,
   'title_override' => FALSE,
   'exposed_form' => FALSE,
+  'fields_override' => FALSE,
 ));
 $handler->override_option('argument_input', array());
 $handler->override_option('link_to_view', 0);
