@@ -227,27 +227,6 @@ $handler->override_option('sorts', array(
   ),
 ));
 $handler->override_option('filters', array(
-  'rid' => array(
-    'operator' => 'or',
-    'value' => array(),
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'rid_op',
-      'identifier' => 'rid',
-      'label' => 'Roles',
-      'optional' => 1,
-      'single' => 1,
-      'remember' => 0,
-      'reduce' => 0,
-    ),
-    'id' => 'rid',
-    'table' => 'users_roles',
-    'field' => 'rid',
-    'relationship' => 'none',
-    'reduce_duplicates' => 0,
-  ),
   'uid' => array(
     'operator' => 'not in',
     'value' => array(
@@ -270,12 +249,81 @@ $handler->override_option('filters', array(
     'field' => 'uid',
     'relationship' => 'none',
   ),
+  'rid' => array(
+    'operator' => 'or',
+    'value' => array(),
+    'group' => '0',
+    'exposed' => TRUE,
+    'expose' => array(
+      'use_operator' => 0,
+      'operator' => 'rid_op',
+      'identifier' => 'rid',
+      'label' => 'Roles',
+      'optional' => 1,
+      'single' => 1,
+      'remember' => 0,
+      'reduce' => 0,
+    ),
+    'id' => 'rid',
+    'table' => 'users_roles',
+    'field' => 'rid',
+    'relationship' => 'none',
+    'reduce_duplicates' => 0,
+  ),
+  'uid_1' => array(
+    'operator' => 'in',
+    'value' => '',
+    'group' => '0',
+    'exposed' => TRUE,
+    'expose' => array(
+      'use_operator' => 0,
+      'operator' => 'uid_1_op',
+      'identifier' => 'name',
+      'label' => 'Username',
+      'optional' => 1,
+      'remember' => 0,
+      'reduce' => 0,
+    ),
+    'id' => 'uid_1',
+    'table' => 'users',
+    'field' => 'uid',
+    'override' => array(
+      'button' => 'Override',
+    ),
+    'relationship' => 'none',
+  ),
+  'mail' => array(
+    'operator' => 'contains',
+    'value' => '',
+    'group' => '0',
+    'exposed' => TRUE,
+    'expose' => array(
+      'use_operator' => 0,
+      'operator' => 'mail_op',
+      'identifier' => 'mail',
+      'label' => 'E-mail',
+      'optional' => 1,
+      'remember' => 0,
+    ),
+    'case' => 1,
+    'id' => 'mail',
+    'table' => 'users',
+    'field' => 'mail',
+    'override' => array(
+      'button' => 'Override',
+    ),
+    'relationship' => 'none',
+  ),
 ));
 $handler->override_option('access', array(
   'type' => 'perm',
   'perm' => 'have total control',
 ));
-$handler->override_option('items_per_page', 0);
+$handler->override_option('cache', array(
+  'type' => 'none',
+));
+$handler->override_option('items_per_page', 30);
+$handler->override_option('use_pager', '1');
 $handler->override_option('style_plugin', 'bulk');
 $handler->override_option('style_options', array(
   'grouping' => '',
@@ -294,26 +342,26 @@ $handler->override_option('style_options', array(
   ),
   'info' => array(
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'separator' => '',
     ),
     'mail' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'separator' => '',
     ),
     'rid' => array(
       'separator' => '',
     ),
     'status' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'separator' => '',
     ),
     'created' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'separator' => '',
     ),
     'login' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'separator' => '',
     ),
     'delete_node' => array(
@@ -325,21 +373,73 @@ $handler->override_option('style_options', array(
   ),
   'default' => '-1',
   'execution_type' => '1',
+  'max_performance' => 0,
   'display_type' => '0',
-  'skip_confirmation' => 0,
+  'hide_selector' => 0,
+  'preserve_selection' => 1,
   'display_result' => 1,
   'merge_single_action' => 1,
-  'selected_operations' => array(
-    '4d075a755ad70f936bf89570e66196f1' => '4d075a755ad70f936bf89570e66196f1',
-    'a011c04389ff75f79af39bb612089bca' => 'a011c04389ff75f79af39bb612089bca',
-    '73e0815d78610c8e7538ec8c5ad0be0c' => '73e0815d78610c8e7538ec8c5ad0be0c',
-    '4bd509ad947296ffe30e8092a438e096' => '4bd509ad947296ffe30e8092a438e096',
-    'dfdea479cc7ae8cb9d3e8749e57f86b4' => 0,
-    '4fff50383fdc48042390841723c0d719' => 0,
-    '132fddcb3f367a243bee632db31985c1' => 0,
-    '334d20af1ae7ac4b770b7ec3210b2638' => 0,
-    '52aec7fee2070ce530da1304653ae1ec' => 0,
-    'daa75f478e3093ab107e657da6620a91' => 0,
+  'operations' => array(
+    'user_block_ip_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'user_block_user_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'user_user_operations_block' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'views_bulk_operations_delete_user_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'system_message_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'views_bulk_operations_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'views_bulk_operations_script_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'views_bulk_operations_user_roles_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'views_bulk_operations_argument_selector_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'system_goto_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'system_send_email_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
+    'user_user_operations_unblock' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'label' => '',
+    ),
   ),
 ));
 $handler = $view->new_display('page', 'User Admin', 'page_1');
@@ -357,6 +457,7 @@ $handler->override_option('tab_options', array(
   'title' => '',
   'description' => '',
   'weight' => 0,
+  'name' => 'navigation',
 ));
 $handler = $view->new_display('panel_pane', 'New Users pane', 'panel_pane_1');
 $handler->override_option('fields', array(
@@ -487,6 +588,7 @@ $handler->override_option('filters', array(
 ));
 $handler->override_option('title', 'New Users');
 $handler->override_option('items_per_page', 5);
+$handler->override_option('use_pager', FALSE);
 $handler->override_option('use_more', 1);
 $handler->override_option('use_more_text', 'more users');
 $handler->override_option('pane_title', 'New Users');
@@ -502,6 +604,9 @@ $handler->override_option('allow', array(
   'link_to_view' => 0,
   'more_link' => 0,
   'path_override' => 0,
+  'title_override' => FALSE,
+  'exposed_form' => FALSE,
+  'fields_override' => FALSE,
 ));
 $handler->override_option('argument_input', array());
 $handler->override_option('link_to_view', 0);
