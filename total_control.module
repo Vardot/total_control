@@ -1,64 +1,66 @@
 <?php
-// default views for Total Control
-include_once('includes/total_control.default_views.inc');
+// $Id: total_control.module,v 1.20 2010/03/02 22:45:32 jenlampton Exp $
+/**
+ * @file
+ *
+ * This module enables an administrative dashboard.
+ */
+include_once('includes/total_control.inc'); 
+include_once('includes/total_control.views_default.inc');
 
+define('TOTAL_CONTROL_REQUIRED_PANELS_API', '3');
+define('TOTAL_CONTROL_REQUIRED_VIEWS_API', '2');
 // This is the name of the dashboard as the page manager module sees it via the page task.
 define('TOTAL_CONTROL_DASHBOARD_PANEL_NAME', 'dashboard');
 define('TOTAL_CONTROL_MINIMUM_VERSION', 1);
 define('TOTAL_CONTROL_VERSION', 1);
 
-/* 
- * Implementation of hook_perm
- * adds permissions for access to the total control dashboard
+/** 
+ * Implementation of hook_perm().
+ *
+ * Adds permissions for access to the total control dashboard
  */
 function total_control_perm() {
   return array('have total control', 'administer total control');
 }
 
-/* 
- * Implementation of hook_menu
- * adds the total control dashboard
+/** 
+ * Implementation of hook_menu().
+ *
+ * Adds the total control dashboard
  */
 function total_control_menu() {
   $items = array();
 
-  $items['admin/settings/total_control'] = array(
+  $items['admin/settings/control'] = array(
     'title' => 'Total Control',
     'description' => 'Adjust administration menu settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('total_control_admin_settings'),
     'access arguments' => array('administer total control'),
+    'file' => 'total_control.admin.inc',
   );
 
   return $items;
 }
 
-/* menu callback */
-function total_control_admin_settings(){
-  $form['total_control_configure_links'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Show configure links on "Create Content" panel'),
-    '#default_value' => variable_get('total_control_configure_links', 1),
-    '#description' => t('Configure links go to the edit content type pages'),
-    );
-  return system_settings_form($form);
-}
-
-/* 
- * Implementation of hook_form_alter
- * adds views adjustment handling when workflows are added or removed
+/**
+ * Implementation of hook_form_alter().
+ *
+ * Adds views adjustment handling when content types are added or removed
  */
 function total_control_form_alter(&$form, $form_state, $form_id) {
   if ('node_type_form' == $form_id) {
-    $form['#submit'][] = '_total_control_views_add_display';
+    $form['#submit'][] = 'total_control_add_type_submit';
   }
   if ('node_type_delete_confirm' == $form_id) {
-    $form['#submit'][] = '_total_control_views_delete_display';
+    $form['#submit'][] = 'total_control_remove_type_submit';
   }
 }
 
 /**
- * Implementation of hook_ctools_plugin_api()
+ * Implementation of hook_ctools_plugin_api().
+ *
  * Needed so that next hooks are picked up.
  */
 function total_control_ctools_plugin_api($module, $api) {
@@ -68,15 +70,16 @@ function total_control_ctools_plugin_api($module, $api) {
 }
 
 /**
- * Implementation of hook_ctools_plugin_dierctory()
- * to let the system know we implement task and task_handler plugins.
+ * Implementation of hook_ctools_plugin_dierctory().
+ *
+ * Lets the system know we implement task and task_handler plugins.
  */
 function total_control_ctools_plugin_directory($module, $plugin) {
   return 'plugins/' . $plugin;
 }
 
 /**
- * Implementation of hook_default_page_manager_handlers()
+ * Implementation of hook_default_page_manager_handlers().
  */
 function total_control_default_page_manager_handlers() {
   $handlers = array();
@@ -85,68 +88,43 @@ function total_control_default_page_manager_handlers() {
 }
 
 /**
-* Implementation of hook_views_api().
-* TODO
-**/
+ * Implementation of hook_views_api().
+ *
+ * Register View API information. This is required for your module to have
+ * its include files loaded; for example, when implementing
+ * hook_views_default_views().
+ *
+ * @return
+ *   An array with the following possible keys:
+ *   - api:  (required) The version of the Views API the module implements.
+ *   - path: (optional) If includes are stored somewhere other than within
+ *       the root module directory or a subdirectory called includes, specify
+ *       its path here.
+ */
 function total_control_views_api() {
+  // TODO
   return array(
     'api' => 2,
+    //'path' => drupal_get_path('module', 'total_control') . '/includes', 
   );
 }
+
+/**
+ * Implementation of hook_user().
+ *
+ * Redirects to the dashboard if configured.
+ */
+function total_control_user($op, &$edit, &$account, $category = NULL){
+  if (($op == 'login') && (variable_get('total_control_login_redirect', 0) == 1)){
+    drupal_goto('admin/dashboard');
+  }
+}
  
-/* Helper function.  Adds view displays. */
-function _total_control_views_add_display($form, &$form_state){
-  
-  // compose the vars we ned for the view
-  $machine_type = $form_state['values']['type'];
-  $content_type = $form_state['values']['name'];
-  
-  // get the view
-  $view = views_get_view('control_content');
-  
-  // create a panel pane - 'includes/total_control.views.inc'
-  total_control_add_views_pane_display($view, $content_type, $machine_type);
-  
-  // create a page - 'includes/total_control.views.inc'
-  total_control_add_views_page_display($view, $content_type, $machine_type);
-  
-  // save the view
-  $view->save();
-  
-  return;
-}
-
-/* Helper function.  Removes view displays. */
-function _total_control_views_delete_display($form, &$form_state){
-
-  // get the type  
-  $type = $form_state['values']['type'];
-  
-  // get the view
-  $view = views_get_view('control_content');
-  
-  // delete the corresponding display
-  unset($view->display['panel_pane_tc_'.$type]);
-  unset($view->display['page_tc_'.$type]);
-  
-  // save the view
-  $view->save();
-  
-  return;
-}
-
-/* Helper function.  Changes type names into plurals. */
-function _total_control_pluralize($word){
-  $word = trim($word);
-  if (substr($word, -1, 1) == 'y'){
-    $removed = strlen($word) - 1;
-    $plural = substr($word, 0, $removed) . 'ies';
-  }
-  else if (substr($word, -1, 1) == 's'){
-    $plural = $word;
-  }
-  else {
-    $plural = $word . 's';
-  }
-  return $plural;
+/**
+ * Implementation of hook_views_pre_render().
+ *
+ * Adds the create content links to dashboard views.
+ */
+function total_control_views_pre_render(&$view) {
+ // TODO
 }

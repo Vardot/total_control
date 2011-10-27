@@ -1,34 +1,78 @@
 <?php
+// $Id: taxonomy.inc,v 1.11 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
- * Implementation of specially named hook_ctools_content_types()
+ * @file
+ * "Taxonomy" content type. It shows users with permissions statistics
+ * and links to manage terms in vocabularies on the site.
+ *
  */
-function total_control_taxonomy_ctools_content_types() {
-  return array(
-    'single' => TRUE,
-    'icon' => 'icon_node_form.png',
-    'no title override' => TRUE,
-    'title' => t('Categories and Terms'),
-    'description' => t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.'),
-    'category' => t('Total Control'),
-    'js' => array('misc/autocomplete.js', 'misc/textarea.js', 'misc/collapse.js'),
-    'defaults' => array('vids' => NULL),
-  ); 
-}
 
-function total_control_taxonomy_content_type_admin_title($subtype, $conf, $context) {
+/**
+ * Plugins are described by creating a $plugin array which will be used
+ * by the system that includes this file.
+ */
+$plugin = array(
+  'title' => t('Categories'),
+  'description' => t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.'),
+  // 'single' => TRUE means has no subtypes.
+  'single' => TRUE,
+  // Constructor.
+  'content_types' => array('total_control_taxonomy_content_type'),
+  // Name of a function which will render the block.
+  'render callback' => 'total_control_taxonomy_content_type_render',
+  // The default context.
+  'defaults' => array('vids' => NULL),
+  // This explicitly declares the config form. Without this line, the func would be
+  // total_control_taxonomy_content_type_edit_form.
+  'edit form' => 'total_control_taxonomy_content_type_edit_form',
+  // Icon goes in the directory with the content type.
+  'icon' => 'icon_node_form.png',
+  'category' => t('Total Control'),
+);
+
+/**
+ * 'Admin title' callback for the content type.
+ *
+ * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
+ *
+ */
+function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
     return t('Categories and Terms');
 }
 
+/**
+ * 'Admin info' callback for the content type.
+ *
+ * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
+ *
+ */
 function total_control_taxonomy_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.');
   return $block;
 }
 
+/**
+ * Run-time rendering of the body of the block.
+ *
+ * @param $subtype
+ * @param $conf
+ *   Configuration as done at admin time.
+ * @param $args
+ * @param $context
+ *   Context - in this case we don't have any.
+ *
+ * @return
+ *   An object with at least title and content members.
+ */
 function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args, &$context) {
+  if (!module_exists('taxonomy')){
+    return;
+  }
   $block = new stdClass();
   $block->module = t('total_control');
+  $block->title = total_control_taxonomy_content_type_admin_title();
   
   $vids = (isset($conf['vids']))? $conf['vids']: array();
   
@@ -50,8 +94,6 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
     } // foreach
   }
   
-  $pane = total_control_taxonomy_ctools_content_types();
-  
   if ($rows){
     $output = theme('item_list', $rows);
   }
@@ -64,16 +106,19 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   
   // assemble content
   $content =  '<div class="total-control-content-overview">';
-  $content .= '  <h2 class="title">' . $pane['title'] . '</h2>';
-  $content .= '  <div class="content">';
-  $content .=      $output;
-  $content .= '  </div>';
+  $content .= $output;
   $content .= '</div>';
 
   $block->content = $content;
   return $block;
 }
 
+/**
+ * 'Edit form' callback for the content type.
+ *
+ * ctools_plugin_example_total_control_panel_pages_content_type_edit_form.
+ *
+ */
 function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
   $conf = $form_state['conf'];
  
@@ -83,7 +128,11 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
     $vocab_defaults = array();
     foreach ($vocabs as $vid => $vocab){
       $vocab_options[$vid] = $vocab->name;
-      $vocab_defaults[] = $vid;
+      $vocab_defaults[$vid] = $vid;
+    }
+    
+    if (isset($conf['vids'])){
+      $vocab_defaults = $conf['vids'];
     }
   
     $form['vids'] = array(
@@ -91,7 +140,7 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
       '#title' => t('Include Vocabularies'),
       '#multiple' => true,
       '#options' => $vocab_options,
-      '#default_value' => ($form_state['op'] == 'add')? $vocab_defaults : $conf['vids'],
+      '#default_value' => $vocab_defaults,
       );
   }
   
@@ -99,15 +148,13 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
 }
 
 /**
+ * 'Edit form' submit callback for the content type.
+ *
+ * ctools_plugin_example_total_control_panel_pages_content_type_edit_form_submit.
  * The submit form stores the data in $conf.
+ *
  */
 function total_control_taxonomy_content_type_edit_form_submit(&$form, &$form_state) {
-  // For each part of the form defined in the 'defaults' array set when you
-  // defined the content type, copy the value from the form into the array
-  // of items to be saved. We don't ever want to use
-  // $form_state['conf'] = $form_state['values'] because values contains
-  // buttons, form id and other items we don't want stored. CTools will handle
-  // the actual form submission.
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   } 

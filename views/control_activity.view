@@ -170,8 +170,6 @@ $handler->override_option('access', array(
   'perm' => 'have total control',
 ));
 $handler->override_option('title', 'View Activity');
-$handler->override_option('empty', 'if you are seeing no results here, you probably forgot to <a href="/admin/build/modules">enable your statistics module</a>, or forgot to <a href="/admin/reports/settings">enable the access log</a>.');
-$handler->override_option('empty_format', '1');
 $handler->override_option('items_per_page', 30);
 $handler->override_option('style_plugin', 'table');
 $handler->override_option('style_options', array(

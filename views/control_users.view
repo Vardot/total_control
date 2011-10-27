@@ -192,28 +192,37 @@ $handler->override_option('fields', array(
     'relationship' => 'none',
   ),
   'edit_node' => array(
-    'label' => 'Edit link',
+    'label' => 'Edit',
     'alter' => array(
       'alter_text' => 0,
       'text' => '',
       'make_link' => 0,
       'path' => '',
+      'link_class' => '',
       'alt' => '',
       'prefix' => '',
       'suffix' => '',
+      'target' => '',
       'help' => '',
       'trim' => 0,
       'max_length' => '',
       'word_boundary' => 1,
       'ellipsis' => 1,
+      'strip_tags' => 0,
       'html' => 0,
     ),
+    'empty' => '',
+    'hide_empty' => 0,
+    'empty_zero' => 0,
     'text' => 'edit',
     'exclude' => 0,
     'id' => 'edit_node',
     'table' => 'users',
     'field' => 'edit_node',
     'relationship' => 'none',
+    'override' => array(
+      'button' => 'Override',
+    ),
   ),
 ));
 $handler->override_option('sorts', array(
@@ -227,6 +236,27 @@ $handler->override_option('sorts', array(
   ),
 ));
 $handler->override_option('filters', array(
+  'rid' => array(
+    'operator' => 'or',
+    'value' => array(),
+    'group' => '0',
+    'exposed' => TRUE,
+    'expose' => array(
+      'use_operator' => 0,
+      'operator' => 'rid_op',
+      'identifier' => 'rid',
+      'label' => 'Roles',
+      'optional' => 1,
+      'single' => 1,
+      'remember' => 0,
+      'reduce' => 0,
+    ),
+    'id' => 'rid',
+    'table' => 'users_roles',
+    'field' => 'rid',
+    'relationship' => 'none',
+    'reduce_duplicates' => 0,
+  ),
   'uid' => array(
     'operator' => 'not in',
     'value' => array(
@@ -249,71 +279,6 @@ $handler->override_option('filters', array(
     'field' => 'uid',
     'relationship' => 'none',
   ),
-  'rid' => array(
-    'operator' => 'or',
-    'value' => array(),
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'rid_op',
-      'identifier' => 'rid',
-      'label' => 'Roles',
-      'optional' => 1,
-      'single' => 1,
-      'remember' => 0,
-      'reduce' => 0,
-    ),
-    'id' => 'rid',
-    'table' => 'users_roles',
-    'field' => 'rid',
-    'relationship' => 'none',
-    'reduce_duplicates' => 0,
-  ),
-  'uid_1' => array(
-    'operator' => 'in',
-    'value' => '',
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'uid_1_op',
-      'identifier' => 'name',
-      'label' => 'Username',
-      'optional' => 1,
-      'remember' => 0,
-      'reduce' => 0,
-    ),
-    'id' => 'uid_1',
-    'table' => 'users',
-    'field' => 'uid',
-    'override' => array(
-      'button' => 'Override',
-    ),
-    'relationship' => 'none',
-  ),
-  'mail' => array(
-    'operator' => 'contains',
-    'value' => '',
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'mail_op',
-      'identifier' => 'mail',
-      'label' => 'E-mail',
-      'optional' => 1,
-      'remember' => 0,
-    ),
-    'case' => 1,
-    'id' => 'mail',
-    'table' => 'users',
-    'field' => 'mail',
-    'override' => array(
-      'button' => 'Override',
-    ),
-    'relationship' => 'none',
-  ),
 ));
 $handler->override_option('access', array(
   'type' => 'perm',
@@ -322,8 +287,7 @@ $handler->override_option('access', array(
 $handler->override_option('cache', array(
   'type' => 'none',
 ));
-$handler->override_option('items_per_page', 30);
-$handler->override_option('use_pager', '1');
+$handler->override_option('items_per_page', 0);
 $handler->override_option('style_plugin', 'bulk');
 $handler->override_option('style_options', array(
   'grouping' => '',
@@ -373,73 +337,25 @@ $handler->override_option('style_options', array(
   ),
   'default' => '-1',
   'execution_type' => '1',
-  'max_performance' => 0,
   'display_type' => '0',
-  'hide_selector' => 0,
-  'preserve_selection' => 1,
+  'hide_select_all' => 0,
+  'skip_confirmation' => 0,
   'display_result' => 1,
   'merge_single_action' => 1,
-  'operations' => array(
-    'user_block_ip_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'user_block_user_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'user_user_operations_block' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_delete_user_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'system_message_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_script_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_user_roles_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'views_bulk_operations_argument_selector_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'system_goto_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'system_send_email_action' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
-    'user_user_operations_unblock' => array(
-      'selected' => 0,
-      'skip_confirmation' => 0,
-      'label' => '',
-    ),
+  'selected_operations' => array(
+    'user_block_ip_action' => 'user_block_ip_action',
+    'user_user_operations_block' => 'user_user_operations_block',
+    'views_bulk_operations_delete_user_action' => 'views_bulk_operations_delete_user_action',
+    'views_bulk_operations_user_roles_action' => 'views_bulk_operations_user_roles_action',
+    'system_send_email_action' => 'system_send_email_action',
+    'user_user_operations_unblock' => 'user_user_operations_unblock',
+    'user_block_user_action' => 0,
+    'nodewords_mass_delete_tags:9fed5062c31d06cb075d45f06617e1b3' => 0,
+    'system_message_action' => 0,
+    'views_bulk_operations_action' => 0,
+    'views_bulk_operations_script_action' => 0,
+    'views_bulk_operations_argument_selector_action' => 0,
+    'system_goto_action' => 0,
   ),
 ));
 $handler = $view->new_display('page', 'User Admin', 'page_1');
@@ -457,157 +373,4 @@ $handler->override_option('tab_options', array(
   'title' => '',
   'description' => '',
   'weight' => 0,
-  'name' => 'navigation',
 ));
-$handler = $view->new_display('panel_pane', 'New Users pane', 'panel_pane_1');
-$handler->override_option('fields', array(
-  'name' => array(
-    'label' => 'Name',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_user' => 1,
-    'overwrite_anonymous' => 0,
-    'anonymous_text' => '',
-    'exclude' => 0,
-    'id' => 'name',
-    'table' => 'users',
-    'field' => 'name',
-    'relationship' => 'none',
-  ),
-  'created' => array(
-    'label' => 'Created',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'date_format' => 'custom',
-    'custom_date_format' => 'm/d/Y',
-    'exclude' => 0,
-    'id' => 'created',
-    'table' => 'users',
-    'field' => 'created',
-    'relationship' => 'none',
-  ),
-  'login' => array(
-    'label' => 'Last login',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'date_format' => 'custom',
-    'custom_date_format' => 'm/d/Y',
-    'exclude' => 0,
-    'id' => 'login',
-    'table' => 'users',
-    'field' => 'login',
-    'relationship' => 'none',
-  ),
-  'edit_node' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'text' => 'edit',
-    'exclude' => 0,
-    'id' => 'edit_node',
-    'table' => 'users',
-    'field' => 'edit_node',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Use default',
-    ),
-  ),
-));
-$handler->override_option('filters', array(
-  'uid' => array(
-    'operator' => 'not in',
-    'value' => array(
-      '0' => 0,
-    ),
-    'group' => '0',
-    'exposed' => FALSE,
-    'expose' => array(
-      'operator' => FALSE,
-      'label' => '',
-    ),
-    'id' => 'uid',
-    'table' => 'users',
-    'field' => 'uid',
-    'override' => array(
-      'button' => 'Use default',
-    ),
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('title', 'New Users');
-$handler->override_option('items_per_page', 5);
-$handler->override_option('use_pager', FALSE);
-$handler->override_option('use_more', 1);
-$handler->override_option('use_more_text', 'more users');
-$handler->override_option('pane_title', 'New Users');
-$handler->override_option('pane_description', 'Total Control user summary');
-$handler->override_option('pane_category', array(
-  'name' => 'Total Control',
-  'weight' => '0',
-));
-$handler->override_option('allow', array(
-  'use_pager' => 0,
-  'items_per_page' => 'items_per_page',
-  'offset' => 0,
-  'link_to_view' => 0,
-  'more_link' => 0,
-  'path_override' => 0,
-  'title_override' => FALSE,
-  'exposed_form' => FALSE,
-  'fields_override' => FALSE,
-));
-$handler->override_option('argument_input', array());
-$handler->override_option('link_to_view', 0);
-$handler->override_option('inherit_panels_path', 0);
