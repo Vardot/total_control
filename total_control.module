@@ -115,8 +115,10 @@ function total_control_views_api() {
  * Redirects to the dashboard if configured.
  */
 function total_control_user($op, &$edit, &$account, $category = NULL){
-  if (($op == 'login') && (variable_get('total_control_login_redirect', 0) == 1)){
-    drupal_goto('admin/dashboard');
+  if ((arg(0) != 'user') && arg(1) != 'reset') {
+    if (($op == 'login') && (variable_get('total_control_login_redirect', 0) == 1 && user_access('have total control'))){
+      drupal_goto('admin/dashboard');
+    }
   }
 }
  
