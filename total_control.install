@@ -15,6 +15,7 @@ function total_control_requirements($phase) {
     if (!defined('TOTAL_CONTROL_REQUIRED_PANELS_API')) {
       include_once drupal_get_path('module', 'total_control') . '/total_control.module';
     }
+    
     // Check panels current version.
     if (module_exists('panels')){
       include_once drupal_get_path('module', 'panels') . '/panels.module';
@@ -34,6 +35,7 @@ function total_control_requirements($phase) {
     if (!defined('TOTAL_CONTROL_REQUIRED_VIEWS_API')) {
       include_once drupal_get_path('module', 'total_control') . '/total_control.module';
     }
+    
     // Check views current version.
     if (module_exists('views')){
       include_once drupal_get_path('module', 'views') . '/views.module';
@@ -50,6 +52,29 @@ function total_control_requirements($phase) {
     }
     
   }
+  
+  if ($phase == 'runtime') {
+    // Add a helpful message if more features exist.
+    $modules = array();
+    
+    if (!module_exists('search')) {
+      $search = FALSE;
+      $modules[] = 'search';
+    }
+    if (!module_exists('statistics')) {
+      $statistics = FALSE;
+      $modules[] = 'statistics';
+    }
+
+    if ($search === FALSE || $statistics === FALSE) {
+      $requirements['total_control_features'] = array(
+        'title' => $t('Total Control has hidden features.'),
+        'description' => t('Try enabling the following modules for even more control: !modules', array('!modules' => implode(', ', $modules))),
+        'severity' => REQUIREMENT_WARNING,
+      );
+    }
+  }  
+  
   return $requirements;
 }
 
