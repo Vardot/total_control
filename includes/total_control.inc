@@ -123,12 +123,9 @@ function total_control_views_delete_pane_display($type){
  *   The human-readable content type name
  *
  */
-function total_control_add_views_pane_display(&$view, $machine_type, $content_type){
-  // get plural
-  $plural_type = _total_control_pluralize($content_type);
-  
-  // build display
-  $handler = $view->new_display('panel_pane', 'New '.$plural_type.' pane', 'panel_pane_tc_'.$machine_type);
+function total_control_add_views_pane_display(&$view, $content_type, $machine_type){  
+  // Build the display.
+  $handler = $view->new_display('panel_pane', $content_type . ' pane', 'panel_pane_tc_' . $machine_type);
   $handler->override_option('filters', array(
     'type' => array(
       'operator' => 'in',
@@ -150,9 +147,9 @@ function total_control_add_views_pane_display(&$view, $machine_type, $content_ty
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('title', 'New '.$plural_type);
-  $handler->override_option('pane_title', 'New '.$plural_type);
-  $handler->override_option('pane_description', 'Total Control '.$content_type.' summary');  
+  $handler->override_option('title', 'New ' . $content_type);
+  $handler->override_option('pane_title', 'New ' . $content_type . ' content');
+  $handler->override_option('pane_description', 'Total Control ' . $content_type . ' summary');  
   $handler->override_option('pane_category', array(
     'name' => 'Total Control',
     'weight' => '0',
@@ -187,27 +184,24 @@ function total_control_add_views_pane_display(&$view, $machine_type, $content_ty
  *   The machine-readable content type name
  *
  */
-function total_control_add_views_page_display(&$view, $content_type, $machine_type){
-  // get the plural
-  $plural_type = _total_control_pluralize($content_type);
-  
-  // build the display
-  $handler = $view->new_display('page', ucwords($plural_type.' Page'), 'page_tc_'.$machine_type);
+function total_control_add_views_page_display(&$view, $content_type, $machine_type){  
+  // Build the display.
+  $handler = $view->new_display('page', $content_type . ' Page', 'page_tc_' . $machine_type);
   
   // filters differ depending on search module 
   $filters = total_control_add_filters($machine_type);
   $handler->override_option('filters', $filters);
   
-  $machine_path =  str_replace('_', '-', $object->type);
+  $machine_path =  str_replace('_', '-', $machine_type);
   
-  $handler->override_option('title', $plural_type);
+  $handler->override_option('title', $content_type . ' content');
   $handler->override_option('header', '<a href="/node/add/'.$machine_path.'" title="Create a new '.$content_type.'">Add a New '.$content_type.'</a>');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 1);
   $handler->override_option('path', 'admin/dashboard/content/'.$machine_path);
   $handler->override_option('menu', array(
     'type' => 'tab',
-    'title' => $plural_type,
+    'title' => $content_type . ' content',
     'description' => '',
     'weight' => '0',
     'name' => 'navigation',
@@ -322,24 +316,3 @@ function total_control_add_filters($machine_type = NULL){
   return $filters;
 }
 
-/**
- * Changes type names into plurals.
- *
- * @param $word
- *   The word to be pluralized
- *
- */
-function _total_control_pluralize($word){
- $word = trim($word);
- if (substr($word, -1, 1) == 'y'){
-   $removed = strlen($word) - 1;
-   $plural = substr($word, 0, $removed) . 'ies';
- }
- else if (substr($word, -1, 1) == 's'){
-   $plural = $word;
- }
- else {
-   $plural = $word . 's';
- }
- return $plural;
-}

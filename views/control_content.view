@@ -544,18 +544,18 @@ $handler->override_option('fields', array(
   ),
 ));
 $handler->override_option('title', 'All Content');
-$handler->override_option('path', 'admin/dashboard/content');
+$handler->override_option('path', 'admin/dashboard/content/all');
 $handler->override_option('menu', array(
-  'type' => 'tab',
+  'type' => 'default tab',
   'title' => 'All Content',
   'description' => '',
   'weight' => '-19',
   'name' => 'navigation',
 ));
 $handler->override_option('tab_options', array(
-  'type' => 'none',
-  'title' => '',
+  'type' => 'tab',
+  'title' => 'All Content',
   'description' => '',
-  'weight' => '0',
+  'weight' => '-19',
   'name' => 'navigation',
 ));
