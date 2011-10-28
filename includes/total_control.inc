@@ -195,7 +195,7 @@ function total_control_add_views_page_display(&$view, $content_type, $machine_ty
   $machine_path =  str_replace('_', '-', $machine_type);
   
   $handler->override_option('title', $content_type . ' content');
-  $handler->override_option('header', '<a href="/node/add/'.$machine_path.'" title="Create a new '.$content_type.'">Add a New '.$content_type.'</a>');
+  $handler->override_option('header', '');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 1);
   $handler->override_option('path', 'admin/dashboard/content/'.$machine_path);

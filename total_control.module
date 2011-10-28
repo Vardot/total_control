@@ -127,7 +127,39 @@ function total_control_user($op, &$edit, &$account, $category = NULL){
  * Adds the create content links to dashboard views.
  */
 function total_control_views_pre_render(&$view) {
- // TODO
+  // Check that this is the control content view
+  if ($view->name == 'control_content'){
+    // Get the content type for the current page.
+    
+    // Create an array to work with
+    $type_displays = $view->display;
+    unset($type_displays['default']);
+    unset($type_displays['page_1']);
+    $machine_names = array();
+    foreach ($type_displays as $key => $value) {
+      $machine_names[] = substr($key, 8);
+    }
+    
+    //dpm($view->display);
+    
+    // Check for page.
+    foreach ($machine_names as $type) {
+      
+      // Check if the user has access to create content of that type.
+      if (user_access('create ' . $type . ' content')) {
+        // Add the create content link.
+        $add_link = l(t('Create ' . $type . ' content'), 'node/add/' . $type);
+        if (array_key_exists('header', $view->display['page_tc_' . $type]->handler->options)) {
+          // If there's already a header, append to it.
+          $view->display['page_tc_' . $type]->handler->options['header'] .= $add_link;
+        }
+        else {
+          // Otherwise add our own header.
+          $view->display['page_tc_' . $type]->handler->options['header'] = $add_link;
+        }
+      }
+    }
+  }
 }
 
 /**
