@@ -1,5 +1,4 @@
 <?php
-// $Id: overview_content.inc,v 1.12 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
  * @file
@@ -99,13 +98,8 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
       $overview[] = $line;
     } // if type
   } // foreach
-  
-  // assemble content
-  $content =  '<div class="total-control-content-overview">';
-  $content .= theme('item_list', $overview);
-  $content .= '</div>';
 
-  $block->content = $content;
+  $block->content = theme('total_control_overview_content', $overview);
   return $block;
 }
 

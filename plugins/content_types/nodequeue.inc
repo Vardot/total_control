@@ -77,7 +77,6 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
   // Get nodequeues.
   if (module_exists('nodequeue')) {
     module_load_include('module', 'nodequeue', 'nodequeue');
-    $output = '';
     
     $queues = nodequeue_load_queues(nodequeue_get_all_qids(25));
     foreach ($queues as $queue) {
@@ -87,7 +86,7 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
     }
 
     if (empty($queues)) {
-      return $output . t('No nodequeues exist.');
+      $output = t('No nodequeues exist.');
     }
 
     $header = array(
@@ -110,7 +109,7 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
       );
     }
 
-    $output .= theme('table', $header, $rows);
+    $output = theme('total_control_nodequeue', $header, $rows);
   }
   
   $block->content = $output;

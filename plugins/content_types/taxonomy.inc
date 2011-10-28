@@ -95,7 +95,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
   
   if ($rows){
-    $output = theme('item_list', $rows);
+    $output = theme('total_control_taxonomy', $rows);
   }
   else {
     $output = t('You have no vocabularies yet. ');
@@ -103,13 +103,8 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
       $output .= '<div class="add-vocab">'.l(t('Add vocabulary'),'admin/content/taxonomy/add/vocabulary').'</div>';
     }
   }
-  
-  // assemble content
-  $content =  '<div class="total-control-content-overview">';
-  $content .= $output;
-  $content .= '</div>';
 
-  $block->content = $content;
+  $block->content = $output;
   return $block;
 }
 

@@ -100,13 +100,8 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
       $overview[] = $total['users_role_'.$rid];
     } // if not auth
   } // foreach
-  
-  // assemble content
-  $content =  '<div class="total-control-user-overview">';
-  $content .= theme('item_list', $overview);
-  $content .= '</div>';
 
-  $block->content = $content;
+  $block->content = theme('total_control_overview_user', $overview);
   return $block;
 }
 

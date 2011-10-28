@@ -1,5 +1,4 @@
 <?php
-// $Id: total_control.module,v 1.20 2010/03/02 22:45:32 jenlampton Exp $
 /**
  * @file
  *
@@ -130,3 +129,42 @@ function total_control_user($op, &$edit, &$account, $category = NULL){
 function total_control_views_pre_render(&$view) {
  // TODO
 }
+
+/**
+ * Implementation of hook_theme().
+ *
+ * Adds theme functions for the output of content panes.
+ */
+function total_control_theme() {
+  return array(
+    'total_control_create' => array(
+      'arguments' => array('create' => array()), 
+      'file' => 'total_control.theme.inc',
+    ),
+    'total_control_overview' => array(
+      'arguments' => array('content' => array(), 'users' => array()), 
+      'file' => 'total_control.theme.inc',
+    ),
+    'total_control_overview_content' => array(
+      'arguments' => array('overview' => array()), 
+      'file' => 'total_control.theme.inc',
+    ),
+    'total_control_overview_user' => array(
+      'arguments' => array('overview' => array()), 
+      'file' => 'total_control.theme.inc',
+    ),
+    'total_control_taxonomy' => array(
+      'arguments' => array('rows' => array()), 
+      'file' => 'total_control.theme.inc',
+    ),
+    'total_control_panel_pages' => array(
+      'arguments' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
+      'file' => 'total_control.theme.inc',
+    ),
+    'total_control_nodequeue' => array(
+      'arguments' => array('header' => array(), 'rows' => array()), 
+      'file' => 'total_control.theme.inc',
+    ),
+  );
+}
+

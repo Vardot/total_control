@@ -1,5 +1,4 @@
 <?php
-// $Id: overview.inc,v 1.8 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
  * @file
@@ -122,16 +121,8 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
       $overview_usr[] = $total['users_role_'.$rid];
     } // if not auth
   } // foreach
-  
-  // Building the content
-  $content =  '<div class="total-control-site-overview">';
-  $content .= '  <strong>'.t('Content').'</strong>';
-  $content .=    theme('item_list', $overview_cnt);
-  $content .= '  <strong>'.t('Users').'</strong>';
-  $content .=    theme('item_list', $overview_usr);
-  $content .= '</div>';
 
-  $block->content = $content;
+  $block->content = theme('total_control_overview', $overview_cnt, $overview_usr);
   return $block;
 }
 

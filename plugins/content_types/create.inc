@@ -1,5 +1,4 @@
 <?php
-// $Id: create.inc,v 1.14 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
  * @file
@@ -100,13 +99,9 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
       
     } // end if type
   }
-      
-  // assemble content
-  $content =  '<div class="total-control-content-overview">';
-  $content .=     theme('item_list', $create);
-  $content .= '</div>';
 
-  $block->content = $content;
+  $block->content =  theme('total_control_create', $create);
+  
   return $block;
 }
 
