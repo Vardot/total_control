@@ -5,6 +5,6 @@ dependencies[] = views_content
 dependencies[] = page_manager
 dependencies[] = views_bulk_operations
 package = Administration
-core = 6.x
+core = 7.x
 
 

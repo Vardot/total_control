@@ -1,11 +1,10 @@
 <?php
-// $Id: panel_pages.inc,v 1.3 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
- * @file
- * "Panel Pages" content type. It shows users with permissions the panel
- * pages on the site, and provides links directly to the "content" so
- * it can be changed without so many clicks via the panels UI.
+ * @file panel_pages.inc
+ *
+ * "Panel Pages" panels content pane. It shows users with permissions the
+ * panel pages on the site, and provides links directly to the "content" tab.
  *
  */
 
@@ -90,7 +89,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
     // TODO: config setting?
     // Only show enabled panels on the pane.
     if (array_key_exists('data', $info['data']['operations'])
-      && (stristr((string)$info['data']['operations']['data'], 'Enable') == FALSE)){
+      && (stristr((string)$info['data']['operations']['data'], 'Enable') == FALSE)) {
       $rows[] = array(
         'data' => array(
           $info['data']['title'],

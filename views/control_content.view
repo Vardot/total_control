@@ -1,8 +1,12 @@
 <?php
 
-/* 
- * Default content page view.
+/**
+ * @file control_content.view
+ *
+ * Default view for administration of content. Contains page displays only.
+ *
  */
+ 
 $view = new view;
 $view->name = 'control_content';
 $view->description = 'Total Control over content: Contains an administration page for content.';

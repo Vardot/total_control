@@ -1,10 +1,16 @@
 <?php 
-/* 
- * default user view 
+
+/**
+ * @file control_users.view
+ *
+ * Default view for administration of user accounts. Contains page display 
+ * only.
+ *
  */
+ 
 $view = new view;
 $view->name = 'control_users';
-$view->description = 'Total Control over users: Contains a panel pane and a page to control users.';
+$view->description = 'Total Control over users: Contains a panel pane and a page to control user accounts.';
 $view->tag = 'total_control';
 $view->view_php = '';
 $view->base_table = 'users';

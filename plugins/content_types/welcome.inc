@@ -1,12 +1,11 @@
 <?php
-// $Id: welcome.inc,v 1.8 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
- * @file
- * "Welcome" panels content type. Displays a summary of 
- * content statistics including: number pieces of each type of 
- * content, number of comments, number of blocked comments (spam)
- * and configuration links.
+ * @file welcome.inc
+ *
+ * "Welcome" panels content type. Displays a summary of content statistics 
+ * including: number pieces of each type of content, number of comments, 
+ * number of blocked comments (spam) and configuration links.
  *
  */
  
@@ -73,9 +72,9 @@ function total_control_welcome_content_type_render($subtype, $conf, $panel_args,
   $block->module = t('total_control');
   $block->title = t('Take Total Control.');
   
-  // Building the content
+  // Build the content.
   $content =  '<div class="total-control-site-overview">';
-  $content .= '  <p>'.t('Welcome to your administrative dashboard.  !panel to add more content panes here, or configure those provided by default. Views content panes can be created for you automatically according to your !settings.  Make this dashboard the perfect hub for all your administrative needs.', array('!panel' => l(t('Edit this panel'), 'admin/build/pages/edit/dashboard'), '!settings' => l(t('Total Control Settings'), 'admin/settings/control'))).'</p>';
+  $content .= '  <p>' . t('Welcome to your administrative dashboard.  !panel to add more content panes here, or configure those provided by default. Views content panes can be created for you automatically according to your !settings.  Make this dashboard the perfect hub for all your administrative needs.', array('!panel' => l(t('Edit this panel'), 'admin/build/pages/edit/dashboard'), '!settings' => l(t('Total Control Settings'), 'admin/settings/control'))) . '</p>';
   $content .= '</div>';
 
   $block->content = $content;

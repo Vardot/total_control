@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * @file total_control.install
+ *
+ * Requirements check for views and ctools.
+ */
+
+/**
  * Test requirements for installation and running.
  */
 function total_control_requirements($phase) {
@@ -17,10 +23,10 @@ function total_control_requirements($phase) {
     }
     
     // Check panels current version.
-    if (module_exists('panels')){
+    if (module_exists('panels')) {
       include_once drupal_get_path('module', 'panels') . '/panels.module';
       $panels_version = module_invoke('panels', 'api_version');
-      if ($panels_version[0] < 3) {
+      if ($panels_version[0] < TOTAL_CONTROL_REQUIRED_PANELS_API) {
         $requirements['total_control_panels'] = array(
           'title' => $t('Panels API Version'),
           'value' => $panels_version[0],
@@ -36,10 +42,10 @@ function total_control_requirements($phase) {
     }
     
     // Check views current version.
-    if (module_exists('views')){
+    if (module_exists('views')) {
       include_once drupal_get_path('module', 'views') . '/views.module';
       $views_version = module_invoke('views', 'api_version');
-      if ($views_version < 2) {
+      if ($views_version < TOTAL_CONTROL_REQUIRED_VIEWS_API) {
         $requirements['total_control_views'] = array(
           'title' => $t('Views API Version'),
           'value' => $views_version,
@@ -92,7 +98,7 @@ function total_control_uninstall() {
     $total_control_views = array('control_content', 'control_content_panes', 'control_comments', 
       'control_files', 'control_revisions', 'control_terms', 'control_users', 'control_users_panes');
     if (in_array($view->type, $views_types) && in_array($view_name, $total_control_views)) {
-      drupal_set_message('Deleting view: ' . $view_name);
+      drupal_set_message(t('Deleting view: !view', array('!view' => $view_name)));
       $view->delete();
       views_object_cache_clear('view', $view_name);
     }

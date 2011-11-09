@@ -1,8 +1,8 @@
 <?php
-// $Id: overview_user.inc,v 1.8 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
  * @file
+ *
  * "User overview" content type. Displays a summary of user statistics 
  * including: number of total users, active users, blocked users, and 
  * users in each role.

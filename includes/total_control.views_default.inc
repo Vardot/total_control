@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * @file total_control.views_default.inc
+ *
+ * Default views for the Total Control Admin Dashboard.
+ */
+
+/**
  * Implementation of hook_views_default_views().
  */
 function total_control_views_default_views() {

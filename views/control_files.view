@@ -1,8 +1,12 @@
 <?php
 
-/*
- * Default Files view
+/**
+ * @file control_files.view
+ *
+ * Default view for administration of files. Contains page display only.
+ *
  */
+ 
 $view = new view;
 $view->name = 'control_files';
 $view->description = 'Total Control over files: Contains a panel pane and a page to control files.';

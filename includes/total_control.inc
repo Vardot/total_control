@@ -1,7 +1,8 @@
 <?php
 /**
- * @file
- * Helper functions for total control
+ * @file total_control.inc
+ *
+ * Helper functions for total control.
  */
  
 /**

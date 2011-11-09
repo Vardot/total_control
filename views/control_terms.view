@@ -1,8 +1,12 @@
 <?php
 
-/* 
- * Default Terms view
+/**
+ * @file control_terms.view
+ *
+ * Default view for administration of categories. Contains page display only.
+ *
  */
+ 
 $view = new view;
 $view->name = 'control_terms';
 $view->description = 'Total Control over terms: Contains a panel pane and a page to control terms.';

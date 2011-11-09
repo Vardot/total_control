@@ -1,8 +1,12 @@
 <?php
 
-/*
- * Default comment page view.
+/**
+ * @file control_comments.view
+ *
+ * Default view for administration of comments.
+ *
  */
+
 $view = new view;
 $view->name = 'control_comments';
 $view->description = 'Total Control over comments: Contains a panel pane and a page to control comments.';

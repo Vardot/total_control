@@ -1,8 +1,8 @@
 <?php
-// $Id: taxonomy.inc,v 1.11 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
- * @file
+ * @file taxonomy.inc
+ *
  * "Taxonomy" content type. It shows users with permissions statistics
  * and links to manage terms in vocabularies on the site.
  *

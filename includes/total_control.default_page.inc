@@ -1,6 +1,12 @@
 <?php
-
-/*  IMPORT CODE BELOW  */
+/**
+ * @file total_control.views_default.inc
+ *
+ * Default panel page for the Total Control Admin Dashboard.
+ *
+ * If import does not happen automatically when module is enabled,
+ * This code can be used to import the panel page manually.
+ */
 
 $handler = new stdClass;
 $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */

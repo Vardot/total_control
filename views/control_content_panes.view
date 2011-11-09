@@ -1,8 +1,13 @@
 <?php
 
-/* 
- * default content pane view 
+/**
+ * @file control_content_panes.view
+ *
+ * Default view for administration of content. Contains panels pane displays
+ * for use on the dashboard.
+ *
  */
+ 
 $view = new view;
 $view->name = 'control_content_panes';
 $view->description = 'Total Control over content: Contains content panes for your dashboard.';

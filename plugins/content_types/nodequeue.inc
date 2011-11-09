@@ -1,10 +1,10 @@
 <?php
-// $Id: nodequeue.inc,v 1.3 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
- * @file
- * "Nodequeue" content type. It shows users with permissions all of
- * the nodequeues and provides links directly manage them.
+ * @file nodequeue.inc
+ *
+ * "Nodequeue" content type. It shows users with permissions all of the 
+ * nodequeues and provides links directly manage them.
  *
  */
 
