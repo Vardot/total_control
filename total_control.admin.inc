@@ -64,7 +64,7 @@ function total_control_admin_settings(){
     $role_options[$rid] = $role . 's';
   }
   if (!empty($auto_pane_default) && !($auto_pane_default['role'] === 0)){
-    $disable_role_pane = TURE;
+    $disable_role_pane = TRUE;
     $collapse_auto = FALSE;
   }
   if (!empty($auto_page_default) && !($auto_page_default['role'] === 0)){
