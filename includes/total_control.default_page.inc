@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @file total_control.default_page.inc
+ *
+ * Default page handler.
+ *
+ */
+
 /*  IMPORT CODE BELOW  */
 
 $handler = new stdClass;

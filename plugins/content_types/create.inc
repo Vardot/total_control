@@ -1,7 +1,8 @@
 <?php
 
 /**
- * @file
+ * @file create.inc
+ *
  * "Create content" panels content type. It shows users links to
  * create new content of all types for which they have permissions,
  * and users with "administer content types" permission an optional

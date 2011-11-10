@@ -1,9 +1,11 @@
 <?php
+
 /**
- * @file
+ * @file total_control.module
  *
  * This module enables an administrative dashboard.
  */
+ 
 include_once('includes/total_control.inc'); 
 include_once('includes/total_control.views_default.inc');
 

@@ -1,7 +1,8 @@
 <?php
 
 /**
- * @file
+ * @file overview_content.inc
+ *
  * "Content overview" panels content type. Displays a summary of 
  * content statistics including: number pieces of each type of 
  * content, number of comments, number of blocked comments (spam)

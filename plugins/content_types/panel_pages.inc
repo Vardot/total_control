@@ -1,8 +1,8 @@
 <?php
-// $Id: panel_pages.inc,v 1.3 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
- * @file
+ * @file panel_pages.inc
+ *
  * "Panel Pages" content type. It shows users with permissions the panel
  * pages on the site, and provides links directly to the "content" so
  * it can be changed without so many clicks via the panels UI.

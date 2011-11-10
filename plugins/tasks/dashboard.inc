@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * @file
+ * Default dashboard setup.
+ *
+ */
+
+/**
  * Specialized implementation of hook_page_manager_tasks(). 
  * See api-task.html for more information.
  */

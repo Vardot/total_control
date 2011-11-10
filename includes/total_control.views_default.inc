@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * @file total_control.views_default.inc
+ *
+ * Default page.
+ *
+ */
+
+/**
  * Implementation of hook_views_default_views().
  */
 function total_control_views_default_views() {

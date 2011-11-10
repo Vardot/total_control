@@ -1,8 +1,8 @@
 <?php
-// $Id: welcome.inc,v 1.8 2010/03/02 22:10:32 jenlampton Exp $
 
 /**
- * @file
+ * @file welcome.inc
+ *
  * "Welcome" panels content type. Displays a summary of 
  * content statistics including: number pieces of each type of 
  * content, number of comments, number of blocked comments (spam)

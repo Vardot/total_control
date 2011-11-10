@@ -1,8 +1,8 @@
 <?php
-// $Id: total_control.admin.inc,v 1.3 2010/03/02 22:45:32 jenlampton Exp $
 
 /**
- * @file
+ * @file total_control.admin.inc
+ *
  * This module enables a page to be used as an administrative dashboard
  * Also included are several views for site administration
  *

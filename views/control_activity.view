@@ -1,8 +1,12 @@
 <?php
 
-/* 
- * Default Activity view
+/**
+ * @file control_activity.view
+ *
+ * Default view for administration of activity.  
+ *
  */
+
 $view = new view;
 $view->name = 'control_activity';
 $view->description = 'Total Control over activity: Contains a panel pane and a page to control activity.';

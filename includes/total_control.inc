@@ -1,7 +1,10 @@
 <?php
+
 /**
- * @file
+ * @file total_control.inc
+ *
  * Helper functions for total control
+ *
  */
  
 /**

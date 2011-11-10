@@ -1,7 +1,13 @@
 <?php 
-/* 
- * default user pane view 
+
+/**
+ * @file control_users_panes.view
+ *
+ * Default view for administration of user accounts. Contains panels content
+ * pane displays for use on the dashboard.
+ *
  */
+ 
 $view = new view;
 $view->name = 'control_users_pane';
 $view->description = 'Total Control over users: Contains content panes for your dashboard.';

@@ -1,7 +1,8 @@
 <?php
 
 /**
- * @file
+ * @file overview.inc
+ *
  * "Site overview" panels content type. Displays a summary of 
  * content and user statistics.
  *

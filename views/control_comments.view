@@ -1,7 +1,10 @@
 <?php
 
-/*
- * Default comment page view.
+/**
+ * @file control_comments.view
+ *
+ * Default view for administration of comments.
+ *
  */
 $view = new view;
 $view->name = 'control_comments';
