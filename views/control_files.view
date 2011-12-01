@@ -11,415 +11,246 @@ $view = new view;
 $view->name = 'control_files';
 $view->description = 'Total Control over files: Contains a panel pane and a page to control files.';
 $view->tag = 'total_control';
-$view->view_php = '';
-$view->base_table = 'files';
-$view->is_cacheable = FALSE;
-$view->api_version = 2;
+$view->base_table = 'file_managed';
+$view->human_name = '';
+$view->core = 0;
+$view->api_version = '3.0';
 $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Defaults */
 $handler = $view->new_display('default', 'Defaults', 'default');
-$handler->override_option('fields', array(
-  'timestamp' => array(
-    'label' => 'Upload date',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'date_format' => 'custom',
-    'custom_date_format' => 'm/d/Y',
-    'exclude' => 0,
-    'id' => 'timestamp',
-    'table' => 'files',
-    'field' => 'timestamp',
-    'relationship' => 'none',
-  ),
-  'filename' => array(
-    'label' => 'Name',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_file' => 1,
-    'exclude' => 0,
-    'id' => 'filename',
-    'table' => 'files',
-    'field' => 'filename',
-    'relationship' => 'none',
-  ),
-  'filepath' => array(
-    'label' => 'Path',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_file' => 0,
-    'exclude' => 0,
-    'id' => 'filepath',
-    'table' => 'files',
-    'field' => 'filepath',
-    'relationship' => 'none',
-  ),
-  'filemime' => array(
-    'label' => 'Type',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_file' => 0,
-    'exclude' => 0,
-    'id' => 'filemime',
-    'table' => 'files',
-    'field' => 'filemime',
-    'relationship' => 'none',
-  ),
-  'filesize' => array(
-    'label' => 'Size',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'exclude' => 0,
-    'id' => 'filesize',
-    'table' => 'files',
-    'field' => 'filesize',
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('sorts', array(
-  'timestamp' => array(
-    'order' => 'DESC',
-    'granularity' => 'second',
-    'id' => 'timestamp',
-    'table' => 'files',
-    'field' => 'timestamp',
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('filters', array(
-  'status' => array(
-    'operator' => 'in',
-    'value' => array(
-      '1' => '1',
-    ),
-    'group' => '0',
-    'exposed' => FALSE,
-    'expose' => array(
-      'operator' => FALSE,
-      'label' => '',
-    ),
-    'id' => 'status',
-    'table' => 'files',
-    'field' => 'status',
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('access', array(
-  'type' => 'none',
-));
-$handler->override_option('title', 'Files');
-$handler->override_option('items_per_page', 30);
-$handler->override_option('use_pager', '1');
+$handler->display->display_options['title'] = 'Files';
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'have total control';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['query_comment'] = FALSE;
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'full';
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['row_plugin'] = 'fields';
+/* Field: File: Path */
+$handler->display->display_options['fields']['uri']['id'] = 'uri';
+$handler->display->display_options['fields']['uri']['table'] = 'file_managed';
+$handler->display->display_options['fields']['uri']['field'] = 'uri';
+$handler->display->display_options['fields']['uri']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['absolute'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['external'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['replace_spaces'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['trim_whitespace'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['nl2br'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['uri']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['uri']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['html'] = 0;
+$handler->display->display_options['fields']['uri']['element_label_colon'] = 1;
+$handler->display->display_options['fields']['uri']['element_default_classes'] = 1;
+$handler->display->display_options['fields']['uri']['hide_empty'] = 0;
+$handler->display->display_options['fields']['uri']['empty_zero'] = 0;
+$handler->display->display_options['fields']['uri']['hide_alter_empty'] = 1;
+$handler->display->display_options['fields']['uri']['link_to_file'] = 0;
+$handler->display->display_options['fields']['uri']['file_download_path'] = 0;
+/* Field: File: Upload date */
+$handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+$handler->display->display_options['fields']['timestamp']['table'] = 'file_managed';
+$handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+$handler->display->display_options['fields']['timestamp']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['timestamp']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['timestamp']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['timestamp']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['timestamp']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['timestamp']['alter']['html'] = 0;
+$handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
+$handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'm/d/Y';
+/* Field: File: Mime type */
+$handler->display->display_options['fields']['filemime']['id'] = 'filemime';
+$handler->display->display_options['fields']['filemime']['table'] = 'file_managed';
+$handler->display->display_options['fields']['filemime']['field'] = 'filemime';
+$handler->display->display_options['fields']['filemime']['label'] = 'Type';
+$handler->display->display_options['fields']['filemime']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['filemime']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['filemime']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['filemime']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['filemime']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['filemime']['alter']['html'] = 0;
+$handler->display->display_options['fields']['filemime']['link_to_file'] = 0;
+/* Field: File: Size */
+$handler->display->display_options['fields']['filesize']['id'] = 'filesize';
+$handler->display->display_options['fields']['filesize']['table'] = 'file_managed';
+$handler->display->display_options['fields']['filesize']['field'] = 'filesize';
+$handler->display->display_options['fields']['filesize']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['filesize']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['filesize']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['filesize']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['filesize']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['filesize']['alter']['html'] = 0;
+/* Sort criterion: File: Upload date */
+$handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
+$handler->display->display_options['sorts']['timestamp']['table'] = 'file_managed';
+$handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
+$handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
+/* Filter criterion: File: Status */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'file_managed';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = array(
+  1 => '1',
+);
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+/* Display: Page */
 $handler = $view->new_display('page', 'Page', 'page_1');
-$handler->override_option('filters', array(
-  'filename' => array(
-    'operator' => 'word',
-    'value' => '',
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'filename_op',
-      'identifier' => 'filename',
-      'label' => 'Contains',
-      'optional' => 1,
-      'remember' => 0,
-    ),
-    'case' => 0,
-    'id' => 'filename',
-    'table' => 'files',
-    'field' => 'filename',
-    'override' => array(
-      'button' => 'Use default',
-    ),
-    'relationship' => 'none',
-  ),
-  'filemime' => array(
-    'operator' => 'contains',
-    'value' => '',
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'filemime_op',
-      'identifier' => 'filemime',
-      'label' => 'Type',
-      'optional' => 1,
-      'remember' => 0,
-    ),
-    'case' => 0,
-    'id' => 'filemime',
-    'table' => 'files',
-    'field' => 'filemime',
-    'override' => array(
-      'button' => 'Use default',
-    ),
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('style_plugin', 'table');
-$handler->override_option('style_options', array(
-  'grouping' => '',
-  'override' => 1,
-  'sticky' => 0,
-  'order' => 'asc',
-  'columns' => array(
-    'fid' => 'fid',
-    'filename' => 'filename',
-    'filepath' => 'filepath',
-    'filemime' => 'filemime',
-    'filesize' => 'filesize',
-    'status' => 'status',
-    'timestamp' => 'timestamp',
-  ),
-  'info' => array(
-    'fid' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'filename' => array(
-      'sortable' => 0,
-      'separator' => '',
-    ),
-    'filepath' => array(
-      'sortable' => 0,
-      'separator' => '',
-    ),
-    'filemime' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'filesize' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'status' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'timestamp' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-  ),
-  'default' => '-1',
-));
-$handler->override_option('path', 'admin/dashboard/files');
-$handler->override_option('menu', array(
-  'type' => 'tab',
-  'title' => 'Files',
-  'description' => '',
-  'weight' => '-16',
-  'name' => 'navigation',
-));
-$handler->override_option('tab_options', array(
-  'type' => 'none',
-  'title' => '',
-  'description' => '',
-  'weight' => 0,
-));
-$handler = $view->new_display('panel_pane', 'Panel pane', 'panel_pane_1');
-$handler->override_option('fields', array(
-  'filename' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_file' => 1,
-    'exclude' => 0,
-    'id' => 'filename',
-    'table' => 'files',
-    'field' => 'filename',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Use default',
-    ),
-  ),
-  'filemime' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_file' => 0,
-    'exclude' => 0,
-    'id' => 'filemime',
-    'table' => 'files',
-    'field' => 'filemime',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Use default',
-    ),
-  ),
-  'filesize' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'exclude' => 0,
-    'id' => 'filesize',
-    'table' => 'files',
-    'field' => 'filesize',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Use default',
-    ),
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'full';
+$handler->display->display_options['pager']['options']['items_per_page'] = '10';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['pager']['options']['id'] = '0';
+$handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'uri' => 'uri',
+  'timestamp' => 'timestamp',
+  'filemime' => 'filemime',
+  'filesize' => 'filesize',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'uri' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'timestamp' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'date_format' => 'time ago',
-    'custom_date_format' => '',
-    'exclude' => 0,
-    'id' => 'timestamp',
-    'table' => 'files',
-    'field' => 'timestamp',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Use default',
-    ),
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
-));
-$handler->override_option('title', 'New Files');
-$handler->override_option('items_per_page', 5);
-$handler->override_option('use_pager', '0');
-$handler->override_option('use_more', 1);
-$handler->override_option('use_more_text', 'more files');
-$handler->override_option('style_plugin', 'list');
-$handler->override_option('row_options', array(
-  'inline' => array(
-    'filename' => 'filename',
-    'filemime' => 'filemime',
-    'filesize' => 'filesize',
+  'filemime' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
-  'separator' => '',
-));
-$handler->override_option('pane_title', 'New Files');
-$handler->override_option('pane_description', 'Total Control file summary');
-$handler->override_option('pane_category', array(
-  'name' => 'Total Control',
-  'weight' => '0',
-));
-$handler->override_option('allow', array(
-  'use_pager' => 0,
-  'items_per_page' => 'items_per_page',
-  'offset' => 0,
-  'link_to_view' => 0,
-  'more_link' => 0,
-  'path_override' => 0,
-));
-$handler->override_option('argument_input', array());
-$handler->override_option('link_to_view', 0);
-$handler->override_option('inherit_panels_path', 0);
+  'filesize' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['override'] = 1;
+$handler->display->display_options['style_options']['sticky'] = 0;
+$handler->display->display_options['style_options']['empty_table'] = 0;
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: File: Mime type */
+$handler->display->display_options['filters']['filemime']['id'] = 'filemime';
+$handler->display->display_options['filters']['filemime']['table'] = 'file_managed';
+$handler->display->display_options['filters']['filemime']['field'] = 'filemime';
+$handler->display->display_options['filters']['filemime']['operator'] = 'contains';
+$handler->display->display_options['filters']['filemime']['group'] = 0;
+$handler->display->display_options['filters']['filemime']['exposed'] = TRUE;
+$handler->display->display_options['filters']['filemime']['expose']['operator_id'] = 'filemime_op';
+$handler->display->display_options['filters']['filemime']['expose']['label'] = 'Type';
+$handler->display->display_options['filters']['filemime']['expose']['operator'] = 'filemime_op';
+$handler->display->display_options['filters']['filemime']['expose']['identifier'] = 'filemime';
+$handler->display->display_options['path'] = 'admin/dashboard/files';
+$handler->display->display_options['menu']['type'] = 'tab';
+$handler->display->display_options['menu']['title'] = 'Files';
+$handler->display->display_options['menu']['weight'] = '-16';
+
+/* Display: Panel pane */
+$handler = $view->new_display('panel_pane', 'Panel pane', 'panel_pane_1');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'New Files';
+$handler->display->display_options['defaults']['use_more'] = FALSE;
+$handler->display->display_options['use_more'] = TRUE;
+$handler->display->display_options['use_more_text'] = 'more files';
+$handler->display->display_options['defaults']['pager'] = FALSE;
+$handler->display->display_options['pager']['type'] = 'some';
+$handler->display->display_options['pager']['options']['items_per_page'] = '10';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'timestamp' => 'timestamp',
+  'filesize' => 'filesize',
+);
+$handler->display->display_options['row_options']['hide_empty'] = 0;
+$handler->display->display_options['row_options']['default_field_elements'] = 1;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: File: Path */
+$handler->display->display_options['fields']['uri']['id'] = 'uri';
+$handler->display->display_options['fields']['uri']['table'] = 'file_managed';
+$handler->display->display_options['fields']['uri']['field'] = 'uri';
+$handler->display->display_options['fields']['uri']['label'] = '';
+$handler->display->display_options['fields']['uri']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['absolute'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['external'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['replace_spaces'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['trim_whitespace'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['nl2br'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['uri']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['uri']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['uri']['alter']['html'] = 0;
+$handler->display->display_options['fields']['uri']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['uri']['element_default_classes'] = 1;
+$handler->display->display_options['fields']['uri']['hide_empty'] = 0;
+$handler->display->display_options['fields']['uri']['empty_zero'] = 0;
+$handler->display->display_options['fields']['uri']['hide_alter_empty'] = 1;
+$handler->display->display_options['fields']['uri']['link_to_file'] = 0;
+$handler->display->display_options['fields']['uri']['file_download_path'] = 0;
+/* Field: File: Upload date */
+$handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+$handler->display->display_options['fields']['timestamp']['table'] = 'file_managed';
+$handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+$handler->display->display_options['fields']['timestamp']['label'] = '';
+$handler->display->display_options['fields']['timestamp']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['timestamp']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['timestamp']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['timestamp']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['timestamp']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['timestamp']['alter']['html'] = 0;
+$handler->display->display_options['fields']['timestamp']['date_format'] = 'time ago';
+/* Field: File: Size */
+$handler->display->display_options['fields']['filesize']['id'] = 'filesize';
+$handler->display->display_options['fields']['filesize']['table'] = 'file_managed';
+$handler->display->display_options['fields']['filesize']['field'] = 'filesize';
+$handler->display->display_options['fields']['filesize']['label'] = '';
+$handler->display->display_options['fields']['filesize']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['filesize']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['filesize']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['filesize']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['filesize']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['filesize']['alter']['html'] = 0;
+$handler->display->display_options['pane_title'] = 'New Files';
+$handler->display->display_options['pane_description'] = 'Total Control file summary';
+$handler->display->display_options['pane_category']['name'] = 'Total Control';
+$handler->display->display_options['pane_category']['weight'] = '0';
+$handler->display->display_options['allow']['use_pager'] = 0;
+$handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
+$handler->display->display_options['allow']['offset'] = 0;
+$handler->display->display_options['allow']['link_to_view'] = 0;
+$handler->display->display_options['allow']['more_link'] = 0;
+$handler->display->display_options['allow']['path_override'] = 0;
+$handler->display->display_options['allow']['title_override'] = 0;
+$handler->display->display_options['allow']['exposed_form'] = 0;
+$handler->display->display_options['allow']['fields_override'] = 0;
