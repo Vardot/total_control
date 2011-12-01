@@ -130,7 +130,7 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
     '#options' => $type_options,
     '#default_value' => $type_defaults,
     );
-  if (module_exists('comments')){
+  if (module_exists('comment')){
     $form['comments'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Include Comment Stats for Content Types'),
