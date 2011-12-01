@@ -11,6 +11,9 @@
  * Implements hook_default_page_manager_pages()
  */
 function total_control_default_page_manager_pages() {
+  
+  // begin exported panel
+  
   $page = new stdClass;
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
@@ -57,7 +60,7 @@ function total_control_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = 'test';
+  $display->title = 'Dashboard';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass;
@@ -194,7 +197,8 @@ function total_control_default_page_manager_pages() {
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
-  $pages['test'] = $page;
+  
+  $pages['dashboard'] = $page;
 
  return $pages;
 }

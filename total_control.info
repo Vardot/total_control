@@ -1,8 +1,9 @@
 name = Total Control
 description = Total Control Administrative Dashboard
+dependencies[] = ctools
 dependencies[] = panels
-dependencies[] = views_content
 dependencies[] = page_manager
+dependencies[] = views_content
 dependencies[] = views_bulk_operations
 package = Administration
 core = 7.x
