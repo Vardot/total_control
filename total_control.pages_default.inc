@@ -22,11 +22,34 @@ function total_control_default_page_manager_pages() {
   $page->admin_title = 'Total Control administrative dashboard';
   $page->admin_description = '';
   $page->path = 'admin/dashboard';
-  $page->access = array();
-  $page->menu = array();
+  $page->access = array(
+    'plugins' => array(
+      0 => array(
+        'name' => 'perm',
+        'settings' => array(
+          'perm' => 'have total control',
+        ),
+        'context' => 'logged-in-user',
+        'not' => FALSE,
+      ),
+    ),
+    'logic' => 'and',
+  );
+  $page->menu = array(
+    'type' => 'normal',
+    'title' => 'Dashboard',
+    'name' => 'management',
+    'weight' => '-100',
+    'parent' => array(
+      'type' => 'normal',
+      'title' => 'Dashboard',
+      'name' => 'management',
+      'weight' => '0',
+    ),
+  );
   $page->arguments = array();
   $page->conf = array(
-    'admin_paths' => FALSE,
+    'admin_paths' => TRUE,
   );
   $page->default_handlers = array();
   $handler = new stdClass;
@@ -197,6 +220,7 @@ function total_control_default_page_manager_pages() {
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
+  
   
   $pages['dashboard'] = $page;
 

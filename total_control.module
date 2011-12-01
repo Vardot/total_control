@@ -125,7 +125,7 @@ function total_control_views_pre_render(&$view) {
 /**
  * Implementation of hook_ctools_plugin_dierctory().
  */
-function total_control__ctools_plugin_directory($module, $plugin) {
+function total_control_ctools_plugin_directory($module, $plugin) {
   if ($module == 'ctools' && !empty($plugin)) {
     return "plugins/$plugin";
   }

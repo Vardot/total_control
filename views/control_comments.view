@@ -314,34 +314,6 @@ $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
 $handler->display->display_options['sorts']['timestamp']['table'] = 'comment';
 $handler->display->display_options['sorts']['timestamp']['field'] = 'changed';
 $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-/* Filter criterion: Content: Published or admin */
-$handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
-$handler->display->display_options['filters']['status_extra']['table'] = 'node';
-$handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
-$handler->display->display_options['filters']['status_extra']['relationship'] = 'nid';
-$handler->display->display_options['filters']['status_extra']['group'] = 0;
-$handler->display->display_options['filters']['status_extra']['expose']['operator'] = FALSE;
-/* Filter criterion: Comment: Approved */
-$handler->display->display_options['filters']['status']['id'] = 'status';
-$handler->display->display_options['filters']['status']['table'] = 'comment';
-$handler->display->display_options['filters']['status']['field'] = 'status';
-$handler->display->display_options['filters']['status']['exposed'] = TRUE;
-$handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
-$handler->display->display_options['filters']['status']['expose']['label'] = 'Approved comment';
-$handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
-$handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
-$handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
-$handler->display->display_options['filters']['status']['expose']['required'] = TRUE;
-$handler->display->display_options['filters']['status']['expose']['remember'] = FALSE;
-$handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
-/* Filter criterion: Comment: Author */
-$handler->display->display_options['filters']['name']['id'] = 'name';
-$handler->display->display_options['filters']['name']['table'] = 'comment';
-$handler->display->display_options['filters']['name']['field'] = 'name';
-/* Filter criterion: Comment: Title */
-$handler->display->display_options['filters']['subject']['id'] = 'subject';
-$handler->display->display_options['filters']['subject']['table'] = 'comment';
-$handler->display->display_options['filters']['subject']['field'] = 'subject';
 
 /* Display: Admin Comments Page */
 $handler = $view->new_display('page', 'Admin Comments Page', 'page');
@@ -581,25 +553,17 @@ $handler->display->display_options['fields']['edit_comment']['alter']['trim'] = 
 $handler->display->display_options['fields']['edit_comment']['alter']['html'] = 0;
 $handler->display->display_options['fields']['edit_comment']['text'] = 'edit';
 $handler->display->display_options['defaults']['filters'] = FALSE;
-/* Filter criterion: Content: Published or admin */
-$handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
-$handler->display->display_options['filters']['status_extra']['table'] = 'node';
-$handler->display->display_options['filters']['status_extra']['field'] = 'status_extra';
-$handler->display->display_options['filters']['status_extra']['relationship'] = 'nid';
-$handler->display->display_options['filters']['status_extra']['group'] = 0;
-$handler->display->display_options['filters']['status_extra']['expose']['operator'] = FALSE;
 /* Filter criterion: Comment: Approved */
 $handler->display->display_options['filters']['status']['id'] = 'status';
 $handler->display->display_options['filters']['status']['table'] = 'comment';
 $handler->display->display_options['filters']['status']['field'] = 'status';
-$handler->display->display_options['filters']['status']['value'] = '0';
+$handler->display->display_options['filters']['status']['value'] = 'All';
 $handler->display->display_options['filters']['status']['exposed'] = TRUE;
 $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
 $handler->display->display_options['filters']['status']['expose']['label'] = 'Approved';
 $handler->display->display_options['filters']['status']['expose']['use_operator'] = FALSE;
 $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
 $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
-$handler->display->display_options['filters']['status']['expose']['required'] = 1;
 $handler->display->display_options['filters']['status']['expose']['multiple'] = FALSE;
 /* Filter criterion: Comment: Author */
 $handler->display->display_options['filters']['name']['id'] = 'name';
@@ -628,6 +592,7 @@ $handler->display->display_options['path'] = 'admin/dashboard/comments';
 $handler->display->display_options['menu']['type'] = 'tab';
 $handler->display->display_options['menu']['title'] = 'Comments';
 $handler->display->display_options['menu']['weight'] = '-17';
+$handler->display->display_options['menu']['name'] = 'management';
 
 /* Display: Recent Comments pane */
 $handler = $view->new_display('panel_pane', 'Recent Comments pane', 'panel_pane_1');
