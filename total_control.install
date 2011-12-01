@@ -12,7 +12,10 @@
  * Disable the core dashboard module.
  */
 function total_control_install() {
-  // TODO
+  // Disable the core dashboard module.
+  if (module_exists('dashboard')) {
+    module_disable(array('dashboard'));
+  }
 }
 
 /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file total_control.inc
  *

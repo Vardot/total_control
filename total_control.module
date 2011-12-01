@@ -138,6 +138,15 @@ function total_control_ctools_plugin_directory($module, $plugin) {
 }
 
 /**
+ * Implement hook_ctools_plugin_api().
+ */
+function total_control_ctools_plugin_api($module, $api) {
+  if ($module == 'page_manager' && $api == 'pages_default') {
+    return array('version' => 1);
+  }
+}
+
+/**
  * Implementation of hook_views_api().
  *
  * Register View API information. This is required for your module to have
