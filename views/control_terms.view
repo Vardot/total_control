@@ -11,367 +11,327 @@ $view = new view;
 $view->name = 'control_terms';
 $view->description = 'Total Control over terms: Contains a panel pane and a page to control terms.';
 $view->tag = 'total_control';
-$view->view_php = '';
-$view->base_table = 'term_data';
-$view->is_cacheable = FALSE;
-$view->api_version = 2;
+$view->base_table = 'taxonomy_term_data';
+$view->human_name = '';
+$view->core = 0;
+$view->api_version = '3.0';
 $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Defaults */
 $handler = $view->new_display('default', 'Defaults', 'default');
-$handler->override_option('fields', array(
+$handler->display->display_options['title'] = 'Categories';
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'have total control';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['query_comment'] = FALSE;
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'name' => 'name',
+  'tid' => 'tid',
+  'nothing' => 'nothing',
+  'name_1' => 'name_1',
+  'description' => 'description',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
   'name' => array(
-    'label' => 'Term',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_taxonomy' => 1,
-    'exclude' => 0,
-    'id' => 'name',
-    'table' => 'term_data',
-    'field' => 'name',
-    'relationship' => 'none',
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'tid' => array(
-    'label' => 'Term ID',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'set_precision' => FALSE,
-    'precision' => 0,
-    'decimal' => '.',
-    'separator' => ',',
-    'prefix' => '',
-    'suffix' => '',
-    'exclude' => 1,
-    'id' => 'tid',
-    'table' => 'term_data',
-    'field' => 'tid',
-    'override' => array(
-      'button' => 'Override',
-    ),
-    'relationship' => 'none',
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'nothing' => array(
-    'label' => 'Edit ',
-    'alter' => array(
-      'text' => 'edit',
-      'make_link' => 1,
-      'path' => 'admin/content/taxonomy/edit/term/[tid]',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'exclude' => 0,
-    'id' => 'nothing',
-    'table' => 'views',
-    'field' => 'nothing',
-    'override' => array(
-      'button' => 'Override',
-    ),
-    'relationship' => 'none',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'name_1' => array(
-    'label' => 'Vocabulary',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'exclude' => 0,
-    'id' => 'name_1',
-    'table' => 'vocabulary',
-    'field' => 'name',
-    'relationship' => 'none',
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'description' => array(
-    'label' => 'Description',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'exclude' => 0,
-    'id' => 'description',
-    'table' => 'term_data',
-    'field' => 'description',
-    'relationship' => 'none',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
-));
-$handler->override_option('filters', array(
-  'vid' => array(
-    'operator' => 'in',
-    'value' => array(),
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'vid_op',
-      'identifier' => 'vid',
-      'label' => 'Vocabulary',
-      'optional' => 1,
-      'single' => 1,
-      'remember' => 0,
-      'reduce' => 0,
-    ),
-    'id' => 'vid',
-    'table' => 'term_data',
-    'field' => 'vid',
-    'relationship' => 'none',
+);
+$handler->display->display_options['style_options']['override'] = 1;
+$handler->display->display_options['style_options']['sticky'] = 0;
+$handler->display->display_options['style_options']['empty_table'] = 0;
+/* Field: Taxonomy term: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = 'Term';
+$handler->display->display_options['fields']['name']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['name']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['name']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['name']['alter']['html'] = 0;
+$handler->display->display_options['fields']['name']['link_to_taxonomy'] = 1;
+/* Field: Taxonomy term: Term ID */
+$handler->display->display_options['fields']['tid']['id'] = 'tid';
+$handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['fields']['tid']['field'] = 'tid';
+$handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+$handler->display->display_options['fields']['tid']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['tid']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['tid']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['tid']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['tid']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['tid']['alter']['html'] = 0;
+/* Field: Taxonomy term: Term description */
+$handler->display->display_options['fields']['description']['id'] = 'description';
+$handler->display->display_options['fields']['description']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['fields']['description']['field'] = 'description';
+$handler->display->display_options['fields']['description']['label'] = 'Description';
+$handler->display->display_options['fields']['description']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['description']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['description']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['description']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['description']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['description']['alter']['html'] = 0;
+/* Field: Taxonomy vocabulary: Name */
+$handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+$handler->display->display_options['fields']['name_1']['table'] = 'taxonomy_vocabulary';
+$handler->display->display_options['fields']['name_1']['field'] = 'name';
+$handler->display->display_options['fields']['name_1']['label'] = 'Vocabulary';
+$handler->display->display_options['fields']['name_1']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['name_1']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['name_1']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['html'] = 0;
+/* Field: Global: Custom text */
+$handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+$handler->display->display_options['fields']['nothing']['table'] = 'views';
+$handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+$handler->display->display_options['fields']['nothing']['label'] = 'Edit ';
+$handler->display->display_options['fields']['nothing']['alter']['text'] = 'edit';
+$handler->display->display_options['fields']['nothing']['alter']['make_link'] = 1;
+$handler->display->display_options['fields']['nothing']['alter']['path'] = 'admin/structure/taxonomy/edit/term/[tid]';
+$handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
+$handler->display->display_options['fields']['nothing']['alter']['external'] = 0;
+$handler->display->display_options['fields']['nothing']['alter']['replace_spaces'] = 0;
+$handler->display->display_options['fields']['nothing']['alter']['trim_whitespace'] = 0;
+$handler->display->display_options['fields']['nothing']['alter']['nl2br'] = 0;
+$handler->display->display_options['fields']['nothing']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['nothing']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['nothing']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['nothing']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['nothing']['alter']['html'] = 0;
+$handler->display->display_options['fields']['nothing']['element_label_colon'] = 1;
+$handler->display->display_options['fields']['nothing']['element_default_classes'] = 1;
+$handler->display->display_options['fields']['nothing']['hide_empty'] = 0;
+$handler->display->display_options['fields']['nothing']['empty_zero'] = 0;
+$handler->display->display_options['fields']['nothing']['hide_alter_empty'] = 1;
+/* Field: Taxonomy term: Bulk operations */
+$handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+$handler->display->display_options['fields']['views_bulk_operations']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+$handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['absolute'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['external'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['replace_spaces'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['trim_whitespace'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['nl2br'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['html'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['views_bulk_operations']['element_default_classes'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['hide_empty'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['empty_zero'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  'views_bulk_operations_delete_item' => array(
+    'selected' => 1,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
   ),
-));
-$handler->override_option('access', array(
-  'type' => 'perm',
-  'perm' => 'have total control',
-));
-$handler->override_option('cache', array(
-  'type' => 'none',
-));
-$handler->override_option('title', 'Terms');
-$handler->override_option('items_per_page', 0);
-$handler->override_option('style_plugin', 'bulk');
-$handler->override_option('style_options', array(
-  'grouping' => '',
-  'override' => 1,
-  'sticky' => 0,
-  'order' => 'asc',
-  'columns' => array(
-    'name' => 'name',
-    'tid' => 'tid',
-    'nothing' => 'nothing',
-    'name_1' => 'name_1',
-    'description' => 'description',
+  'system_message_action' => array(
+    'selected' => 0,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
   ),
-  'info' => array(
-    'name' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'tid' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'nothing' => array(
-      'separator' => '',
-    ),
-    'name_1' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'description' => array(
-      'separator' => '',
+  'views_bulk_operations_script_action' => array(
+    'selected' => 0,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+  ),
+  'views_bulk_operations_argument_selector_action' => array(
+    'selected' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+    'settings' => array(
+      'url' => '',
     ),
   ),
-  'default' => '-1',
-  'execution_type' => '1',
-  'display_type' => '0',
-  'hide_select_all' => 0,
-  'skip_confirmation' => 0,
-  'display_result' => 1,
-  'merge_single_action' => 1,
-  'selected_operations' => array(
-    'views_bulk_operations_delete_term_action' => 'views_bulk_operations_delete_term_action',
-    'system_message_action' => 0,
-    'views_bulk_operations_script_action' => 0,
-    'views_bulk_operations_argument_selector_action' => 0,
-    'system_goto_action' => 0,
-    'system_send_email_action' => 0,
+  'system_goto_action' => array(
+    'selected' => 0,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
   ),
-));
+  'system_send_email_action' => array(
+    'selected' => 0,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+  ),
+);
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
+/* Filter criterion: Taxonomy term: Vocabulary */
+$handler->display->display_options['filters']['vid']['id'] = 'vid';
+$handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['filters']['vid']['field'] = 'vid';
+$handler->display->display_options['filters']['vid']['exposed'] = TRUE;
+$handler->display->display_options['filters']['vid']['expose']['operator_id'] = 'vid_op';
+$handler->display->display_options['filters']['vid']['expose']['label'] = 'Vocabulary';
+$handler->display->display_options['filters']['vid']['expose']['operator'] = 'vid_op';
+$handler->display->display_options['filters']['vid']['expose']['identifier'] = 'vid';
+$handler->display->display_options['filters']['vid']['expose']['required'] = FALSE;
+$handler->display->display_options['filters']['vid']['expose']['multiple'] = FALSE;
+$handler->display->display_options['filters']['vid']['expose']['reduce'] = 0;
+/* Filter criterion: Taxonomy term: Name */
+$handler->display->display_options['filters']['name']['id'] = 'name';
+$handler->display->display_options['filters']['name']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['filters']['name']['field'] = 'name';
+$handler->display->display_options['filters']['name']['exposed'] = TRUE;
+$handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
+$handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
+$handler->display->display_options['filters']['name']['expose']['use_operator'] = FALSE;
+$handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
+$handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+$handler->display->display_options['filters']['name']['expose']['remember'] = FALSE;
+$handler->display->display_options['filters']['name']['expose']['multiple'] = FALSE;
+
+/* Display: Terms Admin */
 $handler = $view->new_display('page', 'Terms Admin', 'page_1');
-$handler->override_option('path', 'admin/dashboard/terms');
-$handler->override_option('menu', array(
-  'type' => 'tab',
-  'title' => 'Terms',
-  'description' => '',
-  'weight' => '-15',
-  'name' => 'navigation',
-));
-$handler->override_option('tab_options', array(
-  'type' => 'none',
-  'title' => '',
-  'description' => '',
-  'weight' => 0,
-));
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Taxonomy term: Vocabulary */
+$handler->display->display_options['filters']['vid']['id'] = 'vid';
+$handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['filters']['vid']['field'] = 'vid';
+$handler->display->display_options['filters']['vid']['exposed'] = TRUE;
+$handler->display->display_options['filters']['vid']['expose']['operator_id'] = 'vid_op';
+$handler->display->display_options['filters']['vid']['expose']['label'] = 'Vocabulary';
+$handler->display->display_options['filters']['vid']['expose']['operator'] = 'vid_op';
+$handler->display->display_options['filters']['vid']['expose']['identifier'] = 'vid';
+$handler->display->display_options['filters']['vid']['expose']['reduce'] = 0;
+$handler->display->display_options['path'] = 'admin/dashboard/categories';
+$handler->display->display_options['menu']['type'] = 'tab';
+$handler->display->display_options['menu']['title'] = 'Categories';
+$handler->display->display_options['menu']['weight'] = '-15';
+$handler->display->display_options['menu']['name'] = 'management';
+
+/* Display: Terms pane */
 $handler = $view->new_display('panel_pane', 'Terms pane', 'panel_pane_1');
-$handler->override_option('fields', array(
-  'name' => array(
-    'label' => 'Term',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_taxonomy' => 1,
-    'exclude' => 0,
-    'id' => 'name',
-    'table' => 'term_data',
-    'field' => 'name',
-    'relationship' => 'none',
-  ),
-  'tid' => array(
-    'label' => 'Term ID',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'set_precision' => FALSE,
-    'precision' => 0,
-    'decimal' => '.',
-    'separator' => ',',
-    'prefix' => '',
-    'suffix' => '',
-    'exclude' => 1,
-    'id' => 'tid',
-    'table' => 'term_data',
-    'field' => 'tid',
-    'override' => array(
-      'button' => 'Override',
-    ),
-    'relationship' => 'none',
-  ),
-  'nothing' => array(
-    'label' => 'Edit ',
-    'alter' => array(
-      'text' => 'edit',
-      'make_link' => 1,
-      'path' => 'admin/content/taxonomy/edit/term/[tid]',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'exclude' => 0,
-    'id' => 'nothing',
-    'table' => 'views',
-    'field' => 'nothing',
-    'override' => array(
-      'button' => 'Override',
-    ),
-    'relationship' => 'none',
-  ),
-  'name_1' => array(
-    'label' => 'Vocabulary',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'exclude' => 0,
-    'id' => 'name_1',
-    'table' => 'vocabulary',
-    'field' => 'name',
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('filters', array());
-$handler->override_option('items_per_page', 5);
-$handler->override_option('use_more', 1);
-$handler->override_option('use_more_text', 'more terms');
-$handler->override_option('style_plugin', 'default');
-$handler->override_option('style_options', array(
-  'grouping' => 'name_1',
-));
-$handler->override_option('pane_title', 'Terms');
-$handler->override_option('pane_description', 'Total Control term summary');
-$handler->override_option('pane_category', array(
-  'name' => 'Total Control',
-  'weight' => '0',
-));
-$handler->override_option('allow', array(
-  'use_pager' => FALSE,
-  'items_per_page' => FALSE,
-  'offset' => FALSE,
-  'link_to_view' => FALSE,
-  'more_link' => FALSE,
-  'path_override' => FALSE,
-  'title_override' => FALSE,
-  'exposed_form' => FALSE,
-));
-$handler->override_option('argument_input', array());
-$handler->override_option('link_to_view', 0);
-$handler->override_option('inherit_panels_path', 0);
+$handler->display->display_options['defaults']['use_more'] = FALSE;
+$handler->display->display_options['use_more'] = TRUE;
+$handler->display->display_options['use_more_text'] = 'more terms';
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'name' => 'name',
+  'name_1' => 'name_1',
+);
+$handler->display->display_options['row_options']['hide_empty'] = 0;
+$handler->display->display_options['row_options']['default_field_elements'] = 1;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Taxonomy term: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = '';
+$handler->display->display_options['fields']['name']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['name']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['name']['alter']['absolute'] = 0;
+$handler->display->display_options['fields']['name']['alter']['external'] = 0;
+$handler->display->display_options['fields']['name']['alter']['replace_spaces'] = 0;
+$handler->display->display_options['fields']['name']['alter']['trim_whitespace'] = 0;
+$handler->display->display_options['fields']['name']['alter']['nl2br'] = 0;
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['name']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['name']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['name']['alter']['html'] = 0;
+$handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['name']['element_default_classes'] = 1;
+$handler->display->display_options['fields']['name']['hide_empty'] = 0;
+$handler->display->display_options['fields']['name']['empty_zero'] = 0;
+$handler->display->display_options['fields']['name']['hide_alter_empty'] = 1;
+$handler->display->display_options['fields']['name']['link_to_taxonomy'] = 1;
+/* Field: Taxonomy vocabulary: Name */
+$handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+$handler->display->display_options['fields']['name_1']['table'] = 'taxonomy_vocabulary';
+$handler->display->display_options['fields']['name_1']['field'] = 'name';
+$handler->display->display_options['fields']['name_1']['label'] = 'in vocab ';
+$handler->display->display_options['fields']['name_1']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['absolute'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['external'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['replace_spaces'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['trim_whitespace'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['nl2br'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['name_1']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['name_1']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['name_1']['alter']['html'] = 0;
+$handler->display->display_options['fields']['name_1']['element_label_colon'] = 0;
+$handler->display->display_options['fields']['name_1']['element_default_classes'] = 1;
+$handler->display->display_options['fields']['name_1']['hide_empty'] = 0;
+$handler->display->display_options['fields']['name_1']['empty_zero'] = 0;
+$handler->display->display_options['fields']['name_1']['hide_alter_empty'] = 1;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+$handler->display->display_options['pane_title'] = 'Categories';
+$handler->display->display_options['pane_description'] = 'Total Control taxonomy term summary';
+$handler->display->display_options['pane_category']['name'] = 'Total Control';
+$handler->display->display_options['pane_category']['weight'] = '0';
+$handler->display->display_options['allow']['use_pager'] = 0;
+$handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
+$handler->display->display_options['allow']['offset'] = 0;
+$handler->display->display_options['allow']['link_to_view'] = 0;
+$handler->display->display_options['allow']['more_link'] = 0;
+$handler->display->display_options['allow']['path_override'] = 0;
+$handler->display->display_options['allow']['title_override'] = 0;
+$handler->display->display_options['allow']['exposed_form'] = 0;
+$handler->display->display_options['allow']['fields_override'] = 0;

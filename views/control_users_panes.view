@@ -9,194 +9,111 @@
  */
  
 $view = new view;
-$view->name = 'control_users_pane';
+$view->name = 'control_users_panes';
 $view->description = 'Total Control over users: Contains content panes for your dashboard.';
 $view->tag = 'total_control';
-$view->view_php = '';
 $view->base_table = 'users';
-$view->is_cacheable = FALSE;
-$view->api_version = 2;
+$view->human_name = '';
+$view->core = 0;
+$view->api_version = '3.0';
 $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Defaults */
 $handler = $view->new_display('default', 'Defaults', 'default');
-$handler->override_option('fields', array(
-  'name' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'link_class' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'target' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'strip_tags' => 0,
-      'html' => 0,
-    ),
-    'empty' => '',
-    'hide_empty' => 0,
-    'empty_zero' => 0,
-    'link_to_user' => 1,
-    'overwrite_anonymous' => 0,
-    'anonymous_text' => '',
-    'exclude' => 0,
-    'id' => 'name',
-    'table' => 'users',
-    'field' => 'name',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Override',
-    ),
-  ),
-  'created' => array(
-    'label' => 'Created',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'link_class' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'target' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'strip_tags' => 0,
-      'html' => 0,
-    ),
-    'empty' => '',
-    'hide_empty' => 0,
-    'empty_zero' => 0,
-    'date_format' => 'custom',
-    'custom_date_format' => 'm/d',
-    'exclude' => 0,
-    'id' => 'created',
-    'table' => 'users',
-    'field' => 'created',
-    'relationship' => 'none',
-  ),
-  'edit_node' => array(
-    'label' => '',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'link_class' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'target' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'strip_tags' => 0,
-      'html' => 0,
-    ),
-    'empty' => '',
-    'hide_empty' => 0,
-    'empty_zero' => 0,
-    'text' => 'edit',
-    'exclude' => 0,
-    'id' => 'edit_node',
-    'table' => 'users',
-    'field' => 'edit_node',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Override',
-    ),
-  ),
-));
-$handler->override_option('sorts', array(
-  'created' => array(
-    'order' => 'DESC',
-    'granularity' => 'second',
-    'id' => 'created',
-    'table' => 'users',
-    'field' => 'created',
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('filters', array(
-  'uid' => array(
-    'operator' => 'not in',
-    'value' => array(
-      '0' => 0,
-    ),
-    'group' => '0',
-    'exposed' => FALSE,
-    'expose' => array(
-      'operator' => 'uid_op',
-      'label' => 'User: Name',
-      'use_operator' => FALSE,
-      'identifier' => 'uid',
-      'remember' => FALSE,
-      'single' => TRUE,
-      'optional' => TRUE,
-      'reduce' => FALSE,
-    ),
-    'id' => 'uid',
-    'table' => 'users',
-    'field' => 'uid',
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('access', array(
-  'type' => 'perm',
-  'perm' => 'have total control',
-));
-$handler->override_option('cache', array(
-  'type' => 'none',
-));
-$handler->override_option('title', 'New Users');
-$handler->override_option('items_per_page', 0);
-$handler->override_option('use_pager', '0');
-$handler->override_option('use_more', 1);
-$handler->override_option('use_more_always', 0);
-$handler->override_option('use_more_text', 'more users');
-$handler->override_option('style_plugin', 'list');
-$handler->override_option('style_options', array(
-  'grouping' => '',
-  'type' => 'ul',
-));
-$handler->override_option('row_options', array(
-  'inline' => array(
-    'name' => 'name',
-    'edit_node' => 'edit_node',
-    'created' => 'created',
-  ),
-  'separator' => ' | ',
-  'hide_empty' => 0,
-));
-$handler = $view->new_display('panel_pane', 'New Users pane', 'panel_pane_1');
-$handler->override_option('pane_title', 'New Users');
-$handler->override_option('pane_description', 'Total Control user summary');
-$handler->override_option('pane_category', array(
-  'name' => 'Total Control',
-  'weight' => '0',
-));
-$handler->override_option('allow', array(
-  'use_pager' => 0,
-  'items_per_page' => 'items_per_page',
-  'offset' => 0,
-  'link_to_view' => 0,
-  'more_link' => 0,
-  'path_override' => 0,
-  'title_override' => FALSE,
-  'exposed_form' => FALSE,
-));
-$handler->override_option('argument_input', array());
-$handler->override_option('link_to_view', 0);
-$handler->override_option('inherit_panels_path', 0);
+$handler->display->display_options['title'] = 'New User Accounts';
+$handler->display->display_options['use_more'] = TRUE;
+$handler->display->display_options['use_more_text'] = 'more users';
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'have total control';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['query_comment'] = FALSE;
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['style_plugin'] = 'list';
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['row_options']['inline'] = array(
+  'name' => 'name',
+  'edit_node' => 'edit_node',
+  'created' => 'created',
+);
+$handler->display->display_options['row_options']['separator'] = ' | ';
+$handler->display->display_options['row_options']['hide_empty'] = 0;
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['label'] = '';
+$handler->display->display_options['fields']['name']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['name']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['name']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['name']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['name']['alter']['html'] = 0;
+$handler->display->display_options['fields']['name']['hide_empty'] = 0;
+$handler->display->display_options['fields']['name']['empty_zero'] = 0;
+$handler->display->display_options['fields']['name']['link_to_user'] = 1;
+$handler->display->display_options['fields']['name']['overwrite_anonymous'] = 0;
+/* Field: User: Created date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'users';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['label'] = 'Created';
+$handler->display->display_options['fields']['created']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['created']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['created']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['created']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['created']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['created']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['created']['alter']['html'] = 0;
+$handler->display->display_options['fields']['created']['hide_empty'] = 0;
+$handler->display->display_options['fields']['created']['empty_zero'] = 0;
+$handler->display->display_options['fields']['created']['date_format'] = 'custom';
+$handler->display->display_options['fields']['created']['custom_date_format'] = 'm/d';
+/* Field: User: Edit link */
+$handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+$handler->display->display_options['fields']['edit_node']['table'] = 'users';
+$handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+$handler->display->display_options['fields']['edit_node']['label'] = '';
+$handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+$handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+$handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+$handler->display->display_options['fields']['edit_node']['text'] = 'edit';
+/* Sort criterion: User: Created date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'users';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+/* Filter criterion: User: Name */
+$handler->display->display_options['filters']['uid']['id'] = 'uid';
+$handler->display->display_options['filters']['uid']['table'] = 'users';
+$handler->display->display_options['filters']['uid']['field'] = 'uid';
+$handler->display->display_options['filters']['uid']['operator'] = 'not in';
+$handler->display->display_options['filters']['uid']['value'] = array(
+  0 => 0,
+);
+$handler->display->display_options['filters']['uid']['expose']['label'] = 'User: Name';
+$handler->display->display_options['filters']['uid']['expose']['use_operator'] = FALSE;
+$handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
+$handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
+$handler->display->display_options['filters']['uid']['expose']['remember'] = FALSE;
+
+/* Display: New User Accounts pane */
+$handler = $view->new_display('panel_pane', 'New User Accounts pane', 'panel_pane_1');
+$handler->display->display_options['pane_title'] = 'New User Accounts';
+$handler->display->display_options['pane_description'] = 'Total Control new user account summary';
+$handler->display->display_options['pane_category']['name'] = 'Total Control';
+$handler->display->display_options['pane_category']['weight'] = '0';
+$handler->display->display_options['allow']['use_pager'] = 0;
+$handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
+$handler->display->display_options['allow']['offset'] = 0;
+$handler->display->display_options['allow']['link_to_view'] = 0;
+$handler->display->display_options['allow']['more_link'] = 0;
+$handler->display->display_options['allow']['path_override'] = 0;

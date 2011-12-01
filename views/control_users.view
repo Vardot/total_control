@@ -12,417 +12,316 @@ $view = new view;
 $view->name = 'control_users';
 $view->description = 'Total Control over users: Contains a panel pane and a page to control user accounts.';
 $view->tag = 'total_control';
-$view->view_php = '';
 $view->base_table = 'users';
-$view->is_cacheable = FALSE;
-$view->api_version = 2;
+$view->human_name = '';
+$view->core = 0;
+$view->api_version = '3.0';
 $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Defaults */
 $handler = $view->new_display('default', 'Defaults', 'default');
-$handler->override_option('fields', array(
+$handler->display->display_options['title'] = 'User Accounts';
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'have total control';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['query_comment'] = FALSE;
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['exposed_form']['options']['submit_button'] = 'Filter';
+$handler->display->display_options['exposed_form']['options']['autosubmit'] = 0;
+$handler->display->display_options['exposed_form']['options']['autosubmit_hide'] = 1;
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'name' => 'name',
+  'mail' => 'mail',
+  'rid' => 'rid',
+  'status' => 'status',
+  'created' => 'created',
+  'login' => 'login',
+  'delete_node' => 'delete_node',
+  'edit_node' => 'edit_node',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
   'name' => array(
-    'label' => 'Name',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_user' => 1,
-    'overwrite_anonymous' => 0,
-    'anonymous_text' => '',
-    'exclude' => 0,
-    'id' => 'name',
-    'table' => 'users',
-    'field' => 'name',
-    'relationship' => 'none',
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'mail' => array(
-    'label' => 'E-mail',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'link_to_user' => 'mailto',
-    'exclude' => 0,
-    'id' => 'mail',
-    'table' => 'users',
-    'field' => 'mail',
-    'relationship' => 'none',
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'rid' => array(
-    'label' => 'Roles',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'type' => 'separator',
-    'separator' => ', ',
-    'empty' => '',
-    'exclude' => 0,
-    'id' => 'rid',
-    'table' => 'users_roles',
-    'field' => 'rid',
-    'relationship' => 'none',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'status' => array(
-    'label' => 'Active',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'type' => 'yes-no',
-    'not' => 0,
-    'exclude' => 0,
-    'id' => 'status',
-    'table' => 'users',
-    'field' => 'status',
-    'relationship' => 'none',
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'created' => array(
-    'label' => 'Created',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'date_format' => 'custom',
-    'custom_date_format' => 'm/d/Y',
-    'exclude' => 0,
-    'id' => 'created',
-    'table' => 'users',
-    'field' => 'created',
-    'relationship' => 'none',
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'login' => array(
-    'label' => 'Last login',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'date_format' => 'custom',
-    'custom_date_format' => 'j/d g:ia',
-    'exclude' => 0,
-    'id' => 'login',
-    'table' => 'users',
-    'field' => 'login',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Override',
-    ),
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'delete_node' => array(
-    'label' => 'Delete',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'html' => 0,
-    ),
-    'text' => 'delete',
-    'exclude' => 0,
-    'id' => 'delete_node',
-    'table' => 'users',
-    'field' => 'delete_node',
-    'relationship' => 'none',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
   ),
   'edit_node' => array(
-    'label' => 'Edit',
-    'alter' => array(
-      'alter_text' => 0,
-      'text' => '',
-      'make_link' => 0,
-      'path' => '',
-      'link_class' => '',
-      'alt' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'target' => '',
-      'help' => '',
-      'trim' => 0,
-      'max_length' => '',
-      'word_boundary' => 1,
-      'ellipsis' => 1,
-      'strip_tags' => 0,
-      'html' => 0,
-    ),
-    'empty' => '',
-    'hide_empty' => 0,
-    'empty_zero' => 0,
-    'text' => 'edit',
-    'exclude' => 0,
-    'id' => 'edit_node',
-    'table' => 'users',
-    'field' => 'edit_node',
-    'relationship' => 'none',
-    'override' => array(
-      'button' => 'Override',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['override'] = 1;
+$handler->display->display_options['style_options']['sticky'] = 0;
+$handler->display->display_options['style_options']['empty_table'] = 0;
+/* Field: User: Bulk operations */
+$handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+$handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+$handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+$handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['absolute'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['external'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['replace_spaces'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['trim_whitespace'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['nl2br'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['alter']['html'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['views_bulk_operations']['element_default_classes'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['hide_empty'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['empty_zero'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
+  'system_block_ip_action' => array(
+    'selected' => 1,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+  ),
+  'user_block_user_action' => array(
+    'selected' => 1,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+  ),
+  'views_bulk_operations_delete_item' => array(
+    'selected' => 1,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+  ),
+  'system_message_action' => array(
+    'selected' => 0,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+  ),
+  'views_bulk_operations_script_action' => array(
+    'selected' => 0,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+  ),
+  'views_bulk_operations_user_roles_action' => array(
+    'selected' => 1,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+  ),
+  'views_bulk_operations_argument_selector_action' => array(
+    'selected' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
+    'settings' => array(
+      'url' => '',
     ),
   ),
-));
-$handler->override_option('sorts', array(
-  'created' => array(
-    'order' => 'DESC',
-    'granularity' => 'second',
-    'id' => 'created',
-    'table' => 'users',
-    'field' => 'created',
-    'relationship' => 'none',
+  'system_goto_action' => array(
+    'selected' => 0,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
   ),
-));
-$handler->override_option('filters', array(
-  'uid' => array(
-    'operator' => 'not in',
-    'value' => array(
-      '0' => 0,
-    ),
-    'group' => '0',
-    'exposed' => FALSE,
-    'expose' => array(
-      'operator' => 'uid_op',
-      'label' => 'User: Name',
-      'use_operator' => FALSE,
-      'identifier' => 'uid',
-      'remember' => FALSE,
-      'single' => TRUE,
-      'optional' => TRUE,
-      'reduce' => FALSE,
-    ),
-    'id' => 'uid',
-    'table' => 'users',
-    'field' => 'uid',
-    'relationship' => 'none',
+  'system_send_email_action' => array(
+    'selected' => 1,
+    'use_queue' => 0,
+    'skip_confirmation' => 0,
+    'override_label' => 0,
+    'label' => '',
   ),
-  'rid' => array(
-    'operator' => 'or',
-    'value' => array(),
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'rid_op',
-      'identifier' => 'rid',
-      'label' => 'Roles',
-      'optional' => 1,
-      'single' => 1,
-      'remember' => 0,
-      'reduce' => 0,
-    ),
-    'id' => 'rid',
-    'table' => 'users_roles',
-    'field' => 'rid',
-    'relationship' => 'none',
-    'reduce_duplicates' => 0,
-  ),
-  'uid_1' => array(
-    'operator' => 'in',
-    'value' => '',
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'uid_1_op',
-      'identifier' => 'name',
-      'label' => 'Username',
-      'optional' => 1,
-      'remember' => 0,
-      'reduce' => 0,
-    ),
-    'id' => 'uid_1',
-    'table' => 'users',
-    'field' => 'uid',
-    'override' => array(
-      'button' => 'Override',
-    ),
-    'relationship' => 'none',
-  ),
-  'mail' => array(
-    'operator' => 'contains',
-    'value' => '',
-    'group' => '0',
-    'exposed' => TRUE,
-    'expose' => array(
-      'use_operator' => 0,
-      'operator' => 'mail_op',
-      'identifier' => 'mail',
-      'label' => 'E-mail',
-      'optional' => 1,
-      'remember' => 0,
-    ),
-    'case' => 1,
-    'id' => 'mail',
-    'table' => 'users',
-    'field' => 'mail',
-    'override' => array(
-      'button' => 'Override',
-    ),
-    'relationship' => 'none',
-  ),
-));
-$handler->override_option('access', array(
-  'type' => 'perm',
-  'perm' => 'have total control',
-));
-$handler->override_option('cache', array(
-  'type' => 'none',
-));
-$handler->override_option('items_per_page', 30);
-$handler->override_option('use_pager', '1');
-$handler->override_option('style_plugin', 'bulk');
-$handler->override_option('style_options', array(
-  'grouping' => '',
-  'override' => 1,
-  'sticky' => 0,
-  'order' => 'asc',
-  'columns' => array(
-    'name' => 'name',
-    'mail' => 'mail',
-    'rid' => 'rid',
-    'status' => 'status',
-    'created' => 'created',
-    'login' => 'login',
-    'delete_node' => 'delete_node',
-    'edit_node' => 'edit_node',
-  ),
-  'info' => array(
-    'name' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'mail' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'rid' => array(
-      'separator' => '',
-    ),
-    'status' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'created' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'login' => array(
-      'sortable' => 1,
-      'separator' => '',
-    ),
-    'delete_node' => array(
-      'separator' => '',
-    ),
-    'edit_node' => array(
-      'separator' => '',
-    ),
-  ),
-  'default' => '-1',
-  'execution_type' => '1',
-  'display_type' => '0',
-  'hide_select_all' => 0,
-  'skip_confirmation' => 0,
-  'display_result' => 1,
-  'merge_single_action' => 1,
-  'selected_operations' => array(
-    'user_block_ip_action' => 'user_block_ip_action',
-    'user_user_operations_block' => 'user_user_operations_block',
-    'views_bulk_operations_delete_user_action' => 'views_bulk_operations_delete_user_action',
-    'views_bulk_operations_user_roles_action' => 'views_bulk_operations_user_roles_action',
-    'system_send_email_action' => 'system_send_email_action',
-    'user_user_operations_unblock' => 'user_user_operations_unblock',
-    'user_block_user_action' => 0,
-    'nodewords_mass_delete_tags:9fed5062c31d06cb075d45f06617e1b3' => 0,
-    'system_message_action' => 0,
-    'views_bulk_operations_action' => 0,
-    'views_bulk_operations_script_action' => 0,
-    'views_bulk_operations_argument_selector_action' => 0,
-    'system_goto_action' => 0,
-  ),
-));
+);
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['enable_select_all_pages'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_type'] = '0';
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['display_result'] = 1;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['merge_single_action'] = 0;
+$handler->display->display_options['fields']['views_bulk_operations']['vbo']['force_single'] = 0;
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['name']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['name']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['name']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['name']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['name']['alter']['html'] = 0;
+$handler->display->display_options['fields']['name']['link_to_user'] = 1;
+$handler->display->display_options['fields']['name']['overwrite_anonymous'] = 0;
+/* Field: User: E-mail */
+$handler->display->display_options['fields']['mail']['id'] = 'mail';
+$handler->display->display_options['fields']['mail']['table'] = 'users';
+$handler->display->display_options['fields']['mail']['field'] = 'mail';
+$handler->display->display_options['fields']['mail']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['mail']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['mail']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['mail']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['mail']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['mail']['alter']['html'] = 0;
+/* Field: User: Roles */
+$handler->display->display_options['fields']['rid']['id'] = 'rid';
+$handler->display->display_options['fields']['rid']['table'] = 'users_roles';
+$handler->display->display_options['fields']['rid']['field'] = 'rid';
+$handler->display->display_options['fields']['rid']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['rid']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['rid']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['rid']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['rid']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['rid']['alter']['html'] = 0;
+/* Field: User: Created date */
+$handler->display->display_options['fields']['created']['id'] = 'created';
+$handler->display->display_options['fields']['created']['table'] = 'users';
+$handler->display->display_options['fields']['created']['field'] = 'created';
+$handler->display->display_options['fields']['created']['label'] = 'Created';
+$handler->display->display_options['fields']['created']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['created']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['created']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['created']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['created']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['created']['alter']['html'] = 0;
+$handler->display->display_options['fields']['created']['date_format'] = 'custom';
+$handler->display->display_options['fields']['created']['custom_date_format'] = 'm/d/Y';
+/* Field: User: Last login */
+$handler->display->display_options['fields']['login']['id'] = 'login';
+$handler->display->display_options['fields']['login']['table'] = 'users';
+$handler->display->display_options['fields']['login']['field'] = 'login';
+$handler->display->display_options['fields']['login']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['login']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['login']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['login']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['login']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['login']['alter']['html'] = 0;
+$handler->display->display_options['fields']['login']['date_format'] = 'custom';
+$handler->display->display_options['fields']['login']['custom_date_format'] = 'j/d g:ia';
+/* Field: User: Edit link */
+$handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+$handler->display->display_options['fields']['edit_node']['table'] = 'users';
+$handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+$handler->display->display_options['fields']['edit_node']['label'] = 'Edit';
+$handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
+$handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
+$handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
+$handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
+$handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
+$handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
+$handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
+$handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
+$handler->display->display_options['fields']['edit_node']['text'] = 'edit';
+/* Sort criterion: User: Created date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'users';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
+$handler->display->display_options['sorts']['created']['order'] = 'DESC';
+/* Filter criterion: User: Name */
+$handler->display->display_options['filters']['uid']['id'] = 'uid';
+$handler->display->display_options['filters']['uid']['table'] = 'users';
+$handler->display->display_options['filters']['uid']['field'] = 'uid';
+$handler->display->display_options['filters']['uid']['operator'] = 'not in';
+$handler->display->display_options['filters']['uid']['value'] = array(
+  0 => 0,
+);
+$handler->display->display_options['filters']['uid']['expose']['label'] = 'User: Name';
+$handler->display->display_options['filters']['uid']['expose']['use_operator'] = FALSE;
+$handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
+$handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
+$handler->display->display_options['filters']['uid']['expose']['remember'] = FALSE;
+/* Filter criterion: User: Roles */
+$handler->display->display_options['filters']['rid']['id'] = 'rid';
+$handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+$handler->display->display_options['filters']['rid']['field'] = 'rid';
+$handler->display->display_options['filters']['rid']['exposed'] = TRUE;
+$handler->display->display_options['filters']['rid']['expose']['operator_id'] = 'rid_op';
+$handler->display->display_options['filters']['rid']['expose']['label'] = 'Roles';
+$handler->display->display_options['filters']['rid']['expose']['operator'] = 'rid_op';
+$handler->display->display_options['filters']['rid']['expose']['identifier'] = 'rid';
+$handler->display->display_options['filters']['rid']['expose']['required'] = FALSE;
+$handler->display->display_options['filters']['rid']['expose']['multiple'] = FALSE;
+$handler->display->display_options['filters']['rid']['expose']['reduce'] = 0;
+$handler->display->display_options['filters']['rid']['reduce_duplicates'] = 0;
+/* Filter criterion: User: Name */
+$handler->display->display_options['filters']['uid_1']['id'] = 'uid_1';
+$handler->display->display_options['filters']['uid_1']['table'] = 'users';
+$handler->display->display_options['filters']['uid_1']['field'] = 'uid';
+$handler->display->display_options['filters']['uid_1']['value'] = '';
+$handler->display->display_options['filters']['uid_1']['exposed'] = TRUE;
+$handler->display->display_options['filters']['uid_1']['expose']['operator_id'] = 'uid_1_op';
+$handler->display->display_options['filters']['uid_1']['expose']['label'] = 'Username';
+$handler->display->display_options['filters']['uid_1']['expose']['operator'] = 'uid_1_op';
+$handler->display->display_options['filters']['uid_1']['expose']['identifier'] = 'name';
+$handler->display->display_options['filters']['uid_1']['expose']['required'] = FALSE;
+$handler->display->display_options['filters']['uid_1']['expose']['reduce'] = 0;
+/* Filter criterion: User: E-mail */
+$handler->display->display_options['filters']['mail']['id'] = 'mail';
+$handler->display->display_options['filters']['mail']['table'] = 'users';
+$handler->display->display_options['filters']['mail']['field'] = 'mail';
+$handler->display->display_options['filters']['mail']['operator'] = 'contains';
+$handler->display->display_options['filters']['mail']['exposed'] = TRUE;
+$handler->display->display_options['filters']['mail']['expose']['operator_id'] = 'mail_op';
+$handler->display->display_options['filters']['mail']['expose']['label'] = 'E-mail';
+$handler->display->display_options['filters']['mail']['expose']['operator'] = 'mail_op';
+$handler->display->display_options['filters']['mail']['expose']['identifier'] = 'mail';
+
+/* Display: User Admin */
 $handler = $view->new_display('page', 'User Admin', 'page_1');
-$handler->override_option('title', 'Users');
-$handler->override_option('path', 'admin/dashboard/users');
-$handler->override_option('menu', array(
-  'type' => 'tab',
-  'title' => 'Users',
-  'description' => '',
-  'weight' => '-14',
-  'name' => 'navigation',
-));
-$handler->override_option('tab_options', array(
-  'type' => 'none',
-  'title' => '',
-  'description' => '',
-  'weight' => 0,
-  'name' => 'navigation',
-));
+$handler->display->display_options['path'] = 'admin/dashboard/users';
+$handler->display->display_options['menu']['type'] = 'tab';
+$handler->display->display_options['menu']['title'] = 'Users';
+$handler->display->display_options['menu']['weight'] = '-14';
