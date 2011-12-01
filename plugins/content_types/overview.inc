@@ -28,7 +28,7 @@ $plugin = array(
   'edit form' => 'total_control_overview_content_type_edit_form',
   // Icon goes in the directory with the content type.
   'icon' => 'cog.png',
-  'category' => t('Total Control'),
+  'category' => t('Total control'),
 );
 
 /**
@@ -38,7 +38,7 @@ $plugin = array(
  *
  */
 function total_control_overview_content_type_admin_title($subtype, $conf, $context) {
-    return t('Site Overview');
+    return t('Content and Usernode_type_get_types overview');
 }
 
 /**

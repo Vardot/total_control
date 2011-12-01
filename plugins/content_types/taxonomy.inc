@@ -14,7 +14,7 @@ $plugin = array(
   'defaults' => array('vids' => NULL),
   'icon' => 'cog.png',
   'description' => t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.'),
-  'category' => t('Total Control'),
+  'category' => t('Total control'),
   'edit text' => t('Configure'),
 );
 
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Categories and Terms');
+  return t('Taxonomy overview');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf 
  */
 function total_control_taxonomy_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.');
+  $block->title = t('Displays category information: number of terms in each vocabulary with links to see the list or add a new one.');
 
   return $block;
 }

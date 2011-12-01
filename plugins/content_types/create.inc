@@ -16,7 +16,7 @@ $plugin = array(
   'defaults' => array('types' => NULL),
   'icon' => 'cog.png',
   'description' => t('Provides links to create new content.'),
-  'category' => t('Total Control'),
+  'category' => t('Total control'),
   'edit text' => t('Configure'),
 );
 
@@ -24,7 +24,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_create_content_type_admin_title($subtype, $conf, $context) {
-  return t('Content Creation');
+  return t('Content cnode_type_get_typesreation');
 }
 
 /**

@@ -28,7 +28,7 @@ $plugin = array(
   'edit form' => 'total_control_panel_pages_content_type_edit_form',
   // Icon goes in the directory with the content type.
   'icon' => 'cog.png',
-  'category' => t('Total Control'),
+  'category' => t('Total control'),
 );
 
 /**
@@ -38,7 +38,7 @@ $plugin = array(
  *
  */
 function total_control_panel_pages_content_type_admin_title($subtype, $conf, $context) {
-    return t('Panel Pages');
+    return t('Panel page overview');
 }
 
 /**
