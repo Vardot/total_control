@@ -8,11 +8,7 @@
  * number of blocked comments (spam) and configuration links.
  *
  */
- 
-/**
- * Plugins are described by creating a $plugin array which will be used
- * by the system that includes this file.
- */
+
 $plugin = array(
   'single' => TRUE,
   'title' => t('Welcome'),
@@ -61,7 +57,7 @@ function total_control_welcome_content_type_render($subtype, $conf, $panel_args,
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = t('Take Total Control.');
-  
+
   // Build the content.
   $content =  '<div class="total-control-site-overview">';
   $content .= '  <p>' . t('Welcome to your administrative dashboard.  !panel 
