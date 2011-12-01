@@ -7,6 +7,15 @@
  */
 
 /**
+ * Implementation of hook_install
+ *
+ * Disable the core dashboard module.
+ */
+function total_control_install() {
+  // TODO
+}
+
+/**
  * Test requirements for installation and running.
  */
 function total_control_requirements($phase) {

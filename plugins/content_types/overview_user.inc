@@ -28,7 +28,7 @@ $plugin = array(
   // total_control_overview_user_content_type_edit_form.
   'edit form' => 'total_control_overview_user_content_type_edit_form',
   // Icon goes in the directory with the content type.
-  'icon' => 'icon_node_form.png',
+  'icon' => 'cog.png',
   'category' => t('Total Control'),
 );
 

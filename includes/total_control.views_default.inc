@@ -10,7 +10,9 @@
  * Implementation of hook_views_default_views().
  */
 function total_control_views_default_views() {
-  $files = file_scan_directory(drupal_get_path('module', 'total_control'). '/views', '.view');
+  $views_path = drupal_get_path('module', 'total_control')  . '/views';
+  $files = file_scan_directory($views_path, '/\.view$/');
+  
   foreach ($files as $filepath => $file) {
     require $filepath;
     

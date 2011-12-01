@@ -27,7 +27,7 @@ $plugin = array(
   // total_control_overview_content_type_edit_form.
   'edit form' => 'total_control_overview_content_type_edit_form',
   // Icon goes in the directory with the content type.
-  'icon' => 'icon_node_form.png',
+  'icon' => 'cog.png',
   'category' => t('Total Control'),
 );
 
@@ -85,7 +85,7 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
       $type_query = db_query($type_sql, $type);
       $type_result = db_result($type_query);
       $type_singular = '1 ' . $object->name . ' item';
-      $type_plural = '@count ' . $object->name . ' items'l
+      $type_plural = '@count ' . $object->name . ' items';
       $total[$type] = format_plural($type_result, $type_singular, $type_plural);
       
       // Compare against comment option on pane config.

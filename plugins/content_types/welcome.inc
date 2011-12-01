@@ -14,21 +14,10 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('Welcome'),
-  'description' => t('Intro to Total Control'),
-  // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
-  // Constructor.
-  'content_types' => array('total_control_welcome_content_type'),
-  // Name of a function which will render the block.
-  'render callback' => 'total_control_welcome_content_type_render',
-  // The default context.
-  'defaults' => array('types' => NULL, 'comments' => NULL, 'spam' => 1),
-  // This explicitly declares the config form. Without this line, the func would be
-  // total_control_welcome_content_type_edit_form.
-  'edit form' => 'total_control_welcome_content_type_edit_form',
-  // Icon goes in the directory with the content type.
-  'icon' => 'icon_node_form.png',
+  'title' => t('Welcome'),
+  'icon' => 'cog.png',
+  'description' => t('Intro to Total Control'),
   'category' => t('Total Control'),
 );
 
@@ -39,7 +28,7 @@ $plugin = array(
  *
  */
 function total_control_welcome_content_type_admin_title($subtype, $conf, $context) {
-    return t('Welcome');
+  return t('Welcome');
 }
 
 /**
@@ -51,6 +40,7 @@ function total_control_welcome_content_type_admin_title($subtype, $conf, $contex
 function total_control_welcome_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Intro to Total Control');
+
   return $block;
 }
 
@@ -74,7 +64,13 @@ function total_control_welcome_content_type_render($subtype, $conf, $panel_args,
   
   // Build the content.
   $content =  '<div class="total-control-site-overview">';
-  $content .= '  <p>' . t('Welcome to your administrative dashboard.  !panel to add more content panes here, or configure those provided by default. Views content panes can be created for you automatically according to your !settings.  Make this dashboard the perfect hub for all your administrative needs.', array('!panel' => l(t('Edit this panel'), 'admin/build/pages/edit/dashboard'), '!settings' => l(t('Total Control Settings'), 'admin/settings/control'))) . '</p>';
+  $content .= '  <p>' . t('Welcome to your administrative dashboard.  !panel 
+    to add more content panes here, or configure those provided by default. 
+    Views content panes can be created for you automatically according to your 
+    !settings.  Make this dashboard the perfect hub for all your administrative 
+    needs.', array(
+     '!panel' => l(t('Edit this panel'), 'admin/structure/pages/edit/dashboard'), 
+     '!settings' => l(t('Total Control Settings'), 'admin/config/control'))) . '</p>';
   $content .= '</div>';
 
   $block->content = $content;

@@ -6,8 +6,8 @@
  * This module enables an administrative dashboard.
  */
 
-//include_once('includes/total_control.inc'); 
-//include_once('includes/total_control.views_default.inc');
+include_once('includes/total_control.inc'); 
+include_once('includes/total_control.views_default.inc');
 
 define('TOTAL_CONTROL_REQUIRED_PANELS_API', '3');
 define('TOTAL_CONTROL_REQUIRED_VIEWS_API', '2');
@@ -21,8 +21,17 @@ define('TOTAL_CONTROL_VERSION', 1);
  *
  * Adds permissions for access to the total control dashboard
  */
-function total_control_perm() {
-  return array('have total control', 'administer total control');
+function total_control_permission() {
+  return array(
+    'have total control' => array(
+      'title' => t('Have total control'), 
+      'description' => t('See the Total Control administrative dashboard.'),
+    ),
+    'administer total control' => array(
+      'title' => t('Administer total control'), 
+      'description' => t('Adjust the settings for the Total Control administrative dashboard.'),
+    ),
+  );
 }
 
 /** 
@@ -33,9 +42,9 @@ function total_control_perm() {
 function total_control_menu() {
   $items = array();
 
-  $items['admin/settings/control'] = array(
+  $items['admin/config/control'] = array(
     'title' => 'Total Control',
-    'description' => 'Adjust administration menu settings.',
+    'description' => 'Adjust dashboard settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('total_control_admin_settings'),
     'access arguments' => array('administer total control'),
@@ -60,69 +69,18 @@ function total_control_form_alter(&$form, $form_state, $form_id) {
 }
 
 /**
- * Implementation of hook_ctools_plugin_api().
- *
- * Needed so that next hooks are picked up.
- */
-function total_control_ctools_plugin_api($module, $api) {
-  if ($module == 'page_manager' && $api == 'pages_default') {
-    return array('version' => 1);
-  }  
-}
-
-/**
- * Implementation of hook_ctools_plugin_dierctory().
- *
- * Lets the system know we implement task and task_handler plugins.
- */
-function total_control_ctools_plugin_directory($module, $plugin) {
-  return 'plugins/' . $plugin;
-}
-
-/**
- * Implementation of hook_default_page_manager_handlers().
- */
-function total_control_default_page_manager_handlers() {
-  $handlers = array();
-  include_once('includes/total_control.default_page.inc');
-  return $handlers;
-}
-
-/**
- * Implementation of hook_views_api().
- *
- * Register View API information. This is required for your module to have
- * its include files loaded; for example, when implementing
- * hook_views_default_views().
- *
- * @return
- *   An array with the following possible keys:
- *   - api:  (required) The version of the Views API the module implements.
- *   - path: (optional) If includes are stored somewhere other than within
- *       the root module directory or a subdirectory called includes, specify
- *       its path here.
- */
-function total_control_views_api() {
-  // TODO
-  return array(
-    'api' => 2,
-    //'path' => drupal_get_path('module', 'total_control') . '/includes', 
-  );
-}
-
-/**
- * Implementation of hook_user().
+ * Implementation of hook_user_login().
  *
  * Redirects to the dashboard if configured.
  */
-function total_control_user($op, &$edit, &$account, $category = NULL) {
-  if ((arg(0) != 'user') && arg(1) != 'reset') {
-    if (($op == 'login') && (variable_get('total_control_login_redirect', 0) == 1 && user_access('have total control'))) {
+function total_control_user_login(&$edit, &$account) {
+  if (!(arg(0) == 'user' && arg(1) == 'reset')) {
+    if ((variable_get('total_control_login_redirect', 0) == 1 && user_access('have total control'))) {
       drupal_goto('admin/dashboard');
     }
   }
 }
- 
+
 /**
  * Implementation of hook_views_pre_render().
  *
@@ -165,6 +123,41 @@ function total_control_views_pre_render(&$view) {
 }
 
 /**
+ * Implementation of hook_ctools_plugin_dierctory().
+ *
+ * Lets the system know we implement task and task_handler plugins.
+ */
+function total_control_ctools_plugin_directory($module, $plugin) {
+  // Safety: go away if CTools is not at an appropriate version.
+  if (!module_invoke('ctools', 'api_version', PANELS_REQUIRED_CTOOLS_API)) {
+    return;
+  }
+  if ($module == 'page_manager' || $module == 'panels' || $module == 'ctools' || $module == 'stylizer') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implementation of hook_views_api().
+ *
+ * Register View API information. This is required for your module to have
+ * its include files loaded; for example, when implementing
+ * hook_views_default_views().
+ *
+ * @return
+ *   An array with the following possible keys:
+ *   - api:  (required) The version of the Views API the module implements.
+ *   - path: (optional) If includes are stored somewhere other than within
+ *       the root module directory or a subdirectory called includes, specify
+ *       its path here.
+ */
+function total_control_views_api() {
+  return array(
+    'api' => 2,
+  );
+}
+
+/**
  * Implementation of hook_theme().
  *
  * Adds theme functions for the output of content panes.
@@ -172,31 +165,31 @@ function total_control_views_pre_render(&$view) {
 function total_control_theme() {
   return array(
     'total_control_create' => array(
-      'arguments' => array('create' => array()), 
+      'variables' => array('create' => array()), 
       'file' => 'total_control.theme.inc',
     ),
     'total_control_overview' => array(
-      'arguments' => array('content' => array(), 'users' => array()), 
+      'variables' => array('content' => array(), 'users' => array()), 
       'file' => 'total_control.theme.inc',
     ),
     'total_control_overview_content' => array(
-      'arguments' => array('overview' => array()), 
+      'variables' => array('overview' => array()), 
       'file' => 'total_control.theme.inc',
     ),
     'total_control_overview_user' => array(
-      'arguments' => array('overview' => array()), 
+      'variables' => array('overview' => array()), 
       'file' => 'total_control.theme.inc',
     ),
     'total_control_taxonomy' => array(
-      'arguments' => array('rows' => array()), 
+      'variables' => array('rows' => array()), 
       'file' => 'total_control.theme.inc',
     ),
     'total_control_panel_pages' => array(
-      'arguments' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
+      'variables' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
       'file' => 'total_control.theme.inc',
     ),
     'total_control_nodequeue' => array(
-      'arguments' => array('header' => array(), 'rows' => array()), 
+      'variables' => array('header' => array(), 'rows' => array()), 
       'file' => 'total_control.theme.inc',
     ),
   );
