@@ -128,14 +128,14 @@ function total_control_overview_content_content_type_edit_form(&$form, &$form_st
     '#type' => 'checkboxes',
     '#title' => t('Include Stats on Content Types'),
     '#options' => $type_options,
-    '#default_value' => $type_defaults,
+    '#default_value' => ($conf['types'])? $conf['types'] : $type_defaults,
     );
   if (module_exists('comment')){
     $form['comments'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Include Comment Stats for Content Types'),
       '#options' => $type_options,
-      '#default_value' => $comment_defaults,
+      '#default_value' => ($conf['comments'])? $conf['comments'] : $comment_defaults,
       );
     $spam_options = array(
       0 => t('no'), 
