@@ -14,6 +14,7 @@
  */
 $plugin = array(
   'title' => t('Site Overview'),
+  'no title override' => TRUE,
   'description' => t('An overview of both content and users in one pane'),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,

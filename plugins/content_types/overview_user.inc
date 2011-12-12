@@ -12,6 +12,7 @@
 $plugin = array(
   'single' => TRUE,
   'title' => t('User Overview'),
+  'no title override' => TRUE,
   'defaults' => array('user' => NULL, 'roles' => NULL),
   'icon' => 'cog.png',
   'description' => t('Displays a summary of user statistics including: number 

@@ -12,6 +12,7 @@
 $plugin = array(
   'single' => TRUE,
   'title' => t('Welcome'),
+  'no title override' => TRUE,
   'icon' => 'cog.png',
   'description' => t('Intro to Total Control'),
   'category' => t('Total Control'),
