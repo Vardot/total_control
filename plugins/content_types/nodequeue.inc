@@ -8,34 +8,18 @@
  *
  */
 
-/**
- * Plugins are described by creating a $plugin array which will be used
- * by the system that includes this file.
- */
 $plugin = array(
-  'title' => t('NodeQueue list'),
-  'description' => t('A list of NodeQueues on the site.'),
-  // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
-  // Constructor.
-  'content_types' => array('nodequeue_content_type'),
-  // Name of a function which will render the block.
-  'render callback' => 'nodequeue_content_type_render',
-  // The default context.
+  'title' => t('NodeQueue list'),
   'defaults' => array(),
-  // This explicitly declares the config form. Without this line, the func would be
-  // ctools_plugin_example_nodequeue_content_type_edit_form.
-  'edit form' => 'nodequeue_content_type_edit_form',
-  // Icon goes in the directory with the content type.
   'icon' => 'cog.png',
+  'description' => t('A list of NodeQueues on the site.'),
   'category' => t('Total control'),
+  'edit text' => t('Configure'),
 );
 
 /**
  * 'Admin title' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
- *
  */
 function total_control_nodequeue_content_type_admin_title($subtype, $conf, $context) {
     return t('NodeQueue overviewnode_type_get_types');
@@ -43,9 +27,6 @@ function total_control_nodequeue_content_type_admin_title($subtype, $conf, $cont
 
 /**
  * 'Admin info' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
- *
  */
 function total_control_nodequeue_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
@@ -55,16 +36,6 @@ function total_control_nodequeue_content_type_admin_info($subtype, $conf, $conte
 
 /**
  * Run-time rendering of the body of the block.
- *
- * @param $subtype
- * @param $conf
- *   Configuration as done at admin time.
- * @param $args
- * @param $context
- *   Context - in this case we don't have any.
- *
- * @return
- *   An object with at least title and content members.
  */
 function nodequeue_content_type_render($subtype, $conf, $args, $context) {
   $block = new stdClass();
@@ -120,9 +91,6 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
 
 /**
  * 'Edit form' callback for the content type.
- *
- * ctools_plugin_example_nodequeue_content_type_edit_form.
- *
  */
 function nodequeue_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
@@ -132,10 +100,6 @@ function nodequeue_content_type_edit_form($form, &$form_state) {
 
 /**
  * 'Edit form' submit callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form_submit.
- * The submit form stores the data in $conf.
- *
  */
 function nodequeue_content_type_edit_form_submit($form, &$form_state) {
   foreach (array('item1', 'item2') as $key) {

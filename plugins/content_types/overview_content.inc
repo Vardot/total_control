@@ -38,7 +38,7 @@ function total_control_overview_content_content_type_admin_info($subtype, $conf,
     number pieces of each type of content, number of comments, number of 
     blocked comments (spam), and if ').l(t('allowed'), 
     'admin/config/control') . t(', content-type configuration links.');
-  
+
   return $block;
 }
 
@@ -53,27 +53,27 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
     if (empty($conf['types']) || (isset($conf['types']) && $conf['types'][$type])){  // compare against type option on pane config
       $type_count = db_query("SELECT count(*) FROM {node} WHERE type = :type and status = 1", array(':type' => $type))->fetchField();
       $total[$type] = format_plural($type_count, '1 ' . $object->name . ' item', '@count ' . $object->name . ' items');
-      
+
       // compare against comment option on pane config.
       $comment_setting = variable_get('comment_' . $type, 'comment');
-      
+
       if ((module_exists('comment')) && (($comment_setting != 0) || (isset($conf['comments']) && $conf['comments'][$type]))){
         $comment_count = db_query("SELECT count(DISTINCT cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 1 AND n.status = 1", array(':type' => $type))->fetchField();
         $total[$type . '_comments'] =  format_plural($comment_count, '1 comment', '@count comments');
-        
+
         if (isset($conf['spam']) && $conf['spam'] == 1){ // compare against comment option on pane config
           $spam_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 0 AND n.status = 1", array(':type' => $type))->fetchField();
           $total[$type.'_comments_spam'] = format_plural($spam_count, '1 spam', '@count spam');
         }
       }
-      
+
       $line =  $total[$type];
       $line .= (isset($total[$type.'_comments']))? ' with ' . $total[$type.'_comments'] : '' ;
       $line .= (isset($total[$type.'_comments_spam']))? ' (' . $total[$type.'_comments_spam'].')' : '' ;
       $overview[] = $line;
     }
   }
-  
+
   $block = new stdClass();
   $block->title = total_control_overview_content_content_type_admin_title();
   $block->content = theme('total_control_overview_content', array('overview' => $overview));
@@ -99,14 +99,14 @@ function total_control_overview_content_content_type_edit_form($form, &$form_sta
       $comment_defaults[] = $type;
     }
   }
-  
+
   $form['types'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Include Stats on Content Types'),
     '#options' => $type_options,
     '#default_value' => ($conf['types'])? $conf['types'] : $type_defaults,
   );
-  
+
   if (module_exists('comment')) {
     $form['comments'] = array(
       '#type' => 'checkboxes',

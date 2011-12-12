@@ -20,9 +20,6 @@ $plugin = array(
 
 /**
  * 'Admin title' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
- *
  */
 function total_control_welcome_content_type_admin_title($subtype, $conf, $context) {
   return t('Welcome');
@@ -30,9 +27,6 @@ function total_control_welcome_content_type_admin_title($subtype, $conf, $contex
 
 /**
  * 'Admin info' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
- *
  */
 function total_control_welcome_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
@@ -43,16 +37,6 @@ function total_control_welcome_content_type_admin_info($subtype, $conf, $context
 
 /**
  * Run-time rendering of the body of the block.
- *
- * @param $subtype
- * @param $conf
- *   Configuration as done at admin time.
- * @param $args
- * @param $context
- *   Context - in this case we don't have any.
- *
- * @return
- *   An object with at least title and content members.
  */
 function total_control_welcome_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();

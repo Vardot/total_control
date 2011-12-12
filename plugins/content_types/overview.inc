@@ -8,75 +8,47 @@
  *
  */
 
-/**
- * Plugins are described by creating a $plugin array which will be used
- * by the system that includes this file.
- */
 $plugin = array(
+  'single' => TRUE,
   'title' => t('Site Overview'),
   'no title override' => TRUE,
-  'description' => t('An overview of both content and users in one pane'),
-  // 'single' => TRUE means has no subtypes.
-  'single' => TRUE,
-  // Constructor.
-  'content_types' => array('total_control_overview_content_type'),
-  // Name of a function which will render the block.
-  'render callback' => 'total_control_overview_content_type_render',
-  // The default context.
-   'defaults' => array('type' => NULL, 'comments' => NULL, 'spam' => 1, 'user' => NULL, 'roles' => NULL),
-  // This explicitly declares the config form. Without this line, the func would be
-  // total_control_overview_content_type_edit_form.
-  'edit form' => 'total_control_overview_content_type_edit_form',
-  // Icon goes in the directory with the content type.
+  'defaults' => array('type' => NULL, 'comments' => NULL, 'spam' => 1, 'user' => NULL, 'roles' => NULL),
   'icon' => 'cog.png',
+  'description' => t('An overview of both content and users in one pane'),
   'category' => t('Total control'),
+  'edit text' => t('Configure'),
 );
 
 /**
  * 'Admin title' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
- *
  */
 function total_control_overview_content_type_admin_title($subtype, $conf, $context) {
-    return t('Content and Usernode_type_get_types overview');
+  return t('Content and Usernode_type_get_types overview');
 }
 
 /**
  * 'Admin info' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
- *
  */
 function total_control_overview_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('An overview of both content and users in one pane');
+
   return $block;
 }
 
 /**
  * Run-time rendering of the body of the block.
- *
- * @param $subtype
- * @param $conf
- *   Configuration as done at admin time.
- * @param $args
- * @param $context
- *   Context - in this case we don't have any.
- *
- * @return
- *   An object with at least title and content members.
  */
 function total_control_overview_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
   $pane = total_control_overview_ctools_content_types();
   $block->title = $pane['title'];
-  
+
   $types = node_get_types('types');  
   $overview_cnt = array();
   $overview_usr = array();
-    
+
   // Content Overview.
   foreach ($types as $type => $object) {
     if (($conf['types'] == NULL) || $conf['types'][$type]) {  
@@ -115,7 +87,7 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
       $overview_cnt[] = $line;
     } 
   } 
-  
+
   // User Overview.
   if ($conf['user'] == 1) {  // compare against user option on pane config.
     $user_query = db_query("SELECT count(*) FROM {users}");
@@ -126,7 +98,7 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
     $total['users_block'] = format_plural(db_result($user_block_query), '1 blocked', '@count blocked');
     $overview_usr[] = $total['users_all'] . ' | ' . $total['users_active'] . ' | ' . $total['users_block'];
   }
-  
+
   // Roles Overview.
   $roles = user_roles(TRUE);
   $total['users_roles'] = '';
@@ -145,13 +117,10 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
 
 /**
  * 'Edit form' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form.
- *
  */
 function total_control_overview_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
-  
+
   $types = node_get_types('types');
   $type_options = array();
   $type_defaults = array();
@@ -210,15 +179,12 @@ function total_control_overview_content_type_edit_form($form, &$form_state) {
       '#default_value' => ($form_state['op'] == 'add')? $roles_defaults : $conf['roles'],
       );
   }
+
   return $form;
 }
 
 /**
  * 'Edit form' submit callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form_submit.
- * The submit form stores the data in $conf.
- *
  */
 function total_control_overview_content_type_edit_form_submit($form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {

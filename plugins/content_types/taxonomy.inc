@@ -45,18 +45,18 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = total_control_taxonomy_content_type_admin_title();
-  
+
   $vids = (isset($conf['vids']))? $conf['vids']: array();
-  
+
   $vocabs = taxonomy_get_vocabularies();
   $rows = array();  
-  
+
   if (!empty($vocabs)){  
     foreach ($vocabs as $vocab){
       // compare against vocab option on pane config
       if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids',$conf)){  
         $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", array(':vid' => $vocab->vid))->fetchField();
-        
+
         $terms = format_plural($term_count, '1 term', '@count terms');
         $rows[$vocab->vid] = $vocab->name . ': ' . $terms;
         if (user_access('administer taxonomy')){
@@ -66,7 +66,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
       } // if vocab
     } // foreach
   }
-  
+
   if ($rows){
     $output = theme('total_control_taxonomy', array('taxonomy' => $rows));
   }
@@ -87,7 +87,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
  */
 function total_control_taxonomy_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
- 
+
   $vocabs = taxonomy_get_vocabularies();
   if (!empty($vocabs)) {
     $vocab_options = array();
@@ -96,11 +96,11 @@ function total_control_taxonomy_content_type_edit_form($form, &$form_state) {
       $vocab_options[$vid] = $vocab->name;
       $vocab_defaults[$vid] = $vid;
     }
-    
+
     if (isset($conf['vids'])){
       $vocab_defaults = $conf['vids'];
     }
-  
+
     $form['vids'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Include Vocabularies'),
@@ -109,7 +109,7 @@ function total_control_taxonomy_content_type_edit_form($form, &$form_state) {
       '#default_value' => $vocab_defaults,
       );
   }
-  
+
   return $form;
 }
 

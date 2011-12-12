@@ -44,7 +44,7 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = t('Create Content');
-    
+
   $types = node_type_get_types();
   $create = array();  
 
@@ -81,27 +81,27 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
  */
 function total_control_create_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
-  
+
   $types = node_type_get_types();
   $type_options = array();
   $type_defaults = array();
-  
+
   foreach ($types as $type => $object) {
     $type_options[$type] = $object->name;
     $type_defaults[] = $type;
   }
-  
+
   if (isset($conf['types'])) {
     $type_defaults = $conf['types'];
   }
-  
+
   $form['types'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Include Create links for Content Types'),
     '#options' => $type_options,
     '#default_value' => $type_defaults,
   );
-  
+
   return $form;
 }
 

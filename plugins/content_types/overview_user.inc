@@ -22,9 +22,6 @@ $plugin = array(
 
 /**
  * 'Admin title' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
- *
  */
 function total_control_overview_user_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
   return t('User overview');
@@ -32,28 +29,16 @@ function total_control_overview_user_content_type_admin_title($subtype = NULL, $
 
 /**
  * 'Admin info' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
- *
  */
 function total_control_overview_user_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Displays a summary of user statistics including: number of total users, active users, blocked users, and users in each role.');
+
   return $block;
 } 
 
 /**
  * Run-time rendering of the body of the block.
- *
- * @param $subtype
- * @param $conf
- *   Configuration as done at admin time.
- * @param $args
- * @param $context
- *   Context - in this case we don't have any.
- *
- * @return
- *   An object with at least title and content members.
  */
 function total_control_overview_user_content_type_render($subtype, $conf, $panel_args, &$context) {
   $overview = array();
@@ -92,13 +77,10 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
 
 /**
  * 'Edit form' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form.
- *
  */
 function total_control_overview_user_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
-  
+
   $form['user'] = array(
     '#type' => 'checkbox',
     '#title' => t('Include User Stats'),
@@ -127,10 +109,6 @@ function total_control_overview_user_content_type_edit_form($form, &$form_state)
 
 /**
  * 'Edit form' submit callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form_submit.
- * The submit form stores the data in $conf.
- *
  */
 function total_control_overview_user_content_type_edit_form_submit($form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {

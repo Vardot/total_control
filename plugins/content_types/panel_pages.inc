@@ -8,72 +8,39 @@
  *
  */
 
-/**
- * Plugins are described by creating a $plugin array which will be used
- * by the system that includes this file.
- */
 $plugin = array(
-  'title' => t('Panel Pages list'),
-  'description' => t('A list of panels on the site.'),
-  // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
-  // Constructor.
-  'content_types' => array('total_control_panel_pages_content_type'),
-  // Name of a function which will render the block.
-  'render callback' => 'total_control_panel_pages_content_type_render',
-  // The default context.
+  'title' => t('Panel Pages list'),
   'defaults' => array(),
-  // This explicitly declares the config form. Without this line, the func would be
-  // total_control_panel_pages_content_type_edit_form.
-  'edit form' => 'total_control_panel_pages_content_type_edit_form',
-  // Icon goes in the directory with the content type.
   'icon' => 'cog.png',
+  'description' => t('A list of panels on the site.'),
   'category' => t('Total control'),
+  'edit text' => t('Configure'),
 );
 
 /**
  * 'Admin title' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
- *
  */
 function total_control_panel_pages_content_type_admin_title($subtype, $conf, $context) {
-    return t('Panel page overview');
+  return t('Panel page overview');
 }
 
 /**
  * 'Admin info' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
- *
  */
 function total_control_panel_pages_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Displays a list of Panel Pages, with "edit" links.');
+
   return $block;
 }
 
 /**
  * Run-time rendering of the body of the block.
- *
- * @param $subtype
- * @param $conf
- *   Configuration as done at admin time.
- * @param $args
- * @param $context
- *   Context - in this case we don't have any.
- *
- * @return
- *   An object with at least title and content members.
  */
 function total_control_panel_pages_content_type_render($subtype, $conf, $args, $context) {
-  $block = new stdClass();
-
-  // The title actually used in rendering.
-  $block->title = check_plain("Panel Pages");
-  
   $items = array();
-  
+
   // Get panels pages.
   module_load_include('inc', 'page_manager', 'page_manager.admin');
   $tasks = page_manager_get_tasks_by_type('page');
@@ -81,10 +48,10 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
 
   page_manager_get_pages($tasks, $pages);
   $count = 0;
-  
+
   $header = array(t('Page'), t('Operations'));
   $rows = array();
-  
+
   foreach ($pages['rows'] as $id => $info) {
     // TODO: config setting?
     // Only show enabled panels on the pane.
@@ -101,15 +68,17 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
       // Only show 10.
       if (++$count >= 10) {
         break;
-      } 
+      }
     }
   }
-  
+
   // Build a link to the page manager UI.
   if (user_access('use page manager')) {
     $link = l(t('Go to list'), 'admin/build/pages');
   }
-  
+
+  $block = new stdClass();
+  $block->title = check_plain("Panel Pages");
   $block->content = theme('total_control_panel_pages', $header, $rows, $link);
 
   return $block;
@@ -118,9 +87,6 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
 
 /**
  * 'Edit form' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form.
- *
  */
 function total_control_panel_pages_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
@@ -130,10 +96,6 @@ function total_control_panel_pages_content_type_edit_form($form, &$form_state) {
 
 /**
  * 'Edit form' submit callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form_submit.
- * The submit form stores the data in $conf.
- *
  */
 function total_control_panel_pages_content_type_edit_form_submit($form, &$form_state) {
   foreach (array('item1', 'item2') as $key) {
