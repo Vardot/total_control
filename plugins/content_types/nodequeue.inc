@@ -124,7 +124,7 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
  * ctools_plugin_example_nodequeue_content_type_edit_form.
  *
  */
-function nodequeue_content_type_edit_form(&$form, &$form_state) {
+function nodequeue_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
 
   return $form;
@@ -137,7 +137,7 @@ function nodequeue_content_type_edit_form(&$form, &$form_state) {
  * The submit form stores the data in $conf.
  *
  */
-function nodequeue_content_type_edit_form_submit(&$form, &$form_state) {
+function nodequeue_content_type_edit_form_submit($form, &$form_state) {
   foreach (array('item1', 'item2') as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   }

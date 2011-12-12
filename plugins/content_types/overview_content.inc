@@ -45,10 +45,6 @@ function total_control_overview_content_content_type_admin_info($subtype, $conf,
  * Run-time rendering of the body of the block.
  */
 function total_control_overview_content_content_type_render($subtype, $conf, $panel_args, $context) {
-  $block = new stdClass();
-  $block->module = t('total_control');
-  $block->title = total_control_overview_content_content_type_admin_title();
-
   $types = node_type_get_types();  
   $overview = array();
 
@@ -76,7 +72,9 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
       $overview[] = $line;
     }
   }
-
+  
+  $block = new stdClass();
+  $block->title = total_control_overview_content_content_type_admin_title();
   $block->content = theme('total_control_overview_content', array('overview' => $overview));
 
   return $block;
@@ -133,7 +131,7 @@ function total_control_overview_content_content_type_edit_form($form, &$form_sta
 /**
  * 'Edit form' submit callback for the content type.
  */
-function total_control_overview_content_content_type_edit_form_submit(&$form, &$form_state) {
+function total_control_overview_content_content_type_edit_form_submit($form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   } 

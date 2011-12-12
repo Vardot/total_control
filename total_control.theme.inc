@@ -38,7 +38,7 @@ function theme_total_control_overview_content($variables){
 /*
  * Theme function for user overview.
  */
-function theme_total_control_overview_users($variables){
+function theme_total_control_overview_user($variables){
   $overview = $variables['overview'];
 
   $content = '<div class="total-control-user-overview">';

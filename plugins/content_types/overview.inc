@@ -148,7 +148,7 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
  * ctools_plugin_example_total_control_panel_pages_content_type_edit_form.
  *
  */
-function total_control_overview_content_type_edit_form(&$form, &$form_state) {
+function total_control_overview_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
   
   $types = node_get_types('types');
@@ -219,7 +219,7 @@ function total_control_overview_content_type_edit_form(&$form, &$form_state) {
  * The submit form stores the data in $conf.
  *
  */
-function total_control_overview_content_type_edit_form_submit(&$form, &$form_state) {
+function total_control_overview_content_type_edit_form_submit($form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   }

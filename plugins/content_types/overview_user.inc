@@ -9,26 +9,13 @@
  *
  */
 
-/**
- * Plugins are described by creating a $plugin array which will be used
- * by the system that includes this file.
- */
 $plugin = array(
-  'title' => t('User Overview'),
-  'description' => t('Displays a summary of user statistics including: number of total users, active users, blocked users, and users in each role.'),
-  // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
-  // Constructor.
-  'content_types' => array('total_control_overview_user_content_type'),
-  // Name of a function which will render the block.
-  'render callback' => 'total_control_overview_user_content_type_render',
-  // The default context.
+  'title' => t('User Overview'),
   'defaults' => array('user' => NULL, 'roles' => NULL),
-  // This explicitly declares the config form. Without this line, the func would be
-  // total_control_overview_user_content_type_edit_form.
-  'edit form' => 'total_control_overview_user_content_type_edit_form',
-  // Icon goes in the directory with the content type.
   'icon' => 'cog.png',
+  'description' => t('Displays a summary of user statistics including: number 
+    of total users, active users, blocked users, and users in each role.'),
   'category' => t('Total control'),
 );
 
@@ -38,8 +25,8 @@ $plugin = array(
  * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
  *
  */
-function total_control_overview_user_content_type_admin_title($subtype, $conf, $context) {
-  return t('User onode_type_get_typesverview');
+function total_control_overview_user_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
+  return t('User overview');
 }
 
 /**
@@ -68,40 +55,37 @@ function total_control_overview_user_content_type_admin_info($subtype, $conf, $c
  *   An object with at least title and content members.
  */
 function total_control_overview_user_content_type_render($subtype, $conf, $panel_args, &$context) {
-  $block = new stdClass();
-  $block->module = t('total_control');
-  $pane = total_control_overview_user_ctools_content_types();
-  $block->title = $pane['title'];
-
-  $types = node_get_types('types');  
   $overview = array();
-  
+
   // User Overview
-  if (!$conf['user'] || $conf['user'] == 1){  // compare against user option on pane config
-    $user_query = db_query("SELECT count(*) FROM {users}");
-    $total['users_all'] = format_plural(db_result($user_query), '1 total user', '@count total users');
-    $user_active_query = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login != 0");
-    $total['users_active'] = format_plural(db_result($user_active_query), '1 active user', '@count active users');
-    $user_block_query = db_query("SELECT count(*) FROM {users} WHERE status = 0");
-    $total['users_block'] = format_plural(db_result($user_block_query), '1 blocked user', '@count blocked users');
+  if (!$conf['user'] || $conf['user'] == 1) {
+    $user_query = db_query("SELECT count(*) FROM {users}")->fetchField();
+    $total['users_all'] = format_plural($user_query, '1 total user', '@count total users');
+    $user_active_query = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login != 0")->fetchField();
+    $total['users_active'] = format_plural($user_active_query, '1 active user', '@count active users');
+    $user_block_query = db_query("SELECT count(*) FROM {users} WHERE status = 0")->fetchField();
+    $total['users_block'] = format_plural($user_block_query, '1 blocked user', '@count blocked users');
     $overview[] = $total['users_all'];
     $overview[] = $total['users_active'];
     $overview[] = $total['users_block'];
   }
-  
+
   // Roles Overview
   $roles = user_roles(TRUE);
   $total['users_roles'] = '';
   foreach ($roles as $rid => $role){
-    if ((!$conf['roles'] || ($conf['roles'][$rid])) && $rid != 2){  // compare against roles option on pane config
-      $user_role_query = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = %d", $rid);
-      $total['users_role_'.$rid] .= format_plural(db_result($user_role_query), '1 user', '@count users');
-      $total['users_role_'.$rid] .= ' in role: '.$role;
-      $overview[] = $total['users_role_'.$rid];
-    } // if not auth
-  } // foreach
+    if (($rid != 2) && (array_key_exists($rid, $conf['roles']) && $conf['roles'][$rid])) {
+      $user_role_query = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = :rid", array(':rid' => $rid))->fetchField();
+      $total['users_role_' . $rid] = format_plural($user_role_query, '1 user', '@count users');
+      $total['users_role_' . $rid] .= ' in role: ' . $role;
+      $overview[] = $total['users_role_' . $rid];
+    }
+  }
 
-  $block->content = theme('total_control_overview_user', $overview);
+  $block = new stdClass();
+  $block->title = total_control_overview_user_content_type_admin_title();
+  $block->content = theme('total_control_overview_user', array('overview' => $overview));
+
   return $block;
 }
 
@@ -111,7 +95,7 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
  * ctools_plugin_example_total_control_panel_pages_content_type_edit_form.
  *
  */
-function total_control_overview_user_content_type_edit_form(&$form, &$form_state) {
+function total_control_overview_user_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
   
   $form['user'] = array(
@@ -147,7 +131,7 @@ function total_control_overview_user_content_type_edit_form(&$form, &$form_state
  * The submit form stores the data in $conf.
  *
  */
-function total_control_overview_user_content_type_edit_form_submit(&$form, &$form_state) {
+function total_control_overview_user_content_type_edit_form_submit($form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   }
