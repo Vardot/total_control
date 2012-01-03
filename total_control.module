@@ -43,7 +43,7 @@ function total_control_menu() {
   $items = array();
 
   $items['admin/config/control'] = array(
-    'title' => 'Total Control',
+    'title' => 'Total Control Dashboard',
     'description' => 'Adjust dashboard settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('total_control_admin_settings'),

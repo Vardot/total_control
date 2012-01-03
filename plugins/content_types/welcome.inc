@@ -50,7 +50,7 @@ function total_control_welcome_content_type_render($subtype, $conf, $panel_args,
     Views content panes can be created for you automatically according to your 
     !settings.  Make this dashboard the perfect hub for all your administrative 
     needs.', array(
-     '!panel' => l(t('Edit this panel'), 'admin/structure/pages/edit/dashboard'), 
+     '!panel' => l(t('Edit this panel'), 'admin/structure/pages/nojs/operation/page-dashboard/handlers/page_dashboard_panel_context/content'), 
      '!settings' => l(t('Total Control Settings'), 'admin/config/control'))) . '</p>';
   $content .= '</div>';
 

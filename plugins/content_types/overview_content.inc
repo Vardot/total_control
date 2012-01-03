@@ -51,7 +51,7 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
 
   foreach ($types as $type => $object) {
     // Compare against type option on pane config.
-    if (empty($conf['types']) || (isset($conf['types']) && $conf['types'][$type])) {  
+    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {  
       $type_count = db_query("SELECT count(*) FROM {node} WHERE type = :type and status = 1", array(':type' => $type))->fetchField();
       $total[$type] = format_plural($type_count, '1 ' . $object->name . ' item', '@count ' . $object->name . ' items');
 

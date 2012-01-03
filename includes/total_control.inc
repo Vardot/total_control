@@ -51,8 +51,11 @@ function total_control_views_add_display($machine_type, $content_type) {
     drupal_set_message(t('no content type provided'), 'error');
     return;
   }
-  
+
+  // Get total control settings.
+  $auto_page_default = variable_get('total_control_auto_pages', array());
   $auto_pane_default = variable_get('total_control_auto_panels', array());
+
   if (!($auto_page_default['type'] === 0)) {
     $view = views_get_view('control_content');
     if (!$view->display['page_tc_' . $machine_type]) { 

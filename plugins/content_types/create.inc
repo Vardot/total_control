@@ -24,7 +24,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_create_content_type_admin_title($subtype, $conf, $context) {
-  return t('Content cnode_type_get_typesreation');
+  return t('Content creation');
 }
 
 /**
@@ -50,21 +50,22 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
 
   foreach ($types as $type => $object) {
     $row = '';
-    // compare against type option on pane config
-    if ((isset($conf['types']) && $conf['types'][$type]) || ($conf == array())) {  
-      
-      // check access, then add a link to create content.
+
+    // Config data says to include the type.
+    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {  
+      // Check access, then add a link to create content.
       if (node_access('create', $type)) { 
         $type_url_str = str_replace('_', '-', $object->type);  
         $row = l(t('Add new  ' . $object->name), 'node/add/' . $type_url_str);
-        
-        // Check access, then add a link to administer content types.
+
+        // Check access, then add links to administer content types.
         if ((variable_get('total_control_configure_links', 1) == 1) 
           && user_access('administer content types')) {
           $row .= ' | ' . l(t('Configure'), 'admin/structure/types/manage/' . $type_url_str);
+          $row .= ' | ' . l(t('Fields'), 'admin/structure/types/manage/' . $type_url_str . '/fields');
+          $row .= ' | ' . l(t('Display'), 'admin/structure/types/manage/' . $type_url_str . '/display');
         }
       }
-
       if (isset($row)) { 
         $create[] = $row;
       }
