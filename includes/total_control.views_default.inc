@@ -7,10 +7,10 @@
  */
 
 /**
- * Implementation of hook_views_default_views().
+ * Implements hook_views_default_views().
  */
 function total_control_views_default_views() {
-  $views_path = drupal_get_path('module', 'total_control')  . '/views';
+  $views_path = drupal_get_path('module', 'total_control') . '/views';
   $files = file_scan_directory($views_path, '/\.view$/');
   
   foreach ($files as $filepath => $file) {
@@ -20,7 +20,7 @@ function total_control_views_default_views() {
     if ( ($file->name == 'control_activity' && !module_exists('statistics')) 
       || ($file->name == 'control_comments' && !module_exists('comment'))
       || ($file->name == 'control_terms' && !module_exists('taxonomy')) 
-      ){
+      ) {
       continue;
     }
     else {

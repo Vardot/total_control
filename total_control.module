@@ -17,7 +17,7 @@ define('TOTAL_CONTROL_MINIMUM_VERSION', 1);
 define('TOTAL_CONTROL_VERSION', 1);
 
 /** 
- * Implementation of hook_perm().
+ * Implements hook_perm().
  *
  * Adds permissions for access to the total control dashboard
  */
@@ -35,7 +35,7 @@ function total_control_permission() {
 }
 
 /** 
- * Implementation of hook_menu().
+ * Implements hook_menu().
  *
  * Adds the total control dashboard
  */
@@ -55,7 +55,7 @@ function total_control_menu() {
 }
 
 /**
- * Implementation of hook_form_alter().
+ * Implements hook_form_alter().
  *
  * Adds views adjustment handling when content types are added or removed
  */
@@ -69,14 +69,14 @@ function total_control_form_alter(&$form, $form_state, $form_id) {
 }
 
 /**
- * Implementation of hook_user_login().
+ * Implements hook_user_login().
  * Redirects to the dashboard if configured.
  */
 function total_control_user_login(&$edit, $account) {
   if (!((arg(0) == 'user') && (arg(1) == 'reset'))) {
     if (user_access('have total control', $account)) {
       if (variable_get('total_control_login_redirect', 0) == 1) {
-        drupal_set_message('welcome to your administrative dashboard');
+        drupal_set_message(t('welcome to your administrative dashboard'));
         drupal_goto('admin/dashboard');
       }
     }
@@ -84,7 +84,7 @@ function total_control_user_login(&$edit, $account) {
 }
 
 /**
- * Implementation of hook_views_pre_render().
+ * Implements hook_views_pre_render().
  *
  * Adds the create content links to dashboard views.
  */
@@ -125,7 +125,7 @@ function total_control_views_pre_render(&$view) {
 }
 
 /**
- * Implementation of hook_ctools_plugin_dierctory().
+ * Implements hook_ctools_plugin_dierctory().
  */
 function total_control_ctools_plugin_directory($module, $plugin) {
   if ($module == 'ctools' && !empty($plugin)) {
@@ -134,7 +134,7 @@ function total_control_ctools_plugin_directory($module, $plugin) {
 }
 
 /**
- * Implement hook_ctools_plugin_api().
+ * Implements hook_ctools_plugin_api().
  */
 function total_control_ctools_plugin_api($module, $api) {
   if ($module == 'panels_mini' && $api == 'panels_default') {
@@ -146,7 +146,7 @@ function total_control_ctools_plugin_api($module, $api) {
 }
 
 /**
- * Implementation of hook_views_api().
+ * Implements hook_views_api().
  *
  * Register View API information. This is required for your module to have
  * its include files loaded; for example, when implementing
@@ -166,7 +166,7 @@ function total_control_views_api() {
 }
 
 /**
- * Implementation of hook_theme().
+ * Implements hook_theme().
  *
  * Adds theme functions for the output of content panes.
  */

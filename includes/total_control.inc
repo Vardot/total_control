@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @file total_control.inc
- *
+ * @file
  * Helper functions for total control.
  */
  
@@ -15,8 +14,8 @@
  *   The state of the form when the request is made
  *
  */ 
-function total_control_add_type_submit($form, &$form_state){
-  // get the type  
+function total_control_add_type_submit($form, &$form_state) {
+  // Get the type names.
   $machine_type = $form_state['values']['type'];
   $content_type = $form_state['values']['name'];
   total_control_views_add_display($machine_type, $content_type);
@@ -31,7 +30,7 @@ function total_control_add_type_submit($form, &$form_state){
  *   The state of the form when the request is made
  *
  */ 
-function total_control_remove_type_submit($form, &$form_state){
+function total_control_remove_type_submit($form, &$form_state) {
   // get the type  
   $machine_type = $form_state['values']['type'];
   total_control_views_delete_page_display($machine_type);
@@ -47,38 +46,42 @@ function total_control_remove_type_submit($form, &$form_state){
  *   The human readable name of the content type
  *
  */
-function total_control_views_add_display($machine_type, $content_type){
-  if (!$machine_type){
-    drupal_set_message('no content type provided', 'error');
+function total_control_views_add_display($machine_type, $content_type) {
+  if (!$machine_type) {
+    drupal_set_message(t('no content type provided'), 'error');
     return;
   }
   
   $auto_pane_default = variable_get('total_control_auto_panels', array());
-  if (!($auto_page_default['type'] === 0)){
+  if (!($auto_page_default['type'] === 0)) {
     $view = views_get_view('control_content');
-    if (!$view->display['page_tc_'.$machine_type]) { 
+    if (!$view->display['page_tc_' . $machine_type]) { 
       total_control_add_views_page_display($view, $content_type, $machine_type);
       $defaults = variable_get('total_control_type_pages', array());
       $defaults[$machine_type] = $machine_type;
       $defaults = variable_set('total_control_type_pages', $defaults);
     }
     else {
-      drupal_set_message(t('Total Control was unable to create your administrative view because a view already exists with the name: '.'page_tc_'.$machine_type));
+      drupal_set_message(t('Total Control was unable to create your 
+        administrative view because a view already exists with the name: 
+        !name', array('!name' => 'page_tc_' . $machine_type)));
     }
   }
   
   $auto_page_default = variable_get('total_control_auto_pages', array());
-  if (!($auto_pane_default['type'] === 0)){
+  if (!($auto_pane_default['type'] === 0)) {
     $paneview = views_get_view('control_content_panes');
     $auto_panes = variable_get('total_control_auto_panels', array());
-    if (!$paneview->display['pane_tc_'.$machine_type]) {
+    if (!$paneview->display['pane_tc_' . $machine_type]) {
       total_control_add_views_pane_display($paneview, $content_type, $machine_type);
       $defaults = variable_get('total_control_type_panes', array());
       $defaults[$machine_type] = $machine_type;
       $defaults = variable_set('total_control_type_panes', $defaults);
     }
     else {
-      drupal_set_message(t('Total Control was unable to create your administrative view because a view already exists with the name: '.'pane_tc_'.$machine_type));
+      drupal_set_message(t('Total Control was unable to create your 
+        administrative view because a view already exists with the name: 
+        !name', array('!name' => 'pane_tc_' . $machine_type)));
     }
   }
 
@@ -92,9 +95,9 @@ function total_control_views_add_display($machine_type, $content_type){
  *   The machine readable name of the content type
  *
  */
-function total_control_views_delete_page_display($type){
+function total_control_views_delete_page_display($type) {
   $view = views_get_view('control_content');
-  unset($view->display['page_tc_'.$type]);
+  unset($view->display['page_tc_' . $type]);
   $view->save();
   menu_cache_clear_all();
   return;
@@ -107,9 +110,9 @@ function total_control_views_delete_page_display($type){
  *   The machine readable name of the content type
  *
  */
-function total_control_views_delete_pane_display($type){
+function total_control_views_delete_pane_display($type) {
   $view = views_get_view('control_content_panes');
-  unset($view->display['pane_tc_'.$type]);
+  unset($view->display['pane_tc_' . $type]);
   $view->save();
   return;
 }
@@ -125,7 +128,7 @@ function total_control_views_delete_pane_display($type){
  *   The human-readable content type name
  *
  */
-function total_control_add_views_pane_display(&$view, $content_type, $machine_type){  
+function total_control_add_views_pane_display(&$view, $content_type, $machine_type) {  
   // Build the display.
   $handler = $view->new_display('panel_pane', $content_type . ' pane', 'panel_pane_tc_' . $machine_type);
   $handler->override_option('filters', array(
@@ -186,7 +189,7 @@ function total_control_add_views_pane_display(&$view, $content_type, $machine_ty
  *   The machine-readable content type name
  *
  */
-function total_control_add_views_page_display(&$view, $content_type, $machine_type){  
+function total_control_add_views_page_display(&$view, $content_type, $machine_type) {  
   // Build the display.
   $handler = $view->new_display('page', $content_type . ' Page', 'page_tc_' . $machine_type);
   
@@ -200,7 +203,7 @@ function total_control_add_views_page_display(&$view, $content_type, $machine_ty
   $handler->override_option('header', '');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 1);
-  $handler->override_option('path', 'admin/dashboard/content/'.$machine_path);
+  $handler->override_option('path', 'admin/dashboard/content/' . $machine_path);
   $handler->override_option('menu', array(
     'type' => 'tab',
     'title' => $content_type . ' content',
@@ -226,11 +229,12 @@ function total_control_add_views_page_display(&$view, $content_type, $machine_ty
  *
  * @param $machine_type
  *   The machine-readable content type name
+ *
  * @return $filters
  *   An array of filters for the view
  *
  */
-function total_control_add_filters($machine_type = NULL){
+function total_control_add_filters($machine_type = NULL) {
   $filters = array(
     'status' => array(
       'operator' => '=',
@@ -273,7 +277,7 @@ function total_control_add_filters($machine_type = NULL){
     )
   );
   
-  if ($machine_type){
+  if ($machine_type) {
     $filters['type_1'] = array(
       'operator' => 'in',
       'value' => array(
@@ -295,7 +299,7 @@ function total_control_add_filters($machine_type = NULL){
     );
   }
   
-  if (module_exists('search')){
+  if (module_exists('search')) {
     $filters['keys'] = array(
       'operator' => 'optional',
       'value' => '',

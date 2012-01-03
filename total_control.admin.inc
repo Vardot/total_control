@@ -11,7 +11,7 @@
 /**
  * menu callback for settings page
  */
-function total_control_admin_settings(){
+function total_control_admin_settings() {
   // Redirect on log in.
   $form['total_control_login_redirect'] = array(
     '#type' => 'checkbox',
@@ -29,7 +29,7 @@ function total_control_admin_settings(){
     '#description' => t('Configure links go to the edit content type pages'),
   );
   
-  $overridden = '<strong>' . t('  Automatic settings override these options.') . '</strong>';
+  $overridden = ' <strong>' . t('Automatic settings override these options.') . '</strong>';
   $collapse_type = FALSE;
   $collapse_role = FALSE;
   $collapse_auto = TRUE;
@@ -171,16 +171,18 @@ function total_control_admin_settings(){
 /**
  * Submit function for settings page
  */
-function total_control_admin_settings_submit($form, &$form_state){
-  if ($form_state['values']['total_control_role_panels'][2] == 0){
+function total_control_admin_settings_submit($form, &$form_state) {
+  if ($form_state['values']['total_control_role_panels'][2] == 0) {
     // change it back and tell them why
     $form_state['values']['total_control_role_panels'][2] = 2;
-    drupal_set_message(t('You can not delete the pane view for users.  To remove it from your dashboard, use the <a href="!panels_interface">Page Manager</a>.', array('!panels_interface' => url('admin/build/pages'))));
+    drupal_set_message(t('You can not delete the pane view for users.  To 
+      remove it from your dashboard, use the <a href="!panels_interface">Page 
+      Manager</a>.', array('!panels_interface' => url('admin/build/pages'))));
   }
-  if ($form_state['values']['total_control_role_pages'][2] == 0){
+  if ($form_state['values']['total_control_role_pages'][2] == 0) {
     // change it back and tell them why
     $form_state['values']['total_control_role_pages'][2] = 2;
-    drupal_set_message('You should not delete the page view for all users.');
+    drupal_set_message(t('You should not delete the page view for all users.'));
   }
 
   $panes = variable_get('total_control_type_panes', array());
@@ -188,8 +190,8 @@ function total_control_admin_settings_submit($form, &$form_state){
   $paneview = views_get_view('control_content_panes');
   $pageview = views_get_view('control_content');
   $types = node_type_get_types();
-  foreach ($types as $machine => $type){
-    if (is_array($form_state['values']['total_control_type_panels'])){
+  foreach ($types as $machine => $type) {
+    if (is_array($form_state['values']['total_control_type_panels'])) {
       if (array_key_exists($machine, $form_state['values']['total_control_type_panels'])) {
         //total_control_add_views_pane_display($paneview, $type->name, $machine);
       }

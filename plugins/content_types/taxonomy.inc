@@ -39,7 +39,7 @@ function total_control_taxonomy_content_type_admin_info($subtype, $conf, $contex
  * Run-time rendering of the body of the block.
  */
 function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args, $context) {
-  if (!module_exists('taxonomy')){
+  if (!module_exists('taxonomy')) {
     return;
   }
   $block = new stdClass();
@@ -51,29 +51,31 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $vocabs = taxonomy_get_vocabularies();
   $rows = array();  
 
-  if (!empty($vocabs)){  
-    foreach ($vocabs as $vocab){
+  if (!empty($vocabs)) {  
+    foreach ($vocabs as $vocab) {
       // compare against vocab option on pane config
-      if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids',$conf)){  
+      if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids', $conf)) {  
         $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", array(':vid' => $vocab->vid))->fetchField();
 
         $terms = format_plural($term_count, '1 term', '@count terms');
         $rows[$vocab->vid] = $vocab->name . ': ' . $terms;
-        if (user_access('administer taxonomy')){
-          $rows[$vocab->vid] .= ' | '. l('list terms', 'admin/content/taxonomy/'.$vocab->vid);
-          $rows[$vocab->vid] .= ' | '. l('add term', 'admin/content/taxonomy/'.$vocab->vid.'/add/term');
+        if (user_access('administer taxonomy')) {
+          $rows[$vocab->vid] .= ' | ' . l(t('list terms'), 'admin/content/taxonomy/' . $vocab->vid);
+          $rows[$vocab->vid] .= ' | ' . l(t('add term'), 'admin/content/taxonomy/' . $vocab->vid . '/add/term');
         } // if access
       } // if vocab
     } // foreach
   }
 
-  if ($rows){
+  if ($rows) {
     $output = theme('total_control_taxonomy', array('taxonomy' => $rows));
   }
   else {
-    $output = t('You have no vocabularies yet. ');
-    if (user_access('administer taxonomy')){
-      $output .= '<div class="add-vocab">'.l(t('Add vocabulary'),'admin/content/taxonomy/add/vocabulary').'</div>';
+    $output = t('You have no vocabularies yet.') . ' ';
+    if (user_access('administer taxonomy')) {
+      $output .= '<div class="add-vocab">';
+      $output .= l(t('Add vocabulary'), 'admin/content/taxonomy/add/vocabulary');
+      $output .= '</div>';
     }
   }
 
@@ -92,19 +94,19 @@ function total_control_taxonomy_content_type_edit_form($form, &$form_state) {
   if (!empty($vocabs)) {
     $vocab_options = array();
     $vocab_defaults = array();
-    foreach ($vocabs as $vid => $vocab){
+    foreach ($vocabs as $vid => $vocab) {
       $vocab_options[$vid] = $vocab->name;
       $vocab_defaults[$vid] = $vid;
     }
 
-    if (isset($conf['vids'])){
+    if (isset($conf['vids'])) {
       $vocab_defaults = $conf['vids'];
     }
 
     $form['vids'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Include Vocabularies'),
-      '#multiple' => true,
+      '#multiple' => TRUE,
       '#options' => $vocab_options,
       '#default_value' => $vocab_defaults,
       );

@@ -7,15 +7,12 @@
  */
 
 /**
- * Implementation of hook_install
+ * Implements hook_install
  *
  * Disable the core dashboard module.
  */
 function total_control_install() {
-  // Disable the core dashboard module.
-  if (module_exists('dashboard')) {
-    module_disable(array('dashboard'));
-  }
+  // TODO Disable the core dashboard module or set message explaining it's disappearence.
 }
 
 /**
@@ -99,7 +96,7 @@ function total_control_requirements($phase) {
 
 
 /**
- * Implementation of hook_uninstall
+ * Implements hook_uninstall
  */
 function total_control_uninstall() {
   $views = views_get_all_views();
@@ -110,7 +107,7 @@ function total_control_uninstall() {
     $total_control_views = array('control_content', 'control_content_panes', 'control_comments', 
       'control_files', 'control_revisions', 'control_terms', 'control_users', 'control_users_panes');
     if (in_array($view->type, $views_types) && in_array($view_name, $total_control_views)) {
-      drupal_set_message(t('Deleting view: !view', array('!view' => $view_name)));
+      drupal_set_message(t('Deleting view: @view', array('@view' => $view_name)));
       $view->delete();
       views_object_cache_clear('view', $view_name);
     }

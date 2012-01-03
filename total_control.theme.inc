@@ -9,13 +9,13 @@
 /*
  * Theme function for site overview.
  */
-function theme_total_control_overview($variables){
+function theme_total_control_overview($variables) {
   $overview = $variables['overview'];
 
   $content = '<div class="total-control-site-overview">';
-  $content .= ' <strong>'.t('Content').'</strong>';
+  $content .= ' <strong>' . t('Content') . '</strong>';
   $content .= theme('item_list', array('items' => $overview['content']));
-  $content .= ' <strong>'.t('Users').'</strong>';
+  $content .= ' <strong>' . t('Users') . '</strong>';
   $content .= theme('item_list', array('items' => $overview['users']));
   $content .= '</div>';
 
@@ -25,7 +25,7 @@ function theme_total_control_overview($variables){
 /*
  * Theme function for content overview.
  */
-function theme_total_control_overview_content($variables){
+function theme_total_control_overview_content($variables) {
   $overview = $variables['overview'];
 
   $content = '<div class="total-control-content-overview">';
@@ -38,7 +38,7 @@ function theme_total_control_overview_content($variables){
 /*
  * Theme function for user overview.
  */
-function theme_total_control_overview_user($variables){
+function theme_total_control_overview_user($variables) {
   $overview = $variables['overview'];
 
   $content = '<div class="total-control-user-overview">';
@@ -51,7 +51,7 @@ function theme_total_control_overview_user($variables){
 /*
  * Theme function for create content pane.
  */
-function theme_total_control_create($variables){
+function theme_total_control_create($variables) {
   $create = $variables['create'];
 
   $content = '<div class="total-control-create">';
@@ -64,7 +64,7 @@ function theme_total_control_create($variables){
 /*
  * Theme function for taxonomy pane.
  */
-function theme_total_control_taxonomy($varibales){
+function theme_total_control_taxonomy($varibales) {
   $taxonomy = $varibales['taxonomy'];
 
   $content = '<div class="total-control-taxonomy">';
@@ -77,7 +77,7 @@ function theme_total_control_taxonomy($varibales){
 /*
  * Theme function for taxonomy pane.
  */
-function theme_total_control_panel_pages($varibales){
+function theme_total_control_panel_pages($varibales) {
   $header = $varibales['header'];
   $rows = $varibales['rows'];
   $link = $variables['link'];
@@ -93,7 +93,7 @@ function theme_total_control_panel_pages($varibales){
 /*
  * Theme function for taxonomy pane.
  */
-function theme_total_total_control_nodequeue($varibales){
+function theme_total_total_control_nodequeue($varibales) {
   $header = $varibales['header'];
   $rows = $varibales['rows'];
   
