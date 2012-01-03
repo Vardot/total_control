@@ -69,6 +69,7 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
   }
 
   $block = new stdClass();
+  $block->module = t('total_control');
   $block->title = total_control_overview_user_content_type_admin_title();
   $block->content = theme('total_control_overview_user', array('overview' => $overview));
 

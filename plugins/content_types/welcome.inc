@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @file welcome.inc
+ * @file
  *
- * "Welcome" panels content type. Displays a summary of content statistics 
+ * "Welcome" panel content type. Displays a summary of content statistics 
  * including: number pieces of each type of content, number of comments, 
  * number of blocked comments (spam) and configuration links.
  *
@@ -55,5 +55,6 @@ function total_control_welcome_content_type_render($subtype, $conf, $panel_args,
   $content .= '</div>';
 
   $block->content = $content;
+
   return $block;
 }

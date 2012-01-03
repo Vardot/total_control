@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file taxonomy.inc
+ * @file
  *
  * "Taxonomy" content type. It shows users with permissions statistics
  * and links to manage terms in vocabularies on the site.
@@ -44,7 +44,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = total_control_taxonomy_content_type_admin_title();
+  $block->title = t('Category overview');
 
   $vids = (isset($conf['vids']))? $conf['vids']: array();
 

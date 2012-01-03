@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file overview_content.inc
+ * @file
  *
  * "Content overview" panels content type. Displays a summary of content 
  * statistics including: number pieces of each type of content, number of
@@ -76,6 +76,7 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
   }
 
   $block = new stdClass();
+  $block->module = t('total_control');
   $block->title = total_control_overview_content_content_type_admin_title();
   $block->content = theme('total_control_overview_content', array('overview' => $overview));
 

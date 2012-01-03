@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file total_control.admin.inc
+ * @file
  *
  * This module enables a page to be used as an administrative dashboard
  * Also included are several views for site administration.

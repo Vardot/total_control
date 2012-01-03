@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file create.inc
+ * @file
  *
  * "Create content" panels content type. It shows users links to
  * create new content of all types for which they have permissions,
@@ -43,7 +43,7 @@ function total_control_create_content_type_admin_info($subtype, $conf, $context)
 function total_control_create_content_type_render($subtype, $conf, $panel_args, $context) {
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Create Content');
+  $block->title = t('Create content');
 
   $types = node_type_get_types();
   $create = array();  

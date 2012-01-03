@@ -2,7 +2,8 @@
 
 /**
  * @file
- * Theme functions.
+ * 
+ * Theme functions used in total control panel panes.
  *
  */
 
@@ -10,16 +11,17 @@
  * Theme function for site overview.
  */
 function theme_total_control_overview($variables) {
-  $overview = $variables['overview'];
+  $content = $variables['content'];
+  $users = $variables['users'];
 
-  $content = '<div class="total-control-site-overview">';
-  $content .= ' <strong>' . t('Content') . '</strong>';
-  $content .= theme('item_list', array('items' => $overview['content']));
-  $content .= ' <strong>' . t('Users') . '</strong>';
-  $content .= theme('item_list', array('items' => $overview['users']));
-  $content .= '</div>';
+  $output  = '<div class="total-control-site-overview">';
+  $output .= '<strong>' . t('Content') . '</strong>';
+  $output .= theme('item_list', array('items' => $content));
+  $output .= '<strong>' . t('Users') . '</strong>';
+  $output .= theme('item_list', array('items' => $users));
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
@@ -28,11 +30,11 @@ function theme_total_control_overview($variables) {
 function theme_total_control_overview_content($variables) {
   $overview = $variables['overview'];
 
-  $content = '<div class="total-control-content-overview">';
-  $content .= theme('item_list', array('items' => $overview));
-  $content .= '</div>';
+  $output  = '<div class="total-control-content-overview">';
+  $output .= theme('item_list', array('items' => $overview));
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
@@ -41,11 +43,11 @@ function theme_total_control_overview_content($variables) {
 function theme_total_control_overview_user($variables) {
   $overview = $variables['overview'];
 
-  $content = '<div class="total-control-user-overview">';
-  $content .= theme('item_list', array('items' => $overview));
-  $content .= '</div>';
+  $output  = '<div class="total-control-user-overview">';
+  $output .= theme('item_list', array('items' => $overview));
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
@@ -54,11 +56,11 @@ function theme_total_control_overview_user($variables) {
 function theme_total_control_create($variables) {
   $create = $variables['create'];
 
-  $content = '<div class="total-control-create">';
-  $content .= theme('item_list', array('items' => $create));
-  $content .= '</div>';
+  $output  = '<div class="total-control-create">';
+  $output .= theme('item_list', array('items' => $create));
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
@@ -67,11 +69,11 @@ function theme_total_control_create($variables) {
 function theme_total_control_taxonomy($varibales) {
   $taxonomy = $varibales['taxonomy'];
 
-  $content = '<div class="total-control-taxonomy">';
-  $content .= theme('item_list', array('items' => $taxonomy));
-  $content .= '</div>';
+  $output  = '<div class="total-control-taxonomy">';
+  $output .= theme('item_list', array('items' => $taxonomy));
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
@@ -82,12 +84,12 @@ function theme_total_control_panel_pages($varibales) {
   $rows = $varibales['rows'];
   $link = $variables['link'];
 
-  $content = '<div class="total-control-panel-panes">';
-  $content .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => 'panels-manage')));
-  $content .= '<div class="see-list">' . $link . '</div>';
-  $content .= '</div>';
+  $output  = '<div class="total-control-panel-panes">';
+  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => 'panels-manage')));
+  $output .= '  <div class="see-list">' . $link . '</div>';
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
@@ -96,9 +98,11 @@ function theme_total_control_panel_pages($varibales) {
 function theme_total_total_control_nodequeue($varibales) {
   $header = $varibales['header'];
   $rows = $varibales['rows'];
-  
-  $content = '<div class="total-control-nodequeues">';
-  $content .= theme('table', array('header' => $header, 'rows' => $rows));
-  $content .= '</div>';
+
+  $output  = '<div class="total-control-nodequeues">';
+  $output .= theme('table', array('header' => $header, 'rows' => $rows));
+  $output .= '</div>';
+
+  return $output;
 }
 

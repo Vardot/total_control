@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file nodequeue.inc
+ * @file
  *
  * "Nodequeue" content type. It shows users with permissions all of the 
  * nodequeues and provides links directly manage them.
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_nodequeue_content_type_admin_title($subtype, $conf, $context) {
-    return t('NodeQueue overviewnode_type_get_types');
+  return t('NodeQueue overview');
 }
 
 /**
@@ -31,6 +31,7 @@ function total_control_nodequeue_content_type_admin_title($subtype, $conf, $cont
 function total_control_nodequeue_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Provides a list of all NodeQueues on the site.');
+
   return $block;
 }
 
@@ -39,8 +40,7 @@ function total_control_nodequeue_content_type_admin_info($subtype, $conf, $conte
  */
 function nodequeue_content_type_render($subtype, $conf, $args, $context) {
   $block = new stdClass();
-
-  // The title actually used in rendering
+  $block->module = t('total_control');
   $block->title = check_plain("NodeQueues");
   
   $items = array();

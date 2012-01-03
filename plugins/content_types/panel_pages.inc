@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file panel_pages.inc
+ * @file
  *
  * "Panel Pages" panels content pane. It shows users with permissions the
  * panel pages on the site, and provides links directly to the "content" tab.
@@ -78,8 +78,9 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
   }
 
   $block = new stdClass();
-  $block->title = check_plain("Panel Pages");
-  $block->content = theme('total_control_panel_pages', $header, $rows, $link);
+  $block->title = check_plain('Panel pages');
+  $block->module = t('total_control');
+  $block->content = theme('total_control_panel_pages', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 
