@@ -192,27 +192,33 @@ function total_control_admin_settings_submit($form, &$form_state) {
       it instead.', array('!views_interface' => url('admin/structure/views'))));
   }
 
-  $panes = variable_get('total_control_type_panes', array());
-  $pages = variable_get('total_control_type_pages', array());
+  // Load the views once so we don't have to do it each time.
   $paneview = views_get_view('control_content_panes');
   $pageview = views_get_view('control_content');
-  $types = node_type_get_types();
-  foreach ($types as $machine => $type) {
-    if (is_array($form_state['values']['total_control_type_panels'])) {
-      if (array_key_exists($machine, $form_state['values']['total_control_type_panels'])) {
-        //total_control_add_views_pane_display($paneview, $type->name, $machine); TODO
-      }
-      else {
-        //total_control_views_delete_pane_display($paneview, $type->name, $machine); TODO
-      }
+
+  // Adjust content pane displays per Total Control settings.
+  foreach ($form_state['values']['total_control_type_panels'] as $machine => $value) {
+    if ($machine === $value) {
+      dpm('adding pane ' .  $machine);
+      $type = node_type_load($machine);
+      total_control_add_views_pane_display($paneview, $type->name, $machine);
     }
-    if (is_array($form_state['values']['total_control_type_pages'])) {
-      if (array_key_exists($machine, $form_state['values']['total_control_type_pages'])) {
-        total_control_add_views_page_display($pageview, $type->name, $machine);
-      }
-      else {
-        total_control_views_delete_page_display($pageview, $type->name, $machine);
-      }
+    else {
+      dpm('deleting pane ' . $machine);
+      $type = node_type_load($machine);
+      total_control_views_delete_pane_display($machine);
+    }
+  }
+
+  // Adjust page displays per Total Control settings.
+  foreach ($form_state['values']['total_control_type_pages'] as $machine => $value) {
+    if ($machine === $value) {
+      $type = node_type_load($machine);
+      total_control_add_views_page_display($pageview, $type->name, $machine);
+    }
+    else {
+      $type = node_type_load($machine);
+      total_control_views_delete_page_display($machine);
     }
   }
 }

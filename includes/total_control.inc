@@ -48,9 +48,11 @@ function total_control_remove_type_submit($form, &$form_state) {
  */
 function total_control_views_delete_page_display($type) {
   $view = views_get_view('control_content');
-  unset($view->display['page_tc_' . $type]);
-  $view->save();
-  menu_cache_clear_all();
+  if (array_key_exists('page_tc_' . $type, $view->display)) {
+    unset($view->display['page_tc_' . $type]);
+    $view->save();
+    menu_cache_clear_all();
+  }
 
   return;
 }
@@ -64,8 +66,10 @@ function total_control_views_delete_page_display($type) {
  */
 function total_control_views_delete_pane_display($type) {
   $view = views_get_view('control_content_panes');
-  unset($view->display['pane_tc_' . $type]);
-  $view->save();
+  if (array_key_exists('pane_tc_' . $type, $view->display)) {
+    unset($view->display['pane_tc_' . $type]);
+    $view->save();
+  }
 
   return;
 }
@@ -79,8 +83,8 @@ function total_control_views_delete_pane_display($type) {
  *   The machine readable name of the content type
  *
  */
-function total_control_views_add_display($content_type, $machine_type) {
-  if (!$machine_type) {
+function total_control_views_add_display($content_type = '', $machine_type = '') {
+  if ($machine_type = '') {
     drupal_set_message(t('no content type provided'), 'error');
     return;
   }
@@ -88,8 +92,6 @@ function total_control_views_add_display($content_type, $machine_type) {
   // Get total control settings.
   $auto_page_default = variable_get('total_control_auto_pages', array());
   $auto_pane_default = variable_get('total_control_auto_panels', array());
-  
-  dpm($auto_page_default);
 
   if (!($auto_page_default['type'] === 0)) {
     // Add page display.
@@ -97,8 +99,10 @@ function total_control_views_add_display($content_type, $machine_type) {
     if (!array_key_exists('page_tc_' . $machine_type, $view->display)) { 
       total_control_add_views_page_display($view, $content_type, $machine_type);
       $defaults = variable_get('total_control_type_pages', array());
-      $defaults[$machine_type] = $machine_type;
-      $defaults = variable_set('total_control_type_pages', $defaults);
+      if (array_key_exists($machine_type, $defaults) || $defaults[$machine_type] != $machine_type) {
+        $defaults[$machine_type] = $machine_type;
+        $defaults = variable_set('total_control_type_pages', $defaults);
+      }
     }
     else {
       drupal_set_message(t('Total Control was unable to create your 
@@ -140,48 +144,23 @@ function total_control_views_add_display($content_type, $machine_type) {
 function total_control_add_views_pane_display(&$view, $content_type, $machine_type) {  
   // Build the display.
   $handler = $view->new_display('panel_pane', $content_type . ' pane', 'panel_pane_tc_' . $machine_type);
-  $handler->override_option('filters', array(
-    'type' => array(
-      'operator' => 'in',
-      'value' => array(
-        $machine_type => $machine_type,
-      ),
-      'group' => '0',
-      'exposed' => FALSE,
-      'expose' => array(
-        'operator' => FALSE,
-        'label' => '',
-      ),
-      'id' => 'type',
-      'table' => 'node',
-      'field' => 'type',
-      'override' => array(
-        'button' => 'Use default',
-      ),
-      'relationship' => 'none',
-    ),
-  ));
-  $handler->override_option('title', 'New ' . $content_type);
-  $handler->override_option('pane_title', 'New ' . $content_type . ' content');
-  $handler->override_option('pane_description', 'Total Control ' . $content_type . ' summary');  
-  $handler->override_option('pane_category', array(
-    'name' => 'Total Control',
-    'weight' => '0',
-  ));
-  $handler->override_option('allow', array(
-    'use_pager' => FALSE,
-    'items_per_page' => 'items_per_page',
-    'offset' => FALSE,
-    'link_to_view' => FALSE,
-    'more_link' => FALSE,
-    'path_override' => FALSE,
-    'title_override' => FALSE,
-    'exposed_form' => FALSE,
-  ));
-  $handler->override_option('argument_input', array());
-  $handler->override_option('link_to_view', 0);
-  $handler->override_option('inherit_panels_path', 0);
-  
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'New ' . $content_type . ' content';
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  // Add a filter for Content: Type.
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    $machine_type => $machine_type,
+  );
+  $handler->display->display_options['filters']['type']['expose']['operator'] = FALSE;
+  $handler->display->display_options['pane_title'] = 'New ' . $content_type . ' content';
+  $handler->display->display_options['pane_description'] = 'Total Control ' . $content_type . ' summary';
+  $handler->display->display_options['pane_category']['name'] = 'Total Control';
+  $handler->display->display_options['pane_category']['weight'] = '0';
+  $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
+
   // save the view and return
   $view->save();
   return;
@@ -198,38 +177,29 @@ function total_control_add_views_pane_display(&$view, $content_type, $machine_ty
  *   The machine-readable content type name
  *
  */
-function total_control_add_views_page_display(&$view, $content_type, $machine_type) {  
+function total_control_add_views_page_display(&$view, $content_type, $machine_type) {
+  // Prepare variables.
+  $machine_path =  str_replace('_', '-', $machine_type);
   // Build the display.
   $handler = $view->new_display('page', $content_type . ' Page', 'page_tc_' . $machine_type);
-  
-  // filters differ depending on search module 
+
+  $handler->display->display_options['title'] = $content_type . ' content';
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  $handler->display->display_options['path'] = 'admin/dashboard/content/' . $machine_path;
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = $content_type . ' content';
+  $handler->display->display_options['menu']['weight'] = '0';
+
+  // Filters differ depending on search module.
   $filters = total_control_add_filters($machine_type);
   $handler->override_option('filters', $filters);
-  
-  $machine_path =  str_replace('_', '-', $machine_type);
-  
-  $handler->override_option('title', $content_type . ' content');
-  $handler->override_option('header', '');
-  $handler->override_option('header_format', '1');
-  $handler->override_option('header_empty', 1);
-  $handler->override_option('path', 'admin/dashboard/content/' . $machine_path);
-  $handler->override_option('menu', array(
-    'type' => 'tab',
-    'title' => $content_type . ' content',
-    'description' => '',
-    'weight' => '0',
-    'name' => 'navigation',
-  ));
-  $handler->override_option('tab_options', array(
-    'type' => 'none',
-    'title' => '',
-    'description' => '',
-    'weight' => 0,
-  ));
-  
-  // save the view, flush the menu cache, and return
+
+  // Save the view, flush the menu cache, and return.
   $view->save();
   menu_cache_clear_all();
+
   return;
 }
 
@@ -246,86 +216,62 @@ function total_control_add_views_page_display(&$view, $content_type, $machine_ty
 function total_control_add_filters($machine_type = NULL) {
   $filters = array(
     'status' => array(
-      'operator' => '=',
-      'value' => '1',
-      'group' => '0',
-      'exposed' => TRUE,
-      'expose' => array(
-        'operator' => '',
-        'identifier' => 'status',
-        'label' => 'Published',
-        'optional' => 1,
-        'remember' => 0,
-      ),
       'id' => 'status',
       'table' => 'node',
       'field' => 'status',
-      'relationship' => 'none',
-      'override' => array(
-        'button' => 'Override',
+      'value' => '1',
+      'exposed' => TRUE,
+      'expose' => array(
+        'identifier' => 'status',
+        'label' => 'Published',
+        'required' => FALSE,
       ),
     ),
     'uid' => array(
-      'operator' => 'in',
-      'value' => '',
-      'group' => '0',
-      'exposed' => TRUE,
-      'expose' => array(
-        'use_operator' => 0,
-        'operator' => 'uid_op',
-        'identifier' => 'uid',
-        'label' => 'Author',
-        'optional' => 1,
-        'remember' => 0,
-        'reduce' => 0,
-      ),
       'id' => 'uid',
       'table' => 'users',
       'field' => 'uid',
-      'relationship' => 'none',
+      'operator' => 'in',
+      'value' => '',
+      'exposed' => TRUE,
+      'expose' => array(
+        'operator_id' => 'uid_op',
+        'label' => 'Author',
+        'operator' => 'uid_op',
+        'identifier' => 'uid',
+        'required' => FALSE,
+        'reduce' => 0,
+      ),
     )
   );
 
-  if ($machine_type) {
+  if ($machine_type != NULL) {
     $filters['type_1'] = array(
-      'operator' => 'in',
-      'value' => array(
-        $machine_type => $machine_type,
-      ),
-      'group' => '0',
-      'exposed' => FALSE,
-      'expose' => array(
-        'operator' => FALSE,
-        'label' => '',
-      ),
       'id' => 'type_1',
       'table' => 'node',
       'field' => 'type',
-      'override' => array(
-        'button' => 'Use default',
+      'value' => array(
+        $machine_type => $machine_type,
       ),
-      'relationship' => 'none',
+      'expose' => array(
+        'operator' => FALSE,
+      ),
     );
   }
 
   if (module_exists('search')) {
     $filters['keys'] = array(
-      'operator' => 'optional',
-      'value' => '',
-      'group' => '0',
-      'exposed' => TRUE,
-      'expose' => array(
-        'use_operator' => 0,
-        'operator' => 'keys_op',
-        'identifier' => 'keys',
-        'label' => 'Search:',
-        'optional' => 1,
-        'remember' => 0,
-      ),
       'id' => 'keys',
       'table' => 'search_index',
       'field' => 'keys',
-      'relationship' => 'none',
+      'exposed' => TRUE,
+      'expose' => array(
+        'operator_id' => 'keys_op',
+        'label' => 'Search:',
+        'operator' => 'keys_op',
+        'identifier' => 'keys',
+        'required' => FALSE,
+      ),
     );
   }
 

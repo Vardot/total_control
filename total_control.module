@@ -161,7 +161,7 @@ function total_control_ctools_plugin_api($module, $api) {
  */
 function total_control_views_api() {
   return array(
-    'api' => 2,
+    'api' => 3,
   );
 }
 

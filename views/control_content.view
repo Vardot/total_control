@@ -341,7 +341,7 @@ $handler->display->display_options['fields']['status']['alter']['ellipsis'] = 1;
 $handler->display->display_options['fields']['status']['alter']['trim'] = 0;
 $handler->display->display_options['fields']['status']['alter']['html'] = 0;
 $handler->display->display_options['fields']['status']['not'] = 0;
-/* Field: Content: Edit link */
+/* Field: Node: Edit link */
 $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
 $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
 $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
@@ -388,18 +388,28 @@ $handler->display->display_options['filters']['keys']['expose']['operator_id'] =
 $handler->display->display_options['filters']['keys']['expose']['label'] = 'Contains';
 $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
 $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'keys';
+/* Filter criterion: Content: Type */
+$handler->display->display_options['filters']['type']['id'] = 'type';
+$handler->display->display_options['filters']['type']['table'] = 'node';
+$handler->display->display_options['filters']['type']['field'] = 'type';
+$handler->display->display_options['filters']['type']['exposed'] = TRUE;
+$handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
+$handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
+$handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
+$handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+$handler->display->display_options['filters']['type']['expose']['reduce'] = 0;
 
 /* Display: All Content */
 $handler = $view->new_display('page', 'All Content', 'page_1');
 $handler->display->display_options['defaults']['title'] = FALSE;
-$handler->display->display_options['title'] = 'All Content';
-$handler->display->display_options['path'] = 'admin/dashboard/content';
-$handler->display->display_options['menu']['type'] = 'tab';
-$handler->display->display_options['menu']['title'] = 'Content';
+$handler->display->display_options['title'] = 'All content';
+$handler->display->display_options['path'] = 'admin/dashboard/content/all';
+$handler->display->display_options['menu']['type'] = 'default tab';
+$handler->display->display_options['menu']['title'] = 'All content';
 $handler->display->display_options['menu']['description'] = 'All content';
 $handler->display->display_options['menu']['weight'] = '-19';
 $handler->display->display_options['menu']['name'] = 'management';
-$handler->display->display_options['tab_options']['type'] = 'normal';
+$handler->display->display_options['tab_options']['type'] = 'tab';
 $handler->display->display_options['tab_options']['title'] = 'Content';
 $handler->display->display_options['tab_options']['weight'] = '-19';
 $handler->display->display_options['tab_options']['name'] = 'management';
