@@ -10,7 +10,7 @@
  
 $view = new view;
 $view->name = 'control_users';
-$view->description = 'Total Control over users: Contains a panel pane and a page to control user accounts.';
+$view->description = 'Total Control over user accounts: Contains a panel pane and a page to control user accounts.';
 $view->tag = 'total_control';
 $view->base_table = 'users';
 $view->human_name = '';
@@ -327,5 +327,5 @@ $handler->display->display_options['filters']['mail']['expose']['identifier'] = 
 $handler = $view->new_display('page', 'User Admin', 'page_1');
 $handler->display->display_options['path'] = 'admin/dashboard/users';
 $handler->display->display_options['menu']['type'] = 'tab';
-$handler->display->display_options['menu']['title'] = 'Users';
+$handler->display->display_options['menu']['title'] = 'User Accounts';
 $handler->display->display_options['menu']['weight'] = '-14';
