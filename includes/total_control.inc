@@ -20,7 +20,7 @@ function total_control_add_type_submit($form, &$form_state) {
   // Get the type names.
   $machine_type = $form_state['values']['type'];
   $content_type = $form_state['values']['name'];
-  total_control_views_add_display($machine_type, $content_type);
+  total_control_views_add_display($content_type, $machine_type);
 }
 
 /**
@@ -33,22 +33,53 @@ function total_control_add_type_submit($form, &$form_state) {
  *
  */ 
 function total_control_remove_type_submit($form, &$form_state) {
-  // get the type  
+  // Get the type name.
   $machine_type = $form_state['values']['type'];
   total_control_views_delete_page_display($machine_type);
   total_control_views_delete_pane_display($machine_type);
 }
 
 /**
- * Adds view displays.
+ * Removes view page displays.
  *
- * @param $machine_type
+ * @param $type
  *   The machine readable name of the content type
- * @param $content_type
- *   The human readable name of the content type
  *
  */
-function total_control_views_add_display($machine_type, $content_type) {
+function total_control_views_delete_page_display($type) {
+  $view = views_get_view('control_content');
+  unset($view->display['page_tc_' . $type]);
+  $view->save();
+  menu_cache_clear_all();
+
+  return;
+}
+
+/**
+ * Removes view pane displays.
+ *
+ * @param $type
+ *   The machine readable name of the content type
+ *
+ */
+function total_control_views_delete_pane_display($type) {
+  $view = views_get_view('control_content_panes');
+  unset($view->display['pane_tc_' . $type]);
+  $view->save();
+
+  return;
+}
+
+/**
+ * Adds view displays.
+ *
+ * @param $content_type
+ *   The human readable name of the content type
+ * @param $machine_type
+ *   The machine readable name of the content type
+ *
+ */
+function total_control_views_add_display($content_type, $machine_type) {
   if (!$machine_type) {
     drupal_set_message(t('no content type provided'), 'error');
     return;
@@ -57,10 +88,13 @@ function total_control_views_add_display($machine_type, $content_type) {
   // Get total control settings.
   $auto_page_default = variable_get('total_control_auto_pages', array());
   $auto_pane_default = variable_get('total_control_auto_panels', array());
+  
+  dpm($auto_page_default);
 
   if (!($auto_page_default['type'] === 0)) {
+    // Add page display.
     $view = views_get_view('control_content');
-    if (!$view->display['page_tc_' . $machine_type]) { 
+    if (!array_key_exists('page_tc_' . $machine_type, $view->display)) { 
       total_control_add_views_page_display($view, $content_type, $machine_type);
       $defaults = variable_get('total_control_type_pages', array());
       $defaults[$machine_type] = $machine_type;
@@ -73,11 +107,10 @@ function total_control_views_add_display($machine_type, $content_type) {
     }
   }
   
-  $auto_page_default = variable_get('total_control_auto_pages', array());
   if (!($auto_pane_default['type'] === 0)) {
+    // Add pane display.
     $paneview = views_get_view('control_content_panes');
-    $auto_panes = variable_get('total_control_auto_panels', array());
-    if (!$paneview->display['pane_tc_' . $machine_type]) {
+    if (!array_key_exists('pane_tc_' . $machine_type, $paneview->display)) {
       total_control_add_views_pane_display($paneview, $content_type, $machine_type);
       $defaults = variable_get('total_control_type_panes', array());
       $defaults[$machine_type] = $machine_type;
@@ -94,43 +127,14 @@ function total_control_views_add_display($machine_type, $content_type) {
 }
 
 /**
- * Removes view page displays.
- *
- * @param $type
- *   The machine readable name of the content type
- *
- */
-function total_control_views_delete_page_display($type) {
-  $view = views_get_view('control_content');
-  unset($view->display['page_tc_' . $type]);
-  $view->save();
-  menu_cache_clear_all();
-  return;
-}
-
-/**
- * Removes view pane displays.
- *
- * @param $type
- *   The machine readable name of the content type
- *
- */
-function total_control_views_delete_pane_display($type) {
-  $view = views_get_view('control_content_panes');
-  unset($view->display['pane_tc_' . $type]);
-  $view->save();
-  return;
-}
-
-/**
  * Adds a pane display to the view
  *
  * @param $view
  *   The view to which the display is added
- * @param $machine_type
- *   The machine-readable content type name
  * @param $content_type
  *   The human-readable content type name
+ * @param $machine_type
+ *   The machine-readable content type name
  *
  */
 function total_control_add_views_pane_display(&$view, $content_type, $machine_type) {  
@@ -281,7 +285,7 @@ function total_control_add_filters($machine_type = NULL) {
       'relationship' => 'none',
     )
   );
-  
+
   if ($machine_type) {
     $filters['type_1'] = array(
       'operator' => 'in',
@@ -303,7 +307,7 @@ function total_control_add_filters($machine_type = NULL) {
       'relationship' => 'none',
     );
   }
-  
+
   if (module_exists('search')) {
     $filters['keys'] = array(
       'operator' => 'optional',
@@ -324,6 +328,7 @@ function total_control_add_filters($machine_type = NULL) {
       'relationship' => 'none',
     );
   }
+
   return $filters;
 }
 

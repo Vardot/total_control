@@ -68,6 +68,7 @@ function total_control_requirements($phase) {
   if ($phase == 'runtime') {
     // Add a helpful message if more features exist.
     $modules = array();
+    $search = $statistics = $taxonomy = TRUE;
     
     if (!module_exists('search')) {
       $search = FALSE;
@@ -84,8 +85,9 @@ function total_control_requirements($phase) {
 
     if ($search === FALSE || $statistics === FALSE || $taxonomy === FALSE) {
       $requirements['total_control_features'] = array(
-        'title' => $t('Total Control has hidden features.'),
-        'description' => t('Try enabling the following modules for even more control: !modules', array('!modules' => implode(', ', $modules))),
+        'title' => $t('Total Control administrative dashboard'),
+        'value' => t('Hidden features'),
+        'description' => t('Total Control has even more features if you are using the following modules: !modules', array('!modules' => implode(', ', $modules))),
         'severity' => REQUIREMENT_WARNING,
       );
     }
