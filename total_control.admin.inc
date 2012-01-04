@@ -182,19 +182,19 @@ function total_control_admin_settings_submit($form, &$form_state){
   $types = node_get_types();
   foreach ($types as $machine => $type){
     if (is_array($form_state['values']['total_control_type_panels'])){
-      if (array_key_exists($machine, $form_state['values']['total_control_type_panels'])) {
+      if ($form_state['values']['total_control_type_panels'][$machine] === $machine)) {
         total_control_add_views_pane_display($paneview, $type->name, $machine);
       }
       else {
-        total_control_views_delete_pane_display($paneview, $type->name, $machine); 
+        total_control_views_delete_pane_display($machine); 
       }
     }
     if (is_array($form_state['values']['total_control_type_pages'])) {
-      if (array_key_exists($machine, $form_state['values']['total_control_type_pages'])) {
+      if ($form_state['values']['total_control_type_pages'][$machine] === $machine) {
         total_control_add_views_page_display($pageview, $type->name, $machine); 
       }
       else {
-        total_control_views_delete_page_display($pageview, $type->name, $machine); 
+        total_control_views_delete_page_display($machine); 
       }
     }
   }
