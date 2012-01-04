@@ -66,8 +66,8 @@ function theme_total_control_create($variables) {
 /*
  * Theme function for taxonomy pane.
  */
-function theme_total_control_taxonomy($varibales) {
-  $taxonomy = $varibales['taxonomy'];
+function theme_total_control_taxonomy($variables) {
+  $taxonomy = $variables['taxonomy'];
 
   $output  = '<div class="total-control-taxonomy">';
   $output .= theme('item_list', array('items' => $taxonomy));
@@ -79,9 +79,9 @@ function theme_total_control_taxonomy($varibales) {
 /*
  * Theme function for taxonomy pane.
  */
-function theme_total_control_panel_pages($varibales) {
-  $header = $varibales['header'];
-  $rows = $varibales['rows'];
+function theme_total_control_panel_pages($variables) {
+  $header = $variables['header'];
+  $rows = $variables['rows'];
   $link = $variables['link'];
 
   $output  = '<div class="total-control-panel-panes">';
@@ -95,9 +95,9 @@ function theme_total_control_panel_pages($varibales) {
 /*
  * Theme function for taxonomy pane.
  */
-function theme_total_total_control_nodequeue($varibales) {
-  $header = $varibales['header'];
-  $rows = $varibales['rows'];
+function theme_total_total_control_nodequeue($variables) {
+  $header = $variables['header'];
+  $rows = $variables['rows'];
 
   $output  = '<div class="total-control-nodequeues">';
   $output .= theme('table', array('header' => $header, 'rows' => $rows));

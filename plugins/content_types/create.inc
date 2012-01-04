@@ -23,14 +23,14 @@ $plugin = array(
 /**
  * 'Admin title' callback for the content type.
  */
-function total_control_create_content_type_admin_title($subtype, $conf, $context) {
-  return t('Content creation');
+function total_control_create_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
+  return t('Content creation links');
 }
 
 /**
  * 'Admin info' callback for the content type.
  */
-function total_control_create_content_type_admin_info($subtype, $conf, $context) {
+function total_control_create_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
   $block->title = t('Provides links to create new content.');
 
@@ -40,7 +40,7 @@ function total_control_create_content_type_admin_info($subtype, $conf, $context)
 /**
  * Run-time rendering of the body of the pane.
  */
-function total_control_create_content_type_render($subtype, $conf, $panel_args, $context) {
+function total_control_create_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = t('Create content');

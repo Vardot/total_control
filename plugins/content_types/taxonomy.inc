@@ -28,7 +28,7 @@ function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf 
 /**
  * 'Admin info' callback for the content type.
  */
-function total_control_taxonomy_content_type_admin_info($subtype, $conf, $context) {
+function total_control_taxonomy_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
   $block->title = t('Displays category information: number of terms in each vocabulary with links to see the list or add a new one.');
 
@@ -38,7 +38,7 @@ function total_control_taxonomy_content_type_admin_info($subtype, $conf, $contex
 /**
  * Run-time rendering of the body of the block.
  */
-function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args, $context) {
+function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args, &$context) {
   if (!module_exists('taxonomy')) {
     return;
   }

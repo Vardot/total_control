@@ -30,7 +30,7 @@ function total_control_overview_user_content_type_admin_title($subtype = NULL, $
 /**
  * 'Admin info' callback for the content type.
  */
-function total_control_overview_user_content_type_admin_info($subtype, $conf, $context) {
+function total_control_overview_user_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
   $block->title = t('Displays a summary of user statistics including: number of total users, active users, blocked users, and users in each role.');
 

@@ -21,14 +21,14 @@ $plugin = array(
 /**
  * 'Admin title' callback for the content type.
  */
-function total_control_nodequeue_content_type_admin_title($subtype, $conf, $context) {
+function total_control_nodequeue_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
   return t('NodeQueue overview');
 }
 
 /**
  * 'Admin info' callback for the content type.
  */
-function total_control_nodequeue_content_type_admin_info($subtype, $conf, $context) {
+function total_control_nodequeue_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
   $block->title = t('Provides a list of all NodeQueues on the site.');
 
@@ -38,7 +38,7 @@ function total_control_nodequeue_content_type_admin_info($subtype, $conf, $conte
 /**
  * Run-time rendering of the body of the block.
  */
-function nodequeue_content_type_render($subtype, $conf, $args, $context) {
+function nodequeue_content_type_render($subtype, $conf, $args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = check_plain("NodeQueues");

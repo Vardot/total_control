@@ -21,14 +21,14 @@ $plugin = array(
 /**
  * 'Admin title' callback for the content type.
  */
-function total_control_panel_pages_content_type_admin_title($subtype, $conf, $context) {
+function total_control_panel_pages_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
   return t('Panel page overview');
 }
 
 /**
  * 'Admin info' callback for the content type.
  */
-function total_control_panel_pages_content_type_admin_info($subtype, $conf, $context) {
+function total_control_panel_pages_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
   $block->title = t('Displays a list of Panel Pages, with "edit" links.');
 
@@ -38,7 +38,7 @@ function total_control_panel_pages_content_type_admin_info($subtype, $conf, $con
 /**
  * Run-time rendering of the body of the block.
  */
-function total_control_panel_pages_content_type_render($subtype, $conf, $args, $context) {
+function total_control_panel_pages_content_type_render($subtype, $conf, $args, &$context) {
   $items = array();
 
   // Get panels pages.
@@ -80,7 +80,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
   $block = new stdClass();
   $block->title = check_plain('Panel pages');
   $block->module = t('total_control');
-  $block->content = theme('total_control_panel_pages', array('header' => $header, 'rows' => $rows, 'link' => $link));
+  //$block->content = theme('total_control_panel_pages', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 
