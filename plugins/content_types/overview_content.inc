@@ -83,7 +83,7 @@ function total_control_overview_content_content_type_render($subtype, $conf, $pa
       $total[$type] = format_plural(db_result($type_query), '1 '.$object->name.' item', '@count '.$object->name.' items');
       
       $comment_setting = variable_get('comment_'. $type, 'comment');
-      if ((module_exists('comment')) && (($comment_setting != 0) || (isset($conf['comments']) && $conf['comments'][$type]))){ // compare against comment option on pane config
+      if ((module_exists('comment')) && (($comment_setting != 0) && (isset($conf['comments']) && $conf['comments'][$type]))){ // compare against comment option on pane config
         $comment_query = db_query("SELECT count(DISTINCT cid) FROM {comments} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = '%s' and c.status = 1 AND n.status = 1", $type);
         $total[$type.'_comments'] =  format_plural(db_result($comment_query), '1 comment', '@count comments');
         

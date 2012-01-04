@@ -53,8 +53,10 @@ function total_control_views_add_display($machine_type, $content_type){
     drupal_set_message('no content type provided', 'error');
     return;
   }
-  
+
   $auto_pane_default = variable_get('total_control_auto_panels', array());
+  $auto_page_default = variable_get('total_control_auto_pages', array());
+
   if (!($auto_page_default['type'] === 0)){
     $view = views_get_view('control_content');
     if (!$view->display['page_tc_'.$machine_type]) { 
@@ -68,7 +70,6 @@ function total_control_views_add_display($machine_type, $content_type){
     }
   }
   
-  $auto_page_default = variable_get('total_control_auto_pages', array());
   if (!($auto_pane_default['type'] === 0)){
     $paneview = views_get_view('control_content_panes');
     $auto_panes = variable_get('total_control_auto_panels', array());
