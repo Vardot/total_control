@@ -310,11 +310,10 @@ $handler->display->display_options['fields']['edit_comment']['empty_zero'] = 0;
 $handler->display->display_options['fields']['edit_comment']['hide_alter_empty'] = 1;
 $handler->display->display_options['fields']['edit_comment']['link_to_node'] = 0;
 $handler->display->display_options['fields']['edit_comment']['destination'] = 0;
-/* Sort criterion: Comment: Updated date */
-$handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-$handler->display->display_options['sorts']['timestamp']['table'] = 'comment';
-$handler->display->display_options['sorts']['timestamp']['field'] = 'changed';
-$handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
+/* Sort criterion: Comment: Post date */
+$handler->display->display_options['sorts']['created']['id'] = 'created';
+$handler->display->display_options['sorts']['created']['table'] = 'comment';
+$handler->display->display_options['sorts']['created']['field'] = 'created';
 
 /* Display: Admin Comments Page */
 $handler = $view->new_display('page', 'Admin Comments Page', 'page');
@@ -611,18 +610,6 @@ $handler->display->display_options['filters']['comment_body_value']['expose']['o
 $handler->display->display_options['filters']['comment_body_value']['expose']['identifier'] = 'comment_body_value';
 $handler->display->display_options['filters']['comment_body_value']['expose']['required'] = 0;
 $handler->display->display_options['filters']['comment_body_value']['expose']['multiple'] = FALSE;
-/* Filter criterion: Comment: Approved */
-$handler->display->display_options['filters']['status_1']['id'] = 'status_1';
-$handler->display->display_options['filters']['status_1']['table'] = 'comment';
-$handler->display->display_options['filters']['status_1']['field'] = 'status';
-$handler->display->display_options['filters']['status_1']['value'] = 'All';
-$handler->display->display_options['filters']['status_1']['exposed'] = TRUE;
-$handler->display->display_options['filters']['status_1']['expose']['operator_id'] = '';
-$handler->display->display_options['filters']['status_1']['expose']['label'] = 'Approved';
-$handler->display->display_options['filters']['status_1']['expose']['use_operator'] = FALSE;
-$handler->display->display_options['filters']['status_1']['expose']['operator'] = 'status_1_op';
-$handler->display->display_options['filters']['status_1']['expose']['identifier'] = 'status_1';
-$handler->display->display_options['filters']['status_1']['expose']['multiple'] = FALSE;
 $handler->display->display_options['path'] = 'admin/dashboard/comments';
 $handler->display->display_options['menu']['type'] = 'tab';
 $handler->display->display_options['menu']['title'] = 'Comments';
