@@ -20,7 +20,7 @@ $view->disabled = FALSE; /* Edit this to true to make a default view disabled in
 
 /* Display: Defaults */
 $handler = $view->new_display('default', 'Defaults', 'default');
-$handler->display->display_options['title'] = 'All ';
+$handler->display->display_options['title'] = 'All content';
 $handler->display->display_options['access']['type'] = 'perm';
 $handler->display->display_options['access']['perm'] = 'have total control';
 $handler->display->display_options['cache']['type'] = 'none';
@@ -184,7 +184,7 @@ $handler->display->display_options['allow']['offset'] = 0;
 $handler->display->display_options['allow']['link_to_view'] = 0;
 $handler->display->display_options['allow']['more_link'] = 0;
 $handler->display->display_options['allow']['path_override'] = 0;
-$handler->display->display_options['allow']['title_override'] = 0;
+$handler->display->display_options['allow']['title_override'] = 'title_override';
 $handler->display->display_options['allow']['exposed_form'] = 0;
 $handler->display->display_options['allow']['fields_override'] = 0;
 
@@ -273,5 +273,71 @@ $handler->display->display_options['sorts']['changed']['table'] = 'node';
 $handler->display->display_options['sorts']['changed']['field'] = 'changed';
 $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
 $handler->display->display_options['pane_title'] = 'Updated Content';
+$handler->display->display_options['pane_description'] = 'Total Control updated content summary';
 $handler->display->display_options['pane_category']['name'] = 'Total Control';
 $handler->display->display_options['pane_category']['weight'] = '0';
+$handler->display->display_options['allow']['use_pager'] = 0;
+$handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
+$handler->display->display_options['allow']['offset'] = 0;
+$handler->display->display_options['allow']['link_to_view'] = 0;
+$handler->display->display_options['allow']['more_link'] = 0;
+$handler->display->display_options['allow']['path_override'] = 0;
+$handler->display->display_options['allow']['title_override'] = 'title_override';
+$handler->display->display_options['allow']['exposed_form'] = 0;
+$handler->display->display_options['allow']['fields_override'] = 0;
+
+/* Display: Unpublished content */
+$handler = $view->new_display('panel_pane', 'Unpublished content', 'pane_tc_unpub');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'Unpublished content';
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = '0';
+$handler->display->display_options['pane_title'] = 'Unpublished content';
+$handler->display->display_options['pane_description'] = 'Content that needs review or moderation';
+$handler->display->display_options['pane_category']['name'] = 'Total Control';
+$handler->display->display_options['pane_category']['weight'] = '0';
+$handler->display->display_options['allow']['use_pager'] = 0;
+$handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
+$handler->display->display_options['allow']['offset'] = 0;
+$handler->display->display_options['allow']['link_to_view'] = 0;
+$handler->display->display_options['allow']['more_link'] = 0;
+$handler->display->display_options['allow']['path_override'] = 0;
+$handler->display->display_options['allow']['title_override'] = 'title_override';
+$handler->display->display_options['allow']['exposed_form'] = 0;
+$handler->display->display_options['allow']['fields_override'] = 0;
+
+/* Display: My content */
+$handler = $view->new_display('panel_pane', 'My content', 'pane_tc_mine');
+$handler->display->display_options['defaults']['title'] = FALSE;
+$handler->display->display_options['title'] = 'My content';
+$handler->display->display_options['display_description'] = 'Content authored by me';
+$handler->display->display_options['defaults']['arguments'] = FALSE;
+/* Contextual filter: Content: Author uid */
+$handler->display->display_options['arguments']['uid']['id'] = 'uid';
+$handler->display->display_options['arguments']['uid']['table'] = 'node';
+$handler->display->display_options['arguments']['uid']['field'] = 'uid';
+$handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+$handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
+$handler->display->display_options['arguments']['uid']['default_argument_skip_url'] = 0;
+$handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+$handler->display->display_options['arguments']['uid']['break_phrase'] = 0;
+$handler->display->display_options['arguments']['uid']['not'] = 0;
+$handler->display->display_options['pane_title'] = 'My content';
+$handler->display->display_options['pane_description'] = 'Content authored by me';
+$handler->display->display_options['pane_category']['name'] = 'Total Control';
+$handler->display->display_options['pane_category']['weight'] = '0';
+$handler->display->display_options['allow']['use_pager'] = 0;
+$handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
+$handler->display->display_options['allow']['offset'] = 0;
+$handler->display->display_options['allow']['link_to_view'] = 0;
+$handler->display->display_options['allow']['more_link'] = 0;
+$handler->display->display_options['allow']['path_override'] = 0;
+$handler->display->display_options['allow']['title_override'] = 'title_override';
+$handler->display->display_options['allow']['exposed_form'] = 0;
+$handler->display->display_options['allow']['fields_override'] = 0;
