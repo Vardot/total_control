@@ -163,12 +163,16 @@ function total_control_admin_settings_submit($form, &$form_state){
   if ($form_state['values']['total_control_role_panels'][2] == 0){
     // change it back and tell them why
     $form_state['values']['total_control_role_panels'][2] = 2;
-    drupal_set_message(t('You can not delete the pane view for users.  To remove it from your dashboard, use the <a href="!panels_interface">Page Manager</a>.', array('!panels_interface' => url('admin/build/pages'))));
+    drupal_set_message(t('You can not delete the pane view for users.  To 
+      remove it from your dashboard, use the <a href="!panels_interface">Page 
+      Manager</a>.', array('!panels_interface' => url('admin/build/pages'))));
   }
   if ($form_state['values']['total_control_role_pages'][2] == 0){
     // change it back and tell them why
     $form_state['values']['total_control_role_pages'][2] = 2;
-    drupal_set_message('You should not delete the page view for all users.');
+    drupal_set_message(t('You should not delete the page view for all users, 
+      use the <a href="!views_interface">Views user interface</a> to disable
+      it instead.', array('!views_interface' => url('admin/structure/views'))));
   }
   
   $panes = variable_get('total_control_type_panes', array());
