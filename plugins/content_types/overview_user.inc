@@ -18,6 +18,7 @@ $plugin = array(
   'description' => t('Displays a summary of user statistics including: number 
     of total users, active users, blocked users, and users in each role.'),
   'category' => t('Total control'),
+  'edit text' => t('Configure'),
 );
 
 /**
@@ -41,31 +42,16 @@ function total_control_overview_user_content_type_admin_info($subtype = NULL, $c
  * Run-time rendering of the body of the block.
  */
 function total_control_overview_user_content_type_render($subtype, $conf, $panel_args, &$context) {
+  $user_data = total_control_get_user_overview($conf);
+
   $overview = array();
+  $overview['all'] = format_plural($user_data['all'], '1 user account', '@count total user accounts');
+  $overview['active'] = format_plural($user_data['active'], '1 active user account', '@count active user accounts');
+  $overview['blocked'] = format_plural($user_data['blocked'], '1 blocked user account', '@count blocked user accounts');
 
-  // User Overview
-  if (!$conf['user'] || $conf['user'] == 1) {
-    $user_query = db_query("SELECT count(*) FROM {users}")->fetchField();
-    $total['users_all'] = format_plural($user_query, '1 total user', '@count total users');
-    $user_active_query = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login <> 0")->fetchField();
-    $total['users_active'] = format_plural($user_active_query, '1 active user', '@count active users');
-    $user_block_query = db_query("SELECT count(*) FROM {users} WHERE status = 0")->fetchField();
-    $total['users_block'] = format_plural($user_block_query, '1 blocked user', '@count blocked users');
-    $overview[] = $total['users_all'];
-    $overview[] = $total['users_active'];
-    $overview[] = $total['users_block'];
-  }
-
-  // Roles Overview
-  $roles = user_roles(TRUE);
-  $total['users_roles'] = '';
-  foreach ($roles as $rid => $role) {
-    if (($rid != 2) && (array_key_exists($rid, $conf['roles']) && $conf['roles'][$rid])) {
-      $user_role_query = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = :rid", array(':rid' => $rid))->fetchField();
-      $total['users_role_' . $rid] = format_plural($user_role_query, '1 user', '@count users');
-      $total['users_role_' . $rid] .= ' in role: ' . $role;
-      $overview[] = $total['users_role_' . $rid];
-    }
+  foreach ($user_data['roles'] as $rid => $data) {
+    $overview['roles_' . $rid]  = format_plural($user_data['roles'][$rid]['count'], '1 user account', '@count user accounts');
+    $overview['roles_' . $rid] .= ' with the role: ' . $user_data['roles'][$rid]['name'];
   }
 
   $block = new stdClass();
@@ -81,29 +67,9 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
  */
 function total_control_overview_user_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
-
-  $form['user'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Include User Stats'),
-    '#default_value' => ($conf['user'])? $conf['user']: TRUE,
-    );
-  $roles = user_roles(TRUE);
-  $roles_options = array();
-  $roles_defaults = array();
-  foreach ($roles as $rid => $role) {
-    if ($rid != 2) {
-      $roles_options[$rid] = $role;
-      $roles_defaults[] = $rid;
-    }
-  }
-  if (!empty($roles_options)) {
-    $form['roles'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('Include User counts for Roles'),
-      '#options' => $roles_options,
-      '#default_value' => ($conf['roles'])? $conf['roles']: $roles_defaults,
-      );
-  }
+  
+  // Add user settings to form.
+  total_control_add_user_pane_settings($form, $conf);
 
   return $form;
 }

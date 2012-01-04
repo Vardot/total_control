@@ -20,6 +20,7 @@ $plugin = array(
     blocked comments (spam), and if ') . l(t('allowed'), 
     'admin/settings/total_control') . t(', content-type configuration links.'),
   'category' => t('Total control'),
+  'edit text' => t('Configure'),
 );
 
 /**

@@ -344,26 +344,24 @@ function total_control_get_content_overview($conf = array()) {
     // Compare against type option on pane config.
     if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {  
       $type_count = db_query("SELECT count(*) FROM {node} WHERE type = :type and status = 1", array(':type' => $type))->fetchField();
-      $total[$type] = format_plural($type_count, '1 ' . $object->name . ' item', '@count ' . $object->name . ' items');
+      $content_data[$type] = format_plural($type_count, '1 ' . $object->name . ' item', '@count ' . $object->name . ' items');
 
       // compare against comment option on pane config.
       $comment_setting = variable_get('comment_' . $type, 'comment');
-      
-      dpm($conf['comments']);
 
       if (module_exists('comment') && ($comment_setting != 0 && !array_key_exists($type, $conf['comments']) && $conf['comments'][$type] == 1)) {
         $comment_count = db_query("SELECT count(DISTINCT cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 1 AND n.status = 1", array(':type' => $type))->fetchField();
-        $total[$type . '_comments'] =  format_plural($comment_count, '1 comment', '@count comments');
+        $content_data[$type . '_comments'] =  format_plural($comment_count, '1 comment', '@count comments');
 
         if (isset($conf['spam']) && $conf['spam'] == 1) { // compare against comment option on pane config
           $spam_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 0 AND n.status = 1", array(':type' => $type))->fetchField();
-          $total[$type . '_comments_spam'] = format_plural($spam_count, '1 spam', '@count spam');
+          $content_data[$type . '_comments_spam'] = format_plural($spam_count, '1 spam', '@count spam');
         }
       }
 
-      $line =  $total[$type];
-      $line .= (isset($total[$type . '_comments']))? ' with ' . $total[$type . '_comments'] : '' ;
-      $line .= (isset($total[$type . '_comments_spam']))? ' (' . $total[$type . '_comments_spam'] . ')' : '' ;
+      $line =  $content_data[$type];
+      $line .= (isset($content_data[$type . '_comments']))? ' with ' . $content_data[$type . '_comments'] : '' ;
+      $line .= (isset($content_data[$type . '_comments_spam']))? ' (' . $content_data[$type . '_comments_spam'] . ')' : '' ;
       $items[] = $line;
     }
   }
@@ -371,6 +369,15 @@ function total_control_get_content_overview($conf = array()) {
   return $items;
 }
 
+/**
+ * Adds content settings to the panel pane config form.
+ *
+ * @param $form
+ *   Panel pane config form.
+ * @param $conf
+ *   Panel content pane config data.
+ *
+ */
 function total_control_add_content_pane_settings(&$form, $conf = array()) {
   $types = node_type_get_types();
   $type_options = array();
@@ -409,5 +416,90 @@ function total_control_add_content_pane_settings(&$form, $conf = array()) {
       '#options' => $spam_options,
       '#default_value' => ($form_state['op'] == 'add')? 1 : $conf['spam'],
     );
+  }
+}
+
+/**
+ * Retrieves overview data for all users on the site.
+ *
+ * @param $conf
+ *   Panel content pane config data.
+ *
+ * @return $items
+ *   A structured array of items containing user data, in the following format:
+ *     $user_data = array(
+ *       'all' => 16,
+ *       'active' => 9,
+ *       'blocked' => 2,
+ *       'roles' => array(
+ *         3 => array(
+ *           'name' => 'Administrator',
+ *           'count' => 4,
+ *         ),
+ *       ),
+ *     );
+ */
+function total_control_get_user_overview($conf = array()) {
+  $user_data = array();
+
+  // User Overview
+  if (!$conf['user'] || $conf['user'] == 1) {
+    $user_data['all'] = db_query("SELECT count(*) FROM {users}")->fetchField();
+    $user_data['active'] = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login <> 0")->fetchField();
+    $user_data['blocked'] = db_query("SELECT count(*) FROM {users} WHERE status = 0")->fetchField();
+  }
+
+  // Roles Overview
+  $roles = user_roles(TRUE);
+  $user_data['roles'] = array();
+  foreach ($roles as $rid => $role) {
+    if (($rid != 2) && (array_key_exists($rid, $conf['roles']) && $conf['roles'][$rid])) {
+      $user_role_count = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = :rid", array(':rid' => $rid))->fetchField();
+      $user_data['roles'][$rid] = array();
+      $user_data['roles'][$rid]['name'] = $role;
+      $user_data['roles'][$rid]['count'] = $user_role_count;
+    }
+  }
+
+  return $user_data;
+}
+
+/**
+ * Adds user settings to the panel pane config form.
+ *
+ * @param $form
+ *   Panel pane config form.
+ * @param $conf
+ *   Panel content pane config data.
+ *
+ */
+function total_control_add_user_pane_settings(&$form, $conf = array()) {
+  $user_options = array(
+    0 => t('no'), 
+    1 => t('Include the total number of user accounts, including active and blocked.'));
+  $form['user'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Include the total number of user accounts, including active and blocked.'),
+    '#options' => $user_options,
+    '#default_value' => ($form_state['op'] == 'add')? TRUE : $conf['user'],
+    );
+
+  $roles = user_roles(TRUE);
+  $roles_options = array();
+  $roles_defaults = array();
+  foreach ($roles as $rid => $role) {
+    if ($rid != 2) {
+      $roles_options[$rid] = $role;
+      $roles_defaults[] = $rid;
+    }
+  }
+
+  if (!empty($roles_options)) {
+    $form['roles'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Include the number of user accounts with the following roles:'),
+      '#options' => $roles_options,
+      '#default_value' => ($conf['roles'])? $conf['roles']: $roles_defaults,
+      );
   }
 }
