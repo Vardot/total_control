@@ -50,6 +50,13 @@ function total_control_menu() {
     'access arguments' => array('administer total control'),
     'file' => 'total_control.admin.inc',
   );
+  // Add a tab for the dashboard.
+  $items['admin/dashboard/overview'] = array(
+    'title' => 'Dashboard',
+    'description' => 'Total Control admin dashboard',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -100,
+  );
 
   return $items;
 }
