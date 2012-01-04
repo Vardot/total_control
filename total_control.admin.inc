@@ -199,12 +199,10 @@ function total_control_admin_settings_submit($form, &$form_state) {
   // Adjust content pane displays per Total Control settings.
   foreach ($form_state['values']['total_control_type_panels'] as $machine => $value) {
     if ($machine === $value) {
-      dpm('adding pane ' .  $machine);
       $type = node_type_load($machine);
       total_control_add_views_pane_display($paneview, $type->name, $machine);
     }
     else {
-      dpm('deleting pane ' . $machine);
       $type = node_type_load($machine);
       total_control_views_delete_pane_display($machine);
     }
