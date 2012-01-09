@@ -10,7 +10,7 @@ include_once('includes/total_control.inc');
 include_once('includes/total_control.views_default.inc');
 
 define('TOTAL_CONTROL_REQUIRED_PANELS_API', '3');
-define('TOTAL_CONTROL_REQUIRED_VIEWS_API', '2');
+define('TOTAL_CONTROL_REQUIRED_VIEWS_API', '3');
 // This is the name of the dashboard as the page manager module sees it via the page task.
 define('TOTAL_CONTROL_DASHBOARD_PANEL_NAME', 'dashboard');
 define('TOTAL_CONTROL_MINIMUM_VERSION', 1);
@@ -105,8 +105,7 @@ function total_control_default_page_manager_handlers() {
 function total_control_views_api() {
   // TODO
   return array(
-    'api' => 2,
-    //'path' => drupal_get_path('module', 'total_control') . '/includes', 
+    'api' => 3,
   );
 }
 
@@ -142,11 +141,15 @@ function total_control_views_pre_render(&$view) {
       $machine_names[] = substr($key, 8);
     }
     
-    //dpm($view->display);
-    
+/*
+    // TODO
+    foreach ($view->display as $display_id => $display) {
+
+    }
+
     // Check for page.
     foreach ($machine_names as $type) {
-      
+
       // Check if the user has access to create content of that type.
       if (user_access('create ' . $type . ' content')) {
         // Add the create content link.
@@ -161,6 +164,7 @@ function total_control_views_pre_render(&$view) {
         }
       }
     }
+  */
   }
 }
 

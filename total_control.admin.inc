@@ -182,7 +182,7 @@ function total_control_admin_settings_submit($form, &$form_state){
   $types = node_get_types();
   foreach ($types as $machine => $type){
     if (is_array($form_state['values']['total_control_type_panels'])){
-      if ($form_state['values']['total_control_type_panels'][$machine] === $machine)) {
+      if ($form_state['values']['total_control_type_panels'][$machine] === $machine) {
         total_control_add_views_pane_display($paneview, $type->name, $machine);
       }
       else {
