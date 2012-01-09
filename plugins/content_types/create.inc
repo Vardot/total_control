@@ -66,7 +66,7 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
           $row .= ' | ' . l(t('Display'), 'admin/structure/types/manage/' . $type_url_str . '/display');
         }
       }
-      if (isset($row)) { 
+      if ($row != '') { 
         $create[] = $row;
       }
     }
