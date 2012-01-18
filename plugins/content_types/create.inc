@@ -119,13 +119,15 @@ function total_control_create_content_type_edit_form(&$form, &$form_state) {
   $type_options = array();
   $type_defaults = array();
   
-  foreach ($types as $type => $object){
-    $type_options[$type] = $object->name;
-    $type_defaults[] = $type;
-  }
-  
-  if (isset($conf['types'])){
+  if (isset($conf['types'])) {
     $type_defaults = $conf['types'];
+  }
+
+  foreach ($types as $type => $object) {
+    $type_options[$type] = $object->name;
+    if (!array_key_exists($type, $type_defaults)) {
+      $type_defaults[$type] = $type;
+    }
   }
   
   $form['types'] = array(

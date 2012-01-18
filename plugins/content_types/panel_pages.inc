@@ -108,7 +108,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
   
   // Build a link to the page manager UI.
   if (user_access('use page manager')) {
-    $link = l(t('Go to list'), 'admin/build/pages');
+    $link = l(t('Page manager administration'), 'admin/build/pages');
   }
   
   $block->content = theme('total_control_panel_pages', $header, $rows, $link);
@@ -137,7 +137,7 @@ function total_control_panel_pages_content_type_edit_form(&$form, &$form_state) 
  *
  */
 function total_control_panel_pages_content_type_edit_form_submit(&$form, &$form_state) {
-  foreach (array('item1', 'item2') as $key) {
+  foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   }
 }
