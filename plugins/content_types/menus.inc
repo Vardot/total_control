@@ -30,7 +30,7 @@ function total_control_menus_content_type_admin_title($subtype = NULL, $conf = N
  */
 function total_control_menus_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Displays a list of Menus, with access to edit links within.');
+  $block->title = t('Displays a list of Menus, with access to add and edit the links within.');
 
   return $block;
 }
@@ -62,7 +62,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
     }
   }
 
-  // Build a link to the page manager UI.
+  // Build a link to the menu UI.
   if (user_access('administer menu')) {
     $link = l(t('Menu administration'), 'admin/structure/menus');
   }
