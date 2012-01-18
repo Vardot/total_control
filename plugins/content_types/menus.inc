@@ -11,7 +11,7 @@
 $plugin = array(
   'single' => TRUE,
   'title' => t('Menus'),
-  'defaults' => array(),
+  'defaults' => array('menus' => array()),
   'icon' => 'cog.png',
   'description' => t('A list of menus on the site.'),
   'category' => t('Total control'),
@@ -41,23 +41,21 @@ function total_control_menus_content_type_admin_info($subtype = NULL, $conf = NU
 function total_control_menus_content_type_render($subtype, $conf, $args, &$context) {
   $items = array();
 
-  // Get panels pages.
   $menus = menu_get_menus();
-
-  $count = 0;
-  $header = array(); // TODO
+  $count = 0; // TODO setting.
+  $header = array('page' => t('Menu'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();
 
   foreach ($menus as $menu_name => $menu) {
-    // Don't show ever show Management, or Devel.
-    if (!in_array($menu_name, array('management', 'devel'))) {
+    if ($conf['menus'][$menu_name] === $menu_name) {
       $rows[] = array(
         'data' => array(
           t($menu),
-          l(t('Edit links'), 'admin/structure/menu/manage/' . $menu_name),
+          l(t('Edit menu'), 'admin/structure/menu/manage/' . $menu_name),
+          l(t('Add new link'), 'admin/structure/menu/manage/' . $menu_name . '/add'),
         ),
       );
-      // Only show 10. // TODO setting.
+      // Only show a certain number.
       if (++$count >= 10) {
         break;
       }
@@ -85,6 +83,19 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
 function total_control_menus_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
 
+  $menus = menu_get_menus();
+  foreach ($menus as $machine => $name) {
+    if (!in_array($machine, array('management', 'user-menu', 'devel'))) {
+      $menu_defaults[$machine] = $machine;
+    }
+  }
+  $form['menus'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Show links for the following menus on the dashboard'),
+    '#options' => $menus,
+    '#default_value' => ($conf['menus'])? $conf['menus'] : $menu_defaults,
+  );
+
   return $form;
 }
 
@@ -92,7 +103,7 @@ function total_control_menus_content_type_edit_form($form, &$form_state) {
  * 'Edit form' submit callback for the content type.
  */
 function total_control_menus_content_type_edit_form_submit($form, &$form_state) {
-  foreach (array('item1', 'item2') as $key) {
+  foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   }
 }

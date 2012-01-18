@@ -49,8 +49,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
   page_manager_get_pages($tasks, $pages);
   $count = 0;
 
-  $header = array();
-  //$header = array(t('Page'), t('Operations')); // TODO
+  $header = array('page' => t('Page'), 'options' => t('Operations'));
   $rows = array();
 
   foreach ($pages['rows'] as $id => $info) {
@@ -74,7 +73,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
 
   // Build a link to the page manager UI.
   if (user_access('use page manager')) {
-    $link = l(t('Go to list'), 'admin/sructure/pages');
+    $link = l(t('Page manager administration'), 'admin/sructure/pages');
   }
 
   $block = new stdClass();
@@ -99,7 +98,7 @@ function total_control_panel_pages_content_type_edit_form($form, &$form_state) {
  * 'Edit form' submit callback for the content type.
  */
 function total_control_panel_pages_content_type_edit_form_submit($form, &$form_state) {
-  foreach (array('item1', 'item2') as $key) {
+  foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   }
 }

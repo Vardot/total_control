@@ -85,7 +85,7 @@ function theme_total_control_menus($variables) {
   $link = $variables['link'];
 
   $output  = '<div class="total-control-panel-panes">';
-  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => 'panels-manage')));
+  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('panels-manage'))));
   $output .= '  <div class="see-list">' . $link . '</div>';
   $output .= '</div>';
 
@@ -101,7 +101,7 @@ function theme_total_control_panel_pages($variables) {
   $link = $variables['link'];
 
   $output  = '<div class="total-control-panel-panes">';
-  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => 'panels-manage')));
+  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('panels-manage'))));
   $output .= '  <div class="see-list">' . $link . '</div>';
   $output .= '</div>';
 
