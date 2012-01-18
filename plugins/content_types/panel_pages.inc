@@ -49,12 +49,12 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
   page_manager_get_pages($tasks, $pages);
   $count = 0;
 
-  $header = array(t('Page'), t('Operations'));
+  $header = array();
+  //$header = array(t('Page'), t('Operations')); // TODO
   $rows = array();
 
   foreach ($pages['rows'] as $id => $info) {
-    // TODO: config setting?
-    // Only show enabled panels on the pane.
+    // Only show enabled panels on the pane. // TODO: config setting?
     if (array_key_exists('data', $info['data']['operations'])
       && (stristr((string)$info['data']['operations']['data'], 'Enable') == FALSE)) {
       $rows[] = array(
@@ -65,7 +65,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
         'class' => $info['class'],
       );
 
-      // Only show 10.
+      // Only show 10. // TODO setting.
       if (++$count >= 10) {
         break;
       }
@@ -74,13 +74,13 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
 
   // Build a link to the page manager UI.
   if (user_access('use page manager')) {
-    $link = l(t('Go to list'), 'admin/build/pages');
+    $link = l(t('Go to list'), 'admin/sructure/pages');
   }
 
   $block = new stdClass();
   $block->title = check_plain('Panel pages');
   $block->module = t('total_control');
-  //$block->content = theme('total_control_panel_pages', array('header' => $header, 'rows' => $rows, 'link' => $link));
+  $block->content = theme('total_control_panel_pages', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 

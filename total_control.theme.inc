@@ -77,7 +77,23 @@ function theme_total_control_taxonomy($variables) {
 }
 
 /*
- * Theme function for taxonomy pane.
+ * Theme function for menus.
+ */
+function theme_total_control_menus($variables) {
+  $header = $variables['header'];
+  $rows = $variables['rows'];
+  $link = $variables['link'];
+
+  $output  = '<div class="total-control-panel-panes">';
+  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => 'panels-manage')));
+  $output .= '  <div class="see-list">' . $link . '</div>';
+  $output .= '</div>';
+
+  return $output;
+}
+
+/*
+ * Theme function for panel pages.
  */
 function theme_total_control_panel_pages($variables) {
   $header = $variables['header'];
