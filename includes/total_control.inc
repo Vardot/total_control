@@ -297,16 +297,20 @@ function total_control_get_content_overview($conf = array()) {
       $type_count = db_query("SELECT count(*) FROM {node} WHERE type = :type and status = 1", array(':type' => $type))->fetchField();
       $content_data[$type] = format_plural($type_count, '1 ' . $object->name . ' item', '@count ' . $object->name . ' items');
 
-      // compare against comment option on pane config.
       $comment_setting = variable_get('comment_' . $type, 'comment');
 
-      if (module_exists('comment') && ($comment_setting != 0 && !array_key_exists($type, $conf['comments']) && $conf['comments'][$type] == 1)) {
-        $comment_count = db_query("SELECT count(DISTINCT cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 1 AND n.status = 1", array(':type' => $type))->fetchField();
-        $content_data[$type . '_comments'] =  format_plural($comment_count, '1 comment', '@count comments');
+      // Check if comments module is present, and that they are enabled for this type.
+      if (module_exists('comment') && $comment_setting != 0) {
+        // Compare against comment options on pane config.
+        if (!array_key_exists($type, $conf['comments']) || $conf['comments'][$type] == 1) {
+          $comment_count = db_query("SELECT count(DISTINCT cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 1 AND n.status = 1", array(':type' => $type))->fetchField();
+          $content_data[$type . '_comments'] =  format_plural($comment_count, '1 comment', '@count comments');
 
-        if (isset($conf['spam']) && $conf['spam'] == 1) { // compare against comment option on pane config
-          $spam_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 0 AND n.status = 1", array(':type' => $type))->fetchField();
-          $content_data[$type . '_comments_spam'] = format_plural($spam_count, '1 spam', '@count spam');
+          // Compare against spam option on pane config
+          if (isset($conf['spam']) && $conf['spam'] == 1) {
+            $spam_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 0 AND n.status = 1", array(':type' => $type))->fetchField();
+            $content_data[$type . '_comments_spam'] = format_plural($spam_count, '1 spam', '@count spam');
+          }
         }
       }
 
