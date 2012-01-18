@@ -71,7 +71,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
   $block = new stdClass();
 
   // The title actually used in rendering.
-  $block->title = check_plain("Panel Pages");
+  $block->title = t("Panel Pages");
   
   $items = array();
   
