@@ -291,22 +291,24 @@ function total_control_add_filters($machine_type = NULL) {
 function total_control_get_content_overview($conf = array()) {
   $items = array();
   $types = node_type_get_types();
+  $comments_exist = module_exists('comment');
+
   foreach ($types as $type => $object) {
     // Compare against type option on pane config.
-    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {  
+    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type] == $type)) { 
       $type_count = db_query("SELECT count(*) FROM {node} WHERE type = :type and status = 1", array(':type' => $type))->fetchField();
       $content_data[$type] = format_plural($type_count, '1 ' . $object->name . ' item', '@count ' . $object->name . ' items');
 
-      $comment_setting = variable_get('comment_' . $type, 'comment');
+      $comment_setting = variable_get('comment_' . $type, 0);
 
       // Check if comments module is present, and that they are enabled for this type.
-      if (module_exists('comment') && $comment_setting != 0) {
+      if ($comments_exist && $comment_setting != 0) {
         // Compare against comment options on pane config.
-        if (!array_key_exists($type, $conf['comments']) || $conf['comments'][$type] == 1) {
+        if (array_key_exists($type, $conf['comments']) && $conf['comments'][$type] === $type) {
           $comment_count = db_query("SELECT count(DISTINCT cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 1 AND n.status = 1", array(':type' => $type))->fetchField();
           $content_data[$type . '_comments'] =  format_plural($comment_count, '1 comment', '@count comments');
 
-          // Compare against spam option on pane config
+          // Compare against spam option checkbox on pane config.
           if (isset($conf['spam']) && $conf['spam'] == 1) {
             $spam_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 0 AND n.status = 1", array(':type' => $type))->fetchField();
             $content_data[$type . '_comments_spam'] = format_plural($spam_count, '1 spam', '@count spam');
@@ -341,16 +343,27 @@ function total_control_add_content_pane_settings(&$form, $conf = array()) {
 
   // Set defaults based on pane config.
   if (isset($conf['types'])) {
-    $type_defaults[] = $conf['types'];
+    $type_defaults = $conf['types'];
+  }
+  
+  if (isset($conf['comments'])) {
+    $comment_defaults = $conf['comments'];
   }
 
   foreach ($types as $machine_type => $type) {
     $type_options[$machine_type] = $type->name;
-    if (!array_key_exists($type, $type_defaults)) {
-      $type_defaults[$type] = $type;
+    // Display new content types by default.
+    if (!array_key_exists($machine_type, $type_defaults)) {
+      $type_defaults[$machine_type] = $machine_type;
     }
-    if ($machine_type == 'blog' || $machine_type == 'forum topic') {
-      $comment_defaults[] = $machine_type;
+    // Do not display comments on new types by default unless it's a blog or a forum.
+    if (!array_key_exists($machine_type, $comment_defaults)) {
+      if ($machine_type == 'blog' || $machine_type == 'forum topic') {
+        $comment_defaults[$machine_type] = $machine_type;
+      }
+      else {
+        $comment_defaults[$machine_type] = 0;
+      }
     }
   }
 
@@ -366,7 +379,7 @@ function total_control_add_content_pane_settings(&$form, $conf = array()) {
       '#type' => 'checkboxes',
       '#title' => t('Show <strong>comment</strong> counts for the following content types'),
       '#options' => $type_options,
-      '#default_value' => ($conf['comments'])? $conf['comments'] : $comment_defaults,
+      '#default_value' => $comment_defaults,
     );
     $spam_options = array(
       0 => t('no'), 
