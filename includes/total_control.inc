@@ -339,9 +339,16 @@ function total_control_add_content_pane_settings(&$form, $conf = array()) {
   $type_defaults = array();
   $comment_defaults = array();
 
+  // Set defaults based on pane config.
+  if (isset($conf['types'])) {
+    $type_defaults[] = $conf['types'];
+  }
+
   foreach ($types as $machine_type => $type) {
     $type_options[$machine_type] = $type->name;
-    $type_defaults[] = $machine_type;
+    if (!array_key_exists($type, $type_defaults)) {
+      $type_defaults[$type] = $type;
+    }
     if ($machine_type == 'blog' || $machine_type == 'forum topic') {
       $comment_defaults[] = $machine_type;
     }
@@ -351,7 +358,7 @@ function total_control_add_content_pane_settings(&$form, $conf = array()) {
     '#type' => 'checkboxes',
     '#title' => t('Show <strong>post</strong> counts for the following content types'),
     '#options' => $type_options,
-    '#default_value' => ($conf['types'])? $conf['types'] : $type_defaults,
+    '#default_value' => $type_defaults,
   );
 
   if (module_exists('comment')) {
