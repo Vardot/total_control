@@ -49,12 +49,11 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $vids = (isset($conf['vids']))? $conf['vids']: array();
 
   $vocabs = taxonomy_get_vocabularies();
-  $header = array('page' => t('Vocabularies'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
+  $header = array('page' => t('Vocabulary'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();
 
   if (!empty($vocabs)) {  
     foreach ($vocabs as $vocab) {
-      dpm($vocab);
       if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids', $conf)) {  
         $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", array(':vid' => $vocab->vid))->fetchField();
         if (user_access('administer taxonomy') || user_access('edit terms in ' . $vocab->vid)) {
