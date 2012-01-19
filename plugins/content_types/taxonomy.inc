@@ -49,37 +49,37 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $vids = (isset($conf['vids']))? $conf['vids']: array();
 
   $vocabs = taxonomy_get_vocabularies();
-  $rows = array();  
+  $header = array('page' => t('Vocabularies'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
+  $rows = array();
 
   if (!empty($vocabs)) {  
     foreach ($vocabs as $vocab) {
-      // compare against vocab option on pane config
+      dpm($vocab);
       if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids', $conf)) {  
         $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", array(':vid' => $vocab->vid))->fetchField();
-
-        $terms = format_plural($term_count, '1 term', '@count terms');
-        $rows[$vocab->vid] = $vocab->name . ': ' . $terms;
-        if (user_access('administer taxonomy')) {
-          $rows[$vocab->vid] .= ' | ' . l(t('list terms'), 'admin/content/taxonomy/' . $vocab->vid);
-          $rows[$vocab->vid] .= ' | ' . l(t('add term'), 'admin/content/taxonomy/' . $vocab->vid . '/add/term');
-        } // if access
-      } // if vocab
-    } // foreach
-  }
-
-  if ($rows) {
-    $output = theme('total_control_taxonomy', array('taxonomy' => $rows));
-  }
-  else {
-    $output = t('You have no vocabularies yet.') . ' ';
-    if (user_access('administer taxonomy')) {
-      $output .= '<div class="add-vocab">';
-      $output .= l(t('Add vocabulary'), 'admin/content/taxonomy/add/vocabulary');
-      $output .= '</div>';
+        if (user_access('administer taxonomy') || user_access('edit terms in ' . $vocab->vid)) {
+          $terms = format_plural($term_count, '1 categories', '@count categories');
+          $rows[] = array(
+            'data' => array(
+              t($vocab->name . ': ' . $terms),
+              l(t('List categories'), 'admin/structure/taxonomy/' . $vocab->machine_name),
+              l(t('Add categories'), 'admin/structure/taxonomy/' . $vocab->machine_name . '/add'),
+            ),
+          );
+        }
+      }
     }
   }
 
-  $block->content = $output;
+  if (user_access('administer taxonomy')) {
+    $link = l(t('Taxonomy administration'), 'admin/structure/taxonomy');
+  }
+
+  if (empty($rows)) {
+    $rows[] = t('You have no vocabularies yet.');
+  }
+
+  $block->content = theme('total_control_taxonomy', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 }

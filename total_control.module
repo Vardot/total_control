@@ -196,7 +196,7 @@ function total_control_theme() {
       'file' => 'total_control.theme.inc',
     ),
     'total_control_taxonomy' => array(
-      'variables' => array('rows' => array()), 
+      'variables' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
       'file' => 'total_control.theme.inc',
     ),
     'total_control_menus' => array(

@@ -67,10 +67,13 @@ function theme_total_control_create($variables) {
  * Theme function for taxonomy pane.
  */
 function theme_total_control_taxonomy($variables) {
-  $taxonomy = $variables['taxonomy'];
+  $header = $variables['header'];
+  $rows = $variables['rows'];
+  $link = $variables['link'];
 
-  $output  = '<div class="total-control-taxonomy">';
-  $output .= theme('item_list', array('items' => $taxonomy));
+  $output  = '<div class="total-control-panel-panes">';
+  $output .= theme('table', array('header' => $header, 'rows' => $rows));
+  $output .= '  <div class="admin-page">' . $link . '</div>';
   $output .= '</div>';
 
   return $output;
@@ -85,8 +88,8 @@ function theme_total_control_menus($variables) {
   $link = $variables['link'];
 
   $output  = '<div class="total-control-panel-panes">';
-  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('panels-manage'))));
-  $output .= '  <div class="see-list">' . $link . '</div>';
+  $output .= theme('table', array('header' => $header, 'rows' => $rows));
+  $output .= '  <div class="admin-page">' . $link . '</div>';
   $output .= '</div>';
 
   return $output;
@@ -102,14 +105,14 @@ function theme_total_control_panel_pages($variables) {
 
   $output  = '<div class="total-control-panel-panes">';
   $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('class' => array('panels-manage'))));
-  $output .= '  <div class="see-list">' . $link . '</div>';
+  $output .= '  <div class="admin-page">' . $link . '</div>';
   $output .= '</div>';
 
   return $output;
 }
 
 /*
- * Theme function for taxonomy pane.
+ * Theme function for nodequeue pane.
  */
 function theme_total_total_control_nodequeue($variables) {
   $header = $variables['header'];

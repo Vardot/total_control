@@ -42,7 +42,6 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
   $items = array();
 
   $menus = menu_get_menus();
-  $count = 0; // TODO setting.
   $header = array('page' => t('Menu'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();
 
@@ -55,10 +54,6 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
           l(t('Add new link'), 'admin/structure/menu/manage/' . $menu_name . '/add'),
         ),
       );
-      // Only show a certain number.
-      if (++$count >= 10) {
-        break;
-      }
     }
   }
 
