@@ -72,7 +72,6 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
 
   // The title actually used in rendering.
   $block->title = t("Menus");
-  $count = 0;
   $header = array(t('Page'), t('Operations'));
   $rows = array();
 
@@ -80,7 +79,6 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
   $count = 0; // TODO setting.
   $header = array('page' => t('Menu'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();
-dpm($conf);
 
   foreach ($menus as $menu_name => $menu) {
     if (!isset($conf['menus'][$menu_name]) || $conf['menus'][$menu_name] === $menu_name) {
@@ -91,10 +89,6 @@ dpm($conf);
           l(t('Add new link'), 'admin/build/menu-customize/' . $menu_name . '/add'),
         ),
       );
-      // Only show a certain number.
-      if (++$count >= 10) {
-        break;
-      }
     }
   }
 

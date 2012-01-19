@@ -73,38 +73,43 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = total_control_taxonomy_content_type_admin_title();
-  
+
   $vids = (isset($conf['vids']))? $conf['vids']: array();
-  
+
   $vocabs = taxonomy_get_vocabularies();
+  $access = user_access('administer taxonomy');
+  $header = array('page' => t('Vocabulary'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();  
-  
+
   if (!empty($vocabs)){  
     foreach ($vocabs as $vocab){
       // compare against vocab option on pane config
       if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids',$conf)){  
         $term_query = db_query("SELECT count(*) FROM {term_data} WHERE vid = %d", $vocab->vid);
         $terms = format_plural(db_result($term_query), '1 term', '@count terms');
-        $rows[$vocab->vid] = $vocab->name . ': ' . $terms;
-        if (user_access('administer taxonomy')){
-          $rows[$vocab->vid] .= ' | '. l('list terms', 'admin/content/taxonomy/'.$vocab->vid);
-          $rows[$vocab->vid] .= ' | '. l('add term', 'admin/content/taxonomy/'.$vocab->vid.'/add/term');
-        } // if access
-      } // if vocab
-    } // foreach
-  }
-  
-  if ($rows){
-    $output = theme('total_control_taxonomy', $rows);
-  }
-  else {
-    $output = t('You have no vocabularies yet. ');
-    if (user_access('administer taxonomy')){
-      $output .= '<div class="add-vocab">'.l(t('Add vocabulary'),'admin/content/taxonomy/add/vocabulary').'</div>';
+        if ($access){
+          $rows[] = array(
+            'data' => array(
+              t($vocab->name . ': ' . $terms),
+              l('List terms', 'admin/content/taxonomy/'.$vocab->vid),
+              l('Add terms', 'admin/content/taxonomy/'.$vocab->vid.'/add/term'),
+            ),
+          );
+        }
+      }
     }
   }
+  
+  if ($access) {
+    $link = l(t('Taxonomy administration'), 'admin/content/taxonomy');
+  }
 
-  $block->content = $output;
+  if (empty($rows)) {
+    $rows[] = t('You have no vocabularies yet.');
+  }
+
+  $block->content = theme('total_control_taxonomy', $header, $rows, $link);
+
   return $block;
 }
 

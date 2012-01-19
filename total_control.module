@@ -192,7 +192,11 @@ function total_control_theme() {
       'file' => 'total_control.theme.inc',
     ),
     'total_control_taxonomy' => array(
-      'arguments' => array('rows' => array()), 
+     'arguments' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
+      'file' => 'total_control.theme.inc',
+    ),
+    'total_control_menus' => array(
+      'arguments' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
       'file' => 'total_control.theme.inc',
     ),
     'total_control_panel_pages' => array(

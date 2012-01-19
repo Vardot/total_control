@@ -56,21 +56,34 @@ function theme_total_control_create($create){
 /*
  * Theme function for taxonomy pane.
  */
-function theme_total_control_taxonomy($taxonomy){
+function theme_total_control_taxonomy($header, $rows, $link){
   $content = '<div class="total-control-taxonomy">';
-  $content .= theme('item_list', $taxonomy);
+  $content .= theme('table', $header, $rows, array('class' => 'panels-manage'));
+  $content .= '<div class="admin-page">' . $link . '</div>';
   $content .= '</div>';
 
   return $content;
 }
 
 /*
- * Theme function for taxonomy pane.
+ * Theme function for menus pane.
+ */
+function theme_total_control_menus($header, $rows, $link){
+  $content = '<div class="total-control-panel-panes">';
+  $content .= theme('table', $header, $rows, array('class' => 'panels-manage'));
+  $content .= '<div class="admin-page">' . $link . '</div>';
+  $content .= '</div>';
+
+  return $content;
+}
+
+/*
+ * Theme function for panels pane.
  */
 function theme_total_control_panel_pages($header, $rows, $link){
   $content = '<div class="total-control-panel-panes">';
   $content .= theme('table', $header, $rows, array('class' => 'panels-manage'));
-  $content .= '<div class="see-list">' . $link . '</div>';
+  $content .= '<div class="admin-page">' . $link . '</div>';
   $content .= '</div>';
 
   return $content;
