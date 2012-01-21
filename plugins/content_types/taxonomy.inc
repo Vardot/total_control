@@ -74,6 +74,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
 
   $vocabs = taxonomy_get_vocabularies();
   $access = user_access('administer taxonomy');
+  $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array('page' => t('Vocabulary'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();  
 
@@ -87,8 +88,8 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
           $rows[] = array(
             'data' => array(
               t($vocab->name . ': ' . $terms),
-              l('List terms', 'admin/content/taxonomy/' . $vocab->vid),
-              l('Add terms', 'admin/content/taxonomy/' . $vocab->vid . '/add/term'),
+              l('List terms', 'admin/content/taxonomy/' . $vocab->vid, $options),
+              l('Add terms', 'admin/content/taxonomy/' . $vocab->vid . '/add/term', $options),
             ),
           );
         }
@@ -97,7 +98,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
 
   if ($access) {
-    $link = l(t('Taxonomy administration'), 'admin/content/taxonomy');
+    $link = l(t('Taxonomy administration'), 'admin/content/taxonomy', $options);
   }
 
   if (empty($rows)) {

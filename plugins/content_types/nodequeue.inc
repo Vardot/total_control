@@ -33,23 +33,18 @@ $plugin = array(
 
 /**
  * 'Admin title' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
- *
  */
 function total_control_nodequeue_content_type_admin_title($subtype, $conf, $context) {
-    return t('NodeQueues');
+  return t('NodeQueues');
 }
 
 /**
  * 'Admin info' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
- *
  */
 function total_control_nodequeue_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Provides a list of all NodeQueues on the site.');
+
   return $block;
 }
 
@@ -71,36 +66,31 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
 
   // The title actually used in rendering
   $block->title = check_plain("NodeQueues");
-  
+
   $items = array();
-  
-  // Get nodequeues.
+
+  //Check for NodeQueue module.
   if (module_exists('nodequeue')) {
+    // Get nodequeues.
     module_load_include('module', 'nodequeue', 'nodequeue');
-    
     $queues = nodequeue_load_queues(nodequeue_get_all_qids(25));
+    
     foreach ($queues as $queue) {
       if (!nodequeue_queue_access($queue)) {
         unset($queues[$queue->qid]);
       }
     }
 
-    if (empty($queues)) {
-      $output = t('No nodequeues exist.');
-    }
-
+    $options = array('query' => array('destination' => 'admin/dashboard'));
     $header = array(
       array('data' => t('Title'), 'field' => 'title', 'sort' => 'asc'),
       array('data' => t('Max'), 'field' => 'size'),
       array('data' => t('Operations')),
     );
-    
     $rows = array();
+
     foreach ($queues as $queue) {
-      
-      // Special love for Total Control.
-      $options = array('query' => array('destination' => 'admin/dashboard'));
-      $operations = array(l(t('Manage'), "admin/content/nodequeue/$queue->qid/view", $options));
+      $operations = array(l(t('Edit'), "admin/content/nodequeue/$queue->qid/view", $options));
 
       $rows[] = array(
         array('class' => 'nodequeue-title', 'data' => check_plain($queue->title)),
@@ -109,9 +99,21 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
       );
     }
 
-    $output = theme('total_control_nodequeue', $header, $rows);
+    if (user_access('manipulate all queues') || user_acces('administer nodequeue')) {
+      $link = l(t('Nodequeue administration'), 'admin/content/nodequeue', $options);
+    }
   }
   
+  if (empty($rows)) {
+    $rows[] = array(
+      array(
+        'data' => t('There are no nodequeues to display.'),
+        'colspan' => 3,
+      )
+    );
+  }
+
+  $output = theme('total_control_admin_table', $header, $rows, $link);
   $block->content = $output;
 
   return $block;

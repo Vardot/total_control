@@ -76,7 +76,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
   $rows = array();
 
   $menus = menu_get_menus();
-  $count = 0; // TODO setting.
+  $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array('page' => t('Menu'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();
 
@@ -85,8 +85,8 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
       $rows[] = array(
         'data' => array(
           t($menu),
-          l(t('Edit menu'), 'admin/build/menu-customize/' . $menu_name),
-          l(t('Add new link'), 'admin/build/menu-customize/' . $menu_name . '/add'),
+          l(t('Edit menu'), 'admin/build/menu-customize/' . $menu_name, $options),
+          l(t('Add new link'), 'admin/build/menu-customize/' . $menu_name . '/add', $options),
         ),
       );
     }
@@ -103,7 +103,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
 
   // Build a link to the menu UI.
   if (user_access('administer menus')) {
-    $link = l(t('Menu administration'), 'admin/build/menus');
+    $link = l(t('Menu administration'), 'admin/build/menus', $options);
   }
 
   $block->content = theme('total_control_admin_table', $header, $rows, $link);
