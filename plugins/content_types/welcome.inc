@@ -75,7 +75,13 @@ function total_control_welcome_content_type_render($subtype, $conf, $panel_args,
   
   // Building the content
   $content =  '<div class="total-control-site-overview">';
-  $content .= '  <p>'.t('Welcome to your administrative dashboard.  !panel to add more content panes here, or configure those provided by default. Views content panes can be created for you automatically according to your !settings.  Make this dashboard the perfect hub for all your administrative needs.', array('!panel' => l(t('Edit this panel'), 'admin/build/pages/edit/dashboard'), '!settings' => l(t('Total Control Settings'), 'admin/settings/control'))).'</p>';
+  $content .= '  <p>' . t('Welcome to your administrative dashboard.  !panel
+    to add more content panes here, or configure those provided by default.
+    Views content panes can be created for you automatically according to your 
+    !settings.  Make this dashboard the perfect hub for all your 
+    administrative needs.', array('!panel' => l(t('Edit this panel'), 
+    'admin/build/pages/edit/dashboard'), '!settings' => l(t('Total 
+    Control Settings'), 'admin/settings/control'))) . '</p>';
   $content .= '</div>';
 
   $block->content = $content;

@@ -16,7 +16,7 @@
  *   The state of the form when the request is made
  *
  */ 
-function total_control_add_type_submit($form, &$form_state){
+function total_control_add_type_submit($form, &$form_state) {
   // get the type  
   $machine_type = $form_state['values']['type'];
   $content_type = $form_state['values']['name'];
@@ -32,7 +32,7 @@ function total_control_add_type_submit($form, &$form_state){
  *   The state of the form when the request is made
  *
  */ 
-function total_control_remove_type_submit($form, &$form_state){
+function total_control_remove_type_submit($form, &$form_state) {
   // get the type  
   $machine_type = $form_state['values']['type'];
   total_control_views_delete_page_display($machine_type);
@@ -48,8 +48,8 @@ function total_control_remove_type_submit($form, &$form_state){
  *   The human readable name of the content type
  *
  */
-function total_control_views_add_display($machine_type, $content_type){
-  if (!$machine_type){
+function total_control_views_add_display($machine_type, $content_type) {
+  if (!$machine_type) {
     drupal_set_message('no content type provided', 'error');
     return;
   }
@@ -57,30 +57,34 @@ function total_control_views_add_display($machine_type, $content_type){
   $auto_pane_default = variable_get('total_control_auto_panels', array());
   $auto_page_default = variable_get('total_control_auto_pages', array());
 
-  if (!($auto_page_default['type'] === 0)){
+  if (!($auto_page_default['type'] === 0)) {
     $view = views_get_view('control_content');
-    if (!$view->display['page_tc_'.$machine_type]) { 
+    if (!$view->display['page_tc_' . $machine_type]) { 
       total_control_add_views_page_display($view, $content_type, $machine_type);
       $defaults = variable_get('total_control_type_pages', array());
       $defaults[$machine_type] = $machine_type;
       $defaults = variable_set('total_control_type_pages', $defaults);
     }
     else {
-      drupal_set_message(t('Total Control was unable to create your administrative view because a view already exists with the name: '.'page_tc_'.$machine_type));
+      drupal_set_message(t('Total Control was unable to create your 
+        administrative view because a view already exists with the 
+        name: '.'page_tc_' . $machine_type));
     }
   }
   
-  if (!($auto_pane_default['type'] === 0)){
+  if (!($auto_pane_default['type'] === 0)) {
     $paneview = views_get_view('control_content_panes');
     $auto_panes = variable_get('total_control_auto_panels', array());
-    if (!$paneview->display['pane_tc_'.$machine_type]) {
+    if (!$paneview->display['pane_tc_' . $machine_type]) {
       total_control_add_views_pane_display($paneview, $content_type, $machine_type);
       $defaults = variable_get('total_control_type_panes', array());
       $defaults[$machine_type] = $machine_type;
       $defaults = variable_set('total_control_type_panes', $defaults);
     }
     else {
-      drupal_set_message(t('Total Control was unable to create your administrative view because a view already exists with the name: '.'pane_tc_'.$machine_type));
+      drupal_set_message(t('Total Control was unable to create your 
+        administrative view because a view already exists with the name: ' . 
+        'pane_tc_' . $machine_type));
     }
   }
 
@@ -94,11 +98,12 @@ function total_control_views_add_display($machine_type, $content_type){
  *   The machine readable name of the content type
  *
  */
-function total_control_views_delete_page_display($type){
+function total_control_views_delete_page_display($type) {
   $view = views_get_view('control_content');
-  unset($view->display['page_tc_'.$type]);
+  unset($view->display['page_tc_' . $type]);
   $view->save();
   menu_cache_clear_all();
+
   return;
 }
 
@@ -109,10 +114,11 @@ function total_control_views_delete_page_display($type){
  *   The machine readable name of the content type
  *
  */
-function total_control_views_delete_pane_display($type){
+function total_control_views_delete_pane_display($type) {
   $view = views_get_view('control_content_panes');
-  unset($view->display['pane_tc_'.$type]);
+  unset($view->display['pane_tc_' . $type]);
   $view->save();
+
   return;
 }
 
@@ -127,7 +133,7 @@ function total_control_views_delete_pane_display($type){
  *   The human-readable content type name
  *
  */
-function total_control_add_views_pane_display(&$view, $content_type, $machine_type){  
+function total_control_add_views_pane_display(&$view, $content_type, $machine_type) {  
   // Build the display.
   $handler = $view->new_display('panel_pane', $content_type . ' pane', 'panel_pane_tc_' . $machine_type);
   $handler->override_option('filters', array(
@@ -188,7 +194,7 @@ function total_control_add_views_pane_display(&$view, $content_type, $machine_ty
  *   The machine-readable content type name
  *
  */
-function total_control_add_views_page_display(&$view, $content_type, $machine_type){  
+function total_control_add_views_page_display(&$view, $content_type, $machine_type) {
   // Build the display.
   $handler = $view->new_display('page', $content_type . ' Page', 'page_tc_' . $machine_type);
   
@@ -202,7 +208,7 @@ function total_control_add_views_page_display(&$view, $content_type, $machine_ty
   $handler->override_option('header', '');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 1);
-  $handler->override_option('path', 'admin/dashboard/content/'.$machine_path);
+  $handler->override_option('path', 'admin/dashboard/content/' . $machine_path);
   $handler->override_option('menu', array(
     'type' => 'tab',
     'title' => $content_type . ' content',
@@ -232,7 +238,7 @@ function total_control_add_views_page_display(&$view, $content_type, $machine_ty
  *   An array of filters for the view
  *
  */
-function total_control_add_filters($machine_type = NULL){
+function total_control_add_filters($machine_type = NULL) {
   $filters = array(
     'status' => array(
       'operator' => '=',
@@ -275,7 +281,7 @@ function total_control_add_filters($machine_type = NULL){
     )
   );
   
-  if ($machine_type){
+  if ($machine_type) {
     $filters['type_1'] = array(
       'operator' => 'in',
       'value' => array(
@@ -297,7 +303,7 @@ function total_control_add_filters($machine_type = NULL){
     );
   }
   
-  if (module_exists('search')){
+  if (module_exists('search')) {
     $filters['keys'] = array(
       'operator' => 'optional',
       'value' => '',
@@ -340,7 +346,9 @@ function total_control_get_content_overview($conf = array()) {
       $type_sql = "SELECT count(*) FROM {node} 
                   WHERE type = '%s' and status = 1";
       $type_query = db_query($type_sql, $type);
-      $total[$type] = format_plural(db_result($type_query), '1 '.$object->name.' item', '@count '.$object->name.' items');
+      $singular = '1 ' . $object->name . ' item';
+      $plural = '@count ' . $object->name . ' items';
+      $total[$type] = format_plural(db_result($type_query), $singular, $plural);
 
       // Check if comments module is enabled.
       if (module_exists('comment')) { 
@@ -351,7 +359,7 @@ function total_control_get_content_overview($conf = array()) {
                         INNER JOIN {node} n ON c.nid = n.nid 
                         WHERE n.type = '%s' and c.status = 1 AND n.status = 1";
           $comment_query = db_query($comment_sql, $type);
-          $total[$type.'_comments'] =  format_plural(db_result($comment_query), '1 comment', '@count comments');
+          $total[$type . '_comments'] =  format_plural(db_result($comment_query), '1 comment', '@count comments');
 
           // Compare against spam option checkbox on pane config.
           if (isset($conf['spam']) && $conf['spam'] == 1) {
@@ -359,14 +367,14 @@ function total_control_get_content_overview($conf = array()) {
                         INNER JOIN {node} n ON c.nid = n.nid 
                         WHERE n.type = '%s' and c.status = 0 AND n.status = 1";
             $spam_query = db_query($spam_sql, $type);
-            $total[$type.'_comments_spam'] = format_plural(db_result($spam_query), '1 spam', '@count spam');
+            $total[$type . '_comments_spam'] = format_plural(db_result($spam_query), '1 spam', '@count spam');
           }
         }
       }
 
       $line =  $total[$type];
-      $line .= (isset($total[$type.'_comments']))? ' with ' . $total[$type.'_comments'] : '' ;
-      $line .= (isset($total[$type.'_comments_spam']))? ' (' . $total[$type.'_comments_spam'].')' : '' ;
+      $line .= (isset($total[$type . '_comments']))? ' with ' . $total[$type . '_comments'] : '' ;
+      $line .= (isset($total[$type . '_comments_spam']))? ' (' . $total[$type . '_comments_spam'] . ')' : '' ;
       $items[] = $line;
     }
   }
@@ -456,11 +464,11 @@ function total_control_add_content_pane_settings(&$form, &$form_state) {
 function total_control_get_user_overview($conf = array()) {
   $items = array();
 
-  // User Overview
-  if (!$conf['user'] || $conf['user'] == 1){  // compare against user option on pane config
+  // Compare against user option on pane config.
+  if (!$conf['user'] || $conf['user'] == 1) { 
     $user_query = db_query("SELECT count(*) FROM {users}");
     $total['users_all'] = format_plural(db_result($user_query), '1 total user', '@count total users');
-    $user_active_query = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login != 0");
+    $user_active_query = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login <> 0");
     $total['users_active'] = format_plural(db_result($user_active_query), '1 active user', '@count active users');
     $user_block_query = db_query("SELECT count(*) FROM {users} WHERE status = 0");
     $total['users_block'] = format_plural(db_result($user_block_query), '1 blocked user', '@count blocked users');
@@ -472,12 +480,13 @@ function total_control_get_user_overview($conf = array()) {
   // Roles Overview
   $roles = user_roles(TRUE);
   $total['users_roles'] = '';
-  foreach ($roles as $rid => $role){
-    if ((!$conf['roles'] || ($conf['roles'][$rid])) && $rid != 2){  // compare against roles option on pane config
+  foreach ($roles as $rid => $role) {
+    // Compare against roles option on pane config.
+    if ((!$conf['roles'] || ($conf['roles'][$rid])) && $rid != 2) {
       $user_role_query = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = %d", $rid);
-      $total['users_role_'.$rid] .= format_plural(db_result($user_role_query), '1 user', '@count users');
-      $total['users_role_'.$rid] .= ' in role: '.$role;
-      $items[] = $total['users_role_'.$rid];
+      $total['users_role_' . $rid] .= format_plural(db_result($user_role_query), '1 user', '@count users');
+      $total['users_role_' . $rid] .= ' in role: ' . $role;
+      $items[] = $total['users_role_' . $rid];
     } // if not auth
   } // foreach
 
@@ -508,14 +517,14 @@ function total_control_add_user_pane_settings(&$form, &$form_state) {
 
   $roles = user_roles(TRUE);
   $roles_options = array();
-  foreach ($roles as $rid => $role){
-    if ($rid != 2){
+  foreach ($roles as $rid => $role) {
+    if ($rid != 2) {
       $roles_options[$rid] = $role;
       $roles_defaults[] = $rid;
     }
   }
 
-  if (!empty($roles_options)){
+  if (!empty($roles_options)) {
     $form['roles'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Include User counts in Roles'),

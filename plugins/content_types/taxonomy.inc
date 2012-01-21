@@ -62,7 +62,7 @@ function total_control_taxonomy_content_type_admin_info($subtype, $conf, $contex
  *   An object with at least title and content members.
  */
 function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args, &$context) {
-  if (!module_exists('taxonomy')){
+  if (!module_exists('taxonomy')) {
     return;
   }
 
@@ -77,18 +77,18 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $header = array('page' => t('Vocabulary'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();  
 
-  if (!empty($vocabs)){  
-    foreach ($vocabs as $vocab){
+  if (!empty($vocabs)) {  
+    foreach ($vocabs as $vocab) {
       // compare against vocab option on pane config
-      if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids',$conf)){  
+      if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids', $conf)) {  
         $term_query = db_query("SELECT count(*) FROM {term_data} WHERE vid = %d", $vocab->vid);
         $terms = format_plural(db_result($term_query), '1 term', '@count terms');
-        if ($access){
+        if ($access) {
           $rows[] = array(
             'data' => array(
               t($vocab->name . ': ' . $terms),
-              l('List terms', 'admin/content/taxonomy/'.$vocab->vid),
-              l('Add terms', 'admin/content/taxonomy/'.$vocab->vid.'/add/term'),
+              l('List terms', 'admin/content/taxonomy/' . $vocab->vid),
+              l('Add terms', 'admin/content/taxonomy/' . $vocab->vid . '/add/term'),
             ),
           );
         }
@@ -124,19 +124,19 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
   if (!empty($vocabs)) {
     $vocab_options = array();
     $vocab_defaults = array();
-    foreach ($vocabs as $vid => $vocab){
+    foreach ($vocabs as $vid => $vocab) {
       $vocab_options[$vid] = $vocab->name;
       $vocab_defaults[$vid] = $vid;
     }
 
-    if (isset($conf['vids'])){
+    if (isset($conf['vids'])) {
       $vocab_defaults = $conf['vids'];
     }
 
     $form['vids'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Include Vocabularies'),
-      '#multiple' => true,
+      '#multiple' => TRUE,
       '#options' => $vocab_options,
       '#default_value' => $vocab_defaults,
       );

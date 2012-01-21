@@ -90,7 +90,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
     // TODO: config setting?
     // Only show enabled panels on the pane.
     if (array_key_exists('data', $info['data']['operations'])
-      && (stristr((string)$info['data']['operations']['data'], 'Enable') == FALSE)){
+      && (stristr((string)$info['data']['operations']['data'], 'Enable') == FALSE)) {
       $rows[] = array(
         'data' => array(
           $info['data']['title'],

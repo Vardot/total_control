@@ -11,7 +11,7 @@
 /**
  * menu callback for settings page
  */
-function total_control_admin_settings(){
+function total_control_admin_settings() {
   // Redirect on log in
   $form['total_control_login_redirect'] = array(
     '#type' => 'checkbox',
@@ -41,14 +41,14 @@ function total_control_admin_settings(){
   
   $types = node_get_types();
   $options = array();
-  foreach ($types as $machine => $type){
+  foreach ($types as $machine => $type) {
     $options[$machine] = $type->name;
   }
-  if (!empty($auto_pane_default) && !($auto_pane_default['type'] === 0)){
+  if (!empty($auto_pane_default) && !($auto_pane_default['type'] === 0)) {
     $disable_type_pane = TRUE;
     $collapse_auto = FALSE;
   }
-  if (!empty($auto_page_default) && !($auto_page_default['type'] === 0)){
+  if (!empty($auto_page_default) && !($auto_page_default['type'] === 0)) {
     $disable_type_page = TRUE;
     $collapse_auto = FALSE;
   }
@@ -60,14 +60,14 @@ function total_control_admin_settings(){
   $roles = user_roles(TRUE);
   $role_options = array();
   $role_defaults = array(2);
-  foreach ($roles as $rid => $role){
+  foreach ($roles as $rid => $role) {
     $role_options[$rid] = $role . 's';
   }
-  if (!empty($auto_pane_default) && !($auto_pane_default['role'] === 0)){
+  if (!empty($auto_pane_default) && !($auto_pane_default['role'] === 0)) {
     $disable_role_pane = TRUE;
     $collapse_auto = FALSE;
   }
-  if (!empty($auto_page_default) && !($auto_page_default['role'] === 0)){
+  if (!empty($auto_page_default) && !($auto_page_default['role'] === 0)) {
     $disable_role_page = TURE;
     $collapse_auto = FALSE;
   }
@@ -159,15 +159,15 @@ function total_control_admin_settings(){
 /**
  * Submit function for settings page
  */
-function total_control_admin_settings_submit($form, &$form_state){
-  if ($form_state['values']['total_control_role_panels'][2] == 0){
+function total_control_admin_settings_submit($form, &$form_state) {
+  if ($form_state['values']['total_control_role_panels'][2] == 0) {
     // change it back and tell them why
     $form_state['values']['total_control_role_panels'][2] = 2;
     drupal_set_message(t('You can not delete the pane view for users.  To 
       remove it from your dashboard, use the <a href="!panels_interface">Page 
       Manager</a>.', array('!panels_interface' => url('admin/build/pages'))));
   }
-  if ($form_state['values']['total_control_role_pages'][2] == 0){
+  if ($form_state['values']['total_control_role_pages'][2] == 0) {
     // change it back and tell them why
     $form_state['values']['total_control_role_pages'][2] = 2;
     drupal_set_message(t('You should not delete the page view for all users, 
@@ -180,8 +180,8 @@ function total_control_admin_settings_submit($form, &$form_state){
   $paneview = views_get_view('control_content_panes');
   $pageview = views_get_view('control_content');
   $types = node_get_types();
-  foreach ($types as $machine => $type){
-    if (is_array($form_state['values']['total_control_type_panels'])){
+  foreach ($types as $machine => $type) {
+    if (is_array($form_state['values']['total_control_type_panels'])) {
       if ($form_state['values']['total_control_type_panels'][$machine] === $machine) {
         total_control_add_views_pane_display($paneview, $type->name, $machine);
       }

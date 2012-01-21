@@ -24,7 +24,7 @@ function total_control_requirements($phase) {
     }
     
     // Check panels current version.
-    if (module_exists('panels')){
+    if (module_exists('panels')) {
       include_once drupal_get_path('module', 'panels') . '/panels.module';
       $panels_version = module_invoke('panels', 'api_version');
       if ($panels_version[0] < 3) {
@@ -43,7 +43,7 @@ function total_control_requirements($phase) {
     }
     
     // Check views current version.
-    if (module_exists('views')){
+    if (module_exists('views')) {
       include_once drupal_get_path('module', 'views') . '/views.module';
       $views_version = module_invoke('views', 'api_version');
       if ($views_version < 2) {
@@ -99,7 +99,7 @@ function total_control_uninstall() {
     $total_control_views = array('control_content', 'control_content_panes', 'control_comments', 
       'control_files', 'control_revisions', 'control_terms', 'control_users', 'control_users_panes');
     if (in_array($view->type, $views_types) && in_array($view_name, $total_control_views)) {
-      drupal_set_message('Deleting view: ' . $view_name);
+      drupal_set_message(t('Deleting view: %view', array('%view' => $view_name)));
       $view->delete();
       views_object_cache_clear('view', $view_name);
     }
@@ -112,3 +112,11 @@ function total_control_uninstall() {
   variable_del('total_control_auto_panels');
   variable_del('total_control_auto_pages');
 }
+
+/**
+ * Implementation of hook_update_N().
+ */
+function total_control_update_6001() {
+  drupal_rebuild_theme_registry();
+}
+

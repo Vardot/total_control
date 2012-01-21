@@ -103,7 +103,6 @@ function total_control_default_page_manager_handlers() {
  *       its path here.
  */
 function total_control_views_api() {
-  // TODO
   return array(
     'api' => 3,
   );
@@ -114,9 +113,9 @@ function total_control_views_api() {
  *
  * Redirects to the dashboard if configured.
  */
-function total_control_user($op, &$edit, &$account, $category = NULL){
+function total_control_user($op, &$edit, &$account, $category = NULL) {
   if (!(arg(0) == 'user' && arg(1) == 'reset')) {
-    if (($op == 'login') && (variable_get('total_control_login_redirect', 0) == 1 && user_access('have total control'))){
+    if (($op == 'login') && (variable_get('total_control_login_redirect', 0) == 1 && user_access('have total control'))) {
       drupal_goto('admin/dashboard');
     }
   }
@@ -129,9 +128,9 @@ function total_control_user($op, &$edit, &$account, $category = NULL){
  */
 function total_control_views_pre_render(&$view) {
   // Check that this is the control content view
-  if ($view->name == 'control_content'){
+  if ($view->name == 'control_content') {
     // Get the content type for the current page.
-    
+
     // Create an array to work with
     $type_displays = $view->display;
     unset($type_displays['default']);
@@ -140,7 +139,7 @@ function total_control_views_pre_render(&$view) {
     foreach ($type_displays as $key => $value) {
       $machine_names[] = substr($key, 8);
     }
-    
+
 /*
     // TODO
     foreach ($view->display as $display_id => $display) {

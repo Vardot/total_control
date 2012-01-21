@@ -16,7 +16,10 @@
  */
 $plugin = array(
   'title' => t('Content Overview'),
-  'description' => t('Displays a summary of content statistics including: number pieces of each type of content, number of comments, number of blocked comments (spam), and if ').l(t('allowed'), 'admin/settings/total_control').t(', content-type configuration links.'),
+  'description' => t('Displays a summary of content statistics including: 
+    number pieces of each type of content, number of comments, number of 
+    blocked comments (spam), and if <a href="!url">configured</a> content-type 
+    configuration links.', array('!url' => 'admin/settings/total_control')),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
   // Constructor.
@@ -45,7 +48,9 @@ function total_control_overview_content_content_type_admin_title($subtype = NULL
  */
 function total_control_overview_content_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Displays a summary of content statistics including: number pieces of each type of content, number of comments, number of blocked comments (spam), and if ').l(t('allowed'), 'admin/settings/total_control').t(', content-type configuration links.');
+  $block->title = t('Displays a summary of content statistics including: number 
+    pieces of each type of content, number of comments, number of blocked 
+    comments (spam), and content-type configuration links.');
   return $block;
 }
 
