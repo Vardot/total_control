@@ -24,7 +24,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_node_types_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Content administration links');
+  return t('Content type administration links');
 }
 
 /**
@@ -55,9 +55,8 @@ function total_control_node_types_content_type_render($subtype, $conf, $panel_ar
   $rows = array();
 
   foreach ($types as $type => $object) {
-
     // Config data says to include the type.
-    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {  
+    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type]) == $type) {  
       // Check access, then add a link to create content.
       if ($access) {
         $type_url_str = str_replace('_', '-', $object->type);  
@@ -83,7 +82,7 @@ function total_control_node_types_content_type_render($subtype, $conf, $panel_ar
   }
 
   if (user_access('administer content types')) {
-    $link = l(t('Content type administration'), 'admin/structure/types', $options);
+    $link = l(t('Content type administration'), 'admin/structure/types');
   }
 
   $block->content =  theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));

@@ -42,6 +42,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
   $items = array();
 
   $menus = menu_get_menus();
+  $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(
     array('data' => t('Menu')), 
     array('data' => t('Operations'), 'colspan' => 2));
@@ -52,8 +53,8 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
       $rows[] = array(
         'data' => array(
           t($menu),
-          l(t('Edit menu'), 'admin/structure/menu/manage/' . $menu_name),
-          l(t('Add new link'), 'admin/structure/menu/manage/' . $menu_name . '/add'),
+          l(t('Edit menu'), 'admin/structure/menu/manage/' . $menu_name, $options),
+          l(t('Add new link'), 'admin/structure/menu/manage/' . $menu_name . '/add', $options),
         ),
       );
     }

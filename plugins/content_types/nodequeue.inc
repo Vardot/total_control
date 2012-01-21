@@ -81,8 +81,7 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
     );
   }
 
-  // Build a link to the menu UI.
-  if (user_access('manipulate all queues') || user_acces('administer nodequeue')) {
+  if (user_access('administer nodequeue')) {
     $link = l(t('NodeQueue administration'), 'admin/content/nodequeue');
   }
 

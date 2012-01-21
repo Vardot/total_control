@@ -49,6 +49,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $vids = (isset($conf['vids']))? $conf['vids']: array();
 
   $vocabs = taxonomy_get_vocabularies();
+  $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(
     array('data' => t('Vocabulary')), 
     array('data' => t('Operations'), 'colspan' => 2));
@@ -63,8 +64,8 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
           $rows[] = array(
             'data' => array(
               t($vocab->name . ': ' . $terms),
-              l(t('List categories'), 'admin/structure/taxonomy/' . $vocab->machine_name),
-              l(t('Add categories'), 'admin/structure/taxonomy/' . $vocab->machine_name . '/add'),
+              l(t('List categories'), 'admin/structure/taxonomy/' . $vocab->machine_name, $options),
+              l(t('Add categories'), 'admin/structure/taxonomy/' . $vocab->machine_name . '/add', $options),
             ),
           );
         }
