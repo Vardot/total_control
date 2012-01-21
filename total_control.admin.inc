@@ -22,14 +22,6 @@ function total_control_admin_settings() {
       l(t('Have Total Control permission'), 'admin/user/permissions'))),
   );
   
-  // Node type pane settings.
-  $form['total_control_configure_links'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Show configure links on the "Create Content" pane.'),
-    '#default_value' => variable_get('total_control_configure_links', 1),
-    '#description' => t('Configure links go to the edit content type pages'),
-  );
-  
   $overridden = ' <strong>' . t('Automatic settings override these options.') . '</strong>';
   $collapse_type = FALSE;
   $collapse_role = FALSE;

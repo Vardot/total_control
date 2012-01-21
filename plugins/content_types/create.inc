@@ -49,17 +49,12 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
   $create = array();  
 
   foreach ($types as $type => $object) {
-    $row = '';
-
-    // Config data says to include the type.
+    // Check against pane config for type.
     if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {  
       // Check access, then add a link to create content.
       if (node_access('create', $type)) { 
         $type_url_str = str_replace('_', '-', $object->type);  
-        $row = l(t('Add new  ' . $object->name), 'node/add/' . $type_url_str);
-      }
-      if ($row != '') { 
-        $create[] = $row;
+        $create[] = l(t('Add new  ' . $object->name), 'node/add/' . $type_url_str);
       }
     }
   }

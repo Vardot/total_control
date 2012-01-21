@@ -122,3 +122,11 @@ function total_control_uninstall() {
   variable_del('total_control_auto_panels');
   variable_del('total_control_auto_pages');
 }
+
+/**
+ * Implements hook_update_N().
+ */
+function total_control_update_7000() {
+  // Don't need this setting anymore since these links are in a new pane.
+  variable_del('total_control_configure_links');
+}
