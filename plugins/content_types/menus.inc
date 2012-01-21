@@ -92,12 +92,21 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
     }
   }
 
+  if (empty($rows)) {
+    $rows[] = array(
+      array(
+        'data' => t('There are no menus to display.'),
+        'colspan' => 3,
+      )
+    );
+  }
+
   // Build a link to the menu UI.
   if (user_access('administer menus')) {
     $link = l(t('Menu administration'), 'admin/build/menus');
   }
 
-  $block->content = theme('total_control_panel_pages', $header, $rows, $link);
+  $block->content = theme('total_control_admin_table', $header, $rows, $link);
 
   return $block;
 

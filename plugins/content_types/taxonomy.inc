@@ -33,23 +33,18 @@ $plugin = array(
 
 /**
  * 'Admin title' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_title.
- *
  */
 function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-    return t('Categories and Terms');
+  return t('Categories and Terms');
 }
 
 /**
  * 'Admin info' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_admin_info.
- *
  */
 function total_control_taxonomy_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.');
+
   return $block;
 }
 
@@ -70,6 +65,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   if (!module_exists('taxonomy')){
     return;
   }
+
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = total_control_taxonomy_content_type_admin_title();
@@ -99,29 +95,31 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
       }
     }
   }
-  
+
   if ($access) {
     $link = l(t('Taxonomy administration'), 'admin/content/taxonomy');
   }
 
   if (empty($rows)) {
-    $rows[] = t('You have no vocabularies yet.');
+    $rows[] = array(
+      array(
+        'data' => t('There are no vocabularies to display.'),
+        'colspan' => 3,
+      )
+    );
   }
 
-  $block->content = theme('total_control_taxonomy', $header, $rows, $link);
+  $block->content = theme('total_control_admin_table', $header, $rows, $link);
 
   return $block;
 }
 
 /**
  * 'Edit form' callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form.
- *
  */
 function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
   $conf = $form_state['conf'];
- 
+
   $vocabs = taxonomy_get_vocabularies();
   if (!empty($vocabs)) {
     $vocab_options = array();
@@ -130,11 +128,11 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
       $vocab_options[$vid] = $vocab->name;
       $vocab_defaults[$vid] = $vid;
     }
-    
+
     if (isset($conf['vids'])){
       $vocab_defaults = $conf['vids'];
     }
-  
+
     $form['vids'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Include Vocabularies'),
@@ -143,16 +141,12 @@ function total_control_taxonomy_content_type_edit_form(&$form, &$form_state) {
       '#default_value' => $vocab_defaults,
       );
   }
-  
+
   return $form;
 }
 
 /**
  * 'Edit form' submit callback for the content type.
- *
- * ctools_plugin_example_total_control_panel_pages_content_type_edit_form_submit.
- * The submit form stores the data in $conf.
- *
  */
 function total_control_taxonomy_content_type_edit_form_submit(&$form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {

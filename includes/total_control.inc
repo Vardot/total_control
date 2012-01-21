@@ -320,3 +320,207 @@ function total_control_add_filters($machine_type = NULL){
   return $filters;
 }
 
+/**
+ * Retrieves overview data for all content on the site.
+ *
+ * @param $conf
+ *   Panel content pane config data.
+ *
+ * @return $items
+ *   An array of items for a bulleted list.
+ *
+ */
+function total_control_get_content_overview($conf = array()) {
+  $types = node_get_types('types');  
+  $items = array();
+
+  foreach ($types as $type => $object) {
+    // Compare against type option on pane config.
+    if (empty($conf['types']) || (isset($conf['types']) && $conf['types'][$type] == $type)) {  
+      $type_sql = "SELECT count(*) FROM {node} 
+                  WHERE type = '%s' and status = 1";
+      $type_query = db_query($type_sql, $type);
+      $total[$type] = format_plural(db_result($type_query), '1 '.$object->name.' item', '@count '.$object->name.' items');
+
+      // Check if comments module is enabled.
+      if (module_exists('comment')) { 
+
+        // Compare against comment options on pane config.
+        if (array_key_exists($type, $conf['comments']) && $conf['comments'][$type] === $type) {
+          $comment_sql = "SELECT count(DISTINCT cid) FROM {comments} c 
+                        INNER JOIN {node} n ON c.nid = n.nid 
+                        WHERE n.type = '%s' and c.status = 1 AND n.status = 1";
+          $comment_query = db_query($comment_sql, $type);
+          $total[$type.'_comments'] =  format_plural(db_result($comment_query), '1 comment', '@count comments');
+
+          // Compare against spam option checkbox on pane config.
+          if (isset($conf['spam']) && $conf['spam'] == 1) {
+            $spam_sql = "SELECT count(DISTINCT c.cid) FROM {comments} c 
+                        INNER JOIN {node} n ON c.nid = n.nid 
+                        WHERE n.type = '%s' and c.status = 0 AND n.status = 1";
+            $spam_query = db_query($spam_sql, $type);
+            $total[$type.'_comments_spam'] = format_plural(db_result($spam_query), '1 spam', '@count spam');
+          }
+        }
+      }
+
+      $line =  $total[$type];
+      $line .= (isset($total[$type.'_comments']))? ' with ' . $total[$type.'_comments'] : '' ;
+      $line .= (isset($total[$type.'_comments_spam']))? ' (' . $total[$type.'_comments_spam'].')' : '' ;
+      $items[] = $line;
+    }
+  }
+
+  return $items;
+}
+
+/**
+ * Adds content settings to the panel pane config form.
+ *
+ * @param $form
+ *   Panel pane config form.
+ * @param $conf
+ *   Panel content pane config data.
+ *
+ */
+function total_control_add_content_pane_settings(&$form, &$form_state) {
+  $conf = $form_state['conf'];
+  $types = node_get_types('types');
+  $type_options = array();
+  $type_defaults = array();
+  $comment_defaults = array();
+
+  // Set defaults based on pane config.
+  if (isset($conf['types'])) {
+    $type_defaults = $conf['types'];
+  }
+
+  if (isset($conf['comments'])) {
+    $comment_defaults = $conf['comments'];
+  }
+
+  foreach ($types as $machine_type => $type) {
+    $type_options[$machine_type] = $type->name;
+    // Display new content types by default.
+    if (!array_key_exists($machine_type, $type_defaults)) {
+      $type_defaults[$machine_type] = $machine_type;
+    }
+    // Do not display comments on new types by default unless it's a blog or a forum.
+    if (!array_key_exists($machine_type, $comment_defaults)) {
+      if ($machine_type == 'blog' || $machine_type == 'forum topic') {
+        $comment_defaults[$machine_type] = $machine_type;
+      }
+      else {
+        $comment_defaults[$machine_type] = 0;
+      }
+    }
+  }
+
+  $form['types'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Show <strong>post</strong> counts for the following content types'),
+    '#options' => $type_options,
+    '#default_value' => $type_defaults,
+  );
+
+  if (module_exists('comment')) {
+    $form['comments'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Show <strong>comment</strong> counts for the following content types'),
+      '#options' => $type_options,
+      '#default_value' => $comment_defaults,
+    );
+    $spam_options = array(
+      0 => t('no'), 
+      1 => t('Include spam counts with comments')
+    );
+    $form['spam'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Include spam counts with comments'),
+      '#options' => $spam_options,
+      '#default_value' => ($form_state['op'] == 'add')? 1 : $conf['spam'],
+    );
+  }
+}
+
+/**
+ * Retrieves overview data for all users on the site.
+ *
+ * @param $conf
+ *   Panel content pane config data.
+ *
+ * @return $items
+ *   An array of items for a bulleted list.
+ *
+ */
+function total_control_get_user_overview($conf = array()) {
+  $items = array();
+
+  // User Overview
+  if (!$conf['user'] || $conf['user'] == 1){  // compare against user option on pane config
+    $user_query = db_query("SELECT count(*) FROM {users}");
+    $total['users_all'] = format_plural(db_result($user_query), '1 total user', '@count total users');
+    $user_active_query = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login != 0");
+    $total['users_active'] = format_plural(db_result($user_active_query), '1 active user', '@count active users');
+    $user_block_query = db_query("SELECT count(*) FROM {users} WHERE status = 0");
+    $total['users_block'] = format_plural(db_result($user_block_query), '1 blocked user', '@count blocked users');
+    $items[] = $total['users_all'];
+    $items[] = $total['users_active'];
+    $items[] = $total['users_block'];
+  }
+
+  // Roles Overview
+  $roles = user_roles(TRUE);
+  $total['users_roles'] = '';
+  foreach ($roles as $rid => $role){
+    if ((!$conf['roles'] || ($conf['roles'][$rid])) && $rid != 2){  // compare against roles option on pane config
+      $user_role_query = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = %d", $rid);
+      $total['users_role_'.$rid] .= format_plural(db_result($user_role_query), '1 user', '@count users');
+      $total['users_role_'.$rid] .= ' in role: '.$role;
+      $items[] = $total['users_role_'.$rid];
+    } // if not auth
+  } // foreach
+
+  return $items;
+}
+
+/**
+ * Adds user settings to the panel pane config form.
+ *
+ * @param $form
+ *   Panel pane config form.
+ * @param $conf
+ *   Panel content pane config data.
+ *
+ */
+function total_control_add_user_pane_settings(&$form, &$form_state) {
+  $conf = $form_state['conf'];
+
+  $user_options = array(
+    0 => t('no'), 
+    1 => t('Include the total number of user accounts, including active and blocked.'));
+  $form['user'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Include the total number of user accounts, including active and blocked.'),
+    '#options' => $user_options,
+    '#default_value' => ($form_state['op'] == 'add')? TRUE : $conf['user'],
+  );
+
+  $roles = user_roles(TRUE);
+  $roles_options = array();
+  foreach ($roles as $rid => $role){
+    if ($rid != 2){
+      $roles_options[$rid] = $role;
+      $roles_defaults[] = $rid;
+    }
+  }
+
+  if (!empty($roles_options)){
+    $form['roles'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Include User counts in Roles'),
+      '#options' => $roles_options,
+      '#default_value' => ($form_state['op'] == 'add' || !isset($conf['roles'])) ? $roles_defaults : $conf['roles'],
+      );
+  }
+}

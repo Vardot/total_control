@@ -10,91 +10,57 @@
  * Theme function for site overview.
  */
 function theme_total_control_overview($overview){
-  $content = '<div class="total-control-site-overview">';
-  $content .= ' <strong>'.t('Content').'</strong>';
-  $content .= theme('item_list', $overview['content']);
-  $content .= ' <strong>'.t('Users').'</strong>';
-  $content .= theme('item_list', $overview['users']);
-  $content .= '</div>';
+  $output = '<div class="total-control-site-overview">';
+  $output .= ' <strong>'.t('Content').'</strong>';
+  $output .= theme('item_list', $overview['content']);
+  $output .= ' <strong>'.t('Users').'</strong>';
+  $output .= theme('item_list', $overview['users']);
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
  * Theme function for content overview.
  */
 function theme_total_control_overview_content($overview){
-  $content = '<div class="total-control-content-overview">';
-  $content .= theme('item_list', $overview);
-  $content .= '</div>';
+  $output = '<div class="total-control-content-overview">';
+  $output .= theme('item_list', $overview);
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
  * Theme function for user overview.
  */
-function theme_total_control_overview_users($overview){
-  $content = '<div class="total-control-user-overview">';
-  $content .= theme('item_list', $overview);
-  $content .= '</div>';
+function theme_total_control_overview_user($overview){
+  $output = '<div class="total-control-user-overview">';
+  $output .= theme('item_list', $overview);
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
  * Theme function for create content pane.
  */
 function theme_total_control_create($create){
-  $content = '<div class="total-control-create">';
-  $content .= theme('item_list', $create);
-  $content .= '</div>';
+  $output = '<div class="total-control-create">';
+  $output .= theme('item_list', $create);
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
 
 /*
- * Theme function for taxonomy pane.
+ * Theme function for panel pages.
  */
-function theme_total_control_taxonomy($header, $rows, $link){
-  $content = '<div class="total-control-taxonomy">';
-  $content .= theme('table', $header, $rows, array('class' => 'panels-manage'));
-  $content .= '<div class="admin-page">' . $link . '</div>';
-  $content .= '</div>';
+function theme_total_control_admin_table($header, $rows, $link) {
+  $output = '<div class="total-control-nodequeues">';
+  $output .= theme('table', $header, $rows);
+  $output .= '<div class="admin-page">' . $link . '</div>';
+  $output .= '</div>';
 
-  return $content;
+  return $output;
 }
-
-/*
- * Theme function for menus pane.
- */
-function theme_total_control_menus($header, $rows, $link){
-  $content = '<div class="total-control-panel-panes">';
-  $content .= theme('table', $header, $rows, array('class' => 'panels-manage'));
-  $content .= '<div class="admin-page">' . $link . '</div>';
-  $content .= '</div>';
-
-  return $content;
-}
-
-/*
- * Theme function for panels pane.
- */
-function theme_total_control_panel_pages($header, $rows, $link){
-  $content = '<div class="total-control-panel-panes">';
-  $content .= theme('table', $header, $rows, array('class' => 'panels-manage'));
-  $content .= '<div class="admin-page">' . $link . '</div>';
-  $content .= '</div>';
-
-  return $content;
-}
-
-/*
- * Theme function for taxonomy pane.
- */
-function theme_total_total_control_nodequeue($header, $rows){
-  $content = '<div class="total-control-nodequeues">';
-  $content .= theme('table', $header, $rows);
-  $content .= '</div>';
-}
-

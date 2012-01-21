@@ -106,12 +106,21 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
     }
   }
   
+  if (empty($rows)) {
+    $rows[] = array(
+      array(
+        'data' => t('You have no panel pages yet.'),
+        'colspan' => 3,
+      )
+    );
+  }
+  
   // Build a link to the page manager UI.
   if (user_access('use page manager')) {
     $link = l(t('Page manager administration'), 'admin/build/pages');
   }
   
-  $block->content = theme('total_control_panel_pages', $header, $rows, $link);
+  $block->content = theme('total_control_admin_table', $header, $rows, $link);
 
   return $block;
 
