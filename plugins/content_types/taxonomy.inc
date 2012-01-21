@@ -75,10 +75,15 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
 
   if (empty($rows)) {
-    $rows[] = t('You have no vocabularies yet.');
+    $rows[] = array(
+      array(
+        'data' => t('There are no vocabularies to display.'),
+        'colspan' => 3,
+      )
+    );
   }
 
-  $block->content = theme('total_control_taxonomy', array('header' => $header, 'rows' => $rows, 'link' => $link));
+  $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 }

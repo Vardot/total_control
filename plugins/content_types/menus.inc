@@ -57,6 +57,15 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
     }
   }
 
+  if (empty($rows)) {
+    $rows[] = array(
+      array(
+        'data' => t('There are no menus to display.'),
+        'colspan' => 3,
+      )
+    );
+  }
+
   // Build a link to the menu UI.
   if (user_access('administer menu')) {
     $link = l(t('Menu administration'), 'admin/structure/menus');
@@ -66,7 +75,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
   $block->title = t('Menus');
   $block->module = t('total_control');
   // TODO
-  $block->content = theme('total_control_menus', array('header' => $header, 'rows' => $rows, 'link' => $link));
+  $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 

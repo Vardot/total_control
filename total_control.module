@@ -195,20 +195,8 @@ function total_control_theme() {
       'variables' => array('overview' => array()), 
       'file' => 'total_control.theme.inc',
     ),
-    'total_control_taxonomy' => array(
+    'total_control_admin_table' => array(
       'variables' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
-      'file' => 'total_control.theme.inc',
-    ),
-    'total_control_menus' => array(
-      'variables' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
-      'file' => 'total_control.theme.inc',
-    ),
-    'total_control_panel_pages' => array(
-      'variables' => array('header' => array(), 'rows' => array(), 'link' => FALSE), 
-      'file' => 'total_control.theme.inc',
-    ),
-    'total_control_nodequeue' => array(
-      'variables' => array('header' => array(), 'rows' => array()), 
       'file' => 'total_control.theme.inc',
     ),
   );

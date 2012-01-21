@@ -299,10 +299,9 @@ function total_control_get_content_overview($conf = array()) {
       $type_count = db_query("SELECT count(*) FROM {node} WHERE type = :type and status = 1", array(':type' => $type))->fetchField();
       $content_data[$type] = format_plural($type_count, '1 ' . $object->name . ' item', '@count ' . $object->name . ' items');
 
-      $comment_setting = variable_get('comment_' . $type, 0);
+      // Check if comments module is enabled.
+      if ($comments_exist) {
 
-      // Check if comments module is present, and that they are enabled for this type.
-      if ($comments_exist && $comment_setting != 0) {
         // Compare against comment options on pane config.
         if (array_key_exists($type, $conf['comments']) && $conf['comments'][$type] === $type) {
           $comment_count = db_query("SELECT count(DISTINCT cid) FROM {comment} c INNER JOIN {node} n ON c.nid = n.nid WHERE n.type = :type and c.status = 1 AND n.status = 1", array(':type' => $type))->fetchField();
@@ -345,7 +344,7 @@ function total_control_add_content_pane_settings(&$form, $conf = array()) {
   if (isset($conf['types'])) {
     $type_defaults = $conf['types'];
   }
-  
+
   if (isset($conf['comments'])) {
     $comment_defaults = $conf['comments'];
   }
@@ -402,7 +401,7 @@ function total_control_add_content_pane_settings(&$form, $conf = array()) {
  *
  * @return $items
  *   A structured array of items containing user data, in the following format:
- *     $user_data = array(
+ *     $items = array(
  *       'all' => 16,
  *       'active' => 9,
  *       'blocked' => 2,
@@ -415,28 +414,28 @@ function total_control_add_content_pane_settings(&$form, $conf = array()) {
  *     );
  */
 function total_control_get_user_overview($conf = array()) {
-  $user_data = array();
+  $items = array();
 
   // User Overview
   if (!$conf['user'] || $conf['user'] == 1) {
-    $user_data['all'] = db_query("SELECT count(*) FROM {users}")->fetchField();
-    $user_data['active'] = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login <> 0")->fetchField();
-    $user_data['blocked'] = db_query("SELECT count(*) FROM {users} WHERE status = 0")->fetchField();
+    $items['all'] = db_query("SELECT count(*) FROM {users}")->fetchField();
+    $items['active'] = db_query("SELECT count(*) FROM {users} WHERE status = 1 AND login <> 0")->fetchField();
+    $items['blocked'] = db_query("SELECT count(*) FROM {users} WHERE status = 0")->fetchField();
   }
 
   // Roles Overview
   $roles = user_roles(TRUE);
-  $user_data['roles'] = array();
+  $items['roles'] = array();
   foreach ($roles as $rid => $role) {
     if (($rid != 2) && (array_key_exists($rid, $conf['roles']) && $conf['roles'][$rid])) {
       $user_role_count = db_query("SELECT count(*) FROM {users} u INNER JOIN {users_roles} r on u.uid = r.uid WHERE r.rid = :rid", array(':rid' => $rid))->fetchField();
-      $user_data['roles'][$rid] = array();
-      $user_data['roles'][$rid]['name'] = $role;
-      $user_data['roles'][$rid]['count'] = $user_role_count;
+      $items['roles'][$rid] = array();
+      $items['roles'][$rid]['name'] = $role;
+      $items['roles'][$rid]['count'] = $user_role_count;
     }
   }
 
-  return $user_data;
+  return $items;
 }
 
 /**

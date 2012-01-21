@@ -47,7 +47,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
   $pages = array('operations' => array());
 
   page_manager_get_pages($tasks, $pages);
-  $count = 0;
+  $count = 0; // TODO setting.
 
   $header = array('page' => t('Page'), 'options' => t('Operations'));
   $rows = array();
@@ -64,7 +64,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
         'class' => $info['class'],
       );
 
-      // Only show 10. // TODO setting.
+      // Only show a certain number.
       if (++$count >= 10) {
         break;
       }
@@ -79,7 +79,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
   $block = new stdClass();
   $block->title = check_plain('Panel pages');
   $block->module = t('total_control');
-  $block->content = theme('total_control_panel_pages', array('header' => $header, 'rows' => $rows, 'link' => $link));
+  $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 

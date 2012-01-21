@@ -45,10 +45,10 @@ function nodequeue_content_type_render($subtype, $conf, $args, &$context) {
   
   $items = array();
   
-  // Get nodequeues.
+  // Check for nodequeue module. 
   if (module_exists('nodequeue')) {
+    // Get nodequeues.
     module_load_include('module', 'nodequeue', 'nodequeue');
-    
     $queues = nodequeue_load_queues(nodequeue_get_all_qids(25));
     foreach ($queues as $queue) {
       if (!nodequeue_queue_access($queue)) {
@@ -79,10 +79,23 @@ function nodequeue_content_type_render($subtype, $conf, $args, &$context) {
         array('class' => 'nodequeue-operation', 'data' => implode(' | ', $operations)),
       );
     }
-
-    $output = theme('total_control_nodequeue', $header, $rows);
   }
   
+  if (empty($rows)) {
+    $rows[] = array(
+      array(
+        'data' => t('There are no nodequeues to display.'),
+        'colspan' => 3,
+      )
+    );
+  }
+
+  // Build a link to the menu UI.
+  if (user_access('manipulate all queues') || user_acces('administer nodequeue')) {
+    $link = l(t('NodeQueue administration'), 'admin/content/nodequeue');
+  }
+
+  $output = theme('total_control_admin_table', $header, $rows, $link);
   $block->content = $output;
 
   return $block;
