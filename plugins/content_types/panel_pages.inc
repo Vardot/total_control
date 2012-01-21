@@ -82,7 +82,6 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
 
   page_manager_get_pages($tasks, $pages);
   $count = 0; // TODO
-  $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(t('Page'), t('Operations'));
   $rows = array();
   
@@ -117,7 +116,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
   
   // Build a link to the page manager UI.
   if (user_access('use page manager')) {
-    $link = l(t('Page manager administration'), 'admin/build/pages', $options);
+    $link = l(t('Page manager administration'), 'admin/build/pages');
   }
   
   $block->content = theme('total_control_admin_table', $header, $rows, $link);

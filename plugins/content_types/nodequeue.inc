@@ -98,12 +98,8 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
         array('class' => 'nodequeue-operation', 'data' => implode(' | ', $operations)),
       );
     }
-
-    if (user_access('manipulate all queues') || user_acces('administer nodequeue')) {
-      $link = l(t('Nodequeue administration'), 'admin/content/nodequeue', $options);
-    }
   }
-  
+
   if (empty($rows)) {
     $rows[] = array(
       array(
@@ -113,11 +109,14 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
     );
   }
 
+  if (user_access('administer nodequeue')) {
+    $link = l(t('Nodequeue administration'), 'admin/content/nodequeue');
+  }
+
   $output = theme('total_control_admin_table', $header, $rows, $link);
   $block->content = $output;
 
   return $block;
-
 }
 
 /**

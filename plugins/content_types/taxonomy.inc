@@ -98,7 +98,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
 
   if ($access) {
-    $link = l(t('Taxonomy administration'), 'admin/content/taxonomy', $options);
+    $link = l(t('Taxonomy administration'), 'admin/content/taxonomy');
   }
 
   if (empty($rows)) {

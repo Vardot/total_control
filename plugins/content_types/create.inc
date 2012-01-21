@@ -40,7 +40,7 @@ $plugin = array(
  *
  */
 function total_control_create_content_type_admin_title($subtype, $conf, $context) {
-    return t('Content Creation');
+  return t('Content Creation');
 }
 
 /**
@@ -52,6 +52,7 @@ function total_control_create_content_type_admin_title($subtype, $conf, $context
 function total_control_create_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
   $block->title = t('Provides links to create new content.');
+
   return $block;
 }
 
@@ -72,37 +73,23 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = t('Create Content');
-    
+
   $types = node_get_types('types');
   $create = array();  
-  
+
   foreach ($types as $type => $object) {
-    $row = '';
     // compare against type option on pane config
-        
     if ((isset($conf['types']) && $conf['types'][$type]) || ($conf == array())) {
-      
       // check access to create nodes of this type
       if (node_access('create', $type)) { 
         $object_path = str_replace('_', '-', $object->type);
-        $row = l(t('Add New ' . $object->name), 'node/add/' . $object_path);
+        $create[] = l(t('Add New ' . $object->name), 'node/add/' . $object_path);
       }
-      
-      // check access to administer content types
-      if ((variable_get('total_control_configure_links', 1) == 1) 
-        && user_access('administer content types')) {
-        $row .= ' | ' . l(t('Configure'), 'admin/content/node-type/' . $object_path);
-      }
-      
-      if ($row) { 
-        $create[] = $row;
-      }
-      
-    } // end if type
+    }
   }
 
   $block->content =  theme('total_control_create', $create);
-  
+
   return $block;
 }
 
@@ -114,11 +101,11 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
  */
 function total_control_create_content_type_edit_form(&$form, &$form_state) {
   $conf = $form_state['conf'];
-  
+
   $types = node_get_types('types');
   $type_options = array();
   $type_defaults = array();
-  
+
   if (isset($conf['types'])) {
     $type_defaults = $conf['types'];
   }
@@ -129,14 +116,14 @@ function total_control_create_content_type_edit_form(&$form, &$form_state) {
       $type_defaults[$type] = $type;
     }
   }
-  
+
   $form['types'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Include Create links for Content Types'),
     '#options' => $type_options,
     '#default_value' => $type_defaults,
     );
-  
+
   return $form;
 }
 

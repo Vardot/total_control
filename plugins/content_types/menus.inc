@@ -34,9 +34,6 @@ $plugin = array(
 
 /**
  * 'Admin title' callback for the content type.
- *
- * ctools_plugin_example_total_control_menus_content_type_admin_title.
- *
  */
 function total_control_menus_content_type_admin_title($subtype, $conf, $context) {
     return t('Menus');
@@ -44,9 +41,6 @@ function total_control_menus_content_type_admin_title($subtype, $conf, $context)
 
 /**
  * 'Admin info' callback for the content type.
- *
- * ctools_plugin_example_total_control_menus_content_type_admin_info.
- *
  */
 function total_control_menus_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
@@ -69,8 +63,6 @@ function total_control_menus_content_type_admin_info($subtype, $conf, $context) 
  */
 function total_control_menus_content_type_render($subtype, $conf, $args, $context) {
   $block = new stdClass();
-
-  // The title actually used in rendering.
   $block->title = t("Menus");
   $header = array(t('Page'), t('Operations'));
   $rows = array();
@@ -103,7 +95,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
 
   // Build a link to the menu UI.
   if (user_access('administer menus')) {
-    $link = l(t('Menu administration'), 'admin/build/menus', $options);
+    $link = l(t('Menu administration'), 'admin/build/menu');
   }
 
   $block->content = theme('total_control_admin_table', $header, $rows, $link);
@@ -114,9 +106,6 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
 
 /**
  * 'Edit form' callback for the content type.
- *
- * ctools_plugin_example_total_control_menus_content_type_edit_form.
- *
  */
 function total_control_menus_content_type_edit_form(&$form, &$form_state) {
   $conf = $form_state['conf'];
@@ -139,10 +128,6 @@ function total_control_menus_content_type_edit_form(&$form, &$form_state) {
 
 /**
  * 'Edit form' submit callback for the content type.
- *
- * ctools_plugin_example_total_control_menus_content_type_edit_form_submit.
- * The submit form stores the data in $conf.
- *
  */
 function total_control_menus_content_type_edit_form_submit(&$form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {

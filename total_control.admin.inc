@@ -19,15 +19,7 @@ function total_control_admin_settings() {
     '#default_value' => variable_get('total_control_login_redirect', 0),
     '#description' => t('Users with the !permission can be automatically redirected to the Dashboard when they log in.', array('!permission' => l(t('Have Total Control permission'), 'admin/user/permissions'))),
     );
-  
-  // Panel pane settings
-  $form['total_control_configure_links'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Show configure links on "Create Content" panel'),
-    '#default_value' => variable_get('total_control_configure_links', 1),
-    '#description' => t('Configure links go to the edit content type pages'),
-    );
-  
+
   $overridden = '<strong>' . t('  Automatic settings override these options.') . '</strong>';
   $collapse_type = FALSE;
   $collapse_role = FALSE;
@@ -38,7 +30,7 @@ function total_control_admin_settings() {
   $disable_role_page = '';
   $auto_pane_default = variable_get('total_control_auto_panels', array());
   $auto_page_default = variable_get('total_control_auto_pages', array());
-  
+
   $types = node_get_types();
   $options = array();
   foreach ($types as $machine => $type) {

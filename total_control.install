@@ -117,6 +117,9 @@ function total_control_uninstall() {
  * Implementation of hook_update_N().
  */
 function total_control_update_6001() {
+  // New theme functions means we need to rebuild the registry.
   drupal_rebuild_theme_registry();
+  // Don't need this setting anymore since these links are in a new pane.
+  variable_del('total_control_configure_links');
 }
 
