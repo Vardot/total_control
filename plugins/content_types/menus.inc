@@ -42,7 +42,9 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
   $items = array();
 
   $menus = menu_get_menus();
-  $header = array('page' => t('Menu'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
+  $header = array(
+    array('data' => t('Menu')), 
+    array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();
 
   foreach ($menus as $menu_name => $menu) {

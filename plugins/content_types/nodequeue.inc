@@ -38,13 +38,11 @@ function total_control_nodequeue_content_type_admin_info($subtype = NULL, $conf 
 /**
  * Run-time rendering of the body of the block.
  */
-function nodequeue_content_type_render($subtype, $conf, $args, &$context) {
+function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
   $block->title = check_plain("NodeQueues");
-  
-  $items = array();
-  
+
   // Check for nodequeue module. 
   if (module_exists('nodequeue')) {
     // Get nodequeues.
@@ -56,22 +54,15 @@ function nodequeue_content_type_render($subtype, $conf, $args, &$context) {
       }
     }
 
-    if (empty($queues)) {
-      $output = t('No nodequeues exist.');
-    }
-
+    $options = array('query' => array('destination' => 'admin/dashboard'));
     $header = array(
-      array('data' => t('Title'), 'field' => 'title', 'sort' => 'asc'),
-      array('data' => t('Max'), 'field' => 'size'),
-      array('data' => t('Operations')),
+      array('data' => t('Title'),),
+      array('data' => t('Size')),
+      array('data' => t('Operations'), 'colspan' => 3),
     );
-    
     $rows = array();
     foreach ($queues as $queue) {
-      
-      // Special love for Total Control.
-      $options = array('query' => array('destination' => 'admin/dashboard'));
-      $operations = array(l(t('Manage'), "admin/content/nodequeue/$queue->qid/view", $options));
+      $operations = array(l(t('Edit queue'), "admin/content/nodequeue/$queue->qid/view", $options));
 
       $rows[] = array(
         array('class' => 'nodequeue-title', 'data' => check_plain($queue->title)),
@@ -85,7 +76,7 @@ function nodequeue_content_type_render($subtype, $conf, $args, &$context) {
     $rows[] = array(
       array(
         'data' => t('There are no nodequeues to display.'),
-        'colspan' => 3,
+        'colspan' => 5,
       )
     );
   }
@@ -95,8 +86,7 @@ function nodequeue_content_type_render($subtype, $conf, $args, &$context) {
     $link = l(t('NodeQueue administration'), 'admin/content/nodequeue');
   }
 
-  $output = theme('total_control_admin_table', $header, $rows, $link);
-  $block->content = $output;
+  $block->content = $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 

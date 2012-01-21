@@ -49,7 +49,9 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $vids = (isset($conf['vids']))? $conf['vids']: array();
 
   $vocabs = taxonomy_get_vocabularies();
-  $header = array('page' => t('Vocabulary'), 'options' => array('data' => t('Operations'), 'colspan' => 2));
+  $header = array(
+    array('data' => t('Vocabulary')), 
+    array('data' => t('Operations'), 'colspan' => 2));
   $rows = array();
 
   if (!empty($vocabs)) {  
@@ -70,10 +72,6 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
     }
   }
 
-  if (user_access('administer taxonomy')) {
-    $link = l(t('Taxonomy administration'), 'admin/structure/taxonomy');
-  }
-
   if (empty($rows)) {
     $rows[] = array(
       array(
@@ -81,6 +79,10 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
         'colspan' => 3,
       )
     );
+  }
+
+  if (user_access('administer taxonomy')) {
+    $link = l(t('Taxonomy administration'), 'admin/structure/taxonomy');
   }
 
   $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));

@@ -12,10 +12,10 @@
  
 $plugin = array(
   'single' => TRUE,
-  'title' => t('Create content'),
+  'title' => t('Content types'),
   'defaults' => array('types' => NULL),
   'icon' => 'cog.png',
-  'description' => t('Provides links to create new content.'),
+  'description' => t('Provides links to administer content types.'),
   'category' => t('Total control'),
   'edit text' => t('Configure'),
 );
@@ -23,16 +23,16 @@ $plugin = array(
 /**
  * 'Admin title' callback for the content type.
  */
-function total_control_create_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Content creation links');
+function total_control_node_types_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
+  return t('Content administration links');
 }
 
 /**
  * 'Admin info' callback for the content type.
  */
-function total_control_create_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
+function total_control_node_types_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Provides links to create new content.');
+  $block->title = t('Provides links to administer content types.');
 
   return $block;
 }
@@ -40,31 +40,53 @@ function total_control_create_content_type_admin_info($subtype = NULL, $conf = N
 /**
  * Run-time rendering of the body of the pane.
  */
-function total_control_create_content_type_render($subtype, $conf, $panel_args, &$context) {
+function total_control_node_types_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Create content');
+  $block->title = t('Content types');
 
   $types = node_type_get_types();
-  $create = array();  
+  $access = user_access('administer content types');
+  $options = array('query' => array('destination' => 'admin/dashboard'));
+  $header = array(
+    array('data' => t('Content type')), 
+    array('data' => t('Operations'), 'colspan' => 3)
+  );
+  $rows = array();
 
   foreach ($types as $type => $object) {
-    $row = '';
 
     // Config data says to include the type.
     if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {  
       // Check access, then add a link to create content.
-      if (node_access('create', $type)) { 
+      if ($access) {
         $type_url_str = str_replace('_', '-', $object->type);  
-        $row = l(t('Add new  ' . $object->name), 'node/add/' . $type_url_str);
-      }
-      if ($row != '') { 
-        $create[] = $row;
+        $rows[] = array(
+          'data' => array(
+            t($object->name),
+            l(t('Configure'), 'admin/structure/types/manage/' . $type_url_str, $options),
+            l(t('Manage fields'), 'admin/structure/types/manage/' . $type_url_str . '/fields', $options),
+            l(t('Manage display'), 'admin/structure/types/manage/' . $type_url_str . '/display', $options)
+          ),
+        );
       }
     }
   }
 
-  $block->content =  theme('total_control_create', array('create' => $create));
+  if (empty($rows)) {
+    $rows[] = array(
+      array(
+        'data' => t('There are no content types to display.'),
+        'colspan' => 4,
+      )
+    );
+  }
+
+  if (user_access('administer content types')) {
+    $link = l(t('Content type administration'), 'admin/structure/types', $options);
+  }
+
+  $block->content =  theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;
 }
@@ -72,7 +94,7 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
 /**
  * 'Edit form' callback for the content type.
  */
-function total_control_create_content_type_edit_form($form, &$form_state) {
+function total_control_node_types_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
 
   $types = node_type_get_types();
@@ -103,7 +125,7 @@ function total_control_create_content_type_edit_form($form, &$form_state) {
 /**
  * Submit handler for for create settings.
  */
-function total_control_create_content_type_edit_form_submit($form, &$form_state) {
+function total_control_node_types_content_type_edit_form_submit($form, &$form_state) {
   // Copy everything from our defaults.
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
