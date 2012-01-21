@@ -167,7 +167,7 @@ function total_control_default_page_manager_pages() {
     $pane->pid = 'new-4';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
-    $pane->subtype = 'control_content_panes-panel_pane_1';
+    $pane->subtype = 'control_content_panes-pane_tc_new';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array();
@@ -184,7 +184,7 @@ function total_control_default_page_manager_pages() {
     $pane->pid = 'new-5';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
-    $pane->subtype = 'control_users_panes-panel_pane_1';
+    $pane->subtype = 'control_users_panes-pane_tc_new_users';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(

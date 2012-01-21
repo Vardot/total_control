@@ -108,7 +108,7 @@ $handler->display->display_options['filters']['uid']['expose']['identifier'] = '
 $handler->display->display_options['filters']['uid']['expose']['remember'] = FALSE;
 
 /* Display: New User Accounts pane */
-$handler = $view->new_display('panel_pane', 'New User Accounts pane', 'panel_pane_1');
+$handler = $view->new_display('panel_pane', 'New User Accounts pane', 'pane_tc_new_users');
 $handler->display->display_options['pane_title'] = 'New User Accounts';
 $handler->display->display_options['pane_description'] = 'Total Control new user account summary';
 $handler->display->display_options['pane_category']['name'] = 'Total Control';
