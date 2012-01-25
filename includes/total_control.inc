@@ -354,7 +354,7 @@ function total_control_get_content_overview($conf = array()) {
       if (module_exists('comment')) { 
 
         // Compare against comment options on pane config.
-        if (array_key_exists($type, $conf['comments']) && $conf['comments'][$type] === $type) {
+        if (is_array($conf['comments']) && array_key_exists($type, $conf['comments']) && $conf['comments'][$type] === $type) {
           $comment_sql = "SELECT count(DISTINCT cid) FROM {comments} c 
                         INNER JOIN {node} n ON c.nid = n.nid 
                         WHERE n.type = '%s' and c.status = 1 AND n.status = 1";
