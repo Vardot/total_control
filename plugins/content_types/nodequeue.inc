@@ -78,7 +78,7 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
   }
 
   if (user_access('administer nodequeue')) {
-    $link = l(t('NodeQueue administration'), 'admin/content/nodequeue');
+    $link = l(t('NodeQueue administration'), 'admin/structure/nodequeue');
   }
 
   $block = new stdClass();
