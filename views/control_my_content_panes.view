@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * @file control_content_panes.view
+ *
+ * Default view for administration of content. Contains panels pane displays
+ * for use on the dashboard.
+ *
+ */
+ 
