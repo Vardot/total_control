@@ -32,7 +32,8 @@ function total_control_overview_user_content_type_admin_title($subtype = NULL, $
  */
 function total_control_overview_user_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Displays a summary of user statistics including: number of total users, active users, blocked users, and users in each role.');
+  $block->title = t('Displays a summary of user statistics including: number 
+    of total users, active users, blocked users, and users in each role.');
 
   return $block;
 } 
@@ -55,7 +56,7 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
 
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = total_control_overview_user_content_type_admin_title();
+  $block->title = t('Overview of user accounts');
   $block->content = theme('total_control_overview_user', array('overview' => $overview));
 
   return $block;
@@ -66,7 +67,7 @@ function total_control_overview_user_content_type_render($subtype, $conf, $panel
  */
 function total_control_overview_user_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
-  
+
   // Add user settings to form.
   total_control_add_user_pane_settings($form, $conf);
 

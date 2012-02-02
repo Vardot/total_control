@@ -39,10 +39,6 @@ function total_control_welcome_content_type_admin_info($subtype = NULL, $conf = 
  * Run-time rendering of the body of the block.
  */
 function total_control_welcome_content_type_render($subtype, $conf, $panel_args, &$context) {
-  $block = new stdClass();
-  $block->module = t('total_control');
-  $block->title = t('Take Total Control.');
-
   // Build the content.
   $content =  '<div class="total-control-site-overview">';
   $content .= '  <p>' . t('Welcome to your administrative dashboard.  !panel 
@@ -54,6 +50,9 @@ function total_control_welcome_content_type_render($subtype, $conf, $panel_args,
      '!settings' => l(t('Total Control Settings'), 'admin/config/control'))) . '</p>';
   $content .= '</div>';
 
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Take Total Control.');
   $block->content = $content;
 
   return $block;
