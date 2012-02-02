@@ -58,12 +58,11 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
     );
     $rows = array();
     foreach ($queues as $queue) {
-      $operations = array(l(t('Edit queue'), "admin/content/nodequeue/$queue->qid/view", $options));
-
       $rows[] = array(
         array('class' => 'nodequeue-title', 'data' => check_plain($queue->title)),
         array('class' => 'nodequeue-max-nodes', 'data' => $queue->size == 0 ? t('Infinite') : $queue->size),
-        array('class' => 'nodequeue-operation', 'data' => implode(' | ', $operations)),
+        array('data' => l(t('Configure'), 'admin/content/nodequeue/' . $queue->qid . '/edit', $options)),
+        array('data' => l(t('Manage items'), 'admin/content/nodequeue/' . $queue->qid . '/view', $options)),
       );
     }
   }
