@@ -80,11 +80,17 @@ function total_control_form_alter(&$form, $form_state, $form_id) {
  * Redirects to the dashboard if configured.
  */
 function total_control_user_login(&$edit, $account) {
+  // Don't redirect for password reset.
   if (!((arg(0) == 'user') && (arg(1) == 'reset'))) {
+    // Check for permission to use total control.
     if (user_access('have total control', $account)) {
+      // Check for redirect to dashboard setting.
       if (variable_get('total_control_login_redirect', 0) == 1) {
-        drupal_set_message(t('welcome to your administrative dashboard'));
-        drupal_goto('admin/dashboard');
+        // TODO Make sure destination is not already set.
+        //if (!isset($_GET['destination'])) {
+          // TODO worry about overlay module.
+          $_GET['destination'] = 'admin/dashboard';
+        //}
       }
     }
   }
