@@ -50,7 +50,8 @@ function total_control_panel_pages_content_type_admin_title($subtype, $conf, $co
  */
 function total_control_panel_pages_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Provides links to administer panel pages.'),
+  $block->title = t('Provides links to administer panel pages.');
+
   return $block;
 }
 

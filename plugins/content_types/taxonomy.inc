@@ -43,7 +43,7 @@ function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf 
  */
 function total_control_taxonomy_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Provides links to administer taxonomy.'),
+  $block->title = t('Provides links to administer taxonomy.');
 
   return $block;
 }
