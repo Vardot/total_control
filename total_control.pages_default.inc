@@ -148,26 +148,6 @@ function total_control_default_page_manager_pages() {
     $pane->pid = 'new-3';
     $pane->panel = 'left';
     $pane->type = 'views_panes';
-    $pane->subtype = 'control_content_panes-pane_tc_new';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'items_per_page' => '10',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 2;
-    $pane->locks = '';
-    $display->content['new-3'] = $pane;
-    $display->panels['left'][2] = 'new-3';
-    $pane = new stdClass;
-    $pane->pid = 'new-4';
-    $pane->panel = 'left';
-    $pane->type = 'views_panes';
     $pane->subtype = 'control_users_panes-pane_tc_new_users';
     $pane->shown = TRUE;
     $pane->access = array();
@@ -180,8 +160,28 @@ function total_control_default_page_manager_pages() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 3;
+    $pane->position = 2;
     $pane->locks = array();
+    $display->content['new-3'] = $pane;
+    $display->panels['left'][2] = 'new-3';
+    $pane = new stdClass;
+    $pane->pid = 'new-4';
+    $pane->panel = 'left';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'control_content_panes-pane_tc_new';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'items_per_page' => '10',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = '';
     $display->content['new-4'] = $pane;
     $display->panels['left'][3] = 'new-4';
     $pane = new stdClass;
@@ -311,6 +311,7 @@ function total_control_default_page_manager_pages() {
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
+  
 
   // End exported panel.
 
