@@ -40,7 +40,7 @@ $plugin = array(
  *
  */
 function total_control_create_content_type_admin_title($subtype, $conf, $context) {
-  return t('Content Creation');
+  return t('Create content');
 }
 
 /**
@@ -70,10 +70,6 @@ function total_control_create_content_type_admin_info($subtype, $conf, $context)
  *   An object with at least title and content members.
  */
 function total_control_create_content_type_render($subtype, $conf, $panel_args, &$context) {
-  $block = new stdClass();
-  $block->module = t('total_control');
-  $block->title = t('Create Content');
-
   $types = node_get_types('types');
   $create = array();  
 
@@ -88,6 +84,9 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
     }
   }
 
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Create Content');
   $block->content =  theme('total_control_create', $create);
 
   return $block;

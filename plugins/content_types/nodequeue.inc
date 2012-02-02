@@ -13,8 +13,8 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('NodeQueue list'),
-  'description' => t('A list of NodeQueues on the site.'),
+  'title' => t('Admin - NodeQueues'),
+  'description' => t('Provides links to administer NodeQueues.'),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
   // Constructor.
@@ -35,7 +35,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_nodequeue_content_type_admin_title($subtype, $conf, $context) {
-  return t('NodeQueues');
+  return t('Administer NodeQueues');
 }
 
 /**
@@ -43,7 +43,7 @@ function total_control_nodequeue_content_type_admin_title($subtype, $conf, $cont
  */
 function total_control_nodequeue_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Provides a list of all NodeQueues on the site.');
+  $block->title = t('Provides links to administer NodeQueues.');
 
   return $block;
 }
@@ -62,11 +62,6 @@ function total_control_nodequeue_content_type_admin_info($subtype, $conf, $conte
  *   An object with at least title and content members.
  */
 function nodequeue_content_type_render($subtype, $conf, $args, $context) {
-  $block = new stdClass();
-
-  // The title actually used in rendering
-  $block->title = check_plain("NodeQueues");
-
   $items = array();
 
   //Check for NodeQueue module.
@@ -113,8 +108,10 @@ function nodequeue_content_type_render($subtype, $conf, $args, $context) {
     $link = l(t('Nodequeue administration'), 'admin/content/nodequeue');
   }
 
-  $output = theme('total_control_admin_table', $header, $rows, $link);
-  $block->content = $output;
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Administer NodeQueues');
+  $block->content = theme('total_control_admin_table', $header, $rows, $link);
 
   return $block;
 }

@@ -13,7 +13,7 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('Site Overview'),
+  'title' => t('Overview - Content & User accounts'),
   'description' => t('An overview of both content and users in one pane'),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
@@ -35,7 +35,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_overview_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Site Overview');
+  return t('Content and User overview');
 }
 
 /**
@@ -64,7 +64,7 @@ function total_control_overview_content_type_admin_info($subtype, $conf, $contex
 function total_control_overview_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Site Overview');
+  $block->title = t('Content and User overview');
 
   $overview_content = total_control_get_content_overview($conf);
   $overview_users = total_control_get_user_overview($conf);

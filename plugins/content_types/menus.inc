@@ -14,8 +14,8 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('Menu list'),
-  'description' => t('A list of menus on the site.'),
+  'title' => t('Admin - Menus'),
+  'description' => t('Provides links to administer menus.'),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
   // Constructor.
@@ -36,7 +36,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_menus_content_type_admin_title($subtype, $conf, $context) {
-    return t('Menus');
+  return t('Administer Menus');
 }
 
 /**
@@ -44,7 +44,7 @@ function total_control_menus_content_type_admin_title($subtype, $conf, $context)
  */
 function total_control_menus_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Displays a list of Menus, with access to add and edit the links within.');
+  $block->title = t('Provides links to administer menus.');
   return $block;
 }
 
@@ -62,8 +62,6 @@ function total_control_menus_content_type_admin_info($subtype, $conf, $context) 
  *   An object with at least title and content members.
  */
 function total_control_menus_content_type_render($subtype, $conf, $args, $context) {
-  $block = new stdClass();
-  $block->title = t("Menus");
   $header = array(t('Page'), t('Operations'));
   $rows = array();
 
@@ -98,6 +96,9 @@ function total_control_menus_content_type_render($subtype, $conf, $args, $contex
     $link = l(t('Menu administration'), 'admin/build/menu');
   }
 
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Administer Menus');
   $block->content = theme('total_control_admin_table', $header, $rows, $link);
 
   return $block;

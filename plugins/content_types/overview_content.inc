@@ -15,7 +15,7 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('Content Overview'),
+  'title' => t('Overview - Content'),
   'description' => t('Displays a summary of content statistics including: 
     number pieces of each type of content, number of comments, number of 
     blocked comments (spam), and if <a href="!url">configured</a> content-type 
@@ -40,7 +40,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_overview_content_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Content Overview');
+  return t('Content overview');
 }
 
 /**
@@ -70,7 +70,7 @@ function total_control_overview_content_content_type_admin_info($subtype, $conf,
 function total_control_overview_content_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Content Overview');
+  $block->title = t('Content overview');
 
   $overview = total_control_get_content_overview($conf);
   $block->content = theme('total_control_overview_content', $overview);

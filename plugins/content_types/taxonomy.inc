@@ -13,8 +13,8 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('Categories'),
-  'description' => t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.'),
+  'title' => t('Admin - Taxonomy'),
+  'description' => t('Provides links to administer taxonomy.'),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
   // Constructor.
@@ -35,7 +35,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Categories and Terms');
+  return t('Administer Taxonomy');
 }
 
 /**
@@ -43,7 +43,7 @@ function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf 
  */
 function total_control_taxonomy_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.');
+  $block->title = t('Provides links to administer taxonomy.'),
 
   return $block;
 }
@@ -65,10 +65,6 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   if (!module_exists('taxonomy')) {
     return;
   }
-
-  $block = new stdClass();
-  $block->module = t('total_control');
-  $block->title = total_control_taxonomy_content_type_admin_title();
 
   $vids = (isset($conf['vids']))? $conf['vids']: array();
 
@@ -110,6 +106,9 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
     );
   }
 
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Administer Taxonomy');
   $block->content = theme('total_control_admin_table', $header, $rows, $link);
 
   return $block;

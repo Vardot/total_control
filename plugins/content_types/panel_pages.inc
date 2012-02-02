@@ -14,8 +14,8 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('Panel Pages list'),
-  'description' => t('A list of panels on the site.'),
+  'title' => t('Admin - Panel Pages'),
+  'description' => t('Provides links to administer panel pages.'),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
   // Constructor.
@@ -39,7 +39,7 @@ $plugin = array(
  *
  */
 function total_control_panel_pages_content_type_admin_title($subtype, $conf, $context) {
-    return t('Panel Pages');
+    return t('Administer Panel pages');
 }
 
 /**
@@ -50,7 +50,7 @@ function total_control_panel_pages_content_type_admin_title($subtype, $conf, $co
  */
 function total_control_panel_pages_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Displays a list of Panel Pages, with "edit" links.');
+  $block->title = t('Provides links to administer panel pages.'),
   return $block;
 }
 
@@ -68,11 +68,6 @@ function total_control_panel_pages_content_type_admin_info($subtype, $conf, $con
  *   An object with at least title and content members.
  */
 function total_control_panel_pages_content_type_render($subtype, $conf, $args, $context) {
-  $block = new stdClass();
-
-  // The title actually used in rendering.
-  $block->title = t("Panel Pages");
-  
   $items = array();
   
   // Get panels pages.
@@ -118,7 +113,10 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, $
   if (user_access('use page manager')) {
     $link = l(t('Page manager administration'), 'admin/build/pages');
   }
-  
+
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Administer Panel pages');
   $block->content = theme('total_control_admin_table', $header, $rows, $link);
 
   return $block;

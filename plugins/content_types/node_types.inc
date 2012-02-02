@@ -14,8 +14,8 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('Content types'),
-  'description' => t('A list of content types on the site.'),
+  'title' => t('Admin - Content types'),
+  'description' => t('Provides links to administer content types.'),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
   // Constructor.
@@ -39,7 +39,7 @@ $plugin = array(
  *
  */
 function total_control_node_types_content_type_admin_title($subtype, $conf, $context) {
-  return t('Content type administration links');
+  return t('Administer Content types');
 }
 
 /**
@@ -66,8 +66,6 @@ function total_control_node_types_content_type_admin_info($subtype, $conf, $cont
  *   An object with at least title and content members.
  */
 function total_control_node_types_content_type_render($subtype, $conf, $args, $context) {
-  $block = new stdClass();
-  $block->title = t('Content types');
   $header = array(t('Page'), t('Operations'));
   $rows = array();
 
@@ -114,6 +112,9 @@ function total_control_node_types_content_type_render($subtype, $conf, $args, $c
     $link = l(t('Content type administration'), 'admin/content/types');
   }
 
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Administer Content types');
   $block->content = theme('total_control_admin_table', $header, $rows, $link);
 
   return $block;

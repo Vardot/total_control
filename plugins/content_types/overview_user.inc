@@ -14,8 +14,9 @@
  * by the system that includes this file.
  */
 $plugin = array(
-  'title' => t('User Overview'),
-  'description' => t('Displays a summary of user statistics including: number of total users, active users, blocked users, and users in each role.'),
+  'title' => t('Overview - User accounts'),
+  'description' => t('Displays a summary of user statistics including: number 
+    of total users, active users, blocked users, and users in each role.'),
   // 'single' => TRUE means has no subtypes.
   'single' => TRUE,
   // Constructor.
@@ -36,7 +37,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_overview_user_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('User Overview');
+  return t('Overview of user accounts');
 }
 
 /**
@@ -44,7 +45,8 @@ function total_control_overview_user_content_type_admin_title($subtype = NULL, $
  */
 function total_control_overview_user_content_type_admin_info($subtype, $conf, $context) {
   $block = new stdClass();
-  $block->title = t('Displays a summary of user statistics including: number of total users, active users, blocked users, and users in each role.');
+  $block->title = t('Displays a summary of user statistics including: number 
+    of total users, active users, blocked users, and users in each role.');
 
   return $block;
 } 
@@ -65,7 +67,7 @@ function total_control_overview_user_content_type_admin_info($subtype, $conf, $c
 function total_control_overview_user_content_type_render($subtype, $conf, $panel_args, &$context) {
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('User Overview');
+  $block->title = t('Overview of user accounts');
 
   $overview = total_control_get_user_overview($conf);
   $block->content = theme('total_control_overview_user', $overview);
