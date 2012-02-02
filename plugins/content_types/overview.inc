@@ -10,7 +10,7 @@
 
 $plugin = array(
   'single' => TRUE,
-  'title' => t('Overview - Site'),
+  'title' => t('Overview - Content & User accounts'),
   'defaults' => array('types' => NULL, 'comments' => NULL, 'spam' => 1, 'user' => NULL, 'roles' => NULL),
   'icon' => 'cog.png',
   'description' => t('An overview of both content and users in one pane'),
@@ -39,15 +39,11 @@ function total_control_overview_content_type_admin_info($subtype = NULL, $conf =
  * Run-time rendering of the body of the block.
  */
 function total_control_overview_content_type_render($subtype, $conf, $panel_args, &$context) {
-  $block = new stdClass();
-  $block->module = t('total_control');
-  $block->title = total_control_overview_content_type_admin_title();
-
   // Content Overview.
   $overview_cnt = total_control_get_content_overview($conf);
-  $overview_usr = array();
 
   // User Overview.  
+  $overview_usr = array();
   $user_data = total_control_get_user_overview($conf);
   $users_all = format_plural($user_data['all'], '1 total user', '@count total users');
   $users_active = format_plural($user_data['active'], '1 active', '@count active');
@@ -60,6 +56,9 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
     $overview_usr['role_' . $rid] .= ' with the role: ' . $user_data['roles'][$rid]['name'];
   } 
 
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = total_control_overview_content_type_admin_title();
   $block->content = theme('total_control_overview', array('content' => $overview_cnt, 'users' => $overview_usr));
 
   return $block;
