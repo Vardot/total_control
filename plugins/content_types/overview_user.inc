@@ -11,7 +11,7 @@
 
 $plugin = array(
   'single' => TRUE,
-  'title' => t('User Overview'),
+  'title' => t('Overview - User accounts'),
   'defaults' => array('user' => NULL, 'roles' => NULL),
   'icon' => 'cog.png',
   'description' => t('Displays a summary of user statistics including: number 
@@ -24,7 +24,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_overview_user_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('User overview');
+  return t('Overview of user accounts');
 }
 
 /**

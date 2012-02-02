@@ -12,7 +12,7 @@
  
 $plugin = array(
   'single' => TRUE,
-  'title' => t('Content types'),
+  'title' => t('Admin - Content types'),
   'defaults' => array('types' => NULL),
   'icon' => 'cog.png',
   'description' => t('Provides links to administer content types.'),
@@ -24,7 +24,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_node_types_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Content type administration links');
+  return t('Administer Content types');
 }
 
 /**
@@ -41,10 +41,6 @@ function total_control_node_types_content_type_admin_info($subtype = NULL, $conf
  * Run-time rendering of the body of the pane.
  */
 function total_control_node_types_content_type_render($subtype, $conf, $panel_args, &$context) {
-  $block = new stdClass();
-  $block->module = t('total_control');
-  $block->title = t('Content types');
-
   $types = node_type_get_types();
   $access = user_access('administer content types');
   $options = array('query' => array('destination' => 'admin/dashboard'));
@@ -85,6 +81,9 @@ function total_control_node_types_content_type_render($subtype, $conf, $panel_ar
     $link = l(t('Content type administration'), 'admin/structure/types');
   }
 
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Administer Content types');
   $block->content =  theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;

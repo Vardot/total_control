@@ -10,10 +10,10 @@
 
 $plugin = array(
   'single' => TRUE,
-  'title' => t('Categories'),
+  'title' => t('Admin - Taxonomy'),
   'defaults' => array('vids' => NULL),
   'icon' => 'cog.png',
-  'description' => t('Displays Categories, number of terms in each category, "view terms" link and "edit terms" link.'),
+  'description' => t('Provides links to administer taxonomy.'),
   'category' => t('Total control'),
   'edit text' => t('Configure'),
 );
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Taxonomy overview');
+  return t('Administer Taxonomy');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf 
  */
 function total_control_taxonomy_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Displays category information: number of terms in each vocabulary with links to see the list or add a new one.');
+  $block->title = t('Provides links to administer taxonomy.');
 
   return $block;
 }
@@ -44,7 +44,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Category overview');
+  $block->title = t('Administer Taxonomy');
 
   $vids = (isset($conf['vids']))? $conf['vids']: array();
 
@@ -52,7 +52,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(
     array('data' => t('Vocabulary')), 
-    array('data' => t('Operations'), 'colspan' => 2));
+    array('data' => t('Operations'), 'colspan' => 3));
   $rows = array();
 
   if (!empty($vocabs)) {  
@@ -64,8 +64,9 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
           $rows[] = array(
             'data' => array(
               t($vocab->name . ': ' . $terms),
-              l(t('List categories'), 'admin/structure/taxonomy/' . $vocab->machine_name, $options),
-              l(t('Add categories'), 'admin/structure/taxonomy/' . $vocab->machine_name . '/add', $options),
+              l(t('Configure'), 'http://control7.dev/admin/structure/taxonomy/' . $vocab->machine_name . '/edit', $options),
+              l(t('Manage categories'), 'admin/structure/taxonomy/' . $vocab->machine_name, $options),
+              l(t('Add new category'), 'admin/structure/taxonomy/' . $vocab->machine_name . '/add', $options),
             ),
           );
         }
@@ -77,7 +78,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
     $rows[] = array(
       array(
         'data' => t('There are no vocabularies to display.'),
-        'colspan' => 3,
+        'colspan' => 4,
       )
     );
   }

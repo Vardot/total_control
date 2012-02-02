@@ -10,10 +10,10 @@
 
 $plugin = array(
   'single' => TRUE,
-  'title' => t('NodeQueue list'),
+  'title' => t('Admin - NodeQueues'),
   'defaults' => array(),
   'icon' => 'cog.png',
-  'description' => t('A list of NodeQueues on the site.'),
+  'description' => t('Provides links to administer NodeQueues.'),
   'category' => t('Total control'),
   'edit text' => t('Configure'),
 );
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_nodequeue_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('NodeQueue overview');
+  return t('Administer NodeQueues');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_nodequeue_content_type_admin_title($subtype = NULL, $conf
  */
 function total_control_nodequeue_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Provides a list of all NodeQueues on the site.');
+  $block->title = t('Provides links to administer NodeQueues.');
 
   return $block;
 }
@@ -39,10 +39,6 @@ function total_control_nodequeue_content_type_admin_info($subtype = NULL, $conf 
  * Run-time rendering of the body of the block.
  */
 function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$context) {
-  $block = new stdClass();
-  $block->module = t('total_control');
-  $block->title = check_plain("NodeQueues");
-
   // Check for nodequeue module. 
   if (module_exists('nodequeue')) {
     // Get nodequeues.
@@ -85,6 +81,9 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
     $link = l(t('NodeQueue administration'), 'admin/content/nodequeue');
   }
 
+  $block = new stdClass();
+  $block->module = t('total_control');
+  $block->title = t('Administer NodeQueues');
   $block->content = $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;

@@ -10,10 +10,10 @@
 
 $plugin = array(
   'single' => TRUE,
-  'title' => t('Menus'),
+  'title' => t('Admin - Menus'),
   'defaults' => array('menus' => array()),
   'icon' => 'cog.png',
-  'description' => t('A list of menus on the site.'),
+  'description' => t('Provides links to administer menus.'),
   'category' => t('Total control'),
   'edit text' => t('Configure'),
 );
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_menus_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Menu overview');
+  return t('Administer Menus');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_menus_content_type_admin_title($subtype = NULL, $conf = N
  */
 function total_control_menus_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Displays a list of Menus, with access to add and edit the links within.');
+  $block->title = t('Provides links to administer menus.');
 
   return $block;
 }
@@ -45,7 +45,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
   $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(
     array('data' => t('Menu')), 
-    array('data' => t('Operations'), 'colspan' => 2));
+    array('data' => t('Operations'), 'colspan' => 3));
   $rows = array();
 
   foreach ($menus as $menu_name => $menu) {
@@ -53,7 +53,8 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
       $rows[] = array(
         'data' => array(
           t($menu),
-          l(t('Edit menu'), 'admin/structure/menu/manage/' . $menu_name, $options),
+          l(t('Configure'), 'admin/structure/menu/manage/' . $menu_name . '/edit', $options),
+          l(t('Manage links'), 'admin/structure/menu/manage/' . $menu_name, $options),
           l(t('Add new link'), 'admin/structure/menu/manage/' . $menu_name . '/add', $options),
         ),
       );
@@ -64,20 +65,19 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
     $rows[] = array(
       array(
         'data' => t('There are no menus to display.'),
-        'colspan' => 3,
+        'colspan' => 4,
       )
     );
   }
 
   // Build a link to the menu UI.
   if (user_access('administer menu')) {
-    $link = l(t('Menu administration'), 'admin/structure/menus');
+    $link = l(t('Menu administration'), 'admin/structure/menu');
   }
 
   $block = new stdClass();
-  $block->title = t('Menus');
+  $block->title = t('Administer Menus');
   $block->module = t('total_control');
-  // TODO
   $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;

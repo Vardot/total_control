@@ -10,7 +10,7 @@
 
 $plugin = array(
   'single' => TRUE,
-  'title' => t('Site Overview'),
+  'title' => t('Overview - Site'),
   'defaults' => array('types' => NULL, 'comments' => NULL, 'spam' => 1, 'user' => NULL, 'roles' => NULL),
   'icon' => 'cog.png',
   'description' => t('An overview of both content and users in one pane'),

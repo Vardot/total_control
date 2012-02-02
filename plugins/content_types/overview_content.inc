@@ -11,7 +11,7 @@
  
 $plugin = array(
   'single' => TRUE,
-  'title' => t('Content overview'),
+  'title' => t('Overview - Content'),
   'defaults' => array('types' => array(), 'comments' => array(), 'spam' => 0),
   'icon' => 'cog.png',
   'description' => t('Displays a summary of content statistics including: 
