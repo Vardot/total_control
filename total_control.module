@@ -119,18 +119,19 @@ function total_control_views_pre_render(&$view) {
 
     // Check for page.
     foreach ($machine_names as $type) {
-      
       // Check if the user has access to create content of that type.
       if (user_access('create ' . $type . ' content')) {
         // Add the create content link.
         $add_link = l(t('Create ' . $type . ' content'), 'node/add/' . $type);
-        if (array_key_exists('header', $view->display['page_tc_' . $type]->handler->options)) {
-          // If there's already a header, append to it.
-          $view->display['page_tc_' . $type]->handler->options['header'] .= $add_link;
-        }
-        else {
-          // Otherwise add our own header.
-          $view->display['page_tc_' . $type]->handler->options['header'] = $add_link;
+        if (array_key_exists('page_tc_' . $type, $view->display)){
+          if (array_key_exists('header', $view->display['page_tc_' . $type]->handler->options)) {
+            // If there's already a header, append to it.
+            $view->display['page_tc_' . $type]->handler->options['header'] .= $add_link;
+          }
+          else {
+            // Otherwise add our own header.
+            $view->display['page_tc_' . $type]->handler->options['header'] = $add_link;
+          }
         }
       }
     }
