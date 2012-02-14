@@ -13,8 +13,8 @@ define('TOTAL_CONTROL_REQUIRED_PANELS_API', '3');
 define('TOTAL_CONTROL_REQUIRED_VIEWS_API', '2');
 // This is the name of the dashboard as the page manager module sees it via the page task.
 define('TOTAL_CONTROL_DASHBOARD_PANEL_NAME', 'dashboard');
-define('TOTAL_CONTROL_MINIMUM_VERSION', 1);
-define('TOTAL_CONTROL_VERSION', 1);
+define('TOTAL_CONTROL_MINIMUM_VERSION', 2);
+define('TOTAL_CONTROL_VERSION', 2);
 
 /** 
  * Implements hook_perm().
@@ -42,7 +42,7 @@ function total_control_permission() {
 function total_control_menu() {
   $items = array();
 
-  $items['admin/config/control'] = array(
+  $items['admin/config/administration/control'] = array(
     'title' => 'Total Control Dashboard',
     'description' => 'Adjust dashboard settings.',
     'page callback' => 'drupal_get_form',
