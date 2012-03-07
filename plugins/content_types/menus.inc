@@ -49,15 +49,17 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
   $rows = array();
 
   foreach ($menus as $menu_name => $menu) {
-    if ($conf['menus'][$menu_name] === $menu_name) {
-      $rows[] = array(
-        'data' => array(
-          t($menu),
-          l(t('Configure'), 'admin/structure/menu/manage/' . $menu_name . '/edit', $options),
-          l(t('Manage links'), 'admin/structure/menu/manage/' . $menu_name, $options),
-          l(t('Add new link'), 'admin/structure/menu/manage/' . $menu_name . '/add', $options),
-        ),
-      );
+    if (array_key_exists($menu_name, $conf['menus'])) {
+      if ($conf['menus'][$menu_name] === $menu_name) {
+        $rows[] = array(
+          'data' => array(
+            t($menu),
+            l(t('Configure'), 'admin/structure/menu/manage/' . $menu_name . '/edit', $options),
+            l(t('Manage links'), 'admin/structure/menu/manage/' . $menu_name, $options),
+            l(t('Add new link'), 'admin/structure/menu/manage/' . $menu_name . '/add', $options),
+          ),
+        );
+      }
     }
   }
 
