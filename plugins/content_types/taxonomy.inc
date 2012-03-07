@@ -64,7 +64,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
           $rows[] = array(
             'data' => array(
               t($vocab->name . ': ' . $terms),
-              l(t('Configure'), 'http://control7.dev/admin/structure/taxonomy/' . $vocab->machine_name . '/edit', $options),
+              l(t('Configure'), 'admin/structure/taxonomy/' . $vocab->machine_name . '/edit', $options),
               l(t('Manage categories'), 'admin/structure/taxonomy/' . $vocab->machine_name, $options),
               l(t('Add new category'), 'admin/structure/taxonomy/' . $vocab->machine_name . '/add', $options),
             ),
