@@ -248,11 +248,12 @@ function total_control_default_page_manager_pages() {
     $pane->subtype = 'taxonomy';
     $pane->shown = TRUE;
     $pane->access = array();
+    $vocabs = taxonomy_get_vocabularies();
+    foreach($vocabs as $vocab)  {
+      $vids[] = $vocab->vid;
+    }
     $pane->configuration = array(
-      'vids' => array(
-        2 => '2',
-        1 => 0,
-      ),
+      'vids' => $vids,
       'override_title' => 0,
       'override_title_text' => '',
     );
