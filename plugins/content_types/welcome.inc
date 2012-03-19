@@ -47,7 +47,7 @@ function total_control_welcome_content_type_render($subtype, $conf, $panel_args,
     !settings.  Make this dashboard the perfect hub for all your administrative 
     needs.', array(
      '!panel' => l(t('Edit this panel'), 'admin/structure/pages/nojs/operation/page-dashboard/handlers/page_dashboard_panel_context/content'), 
-     '!settings' => l(t('Total Control Settings'), 'admin/config/control'))) . '</p>';
+     '!settings' => l(t('Total Control Settings'), 'admin/config/administration/control'))) . '</p>';
   $content .= '</div>';
 
   $block = new stdClass();
