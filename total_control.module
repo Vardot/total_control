@@ -104,20 +104,20 @@ function total_control_user_login(&$edit, $account) {
 function total_control_views_pre_render(&$view) {
   // Check that this is the control content view
   if ($view->name == 'control_content') {
-    // Get the content type for the current page.
 
-    // Create an array to work with
+    // Create an array of type-based page displays.
     $type_displays = $view->display;
     unset($type_displays['default']);
     unset($type_displays['page_1']);
+
+    // Get the content types of each displays.
     $machine_names = array();
     foreach ($type_displays as $key => $value) {
-      $machine_names[] = substr($key, 8);
+      if (is_string(substr($key, 8))) {
+        $machine_names[] = substr($key, 8);
+      }
     }
 
-    //dpm($view->display);
-
-    // Check for page.
     foreach ($machine_names as $type) {
       // Check if the user has access to create content of that type.
       if (user_access('create ' . $type . ' content')) {
