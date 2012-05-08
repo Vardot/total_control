@@ -69,7 +69,7 @@ function total_control_webform_content_type_render($subtype, $conf, $args, &$con
       $count = $query->countQuery()->execute()->fetchField();
       $rows[] = array(
         array('class' => 'webform-title', 'data' => l($node->title, 'node/' . $node->nid)),
-        array('class' => 'webform-no-subs', 'data' => $count == 0 ? t('No submissions yet') : $count),
+        array('class' => 'webform-no-subs', 'data' => $count == 0 ? t('No submissions') : $count),
         array('data' => l(t('Configure'), 'node/' . $node->nid . '/webform', $options)),
         array('data' => node_access('update', $node) ? l(t('View results'), 'node/' . $node->nid . '/webform-results/table', $options) : ''),
       );
