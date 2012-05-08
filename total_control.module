@@ -110,7 +110,7 @@ function total_control_views_pre_render(&$view) {
     unset($type_displays['default']);
     unset($type_displays['page_1']);
 
-    // Get the content types of each displays.
+    // Get the content type of each display.
     $machine_names = array();
     foreach ($type_displays as $key => $value) {
       if (is_string(substr($key, 8))) {

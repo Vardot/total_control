@@ -106,7 +106,7 @@ function total_control_views_add_display($content_type = '', $machine_type = '')
     }
     else {
       drupal_set_message(t('Total Control was unable to create your 
-        administrative view because a view already exists with the name: 
+        administrative page view because a view already exists with the name: 
         !name', array('!name' => 'page_tc_' . $machine_type)));
     }
   }
@@ -122,7 +122,7 @@ function total_control_views_add_display($content_type = '', $machine_type = '')
     }
     else {
       drupal_set_message(t('Total Control was unable to create your 
-        administrative view because a view already exists with the name: 
+        administrative pane view because a view already exists with the name: 
         !name', array('!name' => 'pane_tc_' . $machine_type)));
     }
   }
