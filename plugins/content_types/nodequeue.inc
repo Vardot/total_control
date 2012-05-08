@@ -28,7 +28,7 @@ $plugin = array(
   'edit form' => 'nodequeue_content_type_edit_form',
   // Icon goes in the directory with the content type.
   'icon' => 'icon_node_form.png',
-  'category' => t('Total Control'),
+  'category' => t('Dashboard'),
 );
 
 /**
