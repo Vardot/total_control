@@ -14,7 +14,7 @@ $plugin = array(
   'defaults' => array(),
   'icon' => 'cog.png',
   'description' => t('Provides links to administer panel pages.'),
-  'category' => t('Total control'),
+  'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
 

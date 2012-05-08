@@ -15,7 +15,7 @@ $plugin = array(
   'no title override' => TRUE,
   'icon' => 'cog.png',
   'description' => t('Intro to Total Control'),
-  'category' => t('Total Control'),
+  'category' => t('Dashboard'),
 );
 
 /**

@@ -16,7 +16,7 @@ $plugin = array(
   'defaults' => array('types' => NULL),
   'icon' => 'cog.png',
   'description' => t('Provides links to administer content types.'),
-  'category' => t('Total control'),
+  'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
 

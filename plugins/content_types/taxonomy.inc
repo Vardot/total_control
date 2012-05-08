@@ -14,7 +14,7 @@ $plugin = array(
   'defaults' => array('vids' => NULL),
   'icon' => 'cog.png',
   'description' => t('Provides links to administer taxonomy.'),
-  'category' => t('Total control'),
+  'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
 

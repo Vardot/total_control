@@ -14,7 +14,7 @@ $plugin = array(
   'defaults' => array('types' => NULL, 'comments' => NULL, 'spam' => 1, 'user' => NULL, 'roles' => NULL),
   'icon' => 'cog.png',
   'description' => t('An overview of both content and users in one pane'),
-  'category' => t('Total control'),
+  'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
 

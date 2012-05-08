@@ -16,7 +16,7 @@ $plugin = array(
   'icon' => 'cog.png',
   'description' => t('Displays a summary of user statistics including: number 
     of total users, active users, blocked users, and users in each role.'),
-  'category' => t('Total control'),
+  'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
 

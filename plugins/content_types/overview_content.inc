@@ -18,7 +18,7 @@ $plugin = array(
     number pieces of each type of content, number of comments, number of 
     blocked comments (spam), and if ') . l(t('allowed'), 
     'admin/settings/total_control') . t(', content-type configuration links.'),
-  'category' => t('Total control'),
+  'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
 

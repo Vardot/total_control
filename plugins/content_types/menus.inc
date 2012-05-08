@@ -14,7 +14,7 @@ $plugin = array(
   'defaults' => array('menus' => array()),
   'icon' => 'cog.png',
   'description' => t('Provides links to administer menus.'),
-  'category' => t('Total control'),
+  'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
 

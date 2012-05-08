@@ -14,7 +14,7 @@ $plugin = array(
   'defaults' => array(),
   'icon' => 'cog.png',
   'description' => t('Provides links to administer NodeQueues.'),
-  'category' => t('Total control'),
+  'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
 
