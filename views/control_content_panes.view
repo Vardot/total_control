@@ -155,7 +155,7 @@ $handler->override_option('title', 'New Content');
 $handler->override_option('pane_title', 'New Content');
 $handler->override_option('pane_description', '');
 $handler->override_option('pane_category', array(
-  'name' => 'Total Control',
+  'name' => 'Dashboard',
   'weight' => '0',
 ));
 $handler->override_option('allow', array(
@@ -317,7 +317,7 @@ $handler->override_option('title', 'Updated Content');
 $handler->override_option('pane_title', 'Updated Content');
 $handler->override_option('pane_description', '');
 $handler->override_option('pane_category', array(
-  'name' => 'Total Control',
+  'name' => 'Dashboard',
   'weight' => '0',
 ));
 $handler->override_option('allow', array(

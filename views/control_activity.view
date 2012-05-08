@@ -328,7 +328,7 @@ $handler->override_option('row_options', array(
 $handler->override_option('pane_title', 'Recent Activity');
 $handler->override_option('pane_description', 'Total Control activity summary');
 $handler->override_option('pane_category', array(
-  'name' => 'Total Control',
+  'name' => 'Dashboard',
   'weight' => '0',
 ));
 $handler->override_option('allow', array(
