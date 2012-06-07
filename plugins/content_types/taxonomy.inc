@@ -83,6 +83,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
     );
   }
 
+  $link = '';
   if (user_access('administer taxonomy')) {
     $link = l(t('Taxonomy administration'), 'admin/structure/taxonomy');
   }

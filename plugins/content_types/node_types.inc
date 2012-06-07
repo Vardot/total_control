@@ -77,6 +77,7 @@ function total_control_node_types_content_type_render($subtype, $conf, $panel_ar
     );
   }
 
+  $link = '';
   if (user_access('administer content types')) {
     $link = l(t('Content type administration'), 'admin/structure/types');
   }

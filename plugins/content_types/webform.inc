@@ -74,19 +74,25 @@ function total_control_webform_content_type_render($subtype, $conf, $args, &$con
         array('data' => node_access('update', $node) ? l(t('View results'), 'node/' . $node->nid . '/webform-results/table', $options) : ''),
       );
     }
+    
+    $empty_text = t('There are no Webforms to display.');
+    if (user_access('access all webform results')) {
+      $link = l(t('Webform administration'), 'admin/content/webform');
+    }
+  }
+  else {
+    $header = array();
+    $empty_text = t('Dashboard administration for the <a href="!href">webform</a> module.', array('!href' => 'http://drupal.org/project/webform'));
+    $link = '';
   }
 
   if (empty($rows)) {
     $rows[] = array(
       array(
-        'data' => t('There are no Webforms to display.'),
+        'data' => $empty_text,
         'colspan' => 5,
       )
     );
-  }
-
-  if (user_access('access all webform results')) {
-    $link = l(t('Webform administration'), 'admin/content/webform');
   }
 
   $block = new stdClass();

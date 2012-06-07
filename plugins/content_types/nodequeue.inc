@@ -38,7 +38,7 @@ function total_control_nodequeue_content_type_admin_info($subtype = NULL, $conf 
 /**
  * Run-time rendering of the body of the block.
  */
-function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$context) {
+function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$context) {  
   // Check for nodequeue module. 
   if (module_exists('nodequeue')) {
     // Get nodequeues.
@@ -65,19 +65,25 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
         array('data' => l(t('Manage items'), 'admin/structure/nodequeue/' . $queue->qid . '/view', $options)),
       );
     }
+    
+    $empty_text = t('There are no nodequeues to display.');
+    if (user_access('administer nodequeue')) {
+      $link = l(t('NodeQueue administration'), 'admin/structure/nodequeue');
+    }
+  }
+  else {
+    $header = array();
+    $empty_text = t('Dashboard administration for the <a href="!href">nodequeue</a> module.', array('!href' => 'http://drupal.org/project/nodequeue'));
+    $link = '';
   }
   
   if (empty($rows)) {
     $rows[] = array(
       array(
-        'data' => t('There are no nodequeues to display.'),
+        'data' => $empty_text,
         'colspan' => 5,
       )
     );
-  }
-
-  if (user_access('administer nodequeue')) {
-    $link = l(t('NodeQueue administration'), 'admin/structure/nodequeue');
   }
 
   $block = new stdClass();

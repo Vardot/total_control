@@ -72,6 +72,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
   }
 
   // Build a link to the page manager UI.
+  $link = '';
   if (user_access('use page manager')) {
     $link = l(t('Page manager administration'), 'admin/structure/pages');
   }
