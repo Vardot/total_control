@@ -76,6 +76,7 @@ function total_control_webform_content_type_render($subtype, $conf, $args, &$con
     }
     
     $empty_text = t('There are no Webforms to display.');
+    $link = '';
     if (user_access('access all webform results')) {
       $link = l(t('Webform administration'), 'admin/content/webform');
     }

@@ -67,6 +67,7 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
     }
     
     $empty_text = t('There are no nodequeues to display.');
+    $link = '';
     if (user_access('administer nodequeue')) {
       $link = l(t('NodeQueue administration'), 'admin/structure/nodequeue');
     }
