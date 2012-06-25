@@ -12,7 +12,7 @@
  * Disable the core dashboard module.
  */
 function total_control_install() {
-  // TODO Disable the core dashboard module or set message explaining it's disappearence.
+  // @TODO Disable the core dashboard module or set message explaining it's disappearence.
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_requirements($phase) {
     if (!defined('TOTAL_CONTROL_REQUIRED_PANELS_API')) {
       include_once drupal_get_path('module', 'total_control') . '/total_control.module';
     }
-    
+
     // Check panels current version.
     if (module_exists('panels')) {
       include_once drupal_get_path('module', 'panels') . '/panels.module';
@@ -44,12 +44,12 @@ function total_control_requirements($phase) {
         );
       } 
     }
-    
+
     // Get views required version.
     if (!defined('TOTAL_CONTROL_REQUIRED_VIEWS_API')) {
       include_once drupal_get_path('module', 'total_control') . '/total_control.module';
     }
-    
+
     // Check views current version.
     if (module_exists('views')) {
       include_once drupal_get_path('module', 'views') . '/views.module';
@@ -102,7 +102,8 @@ function total_control_requirements($phase) {
  */
 function total_control_uninstall() {
   $views = views_get_all_views();
-  
+
+  // Delete the dashboard views.
   foreach ($views as $view_name => $view) {
     // Remove any views that have been overridden
     $views_types = array('Overridden', 'Normal');
@@ -111,10 +112,13 @@ function total_control_uninstall() {
     if (in_array($view->type, $views_types) && in_array($view_name, $total_control_views)) {
       drupal_set_message(t('Deleting view: @view', array('@view' => $view_name)));
       $view->delete();
+      module_load_include('inc', 'ctools', 'object-cache');
       ctools_object_cache_clear('view', $view_name);
     }
   }
-  
+
+  // @TODO delete the dashboard panel too?
+
   variable_del('total_control_type_panels');
   variable_del('total_control_type_pages');
   variable_del('total_control_role_panels');
