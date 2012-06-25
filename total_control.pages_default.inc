@@ -14,7 +14,7 @@ function total_control_default_page_manager_pages() {
 
   // Begin exported panel.
 
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'dashboard';
@@ -52,7 +52,7 @@ function total_control_default_page_manager_pages() {
     'admin_paths' => TRUE,
   );
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_dashboard_panel_context';
@@ -61,15 +61,17 @@ function total_control_default_page_manager_pages() {
   $handler->handler = 'panel_context';
   $handler->weight = 0;
   $handler->conf = array(
-    'title' => 'Panel',
+    'title' => 'Admin Dashboard',
     'no_blocks' => 0,
     'pipeline' => 'standard',
     'css_id' => '',
     'css' => '',
     'contexts' => array(),
     'relationships' => array(),
+    'body_classes_to_remove' => '',
+    'body_classes_to_add' => '',
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'twocol_stacked';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -86,7 +88,7 @@ function total_control_default_page_manager_pages() {
   $display->title = 'Dashboard';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-1';
     $pane->panel = 'left';
     $pane->type = 'create';
@@ -112,7 +114,7 @@ function total_control_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-1'] = $pane;
     $display->panels['left'][0] = 'new-1';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-2';
     $pane->panel = 'left';
     $pane->type = 'overview_content';
@@ -144,7 +146,7 @@ function total_control_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-2'] = $pane;
     $display->panels['left'][1] = 'new-2';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-3';
     $pane->panel = 'left';
     $pane->type = 'views_panes';
@@ -164,7 +166,7 @@ function total_control_default_page_manager_pages() {
     $pane->locks = array();
     $display->content['new-3'] = $pane;
     $display->panels['left'][2] = 'new-3';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-4';
     $pane->panel = 'left';
     $pane->type = 'views_panes';
@@ -184,7 +186,7 @@ function total_control_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-4'] = $pane;
     $display->panels['left'][3] = 'new-4';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-5';
     $pane->panel = 'right';
     $pane->type = 'menus';
@@ -214,7 +216,7 @@ function total_control_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-5'] = $pane;
     $display->panels['right'][0] = 'new-5';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-6';
     $pane->panel = 'right';
     $pane->type = 'node_types';
@@ -241,19 +243,18 @@ function total_control_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-6'] = $pane;
     $display->panels['right'][1] = 'new-6';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-7';
     $pane->panel = 'right';
     $pane->type = 'taxonomy';
     $pane->subtype = 'taxonomy';
     $pane->shown = TRUE;
     $pane->access = array();
-    $vocabs = taxonomy_get_vocabularies();
-    foreach($vocabs as $vocab)  {
-      $vids[] = $vocab->vid;
-    }
     $pane->configuration = array(
-      'vids' => $vids,
+      'vids' => array(
+        0 => '2',
+        1 => '1',
+      ),
       'override_title' => 0,
       'override_title_text' => '',
     );
@@ -267,7 +268,7 @@ function total_control_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-7'] = $pane;
     $display->panels['right'][2] = 'new-7';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-8';
     $pane->panel = 'right';
     $pane->type = 'panel_pages';
@@ -290,7 +291,7 @@ function total_control_default_page_manager_pages() {
     $pane->locks = '';
     $display->content['new-8'] = $pane;
     $display->panels['right'][3] = 'new-8';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-9';
     $pane->panel = 'top';
     $pane->type = 'welcome';
@@ -312,7 +313,6 @@ function total_control_default_page_manager_pages() {
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
-  
 
   // End exported panel.
 
