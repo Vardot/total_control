@@ -76,7 +76,7 @@ $handler->display->display_options['style_options']['info'] = array(
 $handler->display->display_options['style_options']['override'] = 1;
 $handler->display->display_options['style_options']['sticky'] = 0;
 $handler->display->display_options['style_options']['empty_table'] = 0;
-/* Field: Taxonomy term: Bulk operations */
+/* Field: Bulk operations: Taxonomy term */
 $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
 $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'taxonomy_term_data';
 $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
@@ -100,28 +100,28 @@ $handler->display->display_options['fields']['views_bulk_operations']['empty_zer
 $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = 1;
 $handler->display->display_options['fields']['views_bulk_operations']['vbo']['entity_load_capacity'] = '10';
 $handler->display->display_options['fields']['views_bulk_operations']['vbo']['operations'] = array(
-  'views_bulk_operations_delete_item' => array(
+  'action::views_bulk_operations_delete_item' => array(
     'selected' => 1,
     'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
   ),
-  'system_message_action' => array(
+  'action::system_message_action' => array(
     'selected' => 0,
     'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
   ),
-  'views_bulk_operations_script_action' => array(
+  'action::views_bulk_operations_script_action' => array(
     'selected' => 0,
     'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
   ),
-  'views_bulk_operations_argument_selector_action' => array(
+  'action::views_bulk_operations_argument_selector_action' => array(
     'selected' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
@@ -130,14 +130,14 @@ $handler->display->display_options['fields']['views_bulk_operations']['vbo']['op
       'url' => '',
     ),
   ),
-  'system_goto_action' => array(
+  'action::system_goto_action' => array(
     'selected' => 0,
     'use_queue' => 0,
     'skip_confirmation' => 0,
     'override_label' => 0,
     'label' => '',
   ),
-  'system_send_email_action' => array(
+  'action::system_send_email_action' => array(
     'selected' => 0,
     'use_queue' => 0,
     'skip_confirmation' => 0,
@@ -223,7 +223,7 @@ $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
 $handler->display->display_options['fields']['nothing']['label'] = 'Edit ';
 $handler->display->display_options['fields']['nothing']['alter']['text'] = 'edit';
 $handler->display->display_options['fields']['nothing']['alter']['make_link'] = 1;
-$handler->display->display_options['fields']['nothing']['alter']['path'] = 'admin/structure/taxonomy/edit/term/[tid]';
+$handler->display->display_options['fields']['nothing']['alter']['path'] = 'taxonomy/term/[tid]/edit?destination=admin/dashboard/categories';
 $handler->display->display_options['fields']['nothing']['alter']['absolute'] = 0;
 $handler->display->display_options['fields']['nothing']['alter']['external'] = 0;
 $handler->display->display_options['fields']['nothing']['alter']['replace_spaces'] = 0;
@@ -231,6 +231,7 @@ $handler->display->display_options['fields']['nothing']['alter']['trim_whitespac
 $handler->display->display_options['fields']['nothing']['alter']['nl2br'] = 0;
 $handler->display->display_options['fields']['nothing']['alter']['word_boundary'] = 1;
 $handler->display->display_options['fields']['nothing']['alter']['ellipsis'] = 1;
+$handler->display->display_options['fields']['nothing']['alter']['more_link'] = 0;
 $handler->display->display_options['fields']['nothing']['alter']['strip_tags'] = 0;
 $handler->display->display_options['fields']['nothing']['alter']['trim'] = 0;
 $handler->display->display_options['fields']['nothing']['alter']['html'] = 0;
