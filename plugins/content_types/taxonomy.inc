@@ -99,6 +99,10 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
 function total_control_taxonomy_content_type_edit_form($form, &$form_state) {
   $conf = $form_state['conf'];
 
+  if (!module_exists('taxonomy')) {
+    return $form;
+  }
+
   $vocabs = taxonomy_get_vocabularies();
   if (!empty($vocabs)) {
     $vocab_options = array();
