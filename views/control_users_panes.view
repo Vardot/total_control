@@ -160,12 +160,12 @@ $handler->override_option('access', array(
 $handler->override_option('cache', array(
   'type' => 'none',
 ));
-$handler->override_option('title', 'New Users');
+$handler->override_option('title', 'New user accounts');
 $handler->override_option('items_per_page', 0);
 $handler->override_option('use_pager', '0');
 $handler->override_option('use_more', 1);
 $handler->override_option('use_more_always', 0);
-$handler->override_option('use_more_text', 'more users');
+$handler->override_option('use_more_text', 'more user accounts');
 $handler->override_option('style_plugin', 'list');
 $handler->override_option('style_options', array(
   'grouping' => '',
@@ -180,9 +180,9 @@ $handler->override_option('row_options', array(
   'separator' => ' | ',
   'hide_empty' => 0,
 ));
-$handler = $view->new_display('panel_pane', 'New Users pane', 'panel_pane_1');
-$handler->override_option('pane_title', 'New Users');
-$handler->override_option('pane_description', 'Total Control user summary');
+$handler = $view->new_display('panel_pane', 'New user accounts pane', 'panel_pane_1');
+$handler->override_option('pane_title', 'New user accounts');
+$handler->override_option('pane_description', 'Total Control user account summary');
 $handler->override_option('pane_category', array(
   'name' => 'Dashboard',
   'weight' => '0',
