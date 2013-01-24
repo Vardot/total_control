@@ -39,6 +39,9 @@ function total_control_menus_content_type_admin_info($subtype = NULL, $conf = NU
  * Run-time rendering of the body of the block.
  */
 function total_control_menus_content_type_render($subtype, $conf, $args, &$context) {
+  if (!module_exists('menu')) {
+    return;
+  }
   $items = array();
 
   $menus = menu_get_menus();
@@ -91,6 +94,9 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
  * 'Edit form' callback for the content type.
  */
 function total_control_menus_content_type_edit_form($form, &$form_state) {
+  if (!module_exists('menu')) {
+    return $form;
+  }
   $conf = $form_state['conf'];
 
   $menus = menu_get_menus();
