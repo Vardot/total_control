@@ -1,0 +1,11 @@
+name: Total Control
+type: module
+description: Total Control Administration Dashboard
+package: Administration
+core: 8.x
+dependencies:
+  - ctools
+  - panels
+  - block
+  - views
+  - page_manager

@@ -1,0 +1,4 @@
+total_control.menu_link:
+  class: Drupal\total_control\Plugin\Menu\TotalControlMenuLink
+  deriver: Drupal\total_control\Plugin\Derivative\TotalControlMenuLink
+  menu_name: system.total_control_dashboard
