@@ -49,6 +49,10 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
         'colspan' => 3
       )
     );
+    $destination = drupal_get_destination();
+    $options = [
+      $destination,
+    ];
     $rows = array();
     if (!empty($vocabs)) {
       foreach ($vocabs as $key => $vocab) {
@@ -62,13 +66,16 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
               'data' => array(
                 t($vocab->get('name') . ': ' . $terms),
                 \Drupal::l('Configure', new Url('entity.taxonomy_vocabulary.edit_form', [
-                  'taxonomy_vocabulary' => $vocab->get('vid')
+                  'taxonomy_vocabulary' => $vocab->get('vid'),
+                  $options
                 ])),
                 \Drupal::l('Manage categories', new Url('entity.taxonomy_vocabulary.overview_form', [
-                  'taxonomy_vocabulary' => $vocab->get('vid')
+                  'taxonomy_vocabulary' => $vocab->get('vid'),
+                  $options
                 ])),
                 \Drupal::l('Add new category', new Url('entity.taxonomy_term.add_form', [
-                  'taxonomy_vocabulary' => $vocab->get('vid')
+                  'taxonomy_vocabulary' => $vocab->get('vid'),
+                  $options
                 ]))
               )
             );
@@ -88,7 +95,7 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
 
     $link = '';
     if (\Drupal::currentUser()->hasPermission('administer taxonomy')) {
-      $link = \Drupal::l('Taxonomy administration', new Url('entity.taxonomy_vocabulary.collection'));
+      $link = \Drupal::l('Taxonomy administration', new Url('entity.taxonomy_vocabulary.collection', $options));
     }
 
     $body_data = [

@@ -32,12 +32,6 @@ Configure user permissions in Administer >> People >> Permissions
     Users in roles with the "have total control" permission will see
     the administration dashboard and all included view pages.
 
-  * administer total control
-    Users in roles with the "administer total control" permission will be
-    able to visit the settings page where they can determine weather links
-    will appear on the panes to "configure" content types.
-
-
 CUSTOMIZATION
 --------------
 To override the default lists on the dashboard, you have two options:

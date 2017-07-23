@@ -43,6 +43,11 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
       )
     );
 
+    $destination = drupal_get_destination();
+    $options = [
+      $destination,
+    ];
+
     foreach ($menus as $menu_name => $menu) {
       $is_new = !array_key_exists($menu_name, $config ['total_control_admin_menus']);
       if ($is_new || array_key_exists($menu_name, $config ['total_control_admin_menus'])) {
@@ -51,10 +56,12 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
             'data' => array(
               t($menu),
               \Drupal::l('Configure', new Url('entity.menu.edit_form', [
-                'menu' => $menu_name
-              ])),
+                'menu' => $menu_name,
+                $options
+                ])),
               \Drupal::l('Add new link', new Url('entity.menu.add_link_form', [
-                'menu' => $menu_name
+                'menu' => $menu_name,
+                $options
               ]))
             )
           );

@@ -41,6 +41,11 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface {
         'colspan' => 3
       )
     );
+    $destination = drupal_get_destination();
+    $options = [
+      $destination,
+    ];
+
     $rows = array();
 
     foreach ($types as $type => $object) {
@@ -52,13 +57,16 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface {
             'data' => array(
               t($object->get('name')),
               \Drupal::l('Configure', new Url('field_ui.field_storage_config_add_node', [
-                'node_type' => $object->get('type')
+                'node_type' => $object->get('type'),
+                $options
               ])),
               \Drupal::l('Manage fields', new Url('entity.node.field_ui_fields', [
-                'node_type' => $object->get('type')
+                'node_type' => $object->get('type'),
+                $options
               ])),
               \Drupal::l('Manage display', new Url('entity.entity_view_display.node.default', [
-                'node_type' => $object->get('type')
+                'node_type' => $object->get('type'),
+                $options
               ]))
             )
           );

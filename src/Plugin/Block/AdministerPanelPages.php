@@ -36,16 +36,22 @@ class AdministerPanelPages extends BlockBase {
         'colspan' => 2
       )
     );
+    $destination = drupal_get_destination();
+    $options = [
+      $destination,
+    ];
 
     foreach ($panels as $panel) {
       $rows [] = array(
         'data' => array(
           $panel->get('label'),
           \Drupal::l('Edit', new Url('entity.page.edit_form', [
-            'machine_name' => $panel->get('id'), 'step' => 'general'
+            'machine_name' => $panel->get('id'), 'step' => 'general',
+            $options
           ])),
           \Drupal::l('Disable', new Url('entity.page.disable', [
-            'page' => $panel->get('id')
+            'page' => $panel->get('id'),
+            $options
           ])),
         )
       );

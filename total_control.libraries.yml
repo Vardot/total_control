@@ -1,0 +1,7 @@
+tc:
+  version: 'VERSION'
+  css:
+    theme:
+      css/tc.css: {}
+  dependencies:
+    - 'toolbar/toolbar'
