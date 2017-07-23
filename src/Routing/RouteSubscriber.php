@@ -24,7 +24,7 @@ class RouteSubscriber extends RouteSubscriberBase {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    // Run after EntityRouteAlterSubscriber.
+    // Run after PageManagerRoutesAlterSubscriber.
     $events[RoutingEvents::ALTER][] = ['onAlterRoutes', -170];
     return $events;
   }
