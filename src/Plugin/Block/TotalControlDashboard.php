@@ -8,7 +8,6 @@
 namespace Drupal\total_control\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Url;
 
 /**
  * Provides a 'Total Control Dashboard block'.
