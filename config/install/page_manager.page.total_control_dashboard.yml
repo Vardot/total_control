@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: total_control_dashboard
-label: 'Total control dashboard'
+label: 'Total Control dashboard'
 description: 'Total Control administrative dashboard'
 use_admin_theme: true
 path: /admin/dashboard
