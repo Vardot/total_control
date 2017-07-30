@@ -29,7 +29,7 @@ CONFIGURATION
 Configure user permissions in Administer >> People >> Permissions
 
   * have total control
-    Users in roles with the "have total control" permission will see
+    Users in roles with the "Have total control" permission will see
     the administration dashboard and all included view pages.
 
 CUSTOMIZATION
@@ -38,7 +38,7 @@ To override the default lists on the dashboard, you have two options:
 
   1. Edit the settings on the panel pane:
      * Use the cog wheel at the top right of the panel display
-     * (or visit Admin > Structure > Pages/Panels)
+     * (or visit Admin > Structure > Pages)
      * Configure the pane in question (via cog wheel at top right of pane)
 
   2. Override the default views provided with the total_control module:
