@@ -45,15 +45,15 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
 
         if ($comments_exist) {
           // Compare against comment options on pane config.
-          if ((!array_key_exists($type, $config ['total_control_comments_overview'])) || (isset($config ['total_control_comments_overview']) && $config ['total_control_comments_overview'] [$type]) == $type) {
-            $comment_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {comment_field_data} n ON c.cid = n.cid INNER JOIN {node__comment} nc WHERE n.entity_id = nc.entity_id AND nc.bundle = :type AND n.status = 1", array(
+          if ((!array_key_exists($type, $config ['varbase_total_control_comments_overview'])) || (isset($config ['varbase_total_control_comments_overview']) && $config ['varbase_total_control_comments_overview'] [$type]) == $type) {
+            $comment_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {comment_field_data} n ON c.cid = n.cid INNER JOIN {node} node WHERE n.entity_id = node.nid AND node.type = :type AND n.status = 1", array(
               ':type' => $type
               ))->fetchField();
             $content_data [$type . '_comments'] = \Drupal::translation()->formatPlural($comment_count, '1 comment', '@count comments');
 
             // Compare against spam option checkbox on pane config.
             if (isset($config ['total_control_spam_overview']) && $config ['total_control_spam_overview'] == 1) {
-              $spam_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {comment_field_data} n ON c.cid = n.cid INNER JOIN {node__comment} nc WHERE n.entity_id = nc.entity_id AND nc.bundle = :type AND n.status = 0", array(
+              $spam_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {comment_field_data} n ON c.cid = n.cid INNER JOIN {node} node WHERE n.entity_id = node.nid AND node.type = :type AND n.status = 0", array(
                 ':type' => $type
                 ))->fetchField();
               $content_data [$type . '_comments_spam'] = \Drupal::translation()->formatPlural($spam_count, '1 spam', '@count spam');
