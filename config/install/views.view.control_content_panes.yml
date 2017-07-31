@@ -262,7 +262,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: ' On'
+          label: ' on'
           exclude: false
           alter:
             alter_text: false
