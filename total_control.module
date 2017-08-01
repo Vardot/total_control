@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function total_control_element_info_alter(array &$types) {
+  // Attach our extra CSS for toolbar icons.
+  if (isset($types['toolbar'])) {
+    $types['toolbar']['#attached']['library'][] = 'total_control/tc';
+  }
+}

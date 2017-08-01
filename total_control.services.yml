@@ -1,0 +1,5 @@
+services:
+  total_control.route_subscriber:
+    class: Drupal\total_control\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
