@@ -45,7 +45,7 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
 
         if ($comments_exist) {
           // Compare against comment options on pane config.
-          if ((!array_key_exists($type, $config ['varbase_total_control_comments_overview'])) || (isset($config ['varbase_total_control_comments_overview']) && $config ['varbase_total_control_comments_overview'] [$type]) == $type) {
+          if ((!array_key_exists($type, $config ['total_control_comments_overview'])) || (isset($config ['total_control_comments_overview']) && $config ['total_control_comments_overview'] [$type]) == $type) {
             $comment_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {comment_field_data} n ON c.cid = n.cid INNER JOIN {node} node WHERE n.entity_id = node.nid AND node.type = :type AND n.status = 1", array(
               ':type' => $type
               ))->fetchField();
