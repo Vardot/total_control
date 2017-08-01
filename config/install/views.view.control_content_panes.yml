@@ -306,8 +306,8 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: custom
-            custom_date_format: 'm/d g:ia'
+            date_format: long
+            custom_date_format: ''
             timezone: ''
           group_column: value
           group_columns: {  }
@@ -353,7 +353,20 @@ display:
       title: 'New Content'
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'A fresh site. Neat! Once you starting adding content, most recent ones will appear here. <a href="/node/add">Start adding content now</a>!'
+            format: full_html
+          plugin_id: text
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
