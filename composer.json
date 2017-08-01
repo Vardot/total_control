@@ -24,10 +24,5 @@
       "url": "https://packages.drupal.org/8"
     }
   ],
-  "require": { },
-  "extra": {
-    "branch-alias": {
-      "1.x": "8.x-1.x-dev"
-    }
-  }
+  "require": { }
 }
