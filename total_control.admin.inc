@@ -19,7 +19,7 @@ function total_control_admin_settings() {
     '#default_value' => variable_get('total_control_login_redirect', 0),
     '#description' => t('Users with the !permission can be automatically 
       redirected to the Dashboard when they log in.', array('!permission' => 
-      l(t('Have Total Control permission'), 'admin/user/permissions'))),
+      l(t('Have Total Control permission'), 'admin/people/permissions'))),
   );
   
   $overridden = ' <strong>' . t('Automatic settings override these options.') . '</strong>';
