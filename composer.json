@@ -5,8 +5,12 @@
   "homepage": "https://github.com/Vardot/total_control",
   "license": "GPL-2.0+",
   "minimum-stability": "dev",
-  "prefer-stable": true,
   "authors": [
+    {
+      "name": "Jen Lampton",
+      "homepage": "https://github.com/jenlampton",
+      "role": "Maintainer"
+    },
     {
       "name": "Mohammed J. Razem",
       "homepage": "https://github.com/moerazem",
