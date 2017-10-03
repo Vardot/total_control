@@ -26,6 +26,15 @@ class AdministerPanelPages extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    $moduleHandler = \Drupal::service('module_handler');
+    $pm_ui_exist = $moduleHandler->moduleExists('page_manager_ui');
+
+    if (!$pm_ui_exist) {
+      return array(
+        '#type' => 'markup',
+        '#markup' => '<p>You have to enable <strong>page manager ui</strong> module to see this block.</p>'
+      );
+    }
     $panels = \Drupal::entityTypeManager()->getStorage('page')->loadMultiple();
     $header = array(
       array(

@@ -26,7 +26,6 @@ variant_settings:
       total_control_admin_types_links:
         article: article
         page: page
-        qweqwe: 0
     7ad313ed-8fa4-44a4-a9c2-771c4fbd9e70:
       id: content_overview
       label: 'Content Overview'
@@ -39,15 +38,9 @@ variant_settings:
       total_control_types_overview:
         article: article
         page: page
-        qweqwe: qweqwe
-        zzzzz: zzzzz
-        33333: 0
       total_control_comments_overview:
         article: article
-        33333: 0
         page: 0
-        qweqwe: 0
-        zzzzz: 0
       total_control_spam_overview: '1'
     ed6edc15-f68f-4595-a80e-4f65291d7142:
       id: 'views_block:control_users_panes-pane_tc_new_users'
@@ -85,7 +78,6 @@ variant_settings:
         footer: 0
         tools: 0
         account: 0
-        xxx: 0
       context_mapping: {  }
     f94fb0b4-a34c-4908-8850-b026b8df0ccf:
       id: administer_content_types
@@ -98,7 +90,6 @@ variant_settings:
       total_control_admin_types:
         article: article
         page: 0
-        qweqwe: 0
       context_mapping: {  }
     b4cdaa8a-08d9-463a-913c-fd4397de6d8f:
       id: administer_taxonomy
@@ -110,7 +101,6 @@ variant_settings:
       uuid: b4cdaa8a-08d9-463a-913c-fd4397de6d8f
       total_control_admin_taxonomy:
         tags: tags
-        asd: 0
       context_mapping: {  }
     6f665b86-9665-459d-93f9-529d94e881bd:
       id: administer_panel_pages
@@ -134,7 +124,6 @@ variant_settings:
   label: null
   uuid: 020d4fd5-5f12-4ac0-b5bb-94de5616645f
   weight: 0
-  status_code: '404'
   layout: layout_twocol_bricks
   layout_settings: {  }
   page_title: Dashboard
