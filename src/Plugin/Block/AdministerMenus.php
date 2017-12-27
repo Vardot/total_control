@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\total_control\Plugin\Block\AdministerMenus.
- */
-
 namespace Drupal\total_control\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
@@ -24,24 +19,23 @@ use Drupal\Core\Form\FormStateInterface;
 class AdministerMenus extends BlockBase implements BlockPluginInterface {
 
   /**
-   *
    * {@inheritdoc}
    */
   public function build() {
-    $items = array();
+    $items = [];
 
     $menus = menu_ui_get_menus();
     $config = $this->getConfiguration();
 
-    $header = array(
-      array(
-        'data' => t('Menu')
-      ),
-      array(
+    $header = [
+      [
+        'data' => t('Menu'),
+      ],
+      [
         'data' => t('Operations'),
-        'colspan' => 2
-      )
-    );
+        'colspan' => 2,
+      ],
+    ];
 
     $destination = drupal_get_destination();
     $options = [
@@ -49,22 +43,22 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
     ];
 
     foreach ($menus as $menu_name => $menu) {
-      $is_new = !array_key_exists($menu_name, $config ['total_control_admin_menus']);
-      if ($is_new || array_key_exists($menu_name, $config ['total_control_admin_menus'])) {
-        if ($is_new || $config ['total_control_admin_menus'] [$menu_name] === $menu_name) {
-          $rows [] = array(
-            'data' => array(
-              t($menu),
+      $is_new = !array_key_exists($menu_name, $config['total_control_admin_menus']);
+      if ($is_new || array_key_exists($menu_name, $config['total_control_admin_menus'])) {
+        if ($is_new || $config['total_control_admin_menus'][$menu_name] === $menu_name) {
+          $rows[] = [
+            'data' => [
+              $menu,
               \Drupal::l('Configure', new Url('entity.menu.edit_form', [
                 'menu' => $menu_name,
-                $options
-                ])),
+                'options' => $options,
+              ])),
               \Drupal::l('Add new link', new Url('entity.menu.add_link_form', [
                 'menu' => $menu_name,
-                $options
-              ]))
-            )
-          );
+                'options' => $options,
+              ])),
+            ],
+          ];
         }
       }
     }
@@ -76,30 +70,29 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
     }
 
     if (empty($rows)) {
-      $rows [] = array(
-        array(
+      $rows[] = [
+        [
           'data' => t('There are no menus to display.'),
-          'colspan' => 3
-        )
-      );
+          'colspan' => 3,
+        ],
+      ];
     }
 
     $body_data = [
       '#theme' => 'table',
       '#header' => $header,
       '#rows' => $rows,
-      '#footer' => $link
+      '#footer' => $link,
     ];
 
     $table = drupal_render($body_data);
-    return array(
+    return [
       '#type' => 'markup',
-      '#markup' => $table . $link
-    );
+      '#markup' => $table . $link,
+    ];
   }
 
   /**
-   *
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
@@ -108,24 +101,23 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
     $config = $this->getConfiguration();
     $menus = menu_ui_get_menus();
 
-    $form ['total_control_admin_menus'] = array(
+    $form['total_control_admin_menus'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Show links for the following menus on the dashboard'),
       '#options' => $menus,
-      '#default_value' => $config ['total_control_admin_menus']
-    );
+      '#default_value' => $config['total_control_admin_menus'],
+    ];
 
     return $form;
   }
 
   /**
-   *
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
     parent::blockSubmit($form, $form_state);
     $values = $form_state->getValues();
-    $this->configuration ['total_control_admin_menus'] = $values ['total_control_admin_menus'];
+    $this->configuration['total_control_admin_menus'] = $values['total_control_admin_menus'];
   }
 
 }

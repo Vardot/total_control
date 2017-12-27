@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\total_control\Plugin\Block\AdministerTaxonomy.
- */
-
 namespace Drupal\total_control\Plugin\Block;
 
 use Drupal\Core\Url;
@@ -25,72 +20,61 @@ use Drupal\taxonomy\Entity\Vocabulary;
 class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
 
   /**
-   *
    * {@inheritdoc}
    */
   public function build() {
-    // $moduleHandler = \Drupal::service('module_handler');
-    // if( !$moduleHandler->moduleExists('taxonomy')) {
-    // return array (
-    // '#type' => 'markup',
-    // '#markup' => 'Module Txonomy is disabled'
-    // );
-    // }
-
     $vocabs = Vocabulary::loadMultiple();
     $config = $this->getConfiguration();
-    $vids = $config ['total_control_admin_taxonomy'];
-    $header = array(
-      array(
-        'data' => t('Vocabulary')
-      ),
-      array(
+    $vids = $config['total_control_admin_taxonomy'];
+    $header = [
+      [
+        'data' => t('Vocabulary'),
+      ],
+      [
         'data' => t('Operations'),
-        'colspan' => 3
-      )
-    );
+        'colspan' => 3,
+      ],
+    ];
     $destination = drupal_get_destination();
     $options = [
       $destination,
     ];
-    $rows = array();
+    $rows = [];
     if (!empty($vocabs)) {
       foreach ($vocabs as $key => $vocab) {
-        if ((in_array($vocab->get('vid'), $vids) && isset($vids [$key]) && $vids [$key] == $vocab->get('name')) || !array_key_exists($vocab->get('vid'), $config ['total_control_admin_taxonomy'])) {
-          $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", array(
-            ':vid' => $vocab->get('vid')
-            ))->fetchField();
+        if ((in_array($vocab->get('vid'), $vids) && isset($vids[$key]) && $vids[$key] == $vocab->get('name')) || !array_key_exists($vocab->get('vid'), $config['total_control_admin_taxonomy'])) {
+          $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", [
+            ':vid' => $vocab->get('vid'),
+          ])->fetchField();
           if (\Drupal::currentUser()->hasPermission('administer taxonomy') || \Drupal::currentUser()->hasPermission('edit terms in ' . $vocab->get('vid'))) {
             $terms = \Drupal::translation()->formatPlural($term_count, '1 categories', '@count categories');
-            $rows [] = array(
-              'data' => array(
-                t($vocab->get('name') . ': ' . $terms),
+            $rows[] = [
+              'data' => [
+                $vocab->get('name') . ': ' . $terms,
                 \Drupal::l('Configure', new Url('entity.taxonomy_vocabulary.edit_form', [
                   'taxonomy_vocabulary' => $vocab->get('vid'),
-                  $options
+                  'options' => $options,
                 ])),
                 \Drupal::l('Manage categories', new Url('entity.taxonomy_vocabulary.overview_form', [
                   'taxonomy_vocabulary' => $vocab->get('vid'),
-                  $options
+                  'options' => $options,
                 ])),
                 \Drupal::l('Add new category', new Url('entity.taxonomy_term.add_form', [
                   'taxonomy_vocabulary' => $vocab->get('vid'),
-                  $options
-                ]))
-              )
-            );
+                  'options' => $options,
+                ])),
+              ],
+            ];
           }
         }
       }
     }
 
     if (empty($rows)) {
-      $rows [] = array(
-        array(
-          'data' => t('There are no vocabularies to display.'),
-          'colspan' => 4
-        )
-      );
+      $rows[] = [
+        'data' => t('There are no vocabularies to display.'),
+        'colspan' => 4,
+      ];
     }
 
     $link = '';
@@ -105,14 +89,13 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
     ];
 
     $table = drupal_render($body_data);
-    return array(
+    return [
       '#type' => 'markup',
-      '#markup' => $table . $link
-    );
+      '#markup' => $table . $link,
+    ];
   }
 
   /**
-   *
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
@@ -120,33 +103,32 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
 
     $config = $this->getConfiguration();
     $vocabularies = Vocabulary::loadMultiple();
-    $vocabularies_defaults = array();
+    $vocabularies_defaults = [];
 
     foreach ($vocabularies as $vocabulary => $object) {
-      $$vocabulary_options [$type] = $object->get('name');
+      $$vocabulary_options[$type] = $object->get('name');
       if (!array_key_exists($$vocabulary, $vocabularies_defaults)) {
-        $vocabularies_defaults [$vocabulary] = $vocabulary;
+        $vocabularies_defaults[$vocabulary] = $vocabulary;
       }
     }
 
-    $form ['total_control_admin_taxonomy'] = array(
+    $form['total_control_admin_taxonomy'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Include Vocabularies'),
       '#options' => $vocabularies_defaults,
-      '#default_value' => $config ['total_control_admin_taxonomy']
-    );
+      '#default_value' => $config['total_control_admin_taxonomy'],
+    ];
 
     return $form;
   }
 
   /**
-   *
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
     parent::blockSubmit($form, $form_state);
     $values = $form_state->getValues();
-    $this->configuration ['total_control_admin_taxonomy'] = $values ['total_control_admin_taxonomy'];
+    $this->configuration['total_control_admin_taxonomy'] = $values['total_control_admin_taxonomy'];
   }
 
 }
