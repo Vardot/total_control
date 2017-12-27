@@ -49,7 +49,7 @@ class TotalControlMenuLink extends DeriverBase implements ContainerDeriverInterf
     $router = \Drupal::service('router.route_provider');
     if (!empty($router->getRoutesByNames(array('page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0',)))) {
       $links ['system.total_control_dashboard'] = [
-        'title' => 'Dashboard',
+        'title' => $this->t('Dashboard'),
         'route_name' => 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0',
         'parent' => 'system.admin',
         'weight' => '-20'
