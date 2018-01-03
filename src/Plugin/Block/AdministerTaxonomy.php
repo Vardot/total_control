@@ -23,6 +23,14 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
    * {@inheritdoc}
    */
   public function build() {
+    $moduleHandler = \Drupal::service('module_handler');
+    if (!$moduleHandler->moduleExists('taxonomy')) {
+      return [
+        '#type' => 'markup',
+        '#markup' => 'You have to enable <strong>Taxonomy</strong> module to see this block.',
+      ];
+    }
+
     $vocabs = Vocabulary::loadMultiple();
     $config = $this->getConfiguration();
     $vids = $config['total_control_admin_taxonomy'];

@@ -24,6 +24,14 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
   public function build() {
     $items = [];
 
+    $moduleHandler = \Drupal::service('module_handler');
+    if (!$moduleHandler->moduleExists('menu_ui')) {
+      return [
+        '#type' => 'markup',
+        '#markup' => 'You have to enable <strong>Menu ui</strong> module to see this block.',
+      ];
+    }
+
     $menus = menu_ui_get_menus();
     $config = $this->getConfiguration();
 

@@ -24,6 +24,15 @@ class DynamicLocalTasks extends DeriverBase {
 
       return $this->derivatives;
     }
+
+    if ($moduleHandler->moduleExists('taxonomy') && !empty($router->getRoutesByNames(['view.control_terms.page_1']))) {
+      $this->derivatives['total_control.categories'] = $base_plugin_definition;
+      $this->derivatives['total_control.categories']['title'] = t('Categories');
+      $this->derivatives['total_control.categories']['base_route'] = 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0';
+      $this->derivatives['total_control.categories']['route_name'] = 'view.control_terms.page_1';
+
+      return $this->derivatives;
+    }
   }
 
 }

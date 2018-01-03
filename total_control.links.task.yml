@@ -11,11 +11,6 @@ total_control.content:
   base_route: 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0'
   route_name: 'view.control_content.page_1'
 
-total_control.categories:
-  title: 'Categories'
-  base_route: 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0'
-  route_name: 'view.control_terms.page_1'
-
 total_control.users:
   title: 'User Accounts'
   base_route: 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0'
