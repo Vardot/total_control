@@ -2,6 +2,7 @@
 
 namespace Drupal\total_control\Plugin\Block;
 
+use Drupal\Core\Url;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -59,6 +60,13 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
         $line .= (isset($content_data[$type . '_comments_spam'])) ? ' (' . $content_data[$type . '_comments_spam'] . ')' : '';
         $items[] = $line;
       }
+    }
+
+    if (empty($items)) {
+      return [
+        '#type' => 'markup',
+        '#markup' => t('No content available. @link.', ['@link' => \Drupal::l('Add content', new Url('node.add_page'))]),
+      ];
     }
 
     $body_data = [

@@ -42,6 +42,13 @@ class CreateContent extends BlockBase implements BlockPluginInterface {
       }
     }
 
+    if (empty($links)) {
+      return [
+        '#type' => 'markup',
+        '#markup' => t('No content types available. @link.', ['@link' => \Drupal::l('Add content type', new Url('node.type_add'))]),
+      ];
+    }
+
     $body_data = [
       '#theme' => 'item_list',
       '#list_type' => 'ul',
