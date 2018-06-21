@@ -26,7 +26,7 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface {
     if (!$moduleHandler->moduleExists('field_ui')) {
       return [
         '#type' => 'markup',
-        '#markup' => 'You have to enable <strong>Field ui</strong> module to see this block.',
+        '#markup' => $this->t('You have to enable <strong>Field ui</strong> module to see this block.'),
       ];
     }
 
@@ -36,10 +36,10 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface {
 
     $header = [
       [
-        'data' => t('Content type'),
+        'data' => $this->t('Content type'),
       ],
       [
-        'data' => t('Operations'),
+        'data' => $this->t('Operations'),
         'colspan' => 3,
       ],
     ];
@@ -79,7 +79,7 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface {
     if (empty($rows)) {
       $rows[] = [
         [
-          'data' => t('There are no content types to display.'),
+          'data' => $this->t('There are no content types to display.'),
           'colspan' => 4,
         ],
       ];
@@ -87,7 +87,7 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface {
 
     $link = '';
     if (\Drupal::currentUser()->hasPermission('administer content types')) {
-      $link = \Drupal::l('Content type administration', new Url('entity.node_type.collection'));
+      $link = \Drupal::l($this->t('Content type administration'), new Url('entity.node_type.collection'));
     }
 
     $body_data = [

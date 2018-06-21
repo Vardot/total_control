@@ -26,16 +26,16 @@ class AdministerPanelPages extends BlockBase {
     if (!$pm_ui_exist) {
       return [
         '#type' => 'markup',
-        '#markup' => t('<p>You have to enable <strong>page manager ui</strong> module to see this block.</p>'),
+        '#markup' => $this->t('<p>You have to enable <strong>page manager ui</strong> module to see this block.</p>'),
       ];
     }
     $panels = \Drupal::entityTypeManager()->getStorage('page')->loadMultiple();
     $header = [
       [
-        'data' => t('Page'),
+        'data' => $this->t('Page'),
       ],
       [
-        'data' => t('Operations'),
+        'data' => $this->t('Operations'),
         'colspan' => 2,
       ],
     ];
@@ -63,7 +63,7 @@ class AdministerPanelPages extends BlockBase {
 
     $link = '';
     if (\Drupal::currentUser()->hasPermission('administer pages')) {
-      $link = \Drupal::l('Page manager administration', new Url('entity.page.collection'));
+      $link = \Drupal::l($this->t('Page manager administration'), new Url('entity.page.collection'));
     }
 
     $body_data = [

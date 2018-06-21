@@ -28,7 +28,7 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
     if (!$moduleHandler->moduleExists('menu_ui')) {
       return [
         '#type' => 'markup',
-        '#markup' => 'You have to enable <strong>Menu ui</strong> module to see this block.',
+        '#markup' => $this->t('You have to enable <strong>Menu ui</strong> module to see this block.'),
       ];
     }
 
@@ -37,10 +37,10 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
 
     $header = [
       [
-        'data' => t('Menu'),
+        'data' => $this->t('Menu'),
       ],
       [
-        'data' => t('Operations'),
+        'data' => $this->t('Operations'),
         'colspan' => 2,
       ],
     ];
@@ -57,11 +57,11 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
           $rows[] = [
             'data' => [
               $menu,
-              \Drupal::l('Configure', new Url('entity.menu.edit_form', [
+              \Drupal::l($this->t('Configure'), new Url('entity.menu.edit_form', [
                 'menu' => $menu_name,
                 'options' => $options,
               ])),
-              \Drupal::l('Add new link', new Url('entity.menu.add_link_form', [
+              \Drupal::l($this->t('Add new link'), new Url('entity.menu.add_link_form', [
                 'menu' => $menu_name,
                 'options' => $options,
               ])),
@@ -74,13 +74,13 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
     // Build a link to the menu admin UI.
     $link = '';
     if (\Drupal::currentUser()->hasPermission('administer menu')) {
-      $link = \Drupal::l('Menu administration', new Url('entity.menu.collection'));
+      $link = \Drupal::l($this->t('Menu administration'), new Url('entity.menu.collection'));
     }
 
     if (empty($rows)) {
       $rows[] = [
         [
-          'data' => t('There are no menus to display.'),
+          'data' => $this->t('There are no menus to display.'),
           'colspan' => 3,
         ],
       ];

@@ -65,7 +65,7 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
     if (empty($items)) {
       return [
         '#type' => 'markup',
-        '#markup' => t('No content available. @link.', ['@link' => \Drupal::l('Add content', new Url('node.add_page'))]),
+        '#markup' => $this->t('No content available. @link.', ['@link' => \Drupal::l($this->t('Add content'), new Url('node.add_page'))]),
       ];
     }
 
@@ -113,8 +113,8 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
     ];
 
     $spam_options = [
-      0 => t('no'),
-      1 => t('Yes'),
+      0 => $this->t('no'),
+      1 => $this->t('Yes'),
     ];
 
     $form['total_control_spam_overview'] = [
