@@ -1,32 +1,50 @@
 {
-  "name": "vardot/total_control",
+  "name": "drupal/total_control",
   "description": "Total Control Administration Dashboard",
   "type": "drupal-module",
-  "homepage": "https://github.com/Vardot/total_control",
-  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/total_control",
+  "license": "GPL-2.0-or-later",
   "minimum-stability": "dev",
   "authors": [
     {
       "name": "Jen Lampton",
-      "homepage": "https://github.com/jenlampton",
+      "homepage": "https://www.drupal.org/u/jenlampton",
       "role": "Maintainer"
     },
     {
       "name": "Mohammed J. Razem",
-      "homepage": "https://github.com/moerazem",
+      "homepage": "https://www.drupal.org/u/mohammed-j-razem",
       "role": "Maintainer"
     },
     {
       "name": "Abdulla Abu-Zakham",
-      "homepage": "https://github.com/abuzakham",
+      "homepage": "https://www.drupal.org/u/abu-zakham",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Rajab Natshah",
+      "homepage": "https://www.drupal.org/u/rajabnatshah",
       "role": "Maintainer"
     }
   ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/total_control",
+    "source": "https://git.drupalcode.org/project/total_control/tree/8.x-2.x"
+  },
   "repositories": [
     {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
     }
   ],
-  "require": { }
+  "require": {
+    "drupal/ctools": "~3.0",
+    "drupal/panels": "~4.0",
+    "drupal/page_manager": "~4.0"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-8.x-2.x": "8.2.x-dev"
+    }
+  }
 }
