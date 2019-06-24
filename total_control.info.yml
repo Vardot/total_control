@@ -1,11 +1,13 @@
-name: Total Control
+name: 'Total Control'
+description: 'Total Control Administration Dashboard'
 type: module
-description: Total Control Administration Dashboard
-package: Administration
 core: 8.x
+version: 8.x-2.x-dev
+package: Administration
+project: total_control
 dependencies:
-  - ctools
-  - panels
-  - block
-  - views
-  - page_manager
+  - drupal:block
+  - drupal:views
+  - ctools:ctools
+  - panels:panels
+  - page_manager:page_manager
