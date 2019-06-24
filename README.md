@@ -1,5 +1,5 @@
 # SUMMARY - Total Control
-========================
+
 The Total Control Admin Dashboard creates a default panel page with useful
 administration tools. Its purpose is to create a central location from which
 a Drupal site can be properly cared for. Several overview panes are included
@@ -17,7 +17,7 @@ For a full description of the module, visit the project page:
 
 
 ## REQUIREMENTS
--------------
+
 * Chaos Tools
 * Panels
 * Views
@@ -25,14 +25,14 @@ For a full description of the module, visit the project page:
 
 
 ## INSTALLATION
--------------
+
 Install this module as usual, see
 
 https://www.drupal.org/docs/8/extending-drupal-8/installing-drupal-8-modules
 
 
 ## CONFIGURATION
---------------
+
 Configure user permissions in Administer >> People >> Permissions
 
   * have total control
@@ -40,7 +40,7 @@ Configure user permissions in Administer >> People >> Permissions
     the administration dashboard and all included view pages.
 
 ## CUSTOMIZATION
---------------
+
 To override the default lists on the dashboard, you have two options:
 
   1. Edit the settings on the panel pane:
@@ -54,6 +54,7 @@ To override the default lists on the dashboard, you have two options:
 
 
 ## SUPPORT
---------
+
 Please use the issue queue to report bugs or request support:
+
 http://drupal.org/project/issues/total_control
