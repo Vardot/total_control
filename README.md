@@ -1,11 +1,16 @@
 SUMMARY - Total Control
 ========================
 The Total Control Admin Dashboard creates a default panel page with useful
-administration panes right out of the box. Several overview panes are included
-for site stats and quick reference. Administration view panes are provided with
-'more' links to more comprehensive versions of the views. Each View pane is
-customizable via pane config, or override the defaults provided to suit your
-own needs.
+administration tools. Its purpose is to create a central location from which
+a Drupal site can be properly cared for. Several overview panes are included
+for site stats and quick reference. Several administration panes are provided
+with quick links to content types, menus, taxonomy, and other scattered
+locations of important Drupal site administration. Several views panes
+are also provided as well as full-page comprehensive versions of the views
+with bulk operations. Each views panel pane is customizable via it's pane
+settings, or override the default views provided to suit your own needs.
+
+[![](https://www.drupal.org/files/images/dashboard_1.png)](http://drupal.org/project/total_control)
 
 For a full description of the module, visit the project page:
   http://drupal.org/project/total_control
@@ -16,6 +21,7 @@ REQUIREMENTS
 Chaos Tools
 Panels
 Views
+Page Manager
 
 
 INSTALLATION
