@@ -21,7 +21,7 @@ class AdministerPanelPages extends BlockBase {
    */
   public function build() {
 
-    if (!$moduleHandler->moduleExists('page_manager_ui')) {
+    if (!\Drupal::service('module_handler')->moduleExists('page_manager_ui')) {
 
       $markup_data = '<p>' . $this->t('You have to enable')
         . ' <strong>page manager ui</strong> '
