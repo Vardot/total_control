@@ -22,11 +22,16 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface {
    * {@inheritdoc}
    */
   public function build() {
-    $moduleHandler = \Drupal::service('module_handler');
-    if (!$moduleHandler->moduleExists('field_ui')) {
+
+    if (!\Drupal::service('module_handler')->moduleExists('field_ui')) {
+
+      $markup_data =  $this->t('You have to enable')
+        . ' <strong>Field ui</strong> '
+        . $this->t('module to see this block.');
+
       return [
         '#type' => 'markup',
-        '#markup' => $this->t('You have to enable <strong>Field ui</strong> module to see this block.'),
+        '#markup' => $markup_data,
       ];
     }
 

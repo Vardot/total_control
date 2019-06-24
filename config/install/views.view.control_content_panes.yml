@@ -366,7 +366,7 @@ display:
           content:
             value: 'A fresh site. Neat! Once you starting adding content, most recent ones will appear here. <a href="/node/add">Start adding content now</a>!'
             format: full_html
-          plugin_id: text_custom
+          plugin_id: text
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
