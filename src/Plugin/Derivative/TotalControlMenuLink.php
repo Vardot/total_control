@@ -50,6 +50,8 @@ class TotalControlMenuLink extends DeriverBase implements ContainerDeriverInterf
 
       return $links;
     }
+
+    return [];
   }
 
 }

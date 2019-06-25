@@ -33,6 +33,8 @@ class DynamicLocalTasks extends DeriverBase {
 
       return $this->derivatives;
     }
+
+    return [];
   }
 
 }
