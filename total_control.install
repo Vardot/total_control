@@ -2,28 +2,18 @@
 
 /**
  * @file
- * Contains total_control.module.
+ * Install, update and uninstall functions for the Total Control module.
  */
 
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Implements hook_element_info_alter().
+ * Implements hook_install().
  */
-function total_control_element_info_alter(array &$types) {
-  // Attach our extra CSS for toolbar icons.
-  if (isset($types['toolbar'])) {
-    $types['toolbar']['#attached']['library'][] = 'total_control/tc';
-  }
-}
-
-/**
- * Implements hook_modules_installed().
- */
-function total_control_modules_installed($modules) {
-  // When we enable the Comment module we load the Drupal standard configs.
+function total_control_install() {
+  // If the Comment module was enabled we load the Drupal standard configs.
   // And the Total Control Comments view.
-  if (in_array('comment', $modules)) {
+  if (\Drupal::moduleHandler()->moduleExists('comment')) {
 
     $comment_managed_optional_path = Drupal::service('module_handler')->getModule('total_control')->getPath() . '/config/managed/comment';
 
@@ -47,8 +37,8 @@ function total_control_modules_installed($modules) {
     }
   }
 
-  // When we enable the Taxonomy module then we add the Total Control Term view.
-  if (in_array('taxonomy', $modules)) {
+  // If the Taxonomy module was enabled then we add the Total Control Term view.
+  if (\Drupal::moduleHandler()->moduleExists('taxonomy')) {
 
     $taxonomy_managed_optional_path = Drupal::service('module_handler')->getModule('total_control')->getPath() . '/config/managed/taxonomy';
 
