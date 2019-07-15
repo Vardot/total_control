@@ -18,7 +18,7 @@ class DynamicLocalTasks extends DeriverBase {
 
     if ($moduleHandler->moduleExists('comment') && !empty($router->getRoutesByNames(['view.control_comments.page_1']))) {
       $this->derivatives['total_control.comments'] = $base_plugin_definition;
-      $this->derivatives['total_control.comments']['title'] = t('Comments');
+      $this->derivatives['total_control.comments']['title'] = $this->t('Comments');
       $this->derivatives['total_control.comments']['base_route'] = 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0';
       $this->derivatives['total_control.comments']['route_name'] = 'view.control_comments.page_1';
 
@@ -27,9 +27,27 @@ class DynamicLocalTasks extends DeriverBase {
 
     if ($moduleHandler->moduleExists('taxonomy') && !empty($router->getRoutesByNames(['view.control_terms.page_1']))) {
       $this->derivatives['total_control.categories'] = $base_plugin_definition;
-      $this->derivatives['total_control.categories']['title'] = t('Categories');
+      $this->derivatives['total_control.categories']['title'] = $this->t('Categories');
       $this->derivatives['total_control.categories']['base_route'] = 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0';
       $this->derivatives['total_control.categories']['route_name'] = 'view.control_terms.page_1';
+
+      return $this->derivatives;
+    }
+
+    if ($moduleHandler->moduleExists('node') && !empty($router->getRoutesByNames(['view.control_content.page_1']))) {
+      $this->derivatives['total_control.categories'] = $base_plugin_definition;
+      $this->derivatives['total_control.categories']['title'] = $this->t('Content');
+      $this->derivatives['total_control.categories']['base_route'] = 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0';
+      $this->derivatives['total_control.categories']['route_name'] = 'view.control_content.page_1';
+
+      return $this->derivatives;
+    }
+
+    if ($moduleHandler->moduleExists('user') && !empty($router->getRoutesByNames(['view.control_users.page_1']))) {
+      $this->derivatives['total_control.categories'] = $base_plugin_definition;
+      $this->derivatives['total_control.categories']['title'] = $this->t('User Accounts');
+      $this->derivatives['total_control.categories']['base_route'] = 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0';
+      $this->derivatives['total_control.categories']['route_name'] = 'view.control_users.page_1';
 
       return $this->derivatives;
     }

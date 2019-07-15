@@ -7,11 +7,7 @@ total_control.overview:
   route_name: 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0'
 
 total_control.content:
-  title: 'Content'
-  base_route: 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0'
-  route_name: 'view.control_content.page_1'
+  deriver: 'Drupal\total_control\Plugin\Derivative\DynamicLocalTasks'
 
 total_control.users:
-  title: 'User Accounts'
-  base_route: 'page_manager.page_view_total_control_dashboard_total_control_dashboard-http_status_code-0'
-  route_name: 'view.control_users.page_1'
+  deriver: 'Drupal\total_control\Plugin\Derivative\DynamicLocalTasks'
