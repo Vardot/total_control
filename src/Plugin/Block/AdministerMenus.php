@@ -2,10 +2,17 @@
 
 namespace Drupal\total_control\Plugin\Block;
 
-use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Routing\RedirectDestinationInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Administer Menus'.
@@ -16,19 +23,90 @@ use Drupal\Core\Form\FormStateInterface;
  * category = @Translation("Dashboard")
  * )
  */
-class AdministerMenus extends BlockBase implements BlockPluginInterface {
+class AdministerMenus extends BlockBase implements BlockPluginInterface, ContainerFactoryPluginInterface {
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * The renderer service.
+   *
+   * @var Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The redirect destination service.
+   *
+   * @var \Drupal\Core\Routing\RedirectDestinationInterface
+   */
+  protected $redirectDestination;
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $currentUser;
+
+  /**
+   * Creates an AdministerMenus block instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
+   * @param Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
+   * @param \Drupal\Core\Routing\RedirectDestinationInterface $redirect_destination
+   *   The redirect destination service.
+   * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ModuleHandlerInterface $module_handler, RendererInterface $renderer, RedirectDestinationInterface $redirect_destination, AccountInterface $current_user) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->moduleHandler = $module_handler;
+    $this->renderer = $renderer;
+    $this->redirectDestination = $redirect_destination;
+    $this->currentUser = $current_user;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('module_handler'),
+      $container->get('renderer'),
+      $container->get('redirect.destination'),
+      $container->get('current_user')
+    );
+  }
 
   /**
    * {@inheritdoc}
    */
   public function build() {
-    $items = [];
 
-    if (!\Drupal::service('module_handler')->moduleExists('menu_ui')) {
+    if (!$this->moduleHandler->moduleExists('menu_ui')) {
+      $you_have_to_enable_text = $this->t('You have to enable');
+      $menu_ui_text = $this->t('Menu UI');
+      $to_see_this_block_text = $this->t('module to see this block.');
 
-      $markup_data = $this->t('You have to enable')
-        . ' <strong>Menu ui</strong> '
-        . $this->t('module to see this block.');
+      $markup_data = $you_have_to_enable_text
+        . ' <strong>' . $menu_ui_text . '</strong> '
+        . $to_see_this_block_text;
 
       return [
         '#type' => 'markup',
@@ -49,7 +127,7 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
       ],
     ];
 
-    $destination = drupal_get_destination();
+    $destination = $this->redirectDestination->getAsArray();
     $options = [
       $destination,
     ];
@@ -61,14 +139,16 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
           $rows[] = [
             'data' => [
               $menu,
-              \Drupal::l($this->t('Configure'), new Url('entity.menu.edit_form', [
-                'menu' => $menu_name,
-                'options' => $options,
-              ])),
-              \Drupal::l($this->t('Add new link'), new Url('entity.menu.add_link_form', [
-                'menu' => $menu_name,
-                'options' => $options,
-              ])),
+              Link::fromTextAndUrl($this->t('Configure'),
+                new Url('entity.menu.edit_form', [
+                  'menu' => $menu_name,
+                  'options' => $options,
+                ])),
+              Link::fromTextAndUrl($this->t('Add new link'),
+                new Url('entity.menu.add_link_form', [
+                  'menu' => $menu_name,
+                  'options' => $options,
+                ])),
             ],
           ];
         }
@@ -77,8 +157,9 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
 
     // Build a link to the menu admin UI.
     $link = '';
-    if (\Drupal::currentUser()->hasPermission('administer menu')) {
-      $link = \Drupal::l($this->t('Menu administration'), new Url('entity.menu.collection'));
+    if ($this->currentUser->hasPermission('administer menu')) {
+      $link = Link::fromTextAndUrl($this->t('Menu administration'),
+      new Url('entity.menu.collection'));
     }
 
     if (empty($rows)) {
@@ -97,10 +178,11 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
       '#footer' => $link,
     ];
 
-    $table = drupal_render($body_data);
+    $markup_data = $this->renderer->render($body_data) . $link->toString();
+
     return [
       '#type' => 'markup',
-      '#markup' => $table . $link,
+      '#markup' => $markup_data,
     ];
   }
 

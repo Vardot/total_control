@@ -3,10 +3,19 @@
 namespace Drupal\total_control\Plugin\Block;
 
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Routing\RedirectDestinationInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Administer Taxonomy'.
@@ -17,17 +26,119 @@ use Drupal\taxonomy\Entity\Vocabulary;
  * category = @Translation("Dashboard")
  * )
  */
-class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
+class AdministerTaxonomy extends BlockBase implements BlockPluginInterface, ContainerFactoryPluginInterface {
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
+   * The translation manager.
+   *
+   * @var \Drupal\Core\StringTranslation\TranslationInterface
+   */
+  protected $stringTranslation;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The renderer service.
+   *
+   * @var Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The redirect destination service.
+   *
+   * @var \Drupal\Core\Routing\RedirectDestinationInterface
+   */
+  protected $redirectDestination;
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $currentUser;
+
+  /**
+   * Creates an AdministerTaxonomy block instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
+   * @param \Drupal\Core\Database\Connection $connection
+   *   The database connection.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   *   The translation manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
+   * @param \Drupal\Core\Routing\RedirectDestinationInterface $redirect_destination
+   *   The redirect destination service.
+   * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ModuleHandlerInterface $module_handler, Connection $connection, TranslationInterface $string_translation, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, RedirectDestinationInterface $redirect_destination, AccountInterface $current_user) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->moduleHandler = $module_handler;
+    $this->connection = $connection;
+    $this->stringTranslation = $string_translation;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->renderer = $renderer;
+    $this->redirectDestination = $redirect_destination;
+    $this->currentUser = $current_user;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('module_handler'),
+      $container->get('database'),
+      $container->get('string_translation'),
+      $container->get('entity_type.manager'),
+      $container->get('renderer'),
+      $container->get('redirect.destination'),
+      $container->get('current_user')
+    );
+  }
 
   /**
    * {@inheritdoc}
    */
   public function build() {
 
-    if (!\Drupal::service('module_handler')->moduleExists('taxonomy')) {
+    if (!$this->moduleHandler->moduleExists('taxonomy')) {
 
       $markup_data = $this->t('You have to enable')
-        . ' <strong>Taxonomy</strong> '
+        . ' <strong>' . $this->t('Taxonomy') . '</strong> '
         . $this->t('module to see this block.');
 
       return [
@@ -36,7 +147,7 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
       ];
     }
 
-    $vocabs = Vocabulary::loadMultiple();
+    $vocabs = $this->entityTypeManager->getStorage('taxonomy_vocabulary')->loadMultiple();
     $config = $this->getConfiguration();
     $vids = $config['total_control_admin_taxonomy'];
     $header = [
@@ -48,34 +159,46 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
         'colspan' => 3,
       ],
     ];
-    $destination = drupal_get_destination();
+    $destination = $this->redirectDestination->getAsArray();
     $options = [
       $destination,
     ];
     $rows = [];
     if (!empty($vocabs)) {
       foreach ($vocabs as $key => $vocab) {
-        if ((in_array($vocab->get('vid'), $vids) && isset($vids[$key]) && $vids[$key] == $vocab->get('name')) || !array_key_exists($vocab->get('vid'), $config['total_control_admin_taxonomy'])) {
-          $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", [
+        if ((in_array($vocab->get('vid'), $vids)
+          && isset($vids[$key])
+          && $vids[$key] == $vocab->get('name'))
+          || !array_key_exists($vocab->get('vid'), $config['total_control_admin_taxonomy'])) {
+
+          $term_query = $this->connection->query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", [
             ':vid' => $vocab->get('vid'),
-          ])->fetchField();
-          if (\Drupal::currentUser()->hasPermission('administer taxonomy') || \Drupal::currentUser()->hasPermission('edit terms in ' . $vocab->get('vid'))) {
-            $terms = \Drupal::translation()->formatPlural($term_count, '1 categories', '@count categories');
+          ]);
+
+          $term_count = $term_query->fetchField();
+
+          if ($this->currentUser->hasPermission('administer taxonomy')
+             || $this->currentUser->hasPermission('edit terms in ' . $vocab->get('vid'))) {
+
+            $terms = $this->stringTranslation->formatPlural($term_count, '1 categories', '@count categories');
             $rows[] = [
               'data' => [
                 $vocab->get('name') . ': ' . $terms,
-                \Drupal::l($this->t('Configure'), new Url('entity.taxonomy_vocabulary.edit_form', [
-                  'taxonomy_vocabulary' => $vocab->get('vid'),
-                  'options' => $options,
-                ])),
-                \Drupal::l($this->t('Manage categories'), new Url('entity.taxonomy_vocabulary.overview_form', [
-                  'taxonomy_vocabulary' => $vocab->get('vid'),
-                  'options' => $options,
-                ])),
-                \Drupal::l($this->t('Add new category'), new Url('entity.taxonomy_term.add_form', [
-                  'taxonomy_vocabulary' => $vocab->get('vid'),
-                  'options' => $options,
-                ])),
+                Link::fromTextAndUrl($this->t('Configure'),
+                  new Url('entity.taxonomy_vocabulary.edit_form', [
+                    'taxonomy_vocabulary' => $vocab->get('vid'),
+                    'options' => $options,
+                  ])),
+                Link::fromTextAndUrl($this->t('Manage categories'),
+                  new Url('entity.taxonomy_vocabulary.overview_form', [
+                    'taxonomy_vocabulary' => $vocab->get('vid'),
+                    'options' => $options,
+                  ])),
+                Link::fromTextAndUrl($this->t('Add new category'),
+                  new Url('entity.taxonomy_term.add_form', [
+                    'taxonomy_vocabulary' => $vocab->get('vid'),
+                    'options' => $options,
+                  ])),
               ],
             ];
           }
@@ -91,8 +214,9 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
     }
 
     $link = '';
-    if (\Drupal::currentUser()->hasPermission('administer taxonomy')) {
-      $link = \Drupal::l($this->t('Taxonomy administration'), new Url('entity.taxonomy_vocabulary.collection', $options));
+    if ($this->currentUser->hasPermission('administer taxonomy')) {
+      $link = Link::fromTextAndUrl($this->t('Taxonomy administration'),
+      new Url('entity.taxonomy_vocabulary.collection', $options));
     }
 
     $body_data = [
@@ -101,10 +225,11 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
       '#rows' => $rows,
     ];
 
-    $table = drupal_render($body_data);
+    $markup_data = $this->renderer->render($body_data) . $link->toString();
+
     return [
       '#type' => 'markup',
-      '#markup' => $table . $link,
+      '#markup' => $markup_data,
     ];
   }
 
@@ -115,12 +240,14 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
     $form = parent::blockForm($form, $form_state);
 
     $config = $this->getConfiguration();
-    $vocabularies = Vocabulary::loadMultiple();
+    $vocabularies = $this->entityTypeManager
+      ->getStorage('taxonomy_vocabulary')
+      ->loadMultiple();
+
     $vocabularies_defaults = [];
 
     foreach ($vocabularies as $vocabulary => $object) {
-      $$vocabulary_options[$type] = $object->get('name');
-      if (!array_key_exists($$vocabulary, $vocabularies_defaults)) {
+      if (!array_key_exists($vocabulary, $vocabularies_defaults)) {
         $vocabularies_defaults[$vocabulary] = $vocabulary;
       }
     }

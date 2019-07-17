@@ -1,7 +1,6 @@
 tc:
-  version: 'VERSION'
   css:
     theme:
-      css/tc.css: {}
+      css/theme/total-control.theme.css: { }
   dependencies:
     - 'toolbar/toolbar'
