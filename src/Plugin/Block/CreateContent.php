@@ -119,7 +119,7 @@ class CreateContent extends BlockBase implements BlockPluginInterface, Container
             new Url('node.add', [
               'node_type' => $object->get('type'),
               'options' => $options,
-            ]));
+            ]))->toString();
         }
       }
     }
@@ -128,7 +128,7 @@ class CreateContent extends BlockBase implements BlockPluginInterface, Container
 
       $markup_data = $this->t('No content types available.') . ' '
        . Link::fromTextAndUrl($this->t('Add content type'),
-       new Url('node.type_add'));
+       new Url('node.type_add'))->toString();
 
       return [
         '#type' => 'markup',

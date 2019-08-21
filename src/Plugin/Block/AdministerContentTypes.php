@@ -182,17 +182,17 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface, 
                 new Url('field_ui.field_storage_config_add_node', [
                   'node_type' => $object->get('type'),
                   'options' => $options,
-                ])),
+                ]))->toString(),
               Link::fromTextAndUrl($this->t('Manage fields'),
                 new Url('entity.node.field_ui_fields', [
                   'node_type' => $object->get('type'),
                   'options' => $options,
-                ])),
+                ]))->toString(),
               Link::fromTextAndUrl($this->t('Manage display'),
                 new Url('entity.entity_view_display.node.default', [
                   'node_type' => $object->get('type'),
                   'options' => $options,
-                ])),
+                ]))->toString(),
             ],
           ];
         }

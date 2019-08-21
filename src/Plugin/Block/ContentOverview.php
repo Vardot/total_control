@@ -168,7 +168,7 @@ class ContentOverview extends BlockBase implements BlockPluginInterface, Contain
 
       $markup_data = $this->t('No content available.') . ' '
         . Link::fromTextAndUrl($this->t('Add content'),
-        new Url('node.add_page'));
+        new Url('node.add_page'))->toString();
 
       return [
         '#type' => 'markup',

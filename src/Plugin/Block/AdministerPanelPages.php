@@ -149,12 +149,12 @@ class AdministerPanelPages extends BlockBase implements BlockPluginInterface, Co
               'machine_name' => $panel->get('id'),
               'step' => 'general',
               'options' => $options,
-            ])),
+            ]))->toString(),
           Link::fromTextAndUrl($this->t('Disable'),
             new Url('entity.page.disable', [
               'page' => $panel->get('id'),
               'options' => $options,
-            ])),
+            ]))->toString(),
         ],
       ];
     }

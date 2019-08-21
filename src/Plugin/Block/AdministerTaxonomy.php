@@ -188,17 +188,17 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface, Cont
                   new Url('entity.taxonomy_vocabulary.edit_form', [
                     'taxonomy_vocabulary' => $vocab->get('vid'),
                     'options' => $options,
-                  ])),
+                  ]))->toString(),
                 Link::fromTextAndUrl($this->t('Manage categories'),
                   new Url('entity.taxonomy_vocabulary.overview_form', [
                     'taxonomy_vocabulary' => $vocab->get('vid'),
                     'options' => $options,
-                  ])),
+                  ]))->toString(),
                 Link::fromTextAndUrl($this->t('Add new category'),
                   new Url('entity.taxonomy_term.add_form', [
                     'taxonomy_vocabulary' => $vocab->get('vid'),
                     'options' => $options,
-                  ])),
+                  ]))->toString(),
               ],
             ];
           }

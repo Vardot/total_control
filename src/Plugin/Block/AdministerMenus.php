@@ -143,12 +143,12 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface, Contain
                 new Url('entity.menu.edit_form', [
                   'menu' => $menu_name,
                   'options' => $options,
-                ])),
+                ]))->toString(),
               Link::fromTextAndUrl($this->t('Add new link'),
                 new Url('entity.menu.add_link_form', [
                   'menu' => $menu_name,
                   'options' => $options,
-                ])),
+                ]))->toString(),
             ],
           ];
         }

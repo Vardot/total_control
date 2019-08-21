@@ -8,6 +8,7 @@ project: total_control
 dependencies:
   - drupal:block
   - drupal:views
+  - drupal:contextual
   - ctools:ctools
   - panels:panels
   - page_manager:page_manager
