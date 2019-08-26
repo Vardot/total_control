@@ -62,6 +62,31 @@ function total_control_menu() {
 }
 
 /**
+* Implements hook_menu_local_tasks_alter().
+*/
+function total_control_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  if($router_item['page_callback'] == 'views_page' && $router_item['page_arguments'][0] == 'control_content') {
+    if($router_item['page_arguments'][1]) {
+      $pattern = '/^page_tc_([\S]*)/';
+      if(preg_match($pattern, $router_item['page_arguments'][1], $matches)) {
+        $content_type = node_type_get_type($matches[1]);
+        if (user_access('create ' . $content_type->type . ' content')) {
+          $type_url_str = str_replace('_', '-', $content_type->type);
+          $item = menu_get_item('node/add/'.$type_url_str);
+          $item['title'] = t('Add %type', array('%type' => $content_type->name));
+          if ($item['access']) {
+           $data['actions']['output'][] = array(
+            '#theme' => 'menu_local_action',
+            '#link' => $item,
+            );
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_form_alter().
  *
  * Adds views adjustment handling when content types are added or removed
@@ -91,48 +116,6 @@ function total_control_user_login(&$edit, $account) {
           // TODO worry about overlay module.
           $_GET['destination'] = 'admin/dashboard';
         //}
-      }
-    }
-  }
-}
-
-/**
- * Implements hook_views_pre_render().
- *
- * Adds the create content links to dashboard views.
- */
-function total_control_views_pre_render(&$view) {
-  // Check that this is the control content view
-  if ($view->name == 'control_content') {
-
-    // Create an array of type-based page displays.
-    $type_displays = $view->display;
-    unset($type_displays['default']);
-    unset($type_displays['page_1']);
-
-    // Get the content type of each display.
-    $machine_names = array();
-    foreach ($type_displays as $key => $value) {
-      if (is_string(substr($key, 8))) {
-        $machine_names[] = substr($key, 8);
-      }
-    }
-
-    foreach ($machine_names as $type) {
-      // Check if the user has access to create content of that type.
-      if (user_access('create ' . $type . ' content')) {
-        // Add the create content link.
-        $add_link = l(t('Create ' . $type . ' content'), 'node/add/' . $type);
-        if (array_key_exists('page_tc_' . $type, $view->display)){
-          if (array_key_exists('header', $view->display['page_tc_' . $type]->handler->options)) {
-            // If there's already a header, append to it.
-            $view->display['page_tc_' . $type]->handler->options['header'] .= $add_link;
-          }
-          else {
-            // Otherwise add our own header.
-            $view->display['page_tc_' . $type]->handler->options['header'] = $add_link;
-          }
-        }
       }
     }
   }
