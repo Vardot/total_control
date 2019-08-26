@@ -112,7 +112,7 @@ function total_control_uninstall() {
     if (in_array($view->type, $views_types) && in_array($view_name, $total_control_views)) {
       drupal_set_message(t('Deleting view: @view', array('@view' => $view_name)));
       $view->delete();
-      module_load_include('inc', 'ctools', 'object-cache');
+      module_load_include('inc', 'ctools', 'includes/object-cache');
       ctools_object_cache_clear('view', $view_name);
     }
   }
