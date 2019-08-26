@@ -318,5 +318,70 @@ function total_control_default_page_manager_pages() {
 
   $pages['dashboard'] = $page;
 
- return $pages;
+  $page = new stdClass();
+  $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
+  $page->api_version = 1;
+  $page->name = 'dashboard_user_add';
+  $page->task = 'page';
+  $page->admin_title = 'Total Control: add user';
+  $page->admin_description = '';
+  $page->path = 'admin/dashboard/users/add';
+  $page->access = array(
+    'plugins' => array(
+      0 => array(
+        'name' => 'perm',
+        'settings' => array(
+          'perm' => 'administer users',
+        ),
+        'context' => 'logged-in-user',
+        'not' => FALSE,
+      ),
+    ),
+    'logic' => 'and',
+  );
+  $page->menu = array(
+    'type' => 'action',
+    'title' => 'Add user',
+    'name' => 'navigation',
+    'weight' => '0',
+    'parent' => array(
+      'type' => 'none',
+      'title' => '',
+      'name' => 'navigation',
+      'weight' => '0',
+    ),
+  );
+  $page->arguments = array();
+  $page->conf = array(
+    'admin_paths' => TRUE,
+  );
+  $page->default_handlers = array();
+  $handler = new stdClass();
+  $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+  $handler->api_version = 1;
+  $handler->name = 'page_dashboard_user_add_menu_context';
+  $handler->task = 'page';
+  $handler->subtask = 'dashboard_user_add';
+  $handler->handler = 'menu_context';
+  $handler->weight = 0;
+  $handler->conf = array(
+    'title' => 'Context Admin',
+    'no_blocks' => FALSE,
+    'css_id' => '',
+    'css' => '',
+    'contexts' => array(),
+    'relationships' => array(),
+    'context_admin_options' => 'user_create_menu',
+    'context_admin_user_roles' => array(
+      2 => '2',
+    ),
+    'context_admin_user_roles_alter' => 0,
+    'context_admin_user_status' => '1',
+    'context_admin_user_status_alter' => 0,
+    'context_admin_user_notify' => 1,
+  );
+  $page->default_handlers[$handler->name] = $handler;
+  $pages['dashboard_user_add'] = $page;
+
+  return $pages;
 }
