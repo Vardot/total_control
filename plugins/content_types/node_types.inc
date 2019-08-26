@@ -5,7 +5,7 @@
  *
  * "Create content" panels content type. It shows users links to
  * create new content of all types for which they have permissions,
- * and users with "administer" content types" permission an optional
+ * and users with "administer content types" permission an optional
  * "configure" link as well.
  *
  */
@@ -42,7 +42,7 @@ function total_control_node_types_content_type_admin_info($subtype = NULL, $conf
  */
 function total_control_node_types_content_type_render($subtype, $conf, $panel_args, &$context) {
   $types = node_type_get_types();
-  $access = user_access('manage content types');
+  $access = user_access('administer content types');
   $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(
     array('data' => t('Content type')),
@@ -78,7 +78,7 @@ function total_control_node_types_content_type_render($subtype, $conf, $panel_ar
   }
 
   $link = '';
-  if (user_access('manage content types')) {
+  if (user_access('administer content types')) {
     $link = l(t('Content type administration'), 'admin/structure/types');
   }
 

@@ -77,7 +77,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
 
   // Build a link to the menu admin UI.
   $link = '';
-  if (user_access('manage menu')) {
+  if (user_access('administer menu')) {
     $link = l(t('Menu administration'), 'admin/structure/menu');
   }
 

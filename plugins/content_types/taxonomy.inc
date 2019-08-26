@@ -59,7 +59,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
     foreach ($vocabs as $vocab) {
       if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids', $conf)) {
         $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", array(':vid' => $vocab->vid))->fetchField();
-        if (user_access('manage taxonomy') || user_access('edit terms in ' . $vocab->vid)) {
+        if (user_access('administer taxonomy') || user_access('edit terms in ' . $vocab->vid)) {
           $terms = format_plural($term_count, '1 categories', '@count categories');
           $rows[] = array(
             'data' => array(
@@ -84,7 +84,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
 
   $link = '';
-  if (user_access('manage taxonomy')) {
+  if (user_access('administer taxonomy')) {
     $link = l(t('Taxonomy administration'), 'admin/structure/taxonomy');
   }
 
