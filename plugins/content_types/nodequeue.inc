@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * "Nodequeue" content type. It shows users with permissions all of the 
+ * "Nodequeue" content type. It shows users with permissions all of the
  * nodequeues and provides links directly manage them.
  *
  */
@@ -13,7 +13,7 @@ $plugin = array(
   'title' => t('Admin - NodeQueues'),
   'defaults' => array(),
   'icon' => 'cog.png',
-  'description' => t('Provides links to administer NodeQueues.'),
+  'description' => t('Provides links to manage NodeQueues.'),
   'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_nodequeue_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Administer NodeQueues');
+  return t('Manage NodeQueues');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_nodequeue_content_type_admin_title($subtype = NULL, $conf
  */
 function total_control_nodequeue_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Provides links to administer NodeQueues.');
+  $block->title = t('Provides links to manage NodeQueues.');
 
   return $block;
 }
@@ -38,8 +38,8 @@ function total_control_nodequeue_content_type_admin_info($subtype = NULL, $conf 
 /**
  * Run-time rendering of the body of the block.
  */
-function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$context) {  
-  // Check for nodequeue module. 
+function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$context) {
+  // Check for nodequeue module.
   if (module_exists('nodequeue')) {
     // Get nodequeues.
     module_load_include('module', 'nodequeue', 'nodequeue');
@@ -65,10 +65,10 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
         array('data' => l(t('Manage items'), 'admin/structure/nodequeue/' . $queue->qid . '/view', $options)),
       );
     }
-    
+
     $empty_text = t('There are no nodequeues to display.');
     $link = '';
-    if (user_access('administer nodequeue')) {
+    if (user_access('manage nodequeue')) {
       $link = l(t('NodeQueue administration'), 'admin/structure/nodequeue');
     }
   }
@@ -77,7 +77,7 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
     $empty_text = t('Dashboard administration for the <a href="!href">nodequeue</a> module.', array('!href' => 'http://drupal.org/project/nodequeue'));
     $link = '';
   }
-  
+
   if (empty($rows)) {
     $rows[] = array(
       array(
@@ -89,7 +89,7 @@ function total_control_nodequeue_content_type_render($subtype, $conf, $args, &$c
 
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Administer NodeQueues');
+  $block->title = t('Manage NodeQueues');
   $block->content = $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;

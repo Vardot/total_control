@@ -13,7 +13,7 @@ $plugin = array(
   'title' => t('Admin - Taxonomy'),
   'defaults' => array('vids' => NULL),
   'icon' => 'cog.png',
-  'description' => t('Provides links to administer taxonomy.'),
+  'description' => t('Provides links to manage taxonomy.'),
   'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Administer Taxonomy');
+  return t('Manage Taxonomy');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_taxonomy_content_type_admin_title($subtype = NULL, $conf 
  */
 function total_control_taxonomy_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Provides links to administer taxonomy.');
+  $block->title = t('Provides links to manage taxonomy.');
 
   return $block;
 }
@@ -44,22 +44,22 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Administer Taxonomy');
+  $block->title = t('Manage Taxonomy');
 
   $vids = (isset($conf['vids']))? $conf['vids']: array();
 
   $vocabs = taxonomy_get_vocabularies();
   $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(
-    array('data' => t('Vocabulary')), 
+    array('data' => t('Vocabulary')),
     array('data' => t('Operations'), 'colspan' => 3));
   $rows = array();
 
-  if (!empty($vocabs)) {  
+  if (!empty($vocabs)) {
     foreach ($vocabs as $vocab) {
-      if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids', $conf)) {  
+      if ((in_array($vocab->vid, $vids)) || !array_key_exists('vids', $conf)) {
         $term_count = db_query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", array(':vid' => $vocab->vid))->fetchField();
-        if (user_access('administer taxonomy') || user_access('edit terms in ' . $vocab->vid)) {
+        if (user_access('manage taxonomy') || user_access('edit terms in ' . $vocab->vid)) {
           $terms = format_plural($term_count, '1 categories', '@count categories');
           $rows[] = array(
             'data' => array(
@@ -84,7 +84,7 @@ function total_control_taxonomy_content_type_render($subtype, $conf, $panel_args
   }
 
   $link = '';
-  if (user_access('administer taxonomy')) {
+  if (user_access('manage taxonomy')) {
     $link = l(t('Taxonomy administration'), 'admin/structure/taxonomy');
   }
 
@@ -134,5 +134,5 @@ function total_control_taxonomy_content_type_edit_form($form, &$form_state) {
 function total_control_taxonomy_content_type_edit_form_submit($form, &$form_state) {
   foreach (array_keys($form_state['plugin']['defaults']) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
-  } 
+  }
 }

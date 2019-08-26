@@ -13,7 +13,7 @@ $plugin = array(
   'title' => t('Admin - Panel Pages'),
   'defaults' => array(),
   'icon' => 'cog.png',
-  'description' => t('Provides links to administer panel pages.'),
+  'description' => t('Provides links to manage panel pages.'),
   'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_panel_pages_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Administer Panel pages');
+  return t('Manage Panel pages');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_panel_pages_content_type_admin_title($subtype = NULL, $co
  */
 function total_control_panel_pages_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Provides links to administer panel pages.');
+  $block->title = t('Provides links to manage panel pages.');
 
   return $block;
 }
@@ -78,7 +78,7 @@ function total_control_panel_pages_content_type_render($subtype, $conf, $args, &
   }
 
   $block = new stdClass();
-  $block->title = t('Administer Panel pages');
+  $block->title = t('Manage Panel pages');
   $block->module = t('total_control');
   $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 

@@ -3,8 +3,8 @@
 /**
  * @file
  *
- * "Welcome" panel content type. Displays a summary of content statistics 
- * including: number pieces of each type of content, number of comments, 
+ * "Welcome" panel content type. Displays a summary of content statistics
+ * including: number pieces of each type of content, number of comments,
  * number of blocked comments (spam) and configuration links.
  *
  */
@@ -41,12 +41,12 @@ function total_control_welcome_content_type_admin_info($subtype = NULL, $conf = 
 function total_control_welcome_content_type_render($subtype, $conf, $panel_args, &$context) {
   // Build the content.
   $content =  '<div class="total-control-site-overview">';
-  $content .= '  <p>' . t('Welcome to your administrative dashboard.  !panel 
-    to add more content panes here, or configure those provided by default. 
-    Views content panes can be created for you automatically according to your 
-    !settings.  Make this dashboard the perfect hub for all your administrative 
+  $content .= '  <p>' . t('Welcome to your administrative dashboard.  !panel
+    to add more content panes here, or configure those provided by default.
+    Views content panes can be created for you automatically according to your
+    !settings.  Make this dashboard the perfect hub for all your administrative
     needs.', array(
-     '!panel' => l(t('Edit this panel'), 'admin/structure/pages/nojs/operation/page-dashboard/handlers/page_dashboard_panel_context/content'), 
+     '!panel' => l(t('Edit this panel'), 'admin/structure/pages/nojs/operation/page-dashboard/handlers/page_dashboard_panel_context/content'),
      '!settings' => l(t('Total Control Settings'), 'admin/config/administration/control'))) . '</p>';
   $content .= '</div>';
 

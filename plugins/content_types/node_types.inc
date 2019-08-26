@@ -5,17 +5,17 @@
  *
  * "Create content" panels content type. It shows users links to
  * create new content of all types for which they have permissions,
- * and users with "administer content types" permission an optional
+ * and users with "administer" content types" permission an optional
  * "configure" link as well.
  *
  */
- 
+
 $plugin = array(
   'single' => TRUE,
   'title' => t('Admin - Content types'),
   'defaults' => array('types' => NULL),
   'icon' => 'cog.png',
-  'description' => t('Provides links to administer content types.'),
+  'description' => t('Provides links to manage content types.'),
   'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
@@ -24,7 +24,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_node_types_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Administer Content types');
+  return t('Manage Content types');
 }
 
 /**
@@ -32,7 +32,7 @@ function total_control_node_types_content_type_admin_title($subtype = NULL, $con
  */
 function total_control_node_types_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Provides links to administer content types.');
+  $block->title = t('Provides links to manage content types.');
 
   return $block;
 }
@@ -42,20 +42,20 @@ function total_control_node_types_content_type_admin_info($subtype = NULL, $conf
  */
 function total_control_node_types_content_type_render($subtype, $conf, $panel_args, &$context) {
   $types = node_type_get_types();
-  $access = user_access('administer content types');
+  $access = user_access('manage content types');
   $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(
-    array('data' => t('Content type')), 
+    array('data' => t('Content type')),
     array('data' => t('Operations'), 'colspan' => 3)
   );
   $rows = array();
 
   foreach ($types as $type => $object) {
     // Config data says to include the type.
-    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type]) == $type) {  
+    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type]) == $type) {
       // Check access, then add a link to create content.
       if ($access) {
-        $type_url_str = str_replace('_', '-', $object->type);  
+        $type_url_str = str_replace('_', '-', $object->type);
         $rows[] = array(
           'data' => array(
             t($object->name),
@@ -78,13 +78,13 @@ function total_control_node_types_content_type_render($subtype, $conf, $panel_ar
   }
 
   $link = '';
-  if (user_access('administer content types')) {
+  if (user_access('manage content types')) {
     $link = l(t('Content type administration'), 'admin/structure/types');
   }
 
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Administer Content types');
+  $block->title = t('Manage Content types');
   $block->content =  theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;

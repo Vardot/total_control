@@ -9,7 +9,7 @@
  * "configure" link as well.
  *
  */
- 
+
 $plugin = array(
   'single' => TRUE,
   'title' => t('Create content'),
@@ -46,14 +46,14 @@ function total_control_create_content_type_render($subtype, $conf, $panel_args, 
   $block->title = t('Create content');
 
   $types = node_type_get_types();
-  $create = array();  
+  $create = array();
 
   foreach ($types as $type => $object) {
     // Check against pane config for type.
-    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {  
+    if ((!array_key_exists($type, $conf['types'])) || (isset($conf['types']) && $conf['types'][$type])) {
       // Check access, then add a link to create content.
-      if (node_access('create', $type)) { 
-        $type_url_str = str_replace('_', '-', $object->type);  
+      if (node_access('create', $type)) {
+        $type_url_str = str_replace('_', '-', $object->type);
         $create[] = l(t('Add new  ' . $object->name), 'node/add/' . $type_url_str);
       }
     }

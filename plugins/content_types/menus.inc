@@ -13,7 +13,7 @@ $plugin = array(
   'title' => t('Admin - Menus'),
   'defaults' => array('menus' => array()),
   'icon' => 'cog.png',
-  'description' => t('Provides links to administer menus.'),
+  'description' => t('Provides links to manage menus.'),
   'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_menus_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Administer Menus');
+  return t('Manage Menus');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_menus_content_type_admin_title($subtype = NULL, $conf = N
  */
 function total_control_menus_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Provides links to administer menus.');
+  $block->title = t('Provides links to manage menus.');
 
   return $block;
 }
@@ -47,7 +47,7 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
   $menus = menu_get_menus();
   $options = array('query' => array('destination' => 'admin/dashboard'));
   $header = array(
-    array('data' => t('Menu')), 
+    array('data' => t('Menu')),
     array('data' => t('Operations'), 'colspan' => 3));
   $rows = array();
 
@@ -77,12 +77,12 @@ function total_control_menus_content_type_render($subtype, $conf, $args, &$conte
 
   // Build a link to the menu admin UI.
   $link = '';
-  if (user_access('administer menu')) {
+  if (user_access('manage menu')) {
     $link = l(t('Menu administration'), 'admin/structure/menu');
   }
 
   $block = new stdClass();
-  $block->title = t('Administer Menus');
+  $block->title = t('Manage Menus');
   $block->module = t('total_control');
   $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 

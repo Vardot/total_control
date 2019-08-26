@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * "Webform" content type. It shows users with permissions all of the 
+ * "Webform" content type. It shows users with permissions all of the
  * webform submissions and provides links directly manage them.
  *
  */
@@ -13,7 +13,7 @@ $plugin = array(
   'title' => t('Admin - Webforms'),
   'defaults' => array(),
   'icon' => 'cog.png',
-  'description' => t('Provides links to administer Webforms.'),
+  'description' => t('Provides links to manage Webforms.'),
   'category' => t('Dashboard'),
   'edit text' => t('Configure'),
 );
@@ -22,7 +22,7 @@ $plugin = array(
  * 'Admin title' callback for the content type.
  */
 function total_control_webform_content_type_admin_title($subtype = NULL, $conf = NULL, $context = NULL) {
-  return t('Administer Webforms');
+  return t('Manage Webforms');
 }
 
 /**
@@ -30,7 +30,7 @@ function total_control_webform_content_type_admin_title($subtype = NULL, $conf =
  */
 function total_control_webform_content_type_admin_info($subtype = NULL, $conf = NULL, $context = NULL) {
   $block = new stdClass();
-  $block->title = t('Provides links to administer Webforms.');
+  $block->title = t('Provides links to manage Webforms.');
 
   return $block;
 }
@@ -39,7 +39,7 @@ function total_control_webform_content_type_admin_info($subtype = NULL, $conf = 
  * Run-time rendering of the body of the block.
  */
 function total_control_webform_content_type_render($subtype, $conf, $args, &$context) {
-  // Check for nodequeue module. 
+  // Check for nodequeue module.
   if (module_exists('webform')) {
     // Get webform types.
     $webform_types = webform_variable_get('webform_node_types');
@@ -74,7 +74,7 @@ function total_control_webform_content_type_render($subtype, $conf, $args, &$con
         array('data' => node_access('update', $node) ? l(t('View results'), 'node/' . $node->nid . '/webform-results/table', $options) : ''),
       );
     }
-    
+
     $empty_text = t('There are no Webforms to display.');
     $link = '';
     if (user_access('access all webform results')) {
@@ -98,7 +98,7 @@ function total_control_webform_content_type_render($subtype, $conf, $args, &$con
 
   $block = new stdClass();
   $block->module = t('total_control');
-  $block->title = t('Administer Webforms');
+  $block->title = t('Manage Webforms');
   $block->content = $block->content = theme('total_control_admin_table', array('header' => $header, 'rows' => $rows, 'link' => $link));
 
   return $block;

@@ -3,7 +3,7 @@
 /**
  * @file
  *
- * "Site overview" panel pane. Displays a summary of both content and user 
+ * "Site overview" panel pane. Displays a summary of both content and user
  * statistics.
  *
  */
@@ -42,7 +42,7 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
   // Content Overview.
   $overview_cnt = total_control_get_content_overview($conf);
 
-  // User Overview.  
+  // User Overview.
   $overview_usr = array();
   $user_data = total_control_get_user_overview($conf);
   $users_all = format_plural($user_data['all'], '1 total user', '@count total users');
@@ -54,7 +54,7 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
   foreach ($user_data['roles'] as $rid => $data) {
     $overview_usr['role_' . $rid] = format_plural($user_data['roles'][$rid]['count'], '1 user account', '@count user accounts');
     $overview_usr['role_' . $rid] .= ' with the role: ' . $user_data['roles'][$rid]['name'];
-  } 
+  }
 
   $block = new stdClass();
   $block->module = t('total_control');
@@ -68,7 +68,7 @@ function total_control_overview_content_type_render($subtype, $conf, $panel_args
  * 'Edit form' callback for the content type.
  */
 function total_control_overview_content_type_edit_form($form, &$form_state) {
-  $conf = $form_state['conf'];  
+  $conf = $form_state['conf'];
   // Add content settings to form.
   total_control_add_content_pane_settings($form, $conf);
   // Add user settings to form.
