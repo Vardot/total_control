@@ -58,7 +58,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
    *
    * @var string
    */
-   public $profile = 'standard';
+  public $profile = 'standard';
 
   /**
    * A user with the 'have total control' permission.
@@ -74,13 +74,18 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
     parent::setUp();
 
     $permissions = [
+      'administer actions',
       'administer content types',
+      'administer content',
       'administer comments',
+      'administer vocabularies and terms',
+      'administer users',
       'access comments',
       'access content',
       'access toolbar',
       'view the administration theme',
       'have total control',
+      'administer pages',
     ];
 
     $this->webUser = $this->drupalCreateUser($permissions);

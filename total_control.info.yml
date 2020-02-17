@@ -5,6 +5,7 @@ core: 8.x
 version: 8.x-2.x-dev
 package: Administration
 project: total_control
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:block
   - drupal:views
