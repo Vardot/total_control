@@ -51,6 +51,20 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
   protected $webUser;
 
   /**
+   * The profile to install as a basis for testing.
+   *
+   * Using the standard profile to test user picture display in comments.
+   *
+   * @var string
+   */
+  protected $profile = 'standard';
+
+   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'bartik';
+
+  /**
    * Tests Total Control Dashboard Page Check.
    */
   public function testTotalControlDashboardPageCheck() {
