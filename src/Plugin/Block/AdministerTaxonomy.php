@@ -169,7 +169,7 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface, Cont
       foreach ($vocabs as $key => $vocab) {
         if ((in_array($vocab->get('vid'), $vids)
           && isset($vids[$key])
-          && $vids[$key] == $vocab->get('name'))
+          && $vids[$key] === $vocab->id())
           || !array_key_exists($vocab->get('vid'), $config['total_control_admin_taxonomy'])) {
 
           $term_query = $this->connection->query("SELECT count(*) FROM {taxonomy_term_data} WHERE vid = :vid", [
