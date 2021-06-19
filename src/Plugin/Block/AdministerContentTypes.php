@@ -12,6 +12,7 @@ use Drupal\Core\Database\Connection;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Render\RenderableInterface;
 use Drupal\Core\Routing\RedirectDestinationInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -208,7 +209,7 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface, 
       ];
     }
 
-    $link = '';
+    $link = NULL;
     if ($this->currentUser->hasPermission('administer content types')) {
       $link = Link::fromTextAndUrl($this->t('Content type administration'), new Url('entity.node_type.collection'));
     }
@@ -217,10 +218,12 @@ class AdministerContentTypes extends BlockBase implements BlockPluginInterface, 
       '#theme' => 'table',
       '#header' => $header,
       '#rows' => $rows,
-      '#footer' => $link,
     ];
 
-    $markup_data = $this->renderer->render($body_data) . $link->toString();
+    $markup_data = $this->renderer->render($body_data);
+    if ($link instanceof RenderableInterface) {
+      $markup_data .= $link->toString();
+    }
 
     return [
       '#type' => 'markup',

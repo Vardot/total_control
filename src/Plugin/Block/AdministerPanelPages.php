@@ -9,6 +9,7 @@ use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Render\RenderableInterface;
 use Drupal\Core\Routing\RedirectDestinationInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -159,7 +160,7 @@ class AdministerPanelPages extends BlockBase implements BlockPluginInterface, Co
       ];
     }
 
-    $link = '';
+    $link = NULL;
     if ($this->currentUser->hasPermission('administer pages')) {
       $link = Link::fromTextAndUrl($this->t('Page manager administration'),
         new Url('entity.page.collection'));
@@ -171,7 +172,10 @@ class AdministerPanelPages extends BlockBase implements BlockPluginInterface, Co
       '#rows' => $rows,
     ];
 
-    $markup_data = $this->renderer->render($body_data) . $link->toString();
+    $markup_data = $this->renderer->render($body_data);
+    if ($link instanceof RenderableInterface) {
+      $markup_data .= $link->toString();
+    }
 
     return [
       '#type' => 'markup',
