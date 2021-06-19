@@ -40,7 +40,7 @@
   "require": {
     "drupal/ctools": "~3.0",
     "drupal/panels": "~4.0",
-    "drupal/page_manager": "4.*"
+    "drupal/page_manager": "*"
   },
   "extra": {
     "branch-alias": {
