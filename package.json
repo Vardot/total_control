@@ -1,0 +1,80 @@
+{
+  "name": "total_control",
+  "private": true,
+  "description": "Total Control Administration Dashboard",
+  "license": "GPL-2.0",
+  "engines": {
+    "yarn": ">= 1.6",
+    "node": ">= 12.0"
+  },
+  "keywords": [
+    "Drupal",
+    "Total Control",
+    "Admin Dashboard",
+    "Dashboard"
+  ],
+  "author": "Vardot",
+  "scripts": {
+    "phpcs": "phpcs --standard=./.phpcs.xml .",
+    "phpcbf": "phpcbf --standard=./.phpcs.xml .",
+    "lint:yaml": "node ./node_modules/eslint/bin/eslint.js --config=.eslintrc.json --ext .yml .",
+    "lint:css": "npx stylelint --config=.stylelintrc.json ."
+  },
+  "dependencies": {  },
+  "devDependencies": { 
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jquery": "^1.5.1",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "eslint-plugin-yml": "^0.10.0",
+    "normalize.css": "^8.0.1",
+    "picturefill": "^3.0.3",
+    "postcss": "^7.0.18",
+    "postcss-calc": "^7.0.1",
+    "postcss-custom-properties": "^9.0.2",
+    "postcss-header": "^2.0.0",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-pxtorem": "^5.1.1",
+    "postcss-url": "^8.0.0",
+    "prettier": "^2.1.2",
+    "stylelint": "^13.0.0",
+    "stylelint-checkstyle-formatter": "^0.1.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-no-browser-hacks": "^1.2.1",
+    "stylelint-order": "^4.0.0"
+  },
+  "//": "'development is the default environment, and legacy is for transpiling the old jQuery codebase",
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "modules": "commonjs",
+              "targets": {
+                "node": "current"
+              }
+            }
+          ]
+        ]
+      },
+      "legacy": {
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "modules": false
+            }
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -10,13 +10,12 @@ dependencies:
     - text
     - user
 id: control_comments
-label: 'control_comments (Comment)'
+label: "control_comments (Comment)"
 module: views
-description: ''
-tag: ''
+description: ""
+tag: ""
 base_table: comment_field_data
 base_field: cid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -27,25 +26,25 @@ display:
       access:
         type: perm
         options:
-          perm: 'have total control'
+          perm: "have total control"
       cache:
         type: tag
-        options: {  }
+        options: {}
       query:
         type: views_query
         options:
           disable_sql_rewrite: false
           distinct: false
           replica: false
-          query_comment: ''
-          query_tags: {  }
+          query_comment: ""
+          query_tags: {}
       exposed_form:
         type: basic
         options:
           submit_button: Apply
           reset_button: false
           reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          exposed_sorts_label: "Sort by"
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -58,10 +57,10 @@ display:
           total_pages: null
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_label: "Items per page"
+            items_per_page_options: "5, 10, 25, 50"
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: "- All -"
             offset: false
             offset_label: Offset
           tags:
@@ -70,14 +69,14 @@ display:
       style:
         type: table
         options:
-          grouping: {  }
-          row_class: ''
+          grouping: {}
+          row_class: ""
           default_row_class: true
           override: true
           sticky: false
-          caption: ''
-          summary: ''
-          description: ''
+          caption: ""
+          summary: ""
+          description: ""
           columns:
             subject: subject
             status: status
@@ -90,58 +89,58 @@ display:
             subject:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             status:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             comment_bulk_form:
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             edit_comment:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             changed:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             uid:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             created:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
-          default: '-1'
+              responsive: ""
+          default: "-1"
           empty_table: false
       row:
         type: fields
         options:
           default_field_elements: true
-          inline: {  }
-          separator: ''
+          inline: {}
+          separator: ""
           hide_empty: false
       relationships:
         node:
@@ -161,45 +160,45 @@ display:
           field: comment_bulk_form
           relationship: none
           group_type: group
-          admin_label: ''
-          label: ''
+          admin_label: ""
+          label: ""
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -216,45 +215,45 @@ display:
           field: subject
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Title
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: false
             ellipsis: false
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -263,14 +262,14 @@ display:
           settings:
             link_to_entity: true
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           entity_type: comment
           entity_field: subject
@@ -281,60 +280,60 @@ display:
           field: comment_body
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Comment
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: text_default
-          settings: {  }
+          settings: {}
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           plugin_id: field
         uid:
@@ -343,45 +342,45 @@ display:
           field: uid
           relationship: node
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: By
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -390,14 +389,14 @@ display:
           settings:
             link: true
           group_column: target_id
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           entity_type: node
           entity_field: uid
@@ -408,45 +407,45 @@ display:
           field: changed
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Posted
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -454,17 +453,17 @@ display:
           type: timestamp
           settings:
             date_format: custom
-            custom_date_format: 'm/d g:ia'
-            timezone: ''
+            custom_date_format: "m/d g:ia"
+            timezone: ""
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           entity_type: comment
           entity_field: changed
@@ -475,45 +474,45 @@ display:
           field: title
           relationship: node
           group_type: group
-          admin_label: ''
-          label: 'Replay to'
+          admin_label: ""
+          label: "Replay to"
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -522,14 +521,14 @@ display:
           settings:
             link_to_entity: true
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           entity_type: node
           entity_field: title
@@ -540,45 +539,45 @@ display:
           field: status
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Approved
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -586,17 +585,17 @@ display:
           type: boolean
           settings:
             format: yes-no
-            format_custom_true: ''
-            format_custom_false: ''
+            format_custom_true: ""
+            format_custom_false: ""
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           entity_type: comment
           entity_field: status
@@ -607,45 +606,45 @@ display:
           field: edit_comment
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Edit
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -659,15 +658,15 @@ display:
           field: status
           relationship: none
           group_type: group
-          admin_label: ''
-          operator: '='
+          admin_label: ""
+          operator: "="
           value: All
           group: 1
           exposed: true
           expose:
-            operator_id: ''
+            operator_id: ""
             label: Approved
-            description: ''
+            description: ""
             use_operator: false
             operator: status_op
             identifier: status
@@ -676,20 +675,20 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
+              anonymous: "0"
+              administrator: "0"
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
           plugin_id: boolean
           entity_type: comment
           entity_field: status
@@ -699,15 +698,15 @@ display:
           field: uid
           relationship: node
           group_type: group
-          admin_label: ''
+          admin_label: ""
           operator: in
-          value: {  }
+          value: {}
           group: 1
           exposed: true
           expose:
             operator_id: uid_op
             label: Author
-            description: ''
+            description: ""
             use_operator: false
             operator: uid_op
             identifier: uid
@@ -716,21 +715,21 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
+              anonymous: "0"
+              administrator: "0"
             reduce: false
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
           entity_type: node
           entity_field: uid
           plugin_id: user_name
@@ -740,15 +739,15 @@ display:
           field: combine
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           operator: contains
-          value: ''
+          value: ""
           group: 1
           exposed: true
           expose:
             operator_id: combine_op
             label: Contains
-            description: ''
+            description: ""
             use_operator: false
             operator: combine_op
             identifier: combine
@@ -757,28 +756,28 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
+              anonymous: "0"
+              administrator: "0"
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
           fields:
             subject: subject
             comment_body: comment_body
           plugin_id: combine
-      sorts: {  }
+      sorts: {}
       title: Comments
-      header: {  }
-      footer: {  }
+      header: {}
+      footer: {}
       empty:
         area:
           id: area
@@ -786,40 +785,40 @@ display:
           field: area
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           empty: true
           tokenize: false
           content:
-            value: 'There aren''t any comments on your site.'
+            value: "There aren't any comments on your site."
             format: basic_html
           plugin_id: text
-      arguments: {  }
-      display_extenders: {  }
+      arguments: {}
+      display_extenders: {}
     cache_metadata:
       max-age: 0
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - url
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.comment.comment_body'
+        - "config:field.storage.comment.comment_body"
   page_1:
     display_plugin: page
     id: page_1
     display_title: Page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders: {}
       path: admin/dashboard/comments
     cache_metadata:
       max-age: 0
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - url
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.comment.comment_body'
+        - "config:field.storage.comment.comment_body"

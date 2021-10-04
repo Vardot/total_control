@@ -21,7 +21,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
    */
   protected $webUser;
 
- /**
+  /**
    * {@inheritdoc}
    */
   protected $profile = 'standard';
@@ -34,6 +34,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
+  // phpcs:ignore
   protected $strictConfigSchema = FALSE;
 
   /**
@@ -65,7 +66,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
     'total_control',
   ];
 
-    /**
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -78,7 +79,6 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
     $this->config('system.theme')->set('admin', 'claro')->save();
 
   }
-
 
   /**
    * Tests Total Control Dashboard Page Check.

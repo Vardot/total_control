@@ -1,11 +1,11 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: {}
 id: total_control_dashboard
-label: 'Total Control dashboard'
-description: 'Total Control administrative dashboard.'
+label: "Total Control dashboard"
+description: "Total Control administrative dashboard."
 use_admin_theme: true
 path: /admin/dashboard
 access_logic: and
-access_conditions: {  }
-parameters: {  }
+access_conditions: {}
+parameters: {}

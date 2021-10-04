@@ -1,7 +1,7 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: {}
 id: comment
-label: 'Default comments'
+label: "Default comments"
 target_entity_type_id: node
-description: 'Allows commenting on content'
+description: "Allows commenting on content"

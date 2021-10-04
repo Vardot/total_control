@@ -118,11 +118,12 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface, Contain
     $menus = menu_ui_get_menus();
 
     // Support the custom permissions from the "menu_admin_per_menu" module.
-    if (\Drupal::moduleHandler()->moduleExists('menu_admin_per_menu')) {
-      if (!\Drupal::currentUser()->hasPermission('administer menu')) {
+    if ($this->moduleHandler->moduleExists('menu_admin_per_menu')) {
+      if (!$this->currentUser->hasPermission('administer menu')) {
         /** @var \Drupal\menu_admin_per_menu\MenuAdminPerMenuAccessInterface $allowedMenusService */
+        // phpcs:ignore
         $allowedMenusService = \Drupal::service('menu_admin_per_menu.allowed_menus');
-        $allowed_menus = $allowedMenusService->getPerMenuPermissions(\Drupal::currentUser());
+        $allowed_menus = $allowedMenusService->getPerMenuPermissions($this->currentUser);
         foreach ($menus as $id => $label) {
           if (!in_array($id, $allowed_menus)) {
             unset($menus[$id]);

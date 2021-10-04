@@ -6,13 +6,12 @@ dependencies:
     - text
     - user
 id: control_terms
-label: 'control_terms (Term)'
+label: "control_terms (Term)"
 module: views
-description: ''
-tag: ''
+description: ""
+tag: ""
 base_table: taxonomy_term_field_data
 base_field: tid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -23,25 +22,25 @@ display:
       access:
         type: perm
         options:
-          perm: 'have total control'
+          perm: "have total control"
       cache:
         type: tag
-        options: {  }
+        options: {}
       query:
         type: views_query
         options:
           disable_sql_rewrite: false
           distinct: false
           replica: false
-          query_comment: ''
-          query_tags: {  }
+          query_comment: ""
+          query_tags: {}
       exposed_form:
         type: basic
         options:
           submit_button: Apply
           reset_button: false
           reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          exposed_sorts_label: "Sort by"
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -55,39 +54,39 @@ display:
           tags:
             previous: ‹‹
             next: ››
-            first: '« First'
-            last: 'Last »'
+            first: "« First"
+            last: "Last »"
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_label: "Items per page"
+            items_per_page_options: "5, 10, 25, 50"
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: "- All -"
             offset: false
             offset_label: Offset
           quantity: 9
       style:
         type: table
         options:
-          grouping: {  }
-          row_class: ''
+          grouping: {}
+          row_class: ""
           default_row_class: true
           override: true
           sticky: false
-          caption: ''
-          summary: ''
-          description: ''
+          caption: ""
+          summary: ""
+          description: ""
           columns:
             name: name
           info:
             name:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
-          default: '-1'
+              responsive: ""
+          default: "-1"
           empty_table: false
       row:
         type: fields
@@ -98,45 +97,45 @@ display:
           field: name
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Term
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: false
             ellipsis: false
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -145,14 +144,14 @@ display:
           settings:
             link_to_entity: true
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           convert_spaces: false
           entity_type: taxonomy_term
@@ -164,60 +163,60 @@ display:
           field: description__value
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Description
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: text_default
-          settings: {  }
+          settings: {}
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           entity_type: taxonomy_term
           entity_field: description
@@ -228,62 +227,62 @@ display:
           field: weight
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Weight
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: number_integer
           settings:
-            thousand_separator: ''
+            thousand_separator: ""
             prefix_suffix: true
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           entity_type: taxonomy_term
           entity_field: weight
@@ -294,81 +293,81 @@ display:
           field: edit_taxonomy_term
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Edit
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           text: edit
           entity_type: taxonomy_term
           plugin_id: entity_link_edit
-      filters: {  }
-      sorts: {  }
-      title: 'Terms Admin'
-      header: {  }
-      footer: {  }
-      empty: {  }
-      relationships: {  }
-      arguments: {  }
-      display_extenders: {  }
+      filters: {}
+      sorts: {}
+      title: "Terms Admin"
+      header: {}
+      footer: {}
+      empty: {}
+      relationships: {}
+      arguments: {}
+      display_extenders: {}
     cache_metadata:
       max-age: 0
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - url.query_args
         - user.permissions
-      tags: {  }
+      tags: {}
   page_1:
     display_plugin: page
     id: page_1
     display_title: Page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders: {}
       path: admin/dashboard/categories
     cache_metadata:
       max-age: 0
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - url.query_args
         - user.permissions
-      tags: {  }
+      tags: {}

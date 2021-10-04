@@ -4,13 +4,12 @@ dependencies:
   module:
     - user
 id: control_users_panes
-label: 'control_users_panes (User)'
+label: "control_users_panes (User)"
 module: views
-description: ''
-tag: ''
+description: ""
+tag: ""
 base_table: users_field_data
 base_field: uid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -21,25 +20,25 @@ display:
       access:
         type: perm
         options:
-          perm: 'have total control'
+          perm: "have total control"
       cache:
         type: tag
-        options: {  }
+        options: {}
       query:
         type: views_query
         options:
           disable_sql_rewrite: false
           distinct: false
           replica: false
-          query_comment: ''
-          query_tags: {  }
+          query_comment: ""
+          query_tags: {}
       exposed_form:
         type: basic
         options:
           submit_button: Apply
           reset_button: false
           reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          exposed_sorts_label: "Sort by"
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -58,7 +57,7 @@ display:
             name: name
             created: created
             edit_user: edit_user
-          separator: ' | '
+          separator: " | "
           hide_empty: false
       fields:
         name:
@@ -67,7 +66,7 @@ display:
           field: name
           entity_type: user
           entity_field: name
-          label: ''
+          label: ""
           alter:
             alter_text: false
             make_link: false
@@ -82,30 +81,30 @@ display:
           plugin_id: field
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           exclude: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_alter_empty: true
           click_sort_column: value
           type: user_name
-          settings: {  }
+          settings: {}
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
         created:
           id: created
@@ -113,45 +112,45 @@ display:
           field: created
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           label: Created
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -160,16 +159,16 @@ display:
           settings:
             date_format: custom
             custom_date_format: m/d
-            timezone: ''
+            timezone: ""
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           entity_type: user
           entity_field: created
@@ -180,45 +179,45 @@ display:
           field: edit_user
           relationship: none
           group_type: group
-          admin_label: ''
-          label: ''
+          admin_label: ""
+          label: ""
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -227,7 +226,7 @@ display:
           plugin_id: entity_link_edit
       filters:
         status:
-          value: '1'
+          value: "1"
           table: users_field_data
           field: status
           plugin_id: boolean
@@ -235,7 +234,7 @@ display:
           entity_field: status
           id: status
           expose:
-            operator: ''
+            operator: ""
           group: 1
         uid:
           id: uid
@@ -243,19 +242,19 @@ display:
           field: uid
           relationship: none
           group_type: group
-          admin_label: ''
-          operator: 'not in'
+          admin_label: ""
+          operator: "not in"
           value:
-            - '0'
+            - "0"
           group: 1
           exposed: false
           expose:
-            operator_id: ''
-            label: ''
-            description: ''
+            operator_id: ""
+            label: ""
+            description: ""
             use_operator: false
-            operator: ''
-            identifier: ''
+            operator: ""
+            identifier: ""
             required: false
             remember: false
             multiple: false
@@ -264,16 +263,16 @@ display:
             reduce: false
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
           entity_type: user
           entity_field: uid
           plugin_id: user_name
@@ -288,39 +287,39 @@ display:
           plugin_id: date
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           exposed: false
           expose:
-            label: ''
+            label: ""
           granularity: second
-      title: 'New User Accounts'
-      header: {  }
-      footer: {  }
-      empty: {  }
-      relationships: {  }
-      arguments: {  }
-      display_extenders: {  }
+      title: "New User Accounts"
+      header: {}
+      footer: {}
+      empty: {}
+      relationships: {}
+      arguments: {}
+      display_extenders: {}
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - user.permissions
-      tags: {  }
+      tags: {}
   pane_tc_new_users:
     display_plugin: block
     id: pane_tc_new_users
-    display_title: 'New User Accounts'
+    display_title: "New User Accounts"
     position: 1
     display_options:
-      display_extenders: {  }
-      block_description: 'New User Accounts'
-      display_description: ''
+      display_extenders: {}
+      block_description: "New User Accounts"
+      display_description: ""
       block_category: Dashboard
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - user.permissions
-      tags: {  }
+      tags: {}

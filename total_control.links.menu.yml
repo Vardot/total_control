@@ -2,4 +2,4 @@ total_control.menu_link:
   class: Drupal\total_control\Plugin\Menu\TotalControlMenuLink
   deriver: Drupal\total_control\Plugin\Derivative\TotalControlMenuLink
   menu_name: system.total_control_dashboard
-  description: 'See an overview of your site and get access to various useful functions and shortcuts.'
+  description: "See an overview of your site and get access to various useful functions and shortcuts."
