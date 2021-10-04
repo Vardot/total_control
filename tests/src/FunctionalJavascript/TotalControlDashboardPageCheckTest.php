@@ -19,7 +19,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
    *
    * @var \Drupal\user\UserInterface
    */
-  protected $webUser;
+  protected $DashboardAdminUser;
 
   /**
    * {@inheritdoc}
@@ -63,6 +63,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
     'layout_discovery',
     'panels',
     'page_manager',
+    'page_manager_ui',
     'total_control',
   ];
 
@@ -77,13 +78,6 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
 
     // Set the Claro theme as the default admin theme.
     $this->config('system.theme')->set('admin', 'claro')->save();
-
-  }
-
-  /**
-   * Tests Total Control Dashboard Page Check.
-   */
-  public function testTotalControlDashboardPageCheck() {
 
     $permissions = [
       'administer content types',
@@ -113,8 +107,16 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
       'have total control',
     ];
 
-    $this->webUser = $this->drupalCreateUser($permissions);
-    $this->drupalLogin($this->webUser);
+    $this->DashboardAdminUser = $this->drupalCreateUser($permissions);
+
+  }
+
+  /**
+   * Tests Total Control Dashboard Page Check.
+   */
+  public function testTotalControlDashboardPageCheck() {
+
+    $this->drupalLogin($this->DashboardAdminUser);
 
     $this->drupalGet('admin');
     $this->assertSession()->waitForElementVisible('css', '#toolbar-link-page_manager-page_view_total_control_dashboard_total_control_dashboard-http_status_code-0');
@@ -133,6 +135,29 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
     $this->assertSession()->pageTextContains($this->t('Administer Content Types'));
     $this->assertSession()->pageTextContains($this->t('Administer Taxonomy'));
     $this->assertSession()->pageTextContains($this->t('Administer Panel Pages'));
+  }
+
+  /**
+   * Test check on Clicking on Edit this panel to add more blocks.
+   */
+  public function testCheckOnClickingEditThisPanelToAddMoreBlocksLink() {
+
+    $this->drupalLogin($this->DashboardAdminUser);
+
+    $this->drupalGet('admin/dashboard');
+    $this->assertSession()->pageTextContains('Dashboard');
+    $this->assertSession()->pageTextContains($this->t('Welcome to your administrative dashboard. Edit this panel to add more blocks here, or configure those provided by default.'));
+
+    $this->clickLink('Edit this panel');
+    $this->assertSession()->pageTextContains('Variants');
+    $this->assertSession()->pageTextContains('Top');
+    $this->assertSession()->pageTextContains('First above');
+    $this->assertSession()->pageTextContains('Second above');
+
+    $page = $this->getSession()->getPage();
+    $page->findButton('Update and save')->click();
+    $this->assertSession()->pageTextContains('The page Total Control dashboard has been updated.');
+
   }
 
 }

@@ -7,6 +7,7 @@ use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides a 'Total Control Dashboard block'.
@@ -27,6 +28,13 @@ class TotalControlDashboard extends BlockBase implements BlockPluginInterface, C
   protected $moduleHandler;
 
   /**
+   * The current Request object.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+  /**
    * Creates a CreateContent block instance.
    *
    * @param array $configuration
@@ -37,10 +45,13 @@ class TotalControlDashboard extends BlockBase implements BlockPluginInterface, C
    *   The plugin implementation definition.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ModuleHandlerInterface $module_handler) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ModuleHandlerInterface $module_handler, Request $request) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->moduleHandler = $module_handler;
+    $this->request = $request;
   }
 
   /**
@@ -51,7 +62,8 @@ class TotalControlDashboard extends BlockBase implements BlockPluginInterface, C
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('module_handler')
+      $container->get('module_handler'),
+      $container->get('request_stack')->getCurrentRequest()
     );
   }
 
@@ -65,9 +77,18 @@ class TotalControlDashboard extends BlockBase implements BlockPluginInterface, C
       $edit_this_panel_text = $this->t('Edit this panel');
       $to_do_more_text = $this->t('to add more blocks here, or configure those provided by default.');
 
-      $markup_data = '<p>' . $welcome_message_text . '&nbsp;'
-        . '<a href="/admin/structure/page_manager/manage/total_control_dashboard/page_variant__total_control_dashboard-http_status_code-0__content?js=nojs">'
-        . $edit_this_panel_text . '</a>&nbsp;' . $to_do_more_text . '</p>';
+      // Until #1088112: Introduce a token to get site's base URL is
+      // committed,
+      // https://www.drupal.org/project/drupal/issues/1088112
+      // let's use a custom token. Let's call it: [site:origin-url].
+      // No language prefix in the url.
+      // -----------------------------------------------------------------
+      /** @var \Symfony\Component\HttpFoundation\Request $origin_url */
+      $origin_url = $this->request->getSchemeAndHttpHost() . $this->request->getBaseUrl();
+
+      $markup_data = '<p>' . $welcome_message_text
+        . ' <a href="' . $origin_url . '/admin/structure/page_manager/manage/total_control_dashboard/page_variant__total_control_dashboard-http_status_code-0__content?js=nojs">'
+        . $edit_this_panel_text . '</a> ' . $to_do_more_text . '</p>';
 
       return [
         '#type' => 'markup',
