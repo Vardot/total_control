@@ -15,6 +15,28 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
   use StringTranslationTrait;
 
   /**
+   * A user with the 'have total control' permission.
+   *
+   * @var \Drupal\user\UserInterface
+   */
+  protected $webUser;
+
+ /**
+   * {@inheritdoc}
+   */
+  protected $profile = 'standard';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'olivero';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $strictConfigSchema = FALSE;
+
+  /**
    * Modules to install.
    *
    * @var array
@@ -43,26 +65,20 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
     'total_control',
   ];
 
-  /**
-   * A user with the 'have total control' permission.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $webUser;
-
-  /**
-   * The profile to install as a basis for testing.
-   *
-   * Using the standard profile to test user picture display in comments.
-   *
-   * @var string
-   */
-  protected $profile = 'standard';
-
-   /**
+    /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'bartik';
+  protected function setUp(): void {
+    parent::setUp();
+
+    // Insall the Claro admin theme.
+    $this->container->get('theme_installer')->install(['claro']);
+
+    // Set the Claro theme as the default admin theme.
+    $this->config('system.theme')->set('admin', 'claro')->save();
+
+  }
+
 
   /**
    * Tests Total Control Dashboard Page Check.
