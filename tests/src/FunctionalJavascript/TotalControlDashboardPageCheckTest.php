@@ -19,7 +19,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
    *
    * @var \Drupal\user\UserInterface
    */
-  protected $DashboardAdminUser;
+  protected $dashboardAdminUser;
 
   /**
    * {@inheritdoc}
@@ -107,7 +107,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
       'have total control',
     ];
 
-    $this->DashboardAdminUser = $this->drupalCreateUser($permissions);
+    $this->dashboardAdminUser = $this->drupalCreateUser($permissions);
 
   }
 
@@ -116,7 +116,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
    */
   public function testTotalControlDashboardPageCheck() {
 
-    $this->drupalLogin($this->DashboardAdminUser);
+    $this->drupalLogin($this->dashboardAdminUser);
 
     $this->drupalGet('admin');
     $this->assertSession()->waitForElementVisible('css', '#toolbar-link-page_manager-page_view_total_control_dashboard_total_control_dashboard-http_status_code-0');
@@ -142,7 +142,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
    */
   public function testCheckOnClickingEditThisPanelToAddMoreBlocksLink() {
 
-    $this->drupalLogin($this->DashboardAdminUser);
+    $this->drupalLogin($this->dashboardAdminUser);
 
     $this->drupalGet('admin/dashboard');
     $this->assertSession()->pageTextContains('Dashboard');

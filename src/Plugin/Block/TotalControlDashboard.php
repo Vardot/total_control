@@ -82,7 +82,7 @@ class TotalControlDashboard extends BlockBase implements BlockPluginInterface, C
       // https://www.drupal.org/project/drupal/issues/1088112
       // let's use a custom token. Let's call it: [site:origin-url].
       // No language prefix in the url.
-      // -----------------------------------------------------------------
+      // -----------------------------------------------------------------.
       /** @var \Symfony\Component\HttpFoundation\Request $origin_url */
       $origin_url = $this->request->getSchemeAndHttpHost() . $this->request->getBaseUrl();
 
