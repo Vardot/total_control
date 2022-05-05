@@ -2,7 +2,7 @@ name: "Total Control"
 description: "Total Control Administration Dashboard"
 type: module
 package: Administration
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - drupal:block
   - drupal:views
