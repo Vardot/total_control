@@ -1,6 +1,7 @@
 node_modules/**/*.css
-vendor/**/*.css
 **/*.min.css"
+scss/*
+js/*
 tests/*
 config/**/*.yml
 *.yml
@@ -9,3 +10,10 @@ config/**/*.yml
 *.svg
 *.ico
 *.json
+*.js
+*.php
+*.md
+*.txt
+*.module
+*.install
+*.lock
