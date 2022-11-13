@@ -42,7 +42,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'node',
     'user',
@@ -73,7 +73,7 @@ class TotalControlDashboardPageCheckTest extends WebDriverTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    // Insall the Claro admin theme.
+    // Install the Claro admin theme.
     $this->container->get('theme_installer')->install(['claro']);
 
     // Set the Claro theme as the default admin theme.

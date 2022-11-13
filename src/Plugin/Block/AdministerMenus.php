@@ -13,6 +13,7 @@ use Drupal\Core\Render\RenderableInterface;
 use Drupal\Core\Routing\RedirectDestinationInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\system\Entity\Menu;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -115,7 +116,11 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface, Contain
       ];
     }
 
-    $menus = menu_ui_get_menus();
+    $menu_list = Menu::loadMultiple();
+    $menus = array_map(function ($menu) {
+      return $menu->label();
+    }, $menu_list);
+    asort($menus);
 
     // Support the custom permissions from the "menu_admin_per_menu" module.
     if ($this->moduleHandler->moduleExists('menu_admin_per_menu')) {
@@ -212,7 +217,11 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface, Contain
     $form = parent::blockForm($form, $form_state);
 
     $config = $this->getConfiguration();
-    $menus = menu_ui_get_menus();
+    $menu_list = Menu::loadMultiple();
+    $menus = array_map(function ($menu) {
+      return $menu->label();
+    }, $menu_list);
+    asort($menus);
 
     $form['total_control_admin_menus'] = [
       '#type' => 'checkboxes',

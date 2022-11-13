@@ -11,7 +11,8 @@ use Symfony\Component\Yaml\Yaml;
  * Implements hook_install().
  */
 function total_control_install() {
-  // If the Comment module was enabled we load the Drupal standard configs.
+  // Load the Drupal standard configs,
+  // If the Comment module was enabled.
   // And the Total Control Comments view.
   if (\Drupal::moduleHandler()->moduleExists('comment')) {
 
