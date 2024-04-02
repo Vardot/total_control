@@ -29,7 +29,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-yml": "^1.2.0",
     "normalize.css": "8.0.x",
-    "postcss": "^8.4.16",
+    "postcss": "^8.4.31",
     "postcss-header": "^3.0.2",
     "postcss-import": "^15.0.0",
     "postcss-preset-env": "^7.8.1",
