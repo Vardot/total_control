@@ -38,14 +38,9 @@
     }
   ],
   "require": {
-    "drupal/core": "~8.9 || ~9.0 || ~10.0",
+    "drupal/core": "~10 || ^11",
     "drupal/ctools": "~3.0 || ~4.0",
     "drupal/panels": "~4.0",
     "drupal/page_manager": "*"
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-3.0.x": "3.0.x-dev"
-    }
   }
 }
