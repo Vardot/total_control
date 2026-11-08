@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^\\Drupal calls should be avoided in classes, use dependency injection instead$#'
+			identifier: globalDrupalDependencyInjection.useDependencyInjection
+			count: 1
+			path: src/Plugin/Block/AdministerMenus.php
+
+		-
+			message: '#^\\Drupal calls should be avoided in classes, use dependency injection instead$#'
+			identifier: globalDrupalDependencyInjection.useDependencyInjection
+			count: 2
+			path: src/Plugin/Derivative/DynamicLocalTasks.php
+
+		-
+			message: '#^\\Drupal calls should be avoided in classes, use dependency injection instead$#'
+			identifier: globalDrupalDependencyInjection.useDependencyInjection
+			count: 1
+			path: src/Plugin/Derivative/TotalControlMenuLink.php
+
+		-
+			message: '#^Avoid calling Symfony\\Component\\Yaml\\Yaml\:\:parse\(\) directly\. Use \\Drupal\\Component\\Serialization\\Yaml\:\:decode\(\) instead, which handles exceptions consistently and applies the correct parse flags\.$#'
+			identifier: drupal.symfonyYamlParse
+			count: 2
+			path: total_control.install
+
+		-
+			message: '#^Avoid calling Symfony\\Component\\Yaml\\Yaml\:\:parse\(\) directly\. Use \\Drupal\\Component\\Serialization\\Yaml\:\:decode\(\) instead, which handles exceptions consistently and applies the correct parse flags\.$#'
+			identifier: drupal.symfonyYamlParse
+			count: 2
+			path: total_control.module

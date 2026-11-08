@@ -4,9 +4,10 @@
   "description": "Total Control Administration Dashboard",
   "license": "GPL-2.0",
   "engines": {
-    "yarn": ">= 1.6",
-    "node": ">= 12.0"
+    "yarn": ">= 4.18.1",
+    "node": ">= 24.0"
   },
+  "packageManager": "yarn@4.18.1",
   "keywords": [
     "Drupal",
     "Total Control",
@@ -20,7 +21,7 @@
     "lint:yaml": "node ./node_modules/eslint/bin/eslint.js --config=.eslintrc.json --ext .yml .",
     "lint:css": "npx stylelint --config=.stylelintrc.json ."
   },
-  "devDependencies": { 
+  "devDependencies": {
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.4.0",
@@ -28,7 +29,7 @@
     "eslint-plugin-jquery": "^1.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-yml": "^1.2.0",
-    "normalize.css": "8.0.x",
+    "normalize.css": "^8.0.0",
     "postcss": "^8.4.31",
     "postcss-header": "^3.0.2",
     "postcss-import": "^15.0.0",
